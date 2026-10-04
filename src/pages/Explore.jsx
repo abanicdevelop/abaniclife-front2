@@ -11,59 +11,35 @@ const sectionsData = [
     title: "Rhodophytas - Algas vermelhas",
     image: rhodophytas,
     intro: [
-      "<p>Muitos organismos marinhos evoluíram sob condições extremas — como salinidade elevada, variações de pH, radiação intensa e baixa disponibilidade de nutrientes — desenvolvendo mecanismos de defesa altamente eficientes. Esses mecanismos resultam na produção de metabólitos com potencial para uso terapêutico e cosmético, incluindo ação antioxidante, imunomoduladora e fotoprotetora (Hwang et al., 2018).<br><br> Entre esses organismos, destacam-se as macroalgas vermelhas pertencentes ao filo das Rhodophytas. Encontradas no Mar Báltico, ao norte da Noruega, mais especificamente na Baía de Kassari na Estônia (Kotta et al., 2003). Sua composição bioquímica diversa é fonte promissora de ativos multifuncionais para a pele (Rayment, 2008). O ativo utilizado na linha <b>RHODY SENCE</b> é o extrato das Rhodophytas hidrolisado. ",
+      "<p><b>Ativo extraído de algas vermelhas – Glicanos Sulfatados</b><br><br>Presente no Creme Facial FPS 75 | Sérum Clareador | Gel de Limpeza</p>",
     ],
     items: [
       {
         id: "rhodophytas1",
-        title: "Ativos das Algas Vermelhas",
+        title: "Origem e Composição",
         text: [
-          "<p>Diversos compostos já foram identificados em algas vermelhas do filo Rhodophyta, como a <em>Furcellaria lumbricalis</em>, e vêm sendo amplamente estudados por seu potencial de aplicação cosmética, especialmente na proteção da pele contra agressões externas. </p>",
+          "<p>O principal ativo utilizado na formulação da linha <b>RHADYANCE</b> é obtido de algas vermelhas, pertencentes ao filo Rhodophyta. Encontradas nas águas geladas do Mar Báltico, na Europa, mais especificamente na Baía de Kassari, na Estônia.<br><br>Sua colheita é realizada de maneira tradicional e sustentável, praticada da mesma forma desde 1966, com cotas estabelecidas e regulamentadas pelo Instituto Marinho local.<br><br>Presente nessa alga, encontra-se a carragenana, um polissacarídeo sulfatado, estrutura molecular que contém grupos sulfato em sua composição (Nécas e Bartosikova, 2013).<br><br>Após a colheita, as algas vermelhas passam por um processo de extração em água, seguido pelo processo de quebra controlada em moléculas menores, purificação e padronização, resultando em um extrato hidrossolúvel rico em glicanos sulfatados.<br><br>A literatura científica associa às carragenanas, estrutura da qual derivam os glicanos sulfatados presentes no ativo, propriedades antioxidantes e hidratantes.</p>",
         ],
       },
-
       {
         id: "rhodophytas2",
-        title: "Estímulo à síntese de ácido hialurônico",
+        title: "Hidratação que começa na estrutura molecular",
         text: [
-          "<p>De acordo com ensaio técnico-clínico <em>in vitro</em> disponibilizado pelo fabricante, feitos com explantes humanos demonstraram que o ativo extraído da Rhodophytas e utilizado na linha <b>RHODY SENCE</b> aumenta em até <b>124%</b> a síntese de ácido hialurônico, um componente fundamental para o preenchimento e hidratação profunda da pele. Isso contribui para a melhora da textura, elasticidade e viço cutâneo.</p>",
+          "<p>Os <b>glicanos sulfatados</b> possuem grupos hidroxila e sulfato em sua estrutura molecular que apresentam elevada capacidade de interação com moléculas de água, favorecendo a retenção hídrica na superfície cutânea (Muthukumar et al., 2021).<br><br>Em estudo <em>in vivo</em> conduzido pelo fabricante, a aplicação tópica do ativo demonstrou aumento significativo do nível de hidratação da pele, avaliado por mensuração instrumental e por avaliação clínica.</p>",
         ],
       },
-
       {
         id: "rhodophytas3",
-        title: "Ativação mitocondrial e síntese de ATP",
+        title: "Defesa antioxidante",
         text: [
-          "<p>O ativo demonstrou aumentar em até <b>276%</b> a produção de ATP (molécula de energia celular) nas mitocôndrias (estrutura celular responsável pela respiração e energia celular), estimulando o metabolismo celular e promovendo a vitalidade da pele. A melhora na respiração celular está diretamente associada à regeneração dos tecidos, principalmente em peles fatigadas e com sinais de envelhecimento.</p>",
+          "<p>As carragenanas, estrutura da qual derivam os glicanos sulfatados, são reconhecidas na literatura científica por apresentar atividade antioxidante e capacidade de neutralizar radicais livres (Pangestuti et al., 2018).<br><br>Estudos demonstraram que atuam por dois mecanismos diretos: inibição de radicais hidroxila e superóxido, espécies reativas envolvidas na oxidação de lipídios, proteínas e DNA celular; e potencialização da atividade da superóxido dismutase (SOD), principal enzima antioxidante endógena das células da pele (Berthon et al., 2017; Sokolova et al., 2011; Hu et al., 2020).</p>",
         ],
       },
       {
         id: "rhodophytas4",
-        title: "Reforço da barreira cutânea",
+        title: "O que os estudos mostram",
         text: [
-          "<p>Um estudo <em>in vivo</em> realizado com o ativo utilizado na linha <b>RHODY SENCE</b> apresentou a pele <b>99%</b> visivelmente mais hidratada. A expressão de proteínas estruturais (como exemplo +61% de catenina alfa-1, +69% de loricrina e 86% calmodulina like protein 5) foi significativamente aumentada, promovendo maior coesão entre os queratinócitos e fortalecendo a função de barreira da pele, essencial para evitar a desidratação de agressões externas. </p>",
-        ],
-      },
-      {
-        id: "rhodophytas6",
-        title: "Polissacarídeos sulfatados — Carragena",
-        text: [
-          "<p>As carragenas são polissacarídeos sulfatados (macromoléculas de açúcares e grupo sulfato) que possuem ação hidratante, calmante, antioxidante e derivam de algas vermelhas. Com propriedades filmógenas, formam uma barreira sobre a pele que reduz a perda de água e melhora a hidratação. Testes demonstram que carragenas do tipo híbrido kappa/beta, presentes no extrato de <em>Furcellaria lumbricalis</em>, promovem efeitos protetores contra a apoptose induzida por UVB (morte celular), além de atuarem na regulação da resposta inflamatória por meio da expressão da enzima Ciclooxigenase-2 (COX-2), envolvida na regeneração celular (Hwang et al., 2018; Tripp et al., 2003). </p>",
-        ],
-      },
-      {
-        id: "rhodophytas7",
-        title: "Compostos bioativos adicionais presentes em Rhodophytas",
-        text: [
-          "<p>Além das carragenas diversas espécies de algas vermelhas do filo Rhodophyta são conhecidas por sintetizar compostos fotoprotetores como os aminoácidos semelhantes à micosporina (MAAs) e os polifenóis marinhos, que contribuem para a proteção contra radiação UV, o equilíbrio oxidativo e a integridade cutânea (Hwang et al., 2018; Conde et al., 2021). MAAs atuam como filtros solares naturais, absorvendo radiação ultravioleta (UV) entre 310 e 360 nm, com excelente estabilidade e baixa toxicidade. São particularmente abundantes em macroalgas que vivem em zonas expostas à luz solar intensa (Conde et al., 2021). </p>",
-        ],
-      },
-      {
-        id: "rhodophytas8",
-        title:
-          "Equilíbrio oxidativo e controle de espécies reativas de oxigênio (ROS)",
-        text: [
-          "<p>O envelhecimento cutâneo é impulsionado por fatores intrínsecos (como genética e alterações hormonais) e extrínsecos, como exposição à radiação UV, poluição e hábitos de vida.  Tanto os raios solares UVA quanto os raios solares UVB  desempenham papel central na aceleração do envelhecimento da pele, promovendo estresse oxidativo e inflamação crônica. A radiação solar ativa vias de sinalização que estimulam a produção excessiva de espécies reativas de oxigênio (ROS), desencadeando inflamação, degradação da matriz extracelular e perda da integridade da barreira cutânea. Compostos presentes em algas vermelhas, como catalase, superóxido dismutase e carragenas, são conhecidos por atuar como agentes antioxidantes naturais, ajudando a restaurar o equilíbrio celular mesmo sob condições de estresse ambiental (Berthon et al., 2017; Hwang et al., 2018). A <em>Furcellaria lumbricalis</em>, alga vermelha da qual é derivado o ativo, contém carragenas sulfatadas, que auxiliam na preservação da matriz extracelular por meio da inibição de processos inflamatórios e da neutralização de ROS — dois gatilhos centrais na degradação do colágeno (Hwang et al., 2018). Adicionalmente, estudos demonstram que compostos bioativos derivados de Rhodophytas, como polifenóis e polissacarídeos, podem modular a atividade de enzimas como as metaloproteinases de matriz (MMPs), responsáveis por fragmentar o colágeno e elastina da pele. A superexpressão dessas enzimas é estimulada por fatores como radiação UV e poluição atmosférica, e sua regulação representa um mecanismo-chave de ação antienvelhecimento (Baptista et al., 2023; Hwang et al., 2018). O extrato padronizado de <em>Furcellaria lumbricalis</em> demonstrou ação antioxidante significativa em testes in vitro, sugerindo potencial para proteger a pele contra os danos induzidos por poluentes e radiação UV, reforçando as defesas cutâneas naturais. </p>",
+          "<p><em>Os resultados a seguir foram obtidos em estudos conduzidos pelo fabricante do ativo.</em><br><br><b>Estímulo à síntese de ácido hialurônico</b><br>O ácido hialurônico é uma molécula naturalmente presente na pele, responsável por reter água no interior da derme. Em estudo <em>in vitro</em> com explantes de pele humana, o ativo demonstrou potencial de estímulo à síntese de ácido hialurônico dérmico, molécula associada à reserva hídrica e ao aspecto de volume e densidade cutânea.<br><br><b>Suporte à atividade mitocondrial</b><br>As mitocôndrias regulam a produção de energia celular, essencial para os processos de renovação e manutenção da pele. Em modelo <em>in vitro</em> com fibroblastos dérmicos humanos, o ativo demonstrou potencial de estímulo à atividade mitocondrial, avaliada por meio da síntese de ATP.<br><br><b>Reforço da barreira cutânea</b><br>A pele possui proteínas responsáveis pela coesão celular e pela organização da camada córnea, que limitam a perda de água. Em modelo <em>in vitro</em>, o ativo demonstrou aumento da expressão de proteínas estruturais associadas à integridade da barreira — entre elas a Catenina alfa-1 e a Calmodulina-like 5.<br><br><b>Suporte à regeneração cutânea</b><br>O Fator de Crescimento Epidérmico (EGF) participa dos processos de divisão e migração celular. A Integrina alfa-2 (ITGA2) atua como receptor para proteínas estruturais como colágeno e laminina, envolvidas na coesão entre as camadas da pele. Em estudo <em>in vitro</em>, o ativo demonstrou potencial de aumento da expressão desses dois marcadores associados à regeneração e à integridade cutânea.</p>",
         ],
       },
       {
@@ -72,21 +48,19 @@ const sectionsData = [
         text: [
           `
 
-    <p>BAPTISTA, E. G. <em>et al.</em> Marine bioactives against skin aging: the role of seaweed-derived polyphenols and polysaccharides in modulating MMPs and oxidative stress. <em>Marine Biotechnology</em>, v. 25, n. 1, p. 50–64, 2023.<br><br></p>
-
     <p>BERTHON, J. Y. <em>et al.</em> Marine algae as attractive source to skin care. <em>Free Radical Research</em>, v. 51, n. 6, p. 555–567, 2017.<br><br></p>
 
-    <p>CODIF RECHERCHE & NATURE. <em>Ficha técnica: Rhodyssey™ PA – Furcellaria lumbricalis standardized extract.</em> França, 2023. Documento interno do fabricante.<br><br></p>
+    <p>HU, Y. <em>et al.</em> Antioxidant activities of sulfated polysaccharides from seaweeds. <em>Food Chemistry</em>, 2020.<br><br></p>
 
-    <p>CONDE, E. <em>et al.</em> Mycosporine-like amino acids from red macroalgae: a natural sunscreen perspective. <em>Marine Drugs</em>, v. 19, n. 7, p. 364, 2021.<br><br></p>
+    <p>MUTHUKUMAR, J. <em>et al.</em> Seaweed polysaccharides: structure, biological activity and applications. <em>Carbohydrate Polymers</em>, 2021.<br><br></p>
 
-    <p>HWANG, E. <em>et al.</em> Photoprotective substances derived from marine algae. <em>Marine Drugs</em>, v. 16, n. 10, p. 399, 2018.<br><br></p>
+    <p>NÉCAS, J.; BARTOSIKOVA, L. Carrageenan: a review. <em>Veterinarni Medicina</em>, v. 58, n. 4, p. 187–205, 2013.<br><br></p>
 
-    <p>KOTTA, J. <em>et al.</em> Macroalgae of the Kassari Bay (Baltic Sea). <em>Proceedings of the Estonian Academy of Sciences</em>, v. 52, p. 217–223, 2003.<br><br></p>
+    <p>PANGESTUTI, R. <em>et al.</em> Photoprotective substances derived from marine algae. <em>Marine Drugs</em>, v. 16, n. 11, p. 399, 2018.<br><br></p>
 
-    <p>RAYMENT, W. J. <em>Furcellaria lumbricalis</em> (Clawed fork weed). In: TYLER-WALTERS, H.; HISCOCK, K. (ed.). <em>Marine Life Information Network: Biology and Sensitivity Key Information Reviews</em> [online]. Plymouth: Marine Biological Association of the United Kingdom, 2008. Disponível em: &lt;https://www.marlin.ac.uk/species/detail/1616&gt;. Acesso em: 4 ago. 2025.<br><br></p>
+    <p>SOKOLOVA, E. V. <em>et al.</em> Structural, physical-chemical characteristics and antioxidant activity of carrageenans from red algae. <em>Biochemistry</em>, v. 76, n. 7, p. 777–786, 2011.<br><br></p>
 
-    <p>TRIPP, C. S. <em>et al.</em> Suppression of UVB-induced COX-2 expression by anti-inflammatory agents in SKH-1 mice. <em>Photochemistry and Photobiology</em>, v. 77, n. 3, p. 339–346, 2003.<br><br></p>
+    <p><em>Estudos conduzidos pelo fabricante do ativo (Codif Technologie Naturelle): dados não publicados, disponíveis mediante solicitação.</em><br><br></p>
 
     <p>FIGURA 1: © fotoman-kharkov/Getty Image. Acessado em agosto de 2025. Disponível em: https://peapix.com/bing/39853.<br><br></p>`,
         ],
@@ -98,28 +72,28 @@ const sectionsData = [
     title: "Bellis perennis – Margarida",
     image: bellis,
     intro: [
-      "<p>Também conhecida como margarida — é uma planta da família Asteraceae, típica de campos. Nativa da Europa Ocidental, Central e do Norte. (Tutin et al., 1976; Panda, 2004).<br><br> O ativo utilizado na linha <b>RHODY SENCE</b> é um extrato obtido das flores orgânicas de <em>Bellis perennis</em>, certificado por órgãos como ECOCERT, NATRUE e COSMOS para uso em cosméticos naturais. Seu mecanismo de ação é amplo: atua simultaneamente na expressão e atividade da tirosinase (enzima responsável pela produção de melanina na pele), na ligação da α-MSH  (hormônio estimulante de melanócitos) ao receptor MC-1, na síntese de melanossomos e no processo de endocitose (mecanismo de incorporação celular) — etapas essenciais da melanogênese. Estudos in vitro do ativo demonstraram reduções significativas na expressão de tirosinase em até <b>89,9%</b>, na atividade da enzima até <b>49,8%</b> e na formação de melanina redução de até <b>74,1%</b>. </p>",
+      "<p><b>Ativo extraído da flor de margarida - <em>Bellis perennis</em></b><br><br>Presente no Creme Facial FPS 75 | Sérum Clareador | Gel de Limpeza</p>",
     ],
     items: [
       {
         id: "bellis1",
-        title: "Clareamento e uniformização do tom da pele",
+        title: "Origem e Composição",
         text: [
-          "<p>A busca por uniformidade no tom da pele vai além da estética: está associada à percepção de vitalidade, saúde e luminosidade. Nesse contexto, ativos botânicos com ação despigmentante vêm ganhando espaço, especialmente aqueles que oferecem eficácia com segurança e naturalidade. O extrato de <em>Bellis perennis</em> é um desses ativos — rico em compostos bioativos que modulam múltiplas vias envolvidas na formação da melanina. </p>",
+          "<p>A <em>Bellis perennis</em> é uma margarida que pertence à família Asteraceae, uma das plantas mais antigas da medicina botânica europeia. O extrato obtido de suas flores é rico em derivados de arbutina, com mecanismo de ação sobre a pigmentação documentado na literatura científica (Chang, 2009; Woźniak et al., 2021).<br><br>O ativo é obtido exclusivamente de flores cultivadas em sistema orgânico certificado, com rastreabilidade completa desde a matéria-prima. Detém as certificações ECOCERT Greenlife, NATRUE e COSMOS.</p>",
         ],
       },
       {
         id: "bellis2",
-        title: "Atuação sobre manchas e hiperpigmentações",
+        title: "Entendendo a origem das manchas na pele",
         text: [
-          "<p>Estudos clínicos realizado pelo detentor do ativo que foi utlizado na formulação da linha <b>RHODY SENCE</b>, com aplicação tópica de formulações contendo 2% e 5%, por 28 dias, demonstrou clareamento visível da pele e redução da intensidade de manchas senis, especialmente na região do dorso das mãos em voluntários entre 50 e 60 anos. Houve também manutenção dos efeitos após cessação do uso, sugerindo uma ação profunda e duradoura.</p>",
+          "<p>A melanina é um pigmento produzido naturalmente pelos melanócitos, células especializadas que ficam na camada mais profunda da epiderme e cumprem um papel fundamental: proteger o DNA celular da radiação ultravioleta.<br><br>Para isso, cada melanócito age como um pequeno distribuidor: produz o pigmento, empacota em estruturas chamadas melanossomos e as transfere para as células vizinhas, os queratinócitos. Estes absorvem os melanossomos e, à medida que se renovam e migram naturalmente em direção à superfície, carregam consigo esse pigmento, que fica visível na pele.<br><br>Quando fatores como exposição solar acumulada ou variações hormonais desregulam esse processo natural, surgem manchas muitas vezes indesejadas e heterogeneidade de tom (Hearing, 2011).<br><br>No centro desse processo está a tirosinase — a enzima-chave da pigmentação. Sem tirosinase ativa, a melanina não é fabricada (Chang, 2009).<br><br>O que torna este extrato cientificamente relevante não é agir em um único mecanismo, mas interferir em cinco etapas distintas da cadeia de pigmentação de forma simultânea, algo incomum entre ativos clareadores de origem natural.</p>",
         ],
       },
       {
         id: "bellis3",
-        title: "Ação regenerativa",
+        title: "O que os estudos mostram",
         text: [
-          "<p>Em um estudo realizado <em>in vivo</em>, a aplicação tópica do extrato demonstrou aumento na proliferação celular, formação de tecido de granulação e reepitelização da pele (processo de cicatrização). Esses efeitos são atribuídos à presença de compostos fenólicos (moléculas vegetais com propriedades antioxidantes que ajudam a neutralizar os radicais livres), flavonoides (subclasse dos compostos fenólicos com ação antioxidante, anti-inflamatória e fotoprotetora) e taninos (polifenóis vegetais com efeito adstringente e anti-inflamatório) com propriedades anti-inflamatórias e antioxidantes. </p>",
+          "<p><em>Os resultados a seguir foram obtidos em estudos conduzidos pelo fabricante do ativo.</em><br><br><b>Redução da tirosinase</b><br>O extrato demonstrou reduzir tanto a expressão quanto a atividade enzimática da tirosinase em melanócitos. Sem tirosinase ativa, a síntese de melanina não avança.<br><br><b>1. Bloqueio de sinal que ativa a produção de manchas</b><br>Quando a pele é exposta à radiação UV, os queratinócitos liberam um mensageiro químico chamado endotelina-1 (ET-1), que instrui os melanócitos a produzirem mais pigmento. Quando cronicamente ativado, esse sinal contribui para manchas duradouras (Imokawa et al., 1992; Tada et al., 1998). O extrato demonstrou reduzir a expressão desse mensageiro nos queratinócitos, interrompendo o sinal antes que chegue aos melanócitos.<br><br><b>2. Bloqueio no hormônio que acelera a hiperpigmentação</b><br>O hormônio α-MSH age como uma chave: ao se encaixar no receptor MC1R do melanócito, ativa a produção aumentada de melanina (García-Borrón et al., 2014). O extrato demonstrou reduzir a capacidade desse hormônio de se encaixar no receptor.<br><br><b>3. Menos alteração de manchas na aparência da pele</b><br>Mesmo produzida, a melanina só afeta a aparência da pele se for transferida do melanócito para os queratinócitos, por um processo de absorção celular onde a estrutura que carrega o pigmento é absorvida e o libera na superfície (Seiberg et al., 2000; Scott et al., 2001). O extrato demonstrou reduzir essa atividade de absorção nos queratinócitos, diminuindo a quantidade de pigmento que chega à superfície.<br><br>O extrato também foi avaliado quanto ao seu potencial de ação sobre manchas decorrentes da exposição solar acumulada, com avaliação instrumental da pigmentação.</p>",
         ],
       },
       {
@@ -127,13 +101,22 @@ const sectionsData = [
         title: "Referências",
         text: [
           `
-    <p>KARAKAŞ, F. P. et al. The evaluation of topical administration of <em>Bellis perennis</em> fraction on circular excision wound healing in Wistar albino rats. <em>Pharmaceutical Biology</em>, v. 50, n. 8, p. 1031-1037, 2012.<br><br></p>
 
-    <p>CLR – CHEMISCHES LABORATORIUM DR. KURT RICHTER GMBH. <em>Belides™ ORG: The natural way of skin lightening.</em> Berlin, 2020. Documento interno do fabricante.<br><br></p>
+    <p>CHANG, T. S. An updated review of tyrosinase inhibitors. <em>International Journal of Molecular Sciences</em>, v. 10, n. 6, p. 2440–2475, 2009.<br><br></p>
 
-    <p>PANDA, H. <em>Herbs cultivation and medicinal uses.</em> New Delhi: Asia Pacific Business Press, 2004.<br><br></p>
+    <p>GARCÍA-BORRÓN, J. C. <em>et al.</em> MC1R, the cAMP pathway, and the response to solar UV: extending the horizon beyond pigmentation. <em>Pigment Cell &amp; Melanoma Research</em>, v. 27, n. 5, p. 699–720, 2014.<br><br></p>
 
-    <p>TUTIN, T. G. et al. <em>Flora Europaea.</em> v. 4: Plantaginaceae to Compositae (and Rubiaceae). Cambridge: Cambridge University Press, 1976.<br><br></p>`,
+    <p>HEARING, V. J. Determination of melanin synthetic pathways. <em>Journal of Investigative Dermatology</em>, v. 131, p. E8–E11, 2011.<br><br></p>
+
+    <p>IMOKAWA, G. <em>et al.</em> Endothelins secreted from human keratinocytes are intrinsic mitogens for human melanocytes. <em>Journal of Biological Chemistry</em>, v. 267, n. 34, p. 24675–24680, 1992.<br><br></p>
+
+    <p>SCOTT, G. <em>et al.</em> Keratinocyte-melanocyte interactions during melanosome transfer. <em>Journal of Investigative Dermatology</em>, v. 117, n. 5, p. 1109–1115, 2001.<br><br></p>
+
+    <p>SEIBERG, M. <em>et al.</em> Inhibition of melanosome transfer results in skin lightening. <em>Journal of Investigative Dermatology</em>, v. 115, n. 2, p. 162–167, 2000.<br><br></p>
+
+    <p>TADA, A. <em>et al.</em> Endothelin-1 is a paracrine growth factor that modulates melanogenesis of human melanocytes. <em>Cell Growth &amp; Differentiation</em>, v. 9, n. 7, p. 575–584, 1998.<br><br></p>
+
+    <p><em>Estudos conduzidos pelo fabricante do ativo (Sederma): dados não publicados, disponíveis mediante solicitação.</em><br><br></p>`,
         ],
       },
     ],
@@ -143,14 +126,14 @@ const sectionsData = [
     title: "Evodia rutaecarpa — Rutaceae",
     image: evodia,
     intro: [
-      "<p>Originária da medicina tradicional oriental, a planta  <em>Evodia rutaecarpa </em> (Wu-Zhu-Yu) é cultivada principalmente na província de Jiangxi, na China. Pertencente da família Rutaceae, O composto que está presente na linha <b>RHODY SENCE</b> é o extrato padronizado obtido da fruta quase madura da planta e desenvolvido para estimular a microcirculação e devolver radiância e vitalidade à pele opaca ou sensibilizada.   <br><br>Seu extrato é rico em alcaloides (compostos nitrogenados bioativos derivados de plantas) indólicos bioativos, como evodiamina, rutaecarpina e dehidroevodiamina, além de conter flavonoides (compostos de fenóis) e ácidos graxos (molécula lipídica) (Tian et al., 2019; Chen et al., 2012; Jiang et al. 2009). </p>",
+      "<p>Originária da medicina tradicional oriental, a planta  <em>Evodia rutaecarpa </em> (Wu-Zhu-Yu) é cultivada principalmente na província de Jiangxi, na China. Pertencente da família Rutaceae, O composto que está presente na linha <b>RHADYANCE</b> é o extrato padronizado obtido da fruta quase madura da planta e desenvolvido para estimular a microcirculação e devolver radiância e vitalidade à pele opaca ou sensibilizada.   <br><br>Seu extrato é rico em alcaloides (compostos nitrogenados bioativos derivados de plantas) indólicos bioativos, como evodiamina, rutaecarpina e dehidroevodiamina, além de conter flavonoides (compostos de fenóis) e ácidos graxos (molécula lipídica) (Tian et al., 2019; Chen et al., 2012; Jiang et al. 2009). </p>",
     ],
     items: [
       {
         id: "evodea1",
         title: "Estímulo à microcirculação e melhora da radiância",
         text: [
-          "<p>Com o avanço da idade e a exposição contínua a fatores ambientais, a microcirculação dérmica sofre redução, comprometendo o aporte de oxigênio e nutrientes às células da pele e com consequencia sua tonalidade e textura. Estudos <em>in vitro</em> do fabricante do ativo utilizado na linha <b>RHODY SENCE</b> demonstraram aumento na produção de óxido nítrico (NO) em <b>111%</b>. O óxido nítrico é um importante mediador da vasodilatação, favorecendo a circulação dérmica e o aporte de nutrientes. <br><br>Também foram conduzidos ensaios clínicos onde foi aplicado 1% e 3% do ativo em uso tópico e observou-se:</p>",
+          "<p>Com o avanço da idade e a exposição contínua a fatores ambientais, a microcirculação dérmica sofre redução, comprometendo o aporte de oxigênio e nutrientes às células da pele e com consequencia sua tonalidade e textura. Estudos <em>in vitro</em> do fabricante do ativo utilizado na linha <b>RHADYANCE</b> demonstraram aumento na produção de óxido nítrico (NO) em <b>111%</b>. O óxido nítrico é um importante mediador da vasodilatação, favorecendo a circulação dérmica e o aporte de nutrientes. <br><br>Também foram conduzidos ensaios clínicos onde foi aplicado 1% e 3% do ativo em uso tópico e observou-se:</p>",
           "<ul style='list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem;'>" +
             "<li>Aumento da luminosidade e radiância cutânea em até <b>96%</b>;</li>" +
             "<li>Redução significativa da opacidade, vermelhidão e poros dilatados em <b>85%</b>;</li>" +
@@ -162,7 +145,7 @@ const sectionsData = [
         id: "evodea2",
         title: "Proteção antipoluição e ação anti-inflamatória",
         text: [
-          "<p>A exposição à poluição do ar, especialmente à fração de partículas finas, está associada à disfunção da barreira cutânea, alteração do micro bioma da pele, estresse oxidativo e inflamações persistentes, promovendo envelhecimento precoce, hipersensibilidade e doenças inflamatórias da pele. <br><br>Foi demonstrado que a exposição da pele a poluícion do ar altera aspectos de sensibilidade como, dilatação dos poros, vermelhidão, opacidade e aparencia de não saudável. O teste clínico realizado com o ativo da linha <b>RHODY SENCE</b>, onde foi  utilizado  por 28 dias resultou na percepção dos voluntários de <b>85%</b> menos sensibilidade da pele, <b>89%</b> a pele mais hidratada e <b>100%</b> do aumento da macies da pele. <br><br>Esses efeitos são atribuídos à presença dos alcaloides evodiamina e rutaecarpina, compostos que possuem atividades antioxidantes e anti-inflamatórias bem documentadas em literatura científica (Forman, 2021; Gu et al., 2020) </p>",
+          "<p>A exposição à poluição do ar, especialmente à fração de partículas finas, está associada à disfunção da barreira cutânea, alteração do micro bioma da pele, estresse oxidativo e inflamações persistentes, promovendo envelhecimento precoce, hipersensibilidade e doenças inflamatórias da pele. <br><br>Foi demonstrado que a exposição da pele a poluícion do ar altera aspectos de sensibilidade como, dilatação dos poros, vermelhidão, opacidade e aparencia de não saudável. O teste clínico realizado com o ativo da linha <b>RHADYANCE</b>, onde foi  utilizado  por 28 dias resultou na percepção dos voluntários de <b>85%</b> menos sensibilidade da pele, <b>89%</b> a pele mais hidratada e <b>100%</b> do aumento da macies da pele. <br><br>Esses efeitos são atribuídos à presença dos alcaloides evodiamina e rutaecarpina, compostos que possuem atividades antioxidantes e anti-inflamatórias bem documentadas em literatura científica (Forman, 2021; Gu et al., 2020) </p>",
         ],
       },
       {
@@ -225,7 +208,7 @@ const Explore = () => {
   };
 
   return (
-    <section className="w-full" style={{ backgroundColor: "#F1F0EB" }}>
+    <section className="w-full" style={{ backgroundColor: "var(--abanic-cream)" }}>
       <div className="max-w-[1070px] mx-auto px-6 py-10 mt-28 space-y-20">
         {/* Header com foto + textos */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-10 mb-16">
@@ -252,7 +235,7 @@ const Explore = () => {
             </h1>
 
             <p className="text-gray-700 mb-6">
-              A linha RHODY SENCE foi desenvolvida com ativos naturais e
+              A linha RHADYANCE foi desenvolvida com ativos naturais e
               selecionados com base em seus benefícios. Conheça abaixo os
               principais ativos de nossas formulações e sua ações.
             </p>
@@ -293,7 +276,7 @@ const Explore = () => {
                       whileInView="visible"
                       transition={{ duration: 0.8, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="mb-4 text-justify"
+                      className="mb-4 text-left"
                       style={{ color: "var(--abanic-gray)" }}
                       dangerouslySetInnerHTML={{ __html: texto }}
                     />
@@ -321,7 +304,7 @@ const Explore = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.35 }}
-                  className="mb-4 text-justify"
+                  className="mb-4 text-left"
                   style={{ color: "var(--abanic-gray)" }}
                   dangerouslySetInnerHTML={{ __html: section.intro }}
                 />
@@ -345,7 +328,7 @@ const Explore = () => {
                       whileInView="visible"
                       transition={{ duration: 0.8, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="mt-2 text-justify space-y-3 leading-loose"
+                      className="mt-2 text-left space-y-3 leading-loose"
                       style={{ color: "var(--abanic-gray)" }}
                     >
                       {item.text.map((t, i) => (

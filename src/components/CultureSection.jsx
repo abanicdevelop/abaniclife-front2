@@ -89,7 +89,7 @@ const CultureSection = () => {
     <section
       className="py-16"
       id="cultura"
-      style={{ backgroundColor: "#F1F0EB" }}
+      style={{ backgroundColor: "var(--abanic-cream)" }}
     >
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
         {/* 🔥 Header animado */}
@@ -117,26 +117,30 @@ const CultureSection = () => {
 
         {/* Carousel */}
         <div className="relative">
-          {/* Arrows */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={prevSlide}
-            disabled={currentIndex === 0}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-10 bg-white shadow-lg hover:shadow-xl disabled:opacity-50 rounded-full w-12 h-12"
-          >
-            <ChevronLeft className="h-6 w-6 text-abanic-gray" />
-          </Button>
+          {/* Arrows — só aparecem quando há mais conteúdo do que cabe na tela */}
+          {maxIndex > 0 && (
+            <>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={prevSlide}
+                disabled={currentIndex === 0}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 z-10 bg-white shadow-lg hover:shadow-xl disabled:opacity-50 rounded-full w-12 h-12"
+              >
+                <ChevronLeft className="h-6 w-6 text-abanic-gray" />
+              </Button>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={nextSlide}
-            disabled={currentIndex >= maxIndex}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-10 bg-white shadow-lg hover:shadow-xl disabled:opacity-50 rounded-full w-12 h-12"
-          >
-            <ChevronRight className="h-6 w-6 text-abanic-gray" />
-          </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={nextSlide}
+                disabled={currentIndex >= maxIndex}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 z-10 bg-white shadow-lg hover:shadow-xl disabled:opacity-50 rounded-full w-12 h-12"
+              >
+                <ChevronRight className="h-6 w-6 text-abanic-gray" />
+              </Button>
+            </>
+          )}
 
           {/* Cards */}
           <div className="overflow-hidden" ref={containerRef}>
@@ -149,7 +153,7 @@ const CultureSection = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.3 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: maxIndex > 0 ? index * 0.1 : 0 }}
                   style={{
                     width:
                       window.innerWidth < 768
@@ -157,8 +161,8 @@ const CultureSection = () => {
                         : `${100 / itemsPerView}%`,
                   }}
                 >
-                  <Card className="group overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-                    <Link to={`/blog/${article.id}`}>
+                  <Card className="group overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full">
+                    <Link to={`/blog/${article.id}`} className="flex flex-col h-full">
                       <div className="relative w-full">
                         <img
                           src={article.image}
@@ -172,14 +176,14 @@ const CultureSection = () => {
                         </div>
                       </div>
 
-                      <div className="p-4 bg-white">
-                        <h3 className="text-lg font-semibold text-abanic-gray-dark mb-2 group-hover:text-orange-600 transition-colors">
+                      <div className="p-4 bg-white flex flex-col flex-1">
+                        <h3 className="text-lg font-semibold text-abanic-gray-dark mb-2 line-clamp-2 group-hover:text-orange-600 transition-colors">
                           {article.title}
                         </h3>
                         <p className="text-abanic-gray text-sm leading-relaxed line-clamp-2">
                           {article.description}
                         </p>
-                        <div className="mt-2">
+                        <div className="mt-auto pt-2">
                           <span className="text-orange-600 text-sm font-medium group-hover:text-orange-700 transition-colors">
                             Ler mais →
                           </span>
@@ -194,6 +198,7 @@ const CultureSection = () => {
         </div>
 
         {/* Bullets */}
+        {maxIndex > 0 && (
         <div className="flex justify-center mt-8 space-x-2">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
@@ -207,6 +212,7 @@ const CultureSection = () => {
             />
           ))}
         </div>
+        )}
       </div>
     </section>
   );

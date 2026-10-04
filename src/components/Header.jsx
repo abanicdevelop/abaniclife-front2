@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import LogoAbanic from "../assets/LogoAbanic.png";
 import { useLanguage } from "../context/LanguageContext";
+import { useCart } from "../context/CartContext";
 
 // Scroll suave customizado
 const smoothScrollTo = (targetY, duration = 1000) => {
@@ -50,10 +51,10 @@ const translations = {
         name: "Produtos",
         href: "#",
         submenu: [
-          { name: "Linha RHODY SENCE" },
-          { name: "Gel de Limpeza Facial", href: "/product#gel" },
-          { name: "Sérum Facial Clareador", href: "/product#serum" },
-          { name: "Creme Facial Radiance FPS50", href: "/product#fps50" },
+          { name: "Linha RHADYANCE", href: "/product" },
+          { name: "Gel de Limpeza Facial", href: "/product/gel" },
+          { name: "Sérum Facial Clareador", href: "/product/serum" },
+          { name: "Creme Facial Radiance FPS75", href: "/product/fps50" },
         ],
       },
       {
@@ -93,7 +94,7 @@ const translations = {
         name: "Product",
         href: "#",
         submenu: [
-          { name: "RHODY SENSE FPS50", href: "/product#hidratante" },
+          { name: "RHADYANCE FPS75", href: "/product/fps50" },
           { name: "Lip Balm", href: "/product#ativos" },
         ],
       },
@@ -123,6 +124,7 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
   const { language, changeLanguage } = useLanguage();
+  const { totalItems, openCart } = useCart();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileActiveSubmenu, setMobileActiveSubmenu] = useState(null);
@@ -248,16 +250,48 @@ const Header = () => {
             </a>
           </div>
 
-          {/* Desktop Search and User Icons aligned to right */}
+          {/* Carrinho + menu mobile, alinhados à direita */}
+          <div className="absolute right-0 flex items-center gap-4">
+            <button
+              onClick={openCart}
+              className="relative text-abanic-gray hover:text-abanic-gray-dark transition-smooth"
+              aria-label={`Abrir sacola${totalItems > 0 ? ` (${totalItems} ${totalItems === 1 ? "item" : "itens"})` : ""}`}
+            >
+              <ShoppingBag size={24} />
+              {totalItems > 0 && (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "-6px",
+                    right: "-8px",
+                    minWidth: "18px",
+                    height: "18px",
+                    padding: "0 4px",
+                    borderRadius: "var(--radius-pill)",
+                    background: "var(--abanic-orange)",
+                    color: "var(--abanic-cream)",
+                    fontSize: "10px",
+                    fontWeight: "var(--weight-bold)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    lineHeight: 1,
+                  }}
+                >
+                  {totalItems}
+                </span>
+              )}
+            </button>
 
-          {/* Mobile menu button */}
-          <button
-            className="lg:hidden text-abanic-gray hover:text-abanic-gray-dark"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+            {/* Mobile menu button */}
+            <button
+              className="lg:hidden text-abanic-gray hover:text-abanic-gray-dark"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Desktop Navigation */}

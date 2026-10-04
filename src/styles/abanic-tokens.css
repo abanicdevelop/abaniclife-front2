@@ -1,0 +1,149 @@
+/* ABANIC design system tokens — transcribed from the brand manual via the abanic-design skill.
+   Kept separate from the legacy --abanic-gray-dark/--abanic-gray vars already used sitewide
+   so nothing existing breaks; new components should prefer the semantic tokens below. */
+:root {
+  /* Primary palette (manual p.20) — orange/orange-dark/orange-light/orange-soft/gray-dark
+     already exist in App.css; only the pieces missing from that legacy block are added here. */
+  --abanic-cream: #f7f3ec;
+  --abanic-blue: #6c99ae;
+  --abanic-black: #000000;
+  --abanic-graphite: #444444;
+  --abanic-teal: #3582a0;
+  --abanic-mist: #a4b6c0;
+  --abanic-teal-bright: #0083a2;
+  --abanic-orange-deep: #ec4f1e;
+
+  /* Neutral ramp */
+  --neutral-0: #ffffff;
+  --neutral-50: #fbf9f5;
+  --neutral-100: #f7f3ec;
+  --neutral-200: #eae4da;
+  --neutral-300: #d6cfc4;
+  --neutral-400: #a9a29a;
+  --neutral-500: #78726b;
+  --neutral-600: #575350;
+  --neutral-700: #444444;
+  --neutral-800: #252525;
+  --neutral-900: #151515;
+  --neutral-1000: #000000;
+
+  --ink-a08: rgba(0, 0, 0, 0.08);
+  --ink-a16: rgba(0, 0, 0, 0.16);
+  --ink-a40: rgba(0, 0, 0, 0.4);
+  --ink-a72: rgba(0, 0, 0, 0.72);
+  --cream-a12: rgba(247, 243, 236, 0.12);
+  --cream-a24: rgba(247, 243, 236, 0.24);
+  --cream-a64: rgba(247, 243, 236, 0.64);
+
+  /* Typography */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-text: "Inter", system-ui, sans-serif;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+
+  --size-display-1: 72px;
+  --size-display-2: 56px;
+  --size-display-3: 40px;
+  --size-heading-1: 32px;
+  --size-heading-2: 24px;
+  --size-heading-3: 20px;
+  --size-body-lg: 18px;
+  --size-body: 16px;
+  --size-body-sm: 14px;
+  --size-caption: 12px;
+  --size-micro: 11px;
+
+  --leading-tight: 1.05;
+  --leading-display: 1.14;
+  --leading-heading: 1.25;
+  --leading-body: 1.55;
+  --leading-loose: 1.7;
+
+  --tracking-display: -0.02em;
+  --tracking-heading: -0.01em;
+  --tracking-body: 0em;
+  --tracking-label: 0.14em;
+  --tracking-label-wide: 0.24em;
+
+  /* Spacing */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --gutter-page: 40px;
+  --gutter-page-lg: 72px;
+  --measure-text: 56ch;
+  --content-max: 1240px;
+
+  /* Borders & elevation */
+  --radius-0: 0px;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-pill: 999px;
+  --border-hairline: 1px;
+  --border-thick: 2px;
+  --border-color: var(--ink-a16);
+  --border-color-strong: var(--neutral-900);
+  --border-color-inverse: var(--cream-a24);
+  --shadow-none: none;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-overlay: 0 24px 64px rgba(0, 0, 0, 0.28);
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 400ms;
+  --duration-reveal: 640ms;
+
+  /* Semantic aliases — prefer these in components */
+  --surface-page: var(--abanic-cream);
+  --surface-card: var(--neutral-0);
+  --surface-raised: var(--neutral-50);
+  --surface-inverse: var(--abanic-black);
+  --surface-accent: var(--abanic-orange);
+  --surface-accent-quiet: rgba(252, 98, 43, 0.1);
+  --surface-cool: var(--abanic-blue);
+  --surface-cool-quiet: rgba(108, 153, 174, 0.14);
+
+  --text-body: var(--neutral-900);
+  --text-muted: var(--neutral-500);
+  --text-subtle: var(--neutral-400);
+  --text-inverse: var(--abanic-cream);
+  --text-inverse-muted: var(--cream-a64);
+  --text-accent: var(--abanic-orange-deep);
+  --text-on-accent: var(--abanic-cream);
+  --text-link: var(--abanic-orange-deep);
+  --text-link-hover: var(--abanic-black);
+
+  --border-default: var(--ink-a16);
+  --border-quiet: var(--ink-a08);
+  --border-focus: var(--abanic-orange);
+
+  --action-primary-bg: var(--abanic-orange);
+  --action-primary-bg-hover: var(--abanic-orange-deep);
+  --action-primary-fg: var(--abanic-cream);
+  --action-secondary-bg: transparent;
+  --action-secondary-fg: var(--neutral-900);
+  --action-disabled-bg: var(--neutral-200);
+  --action-disabled-fg: var(--neutral-400);
+
+  --focus-ring: 0 0 0 2px var(--abanic-cream), 0 0 0 4px var(--abanic-orange);
+
+  --status-info: var(--abanic-teal);
+  --status-positive: #3f7d5a;
+  --status-warning: var(--abanic-orange-soft);
+  --status-critical: var(--abanic-orange-deep);
+}

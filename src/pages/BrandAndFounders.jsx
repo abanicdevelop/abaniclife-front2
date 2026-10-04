@@ -129,7 +129,7 @@ const BrandAndFounders = () => {
             {title}
           </h2>
         )}
-        <p className="text-gray-700 text-[22px] md:text-[22px]  text-justify whitespace-pre-line leading-relaxed  p-4 rounded-lg items-start -mt-6">
+        <p className="text-gray-700 text-[22px] md:text-[22px]  text-left whitespace-pre-line leading-relaxed  p-4 rounded-lg items-start -mt-6">
           {text}
         </p>
       </motion.div>
@@ -139,7 +139,7 @@ const BrandAndFounders = () => {
   return (
     <section
       className="overflow-x-hidden"
-      style={{ backgroundColor: "#F1F0EB" }}
+      style={{ backgroundColor: "var(--abanic-cream)" }}
     >
       <div
         id="marca"

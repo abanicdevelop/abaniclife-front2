@@ -7,6 +7,10 @@ import {
   Mail,
   Phone,
   MapPin,
+  Truck,
+  RotateCcw,
+  Sparkles,
+  ShieldCheck,
 } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext"; // ajuste o caminho conforme sua estrutura
 import AbanicLogo from "../assets/footer/AbanicLogo.png";
@@ -37,9 +41,9 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Manifesto da Marca", href: "/about#marca" }],
         products: [
-          { name: "Gel de Limpeza Facial", href: "/product#gel" },
-          { name: "Sérum Facial Clareador", href: "/product#serum" },
-          { name: "Creme Facial Radiance FPS50", href: "/product#fps50" },
+          { name: "Gel de Limpeza Facial", href: "/product/gel" },
+          { name: "Sérum Facial Clareador", href: "/product/serum" },
+          { name: "Creme Facial Radiance FPS75", href: "/product/fps50" },
         ],
         support: [
           { name: "Perguntas Frequentes", href: "/faq" },
@@ -71,7 +75,7 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Brand Manifesto", href: "/about#marca" }],
         products: [
-          { name: "RHODY SENSE FPS50", href: "/product#hidratante" },
+          { name: "RHADYANCE FPS75", href: "/product/fps50" },
           { name: "Lip Balm", href: "/product#ativos" },
         ],
         support: [
@@ -90,6 +94,54 @@ const Footer = () => {
   };
 
   const t = translations[language]; // pega as traduções do idioma atual
+
+  // Selos de confiança — só claims reais já confirmados no FAQ (nada de "frete grátis" que não existe)
+  const trustBadges = {
+    pt: [
+      {
+        icon: Truck,
+        title: "Entrega para todo o Brasil",
+        desc: "Prazo informado no checkout",
+      },
+      {
+        icon: RotateCcw,
+        title: "Troca em até 7 dias",
+        desc: "Direito de arrependimento garantido",
+      },
+      {
+        icon: Sparkles,
+        title: "Amostras sob consulta",
+        desc: "Solicite em Explore > ABANIC",
+      },
+      {
+        icon: ShieldCheck,
+        title: "Pagamento seguro",
+        desc: "Cartão de crédito e Pix",
+      },
+    ],
+    en: [
+      {
+        icon: Truck,
+        title: "Delivery across Brazil",
+        desc: "Timeframe shown at checkout",
+      },
+      {
+        icon: RotateCcw,
+        title: "7-day exchange",
+        desc: "Legal right of withdrawal guaranteed",
+      },
+      {
+        icon: Sparkles,
+        title: "Samples on request",
+        desc: "Ask us via Explore > ABANIC",
+      },
+      {
+        icon: ShieldCheck,
+        title: "Secure payment",
+        desc: "Credit card and Pix",
+      },
+    ],
+  };
 
   const socialLinks = [
     {
@@ -121,10 +173,8 @@ const Footer = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!showButton) return null;
-
   return (
-    <footer className="text-[#444444]" style={{ backgroundColor: "#F1F0EB" }}>
+    <footer className="text-[#444444]" style={{ backgroundColor: "var(--abanic-cream)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           <div className="lg:col-span-2">
@@ -252,6 +302,29 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Selos de confiança */}
+        <div
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t"
+          style={{ borderColor: "var(--border-default)" }}
+        >
+          {trustBadges[language].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="flex items-start gap-3">
+              <Icon
+                className="h-5 w-5 flex-shrink-0 mt-0.5"
+                style={{ color: "var(--abanic-orange)" }}
+              />
+              <div>
+                <p className="text-sm font-medium" style={{ color: "var(--abanic-gray-dark)" }}>
+                  {title}
+                </p>
+                <p className="text-xs mt-0.5" style={{ color: "var(--abanic-gray)" }}>
+                  {desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
         {/* Bottom Footer */}
         <div className="border-t border-[#444444]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -278,25 +351,27 @@ const Footer = () => {
         </div>
 
         {/* Back to Top Button */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 right-8 bg-abanic-orange hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition-smooth hover-lift z-40"
-          aria-label={language === "pt" ? "Voltar ao topo" : "Back to top"}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+        {showButton && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-8 right-8 bg-abanic-orange hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition-smooth hover-lift z-40"
+            aria-label={language === "pt" ? "Voltar ao topo" : "Back to top"}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 10l7-7m0 0l7 7m-7-7v18"
-            />
-          </svg>
-        </button>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 10l7-7m0 0l7 7m-7-7v18"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </footer>
   );

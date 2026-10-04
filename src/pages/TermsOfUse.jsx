@@ -84,7 +84,7 @@ const TermsOfUse = () => {
           </h2>
           <p className="text-base text-abanic-gray mb-4 leading-relaxed">
             A ABANIC é uma plataforma dedicada à comercialização de produtos de
-            skincare e cuidados pessoais da linha RHODY SENCE. Nossos serviços
+            skincare e cuidados pessoais da linha RHADYANCE. Nossos serviços
             incluem:
           </p>
           <ul className="space-y-3">

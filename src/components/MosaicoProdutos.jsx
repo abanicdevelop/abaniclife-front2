@@ -3,32 +3,32 @@ import { motion } from "framer-motion";
 import Produto from "../assets/produto.png";
 import MulherCreme from "../assets/home/MulherCreme.jpg";
 import CouplePicture from "../assets/Produtoladodireito.png";
-import FotoCreme from "../assets/Produtoladoesquerdo.png";
+import LinhaCompleta from "../assets/home/LinhaCompleta.png";
 
 const MosaicoProdutos = () => {
   const products = [
     {
       id: 1,
-      name: "Hidratante com FPS50",
+      name: "Linha RHADYANCE",
       brand: "Minimalist",
-      image: FotoCreme,
+      image: LinhaCompleta,
     },
     {
       id: 2,
-      name: "Hidratante com FPS50",
+      name: "Hidratante com FPS75",
       brand: "Minimalist",
       image: CouplePicture,
     },
     {
       id: 3,
-      name: "Hidratante com FPS50",
+      name: "Hidratante com FPS75",
       brand: "Minimalist",
       image: MulherCreme,
     },
   ];
 
   return (
-    <div className="py-12" style={{ backgroundColor: "#F1F0EB" }}>
+    <div className="py-12" style={{ backgroundColor: "var(--abanic-cream)" }}>
       <div className="max-w-7xl mx-auto w-full text-center px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 w-full">
           {/* Imagens de cima */}
@@ -85,8 +85,8 @@ const MosaicoProdutos = () => {
               <motion.div
                 className="
     flex flex-col justify-center 
-    w-full lg:w-[60%] text-justify
-    px-4 lg:px-0 lg:pl-12
+    w-full lg:w-[60%] text-left
+    px-0
     pt-4 lg:pt-12
   "
                 initial={{ opacity: 0, x: -100, scale: 0.95 }}

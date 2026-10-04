@@ -155,7 +155,7 @@ const NewsletterSection = () => {
                 Fique por <span className="abanic-orange">dentro</span>
               </h2>
               <p
-                className="mb-4 text-justify text-base sm:text-[17px] md:text-[18px]"
+                className="mb-4 text-left text-base sm:text-[17px] md:text-[18px]"
                 style={{ color: "var(--abanic-gray-dark)" }}
               >
                 Assine a nossa newsletter e receba em primeira mão as
@@ -229,7 +229,7 @@ const NewsletterSection = () => {
                         </Button>
                       </div>
 
-                      <p className="text-gray-700 mb-4 text-justify text-sm sm:text-[15px] md:text-[17px]">
+                      <p className="text-gray-700 mb-4 text-left text-sm sm:text-[15px] md:text-[17px]">
                         Segurança de dados de acordo com a Política de
                         Privacidade. A assinatura poderá ser cancelada a
                         qualquer momento.
