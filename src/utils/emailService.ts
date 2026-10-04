@@ -101,7 +101,7 @@ export const getConfirmationEmailTemplate = (nome: string): string => {
                 transition: background-color 0.3s ease;
             }
             .cta-button:hover {
-                background-color: #e64a19;
+                background-color: #e63e15;
             }
             .footer {
                 background-color: #f9f9f9;

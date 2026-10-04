@@ -50,7 +50,7 @@ const BlogPostPage = () => {
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-        className="text-justify text-gray-800 text-[17px] md:text-[18px] leading-relaxed"
+        className="text-left text-gray-800 text-[17px] md:text-[18px] leading-relaxed"
       >
         <p className="text-sm text-gray-500 mb-2">{article.category}</p>
 
@@ -61,7 +61,7 @@ const BlogPostPage = () => {
         {article.content.split("\n").map((p, i) => {
           if (p.trim() === "") return null;
           return (
-            <p key={i} className="text-gray-700 mb-5 text-justify">
+            <p key={i} className="text-gray-700 mb-5 text-left">
               {p.trim()}
             </p>
           );

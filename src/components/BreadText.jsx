@@ -12,7 +12,7 @@ const BreadText = () => {
       style={{ color: "var(--abanic-gray)" }}
     >
       COM FÓRMULAS LEVES E CONCENTRADAS EM ATIVOS A LINHA{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>RHODY SENCE</b> REÚNE OS
+      <b style={{ color: "var(--abanic-gray-dark)" }}>RHADYANCE</b> REÚNE OS
       PASSOS ESSENCIAIS PARA SUA ROTINA DE AUTOCUIDADO.
     </motion.p>
   );

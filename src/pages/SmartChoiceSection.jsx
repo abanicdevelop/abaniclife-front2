@@ -91,7 +91,7 @@ const SmartChoiceSection = () => {
   return (
     <section
       className="w-full overflow-x-hidden"
-      style={{ backgroundColor: "#F1F0EB" }}
+      style={{ backgroundColor: "var(--abanic-cream)" }}
     >
       <div className="max-w-[1070px] mx-auto px-6 py-10 mt-28 space-y-20">
         {/* Seções detalhadas */}
@@ -124,7 +124,7 @@ const SmartChoiceSection = () => {
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.35 }}
-                      className="mb-4 mt-4 text-justify"
+                      className="mb-4 mt-4 text-left"
                       style={{ color: "var(--abanic-gray)" }}
                       dangerouslySetInnerHTML={{ __html: texto }}
                     />
@@ -136,7 +136,7 @@ const SmartChoiceSection = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.35 }}
-                  className="mb-4 text-justify"
+                  className="mb-4 text-left"
                   style={{ color: "var(--abanic-gray)" }}
                   dangerouslySetInnerHTML={{ __html: section.intro }}
                 />

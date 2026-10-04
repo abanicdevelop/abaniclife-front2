@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./styles/abanic-tokens.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -47,6 +48,7 @@
   --abanic-orange: #fc622b;
   --abanic-orange-light: #ff6b3d;
   --abanic-orange-dark: #e63e15;
+  --abanic-orange-soft: #fc8952;
   --abanic-gray-light: #f7f7f7;
   --abanic-gray: #6f6f6f;
   --abanic-gray-dark: #444444;
@@ -310,5 +312,17 @@ button {
 /* Aplica fundo padrão para toda a página */
 html,
 body {
-  background-color: #f1f0eb;
+  background-color: var(--abanic-cream);
+}
+
+/* Compensa o header fixo para qualquer âncora/scroll nativo (scrollIntoView, #id na URL),
+   em vez de ajustar scroll-mt caso a caso por componente */
+[id] {
+  scroll-margin-top: 140px;
+}
+
+@media (max-width: 767px) {
+  [id] {
+    scroll-margin-top: 100px;
+  }
 }

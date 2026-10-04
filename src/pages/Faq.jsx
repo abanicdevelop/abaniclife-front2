@@ -213,7 +213,7 @@ const Faq = () => {
   return (
     <section
       className="w-full py-12 md:py-20 mt-28"
-      style={{ backgroundColor: "#F1F0EB" }}
+      style={{ backgroundColor: "var(--abanic-cream)" }}
     >
       <div className="max-w-[1070px] mx-auto px-6">
         {/* Header */}
@@ -419,9 +419,13 @@ const Faq = () => {
               name="mensagem"
               value={formData.mensagem}
               onChange={handleInputChange}
-              rows={4}
+              rows={1}
+              onInput={(e) => {
+                e.target.style.height = "auto";
+                e.target.style.height = `${e.target.scrollHeight}px`;
+              }}
               placeholder="Sua mensagem"
-              className="md:col-span-2 border-b-2 border-gray-300 px-2 py-3 focus:outline-none focus:border-[#fc622b] transition-colors resize-none bg-transparent"
+              className="md:col-span-2 border-b-2 border-gray-300 px-2 py-3 focus:outline-none focus:border-[#fc622b] transition-colors resize-none overflow-hidden bg-transparent"
               style={{ color: "var(--abanic-gray-dark)" }}
               required
             ></textarea>
