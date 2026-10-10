@@ -19,12 +19,12 @@ const DESTAQUES = [
 const todosAtivos = productsData.flatMap((p) => p.ativosCarousel ?? []);
 const ativos = DESTAQUES.map((nome) => todosAtivos.find((a) => a.nome === nome)).filter(Boolean);
 
-const HomeIngredientes = () => {
+const HomeIngredientes = ({ id }) => {
   const [aberto, setAberto] = useState(null);
   const fechar = useCallback(() => setAberto(null), []);
 
   return (
-    <section style={{ background: "var(--surface-raised)" }}>
+    <section id={id} style={{ background: "var(--surface-raised)" }}>
       <div className="page-container py-24">
         <SectionLabel meta="Princípios ativos">Da natureza à fórmula</SectionLabel>
 

@@ -53,7 +53,7 @@ const ProductDetail = () => {
         <div className="page-container">
           <BackLink />
         </div>
-        <ProductDetailSection product={product} />
+        <ProductDetailSection key={product.id} product={product} />
       </div>
     </section>
   );
