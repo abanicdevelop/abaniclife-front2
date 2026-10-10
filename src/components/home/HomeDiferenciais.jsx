@@ -17,7 +17,7 @@ const HomeDiferenciais = () => (
       borderBottom: "var(--border-hairline) solid var(--border-default)",
     }}
   >
-    <ul className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <ul className="page-container py-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
       {itens.map(({ icon: Icon, texto }) => (
         <li key={texto} className="flex items-center gap-3">
           <Icon size={18} strokeWidth={1.25} style={{ color: "var(--abanic-orange)", flexShrink: 0 }} />

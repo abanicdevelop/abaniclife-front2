@@ -17,7 +17,7 @@ const HomeVitrine = () => {
 
   return (
     <section style={{ background: "var(--abanic-cream)" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <div className="page-container pb-24">
         <SectionLabel meta="Rotina em 3 passos">A linha RHADYANCE</SectionLabel>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 mt-10">

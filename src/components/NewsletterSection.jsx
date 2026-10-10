@@ -108,7 +108,7 @@ const NewsletterSection = () => {
       style={{ backgroundColor: "#A4B6C0" }}
       id="newsletter"
     >
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+      <div className="page-container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* 📌 Image Side com animação */}
           <motion.div

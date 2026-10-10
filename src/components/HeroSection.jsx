@@ -116,7 +116,7 @@ const HeroSection = () => {
               {/* Compra rápida do produto da campanha */}
               {slide.produto && (
                 <div
-                  className="absolute left-4 right-4 bottom-16 md:right-auto md:left-8 md:bottom-20 md:w-[340px] flex items-stretch gap-4 p-3"
+                  className="absolute left-4 right-4 bottom-16 md:right-auto md:left-[clamp(16px,4vw,64px)] md:bottom-20 md:w-[340px] flex items-stretch gap-4 p-3"
                   style={{
                     background: "var(--abanic-cream)",
                     border: "var(--border-hairline) solid var(--border-default)",

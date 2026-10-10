@@ -91,7 +91,7 @@ const CultureSection = () => {
       id="cultura"
       style={{ backgroundColor: "var(--abanic-cream)" }}
     >
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+      <div className="page-container">
         {/* 🔥 Header animado */}
         <motion.div
           className="text-center mb-12"

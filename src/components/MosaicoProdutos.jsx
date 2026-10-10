@@ -29,7 +29,7 @@ const MosaicoProdutos = () => {
 
   return (
     <div className="py-12" style={{ backgroundColor: "var(--abanic-cream)" }}>
-      <div className="max-w-7xl mx-auto w-full text-center px-4 sm:px-6 lg:px-8">
+      <div className="page-container text-center">
         <div className="flex flex-col gap-4 w-full">
           {/* Imagens de cima */}
           <div className="flex flex-col w-full gap-6">

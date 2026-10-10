@@ -326,3 +326,12 @@ body {
     scroll-margin-top: 100px;
   }
 }
+
+/* Container das seções: acompanha a largura do banner (tela cheia) com margem lateral
+   proporcional, como nas referências (Sisley/Byredo). Teto de 1920px para telas muito largas. */
+@utility page-container {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 64px);
+}

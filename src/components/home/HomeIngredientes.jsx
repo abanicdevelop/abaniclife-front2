@@ -25,7 +25,7 @@ const HomeIngredientes = () => {
 
   return (
     <section style={{ background: "var(--surface-raised)" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div className="page-container py-24">
         <SectionLabel meta="Princípios ativos">Da natureza à fórmula</SectionLabel>
 
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mt-10">

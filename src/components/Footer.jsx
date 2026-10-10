@@ -175,7 +175,7 @@ const Footer = () => {
 
   return (
     <footer className="text-[#444444]" style={{ backgroundColor: "var(--abanic-cream)" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="page-container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           <div className="lg:col-span-2">
             <div className="mb-6">
@@ -327,7 +327,7 @@ const Footer = () => {
 
         {/* Bottom Footer */}
         <div className="border-t border-[#444444]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="page-container py-6">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div className="text-[#444444] text-sm">{t.copyright}</div>
 
