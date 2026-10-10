@@ -10,9 +10,9 @@ const ProductPage = () => {
     <section style={{ backgroundColor: "var(--abanic-cream)" }}>
       <ProductBanner />
       <ProductActivetext />
-      <HomeVitrine />
+      <HomeVitrine id="rotina" />
       <HomeDiferenciais />
-      {/* id "ativos" é o destino do botão "Descobrir mais" do banner */}
+      {/* ids "rotina" e "ativos" são os destinos dos botões do banner */}
       <HomeIngredientes id="ativos" />
     </section>
   );

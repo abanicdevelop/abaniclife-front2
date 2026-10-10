@@ -214,9 +214,10 @@ const Header = () => {
     }
   };
 
-  // Na home, o cabeçalho fica transparente sobre o banner até a pessoa rolar a página
-  const isHome = location.pathname === "/";
-  const transparent = isHome && !isScrolled && activeSubmenu === null;
+  // Nas páginas com banner em tela cheia (home e linha), o cabeçalho fica transparente
+  // sobre a foto até a pessoa rolar a página
+  const temBannerCheio = location.pathname === "/" || location.pathname === "/product";
+  const transparent = temBannerCheio && !isScrolled && activeSubmenu === null;
   const tone = transparent
     ? "text-white hover:text-white/80"
     : "text-abanic-gray hover:text-abanic-gray-dark";
