@@ -5,9 +5,15 @@ import Banner1 from "../assets/Bannerteste1.jpg";
 import Banner3 from "../assets/Banner3.jpg";
 import Banner2 from "../assets/Banner2.jpg";
 import { trackEvent } from "../utils/analytics";
+import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
+import { productsData } from "../data/productsData";
+
+const produtoPorId = (id) => productsData.find((p) => p.id === id);
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { addItem } = useCart();
 
   const slides = [
     {
@@ -16,6 +22,7 @@ const HeroSection = () => {
       subtitle: "EXPLORE AS POSSIBILIDADES",
       image: Banner1,
       overlay: "bg-black/30",
+      produto: produtoPorId("serum"),
     },
     {
       id: 2,
@@ -23,6 +30,7 @@ const HeroSection = () => {
       subtitle: "SUAS MULTIPLAS VERSÕES",
       image: Banner3,
       overlay: "bg-black/40",
+      produto: produtoPorId("gel"),
     },
     {
       id: 3,
@@ -30,6 +38,7 @@ const HeroSection = () => {
       subtitle: "E DEIXE-SE SURPREENDER",
       image: Banner2,
       overlay: "bg-black/35",
+      produto: produtoPorId("fps50"),
     },
   ];
 
@@ -62,7 +71,7 @@ const HeroSection = () => {
           <div
             key={slide.id}
             className={`absolute inset-0 transition-opacity  duration-1000 ease-in-out ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
+              index === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
             <div
@@ -86,7 +95,7 @@ const HeroSection = () => {
 
             {/* Content */}
             <div className="relative z-10 h-full ">
-              <div className="absolute bottom-20 left-0 right-0 px-4 max-w-4xl mx-auto text-center text-white ">
+              <div className="absolute bottom-[196px] md:bottom-[216px] left-0 right-0 px-4 max-w-4xl mx-auto text-center text-white ">
                 <p
                   className="
     text-[40px]          /* 🔥 maior no mobile */
@@ -102,6 +111,79 @@ const HeroSection = () => {
                   {slide.subtitle}
                 </p>
               </div>
+
+              {/* Compra rápida do produto da campanha */}
+              {slide.produto && (
+                <div
+                  className="absolute left-4 right-4 bottom-16 md:right-auto md:left-8 md:bottom-20 md:w-[340px] flex items-stretch gap-4 p-3"
+                  style={{
+                    background: "var(--abanic-cream)",
+                    border: "var(--border-hairline) solid var(--border-default)",
+                  }}
+                >
+                  <Link
+                    to={`/product/${slide.produto.id}`}
+                    className="shrink-0 w-[72px] h-[88px] overflow-hidden"
+                    style={{ background: "var(--surface-raised)" }}
+                  >
+                    <img
+                      src={slide.produto.imagem}
+                      alt={slide.produto.tituloDetalhe}
+                      className="w-full h-full object-cover"
+                    />
+                  </Link>
+                  <div className="flex flex-col justify-between min-w-0 flex-1">
+                    <div>
+                      <Link
+                        to={`/product/${slide.produto.id}`}
+                        className="block truncate"
+                        style={{
+                          fontFamily: "var(--font-text)",
+                          fontSize: "var(--size-caption)",
+                          fontWeight: "var(--weight-medium)",
+                          letterSpacing: "var(--tracking-label)",
+                          color: "var(--text-body)",
+                        }}
+                      >
+                        {slide.produto.tituloDetalhe}
+                      </Link>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-text)",
+                          fontSize: "var(--size-caption)",
+                          color: "var(--text-muted)",
+                        }}
+                      >
+                        {slide.produto.volume} · {slide.produto.preco}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        addItem(slide.produto);
+                        trackEvent({
+                          name: "click_banner_comprar",
+                          category: "CTA",
+                          action: `Comprar ${slide.produto.id} no banner`,
+                        });
+                      }}
+                      className="self-start transition-colors hover:bg-[var(--action-primary-bg-hover)]"
+                      style={{
+                        height: "32px",
+                        padding: "0 var(--space-4)",
+                        background: "var(--action-primary-bg)",
+                        color: "var(--action-primary-fg)",
+                        fontFamily: "var(--font-text)",
+                        fontSize: "var(--size-caption)",
+                        fontWeight: "var(--weight-medium)",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Comprar
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ))}
