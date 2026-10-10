@@ -6,9 +6,8 @@ const ProductQuickNav = ({ products }) => {
   const navigate = useNavigate();
 
   return (
-    <section className="max-w-[1290px] mx-auto px-4 pb-10">
-      {/* largura casada com a seção de Princípios Ativos acima (max-w-[1290px], não o --content-max
-          padrão do design system) para as bordas continuarem alinhadas na mesma página */}
+    <section className="page-container pb-10">
+      {/* mesmo page-container da seção de Princípios Ativos acima, para as bordas ficarem alinhadas */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {products.map((product, index) => (
           <motion.button

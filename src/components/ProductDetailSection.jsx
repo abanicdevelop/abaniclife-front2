@@ -36,16 +36,15 @@ const ProductDetailSection = ({ product }) => {
   return (
     <motion.div
       id={product.id}
-      className="mx-auto px-6 py-10"
-      style={{ maxWidth: "1070px" }}
+      className="page-container py-10"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
     >
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-16">
         {/* Imagem do Produto */}
         <motion.div
-          className="w-4/5 md:w-2/5 flex justify-center md:justify-start"
+          className="w-4/5 md:w-1/2 flex justify-center md:justify-start"
           variants={{
             hidden: { opacity: 0, x: -100 },
             visible: { opacity: 1, x: 0, transition: { duration: 1 } },
@@ -54,13 +53,13 @@ const ProductDetailSection = ({ product }) => {
           <img
             src={product.imagem}
             alt={product.tituloDetalhe}
-            className="w-full h-auto max-h-[560px] object-contain"
+            className="w-full h-auto max-h-[760px] object-contain"
           />
         </motion.div>
 
         {/* Conteúdo do Produto */}
         <motion.div
-          className="w-full md:w-3/5 flex flex-col gap-3 text-left"
+          className="w-full md:w-1/2 md:max-w-[640px] flex flex-col gap-3 text-left"
           variants={{
             hidden: { opacity: 0, x: 100 },
             visible: {

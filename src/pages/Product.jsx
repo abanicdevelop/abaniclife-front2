@@ -6,7 +6,7 @@ import PrincipiosAtivosPhoto from "../assets/products/principios-ativos.png";
 
 const PrincipiosAtivos = () => {
   return (
-    <section id="ativos" className="max-w-[1290px] mx-auto px-4 mb-10 mt-10">
+    <section id="ativos" className="page-container mb-10 mt-10">
       <h1
         className="text-3xl md:text-4xl font-bold leading-tight font-space-grotesk-h1 text-center mb-10"
         style={{ color: "var(--abanic-gray-dark)" }}

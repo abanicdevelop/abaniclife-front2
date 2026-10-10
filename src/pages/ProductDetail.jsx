@@ -50,7 +50,7 @@ const ProductDetail = () => {
   return (
     <section style={{ backgroundColor: "var(--abanic-cream)" }} className="min-h-screen">
       <div className="pt-28">
-        <div className="mx-auto px-6" style={{ maxWidth: "1070px" }}>
+        <div className="page-container">
           <BackLink />
         </div>
         <ProductDetailSection product={product} />
