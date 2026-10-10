@@ -161,13 +161,13 @@ const CultureSection = () => {
                         : `${100 / itemsPerView}%`,
                   }}
                 >
-                  <Card className="group overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 h-full">
+                  <Card className="group overflow-hidden rounded-none shadow-md hover:shadow-lg transition-shadow duration-300 h-full">
                     <Link to={`/blog/${article.id}`} className="flex flex-col h-full">
                       <div className="relative w-full">
                         <img
                           src={article.image}
                           alt={article.title}
-                          className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-500 rounded-lg"
+                          className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute top-2 left-2">
                           <span className="bg-white/90 text-abanic-gray text-xs font-medium px-2 py-1 rounded-full shadow">

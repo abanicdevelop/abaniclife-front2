@@ -119,7 +119,7 @@ const NewsletterSection = () => {
             className="relative"
           >
             <div
-              className="relative overflow-hidden rounded-2xl shadow-2xl flex items-center justify-center h-72 md:h-80 lg:h-[420px]"
+              className="relative overflow-hidden shadow-2xl flex items-center justify-center h-72 md:h-80 lg:h-[420px]"
               style={{ backgroundColor: "#A1B6C1" }}
             >
               <img

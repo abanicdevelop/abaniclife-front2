@@ -36,7 +36,7 @@ const MosaicoProdutos = () => {
             {products.slice(0, 2).map((product, index) => (
               <motion.div
                 key={product.id}
-                className="w-full h-[280px] sm:h-80 md:h-[380px] lg:h-[480px] overflow-hidden rounded-xl"
+                className="w-full h-[280px] sm:h-80 md:h-[380px] lg:h-[480px] overflow-hidden"
                 initial={{
                   opacity: 0,
                   x: index === 0 ? -100 : 100,
@@ -53,7 +53,7 @@ const MosaicoProdutos = () => {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover lg:object-bottom lg:max-h-[480px] rounded-lg shadow-xl transition-transform duration-500"
+                  className="w-full h-full object-cover lg:object-bottom lg:max-h-[480px] shadow-xl transition-transform duration-500"
                 />
               </motion.div>
             ))}
@@ -154,8 +154,7 @@ const MosaicoProdutos = () => {
               lg:max-w-[520px]   /* ligeiramente menor em notebooks */
               lg:max-h-[480px]
               object-cover lg:object-contain
-              transition-transform duration-500
-              rounded-lg shadow-sm
+              transition-transform duration-500 shadow-sm
             "
                   />
                 </div>

@@ -16,7 +16,7 @@ const PrincipiosAtivos = () => {
       <img
         src={PrincipiosAtivosPhoto}
         alt="Princípios ativos da linha RHADYANCE: algas vermelhas, flor de margarida e calêndula"
-        className="w-full h-auto rounded-lg"
+        className="w-full h-auto"
         style={{ border: "var(--border-hairline) solid var(--border-default)" }}
       />
     </section>

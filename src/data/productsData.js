@@ -21,7 +21,7 @@ export const productsData = [
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO",
     volume: "120 ml",
-    preco: "R$ 270,00",
+    preco: "R$ 360,00",
     claims:
       "LIMPA SEM AGREDIR • ATIVOS QUE PROMOVEM AÇÃO ANTIOXIDANTE, AÇÃO CALMANTE E UNIFORMIZAM O TOM",
     oProduto:
@@ -91,7 +91,7 @@ export const productsData = [
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO E NOTURNO",
     volume: "30 ml",
-    preco: "R$00,00",
+    preco: "R$ 360,00",
     claims: "AÇÃO CLAREADORA • ATIVOS QUE UNIFORMIZAM O TOM E ILUMINAM A PELE",
     oProduto:
       "Formulação leve com ação clareadora.\nPossui ativos naturais extraídos de algas vermelhas e flores de margaridas, que contribuem para a uniformização do tom da pele. Permitem a utilização do produto durante o dia e à noite.\nPele luminosa com aparência homogênea.\nFragrância hipoalergênica. Possui notas minerais que remetem ao frescor da brisa do mar.",
@@ -163,7 +163,7 @@ export const productsData = [
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO",
     volume: "60 g",
-    preco: "R$00,00",
+    preco: "R$ 360,00",
     claims: "PROTEÇÃO DIÁRIA • ATIVOS QUE HIDRATAM, ACALMAM E REVITALIZAM A PELE",
     oProduto:
       "Formulação cremosa. Possui ativos naturais extraídos de algas vermelhas e flores de margarida, além de ativos hidratantes e calmantes, que contribuem para a aparência de uma pele radiante e revitalizada.\nToque sedoso e aveludado.\nFragrância hipoalergênica. Possui notas minerais que remetem ao frescor da brisa do mar.",
