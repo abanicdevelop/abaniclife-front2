@@ -32,7 +32,9 @@ const ActiveIngredientsRow = ({ items }) => {
       <div
         ref={scrollerRef}
         onScroll={handleScroll}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 mt-4"
+        // celular: carrossel com rolagem; a partir do tablet: grade que ocupa a largura toda
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 mt-6 md:grid md:gap-6 md:overflow-visible md:snap-none"
+        style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
       >
         {items.map((item) => {
           const saibaMais = ativosSaibaMais[item.nome];
@@ -43,10 +45,10 @@ const ActiveIngredientsRow = ({ items }) => {
             disabled={!saibaMais}
             onClick={() => setAtivoAberto({ ...saibaMais, imagem: item.imagem })}
             aria-label={saibaMais ? `Saiba mais sobre ${item.nome}` : undefined}
-            className="group snap-start shrink-0 w-[160px] flex flex-col gap-2 text-left"
+            className="group snap-start shrink-0 w-[160px] md:w-auto flex flex-col gap-2 text-left"
             style={{ cursor: saibaMais ? "pointer" : "default" }}
           >
-            <div className="w-full h-[160px] overflow-hidden">
+            <div className="w-full aspect-square overflow-hidden">
               <img
                 src={item.imagem}
                 alt={item.nome}
@@ -94,7 +96,7 @@ const ActiveIngredientsRow = ({ items }) => {
       </div>
 
       {items.length > 1 && (
-        <div className="flex justify-center gap-2 mt-3">
+        <div className="flex md:hidden justify-center gap-2 mt-3">
           {items.map((_, i) => (
             <button
               key={i}

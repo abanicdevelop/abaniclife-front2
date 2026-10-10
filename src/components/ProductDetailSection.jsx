@@ -178,10 +178,55 @@ const ProductDetailSection = ({ product }) => {
         </div>
       </div>
 
-      {/* Complete sua rotina */}
+      {/* Complete sua rotina: texto na 1ª coluna, os outros 2 produtos nas demais */}
       <section className="page-container pt-16 pb-24">
         <SectionLabel meta="Rotina em 3 passos">Complete sua rotina</SectionLabel>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-6 mt-10">
+          <div className="sm:col-span-2 lg:col-span-1 flex flex-col justify-between gap-8 lg:pr-10">
+            <div>
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: "var(--weight-light)",
+                  fontSize: "var(--size-display-3)",
+                  lineHeight: "var(--leading-display)",
+                  letterSpacing: "var(--tracking-display)",
+                  color: "var(--text-body)",
+                }}
+              >
+                Os três passos se completam
+              </h2>
+              <p style={{ ...bodyTextStyle, fontSize: "var(--size-body)", marginTop: "var(--space-4)", maxWidth: "40ch" }}>
+                {passo ? `O ${passo.nome} é o passo ${passo.numero}: ${passo.etapa.toLowerCase()}. ` : ""}
+                Use com os outros produtos da linha RHADYANCE para limpar, tratar e proteger a pele
+                todos os dias.
+              </p>
+              <ol className="mt-6 space-y-2">
+                {productsData.map((p) => (
+                  <li
+                    key={p.id}
+                    style={{
+                      fontFamily: "var(--font-text)",
+                      fontSize: "var(--size-body-sm)",
+                      color: p.id === product.id ? "var(--text-body)" : "var(--text-muted)",
+                      fontWeight: p.id === product.id ? "var(--weight-medium)" : "var(--weight-regular)",
+                    }}
+                  >
+                    {passos[p.id]?.numero} — {passos[p.id]?.etapa} · {passos[p.id]?.nome}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="w-full sm:max-w-[360px]">
+              <Button
+                variant="primary"
+                fullWidth
+                onClick={() => outrosProdutos.forEach((p) => addItem(p))}
+              >
+                Adicionar os outros 2 à sacola
+              </Button>
+            </div>
+          </div>
           {outrosProdutos.map((produto, index) => (
             <ProductCard key={produto.id} produto={produto} index={index} />
           ))}
