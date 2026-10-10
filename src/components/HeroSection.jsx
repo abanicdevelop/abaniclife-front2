@@ -158,6 +158,7 @@ const HeroSection = () => {
                         {slide.produto.volume} · {slide.produto.preco}
                       </span>
                     </div>
+                    <div className="flex items-center gap-4">
                     <button
                       type="button"
                       onClick={() => {
@@ -168,7 +169,7 @@ const HeroSection = () => {
                           action: `Comprar ${slide.produto.id} no banner`,
                         });
                       }}
-                      className="self-start transition-colors hover:bg-[var(--action-primary-bg-hover)]"
+                      className="transition-colors hover:bg-[var(--action-primary-bg-hover)]"
                       style={{
                         height: "32px",
                         padding: "0 var(--space-4)",
@@ -182,6 +183,28 @@ const HeroSection = () => {
                     >
                       Comprar
                     </button>
+                    <Link
+                      to={`/product/${slide.produto.id}`}
+                      onClick={() =>
+                        trackEvent({
+                          name: "click_banner_saiba_mais",
+                          category: "CTA",
+                          action: `Saiba mais ${slide.produto.id} no banner`,
+                        })
+                      }
+                      className="transition-colors hover:text-[var(--abanic-orange)]"
+                      style={{
+                        fontFamily: "var(--font-text)",
+                        fontSize: "var(--size-caption)",
+                        fontWeight: "var(--weight-medium)",
+                        color: "var(--text-body)",
+                        borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
+                        paddingBottom: "1px",
+                      }}
+                    >
+                      Saiba mais
+                    </Link>
+                    </div>
                   </div>
                 </div>
               )}
