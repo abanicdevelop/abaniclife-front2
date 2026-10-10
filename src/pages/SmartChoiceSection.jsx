@@ -110,12 +110,12 @@ const SmartChoiceSection = () => {
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.35 }}
-                      className="w-full h-48 md:h-56 lg:h-72 overflow-hidden rounded-xl"
+                      className="w-full h-48 md:h-56 lg:h-72 overflow-hidden"
                     >
                       <img
                         src={section.image}
                         alt={section.title}
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-cover"
                       />
                     </motion.div>
 

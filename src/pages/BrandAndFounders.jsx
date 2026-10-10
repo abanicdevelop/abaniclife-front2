@@ -91,7 +91,7 @@ const BrandAndFounders = () => {
         <img
           src={image}
           alt={title}
-          className={`w-full min-h-[400px] object-cover rounded-xl shadow-md ${
+          className={`w-full min-h-[400px] object-cover shadow-md ${
             id === "section1" ? "object-[center_30%]" : "object-center"
           }`}
         />

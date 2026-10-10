@@ -1,134 +1,101 @@
 import { motion } from "framer-motion";
-import HeroImage from "../assets/Produtoladoesquerdo.png";
+import HeroImage from "../assets/home/MulherCreme.jpg";
 import { SectionLabel } from "./design-system/SectionLabel";
-import GelImage from "../assets/products/gel-limpeza.png";
-import SerumImage from "../assets/products/serum-clareador.png";
-import CremeImage from "../assets/products/creme-fps50.png";
 
-const produtosLinha = [
-  { name: "Gel de Limpeza", image: GelImage },
-  { name: "Sérum Clareador", image: SerumImage },
-  { name: "Creme Facial FPS75", image: CremeImage },
-];
-
-const scrollToAtivos = () => {
-  const section = document.getElementById("ativos");
+const scrollTo = (id) => {
+  const section = document.getElementById(id);
   if (section) {
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    // desconta a altura do cabeçalho fixo
+    const top = section.getBoundingClientRect().top + window.scrollY - 96;
+    window.scrollTo({ top, behavior: "smooth" });
   }
 };
 
+// Banner da página da linha: foto em tela cheia, no mesmo padrão do banner da home.
+// O cabeçalho fica transparente por cima dela (ver Header.jsx).
 const ProductBanner = () => {
   return (
-    <section className="relative mt-28 flex flex-col md:flex-row w-full min-h-[560px] md:min-h-[680px] overflow-hidden">
-      {/* Imagem do produto */}
-      <motion.div
-        className="relative w-full md:w-1/2 h-[360px] md:h-auto bg-[var(--abanic-cream)] flex items-center justify-center"
+    <section className="relative w-full overflow-hidden" style={{ height: "92dvh", minHeight: "560px" }}>
+      <motion.img
+        src={HeroImage}
+        alt="Pele radiante e hidratada"
+        className="absolute inset-0 w-full h-full object-cover object-[center_35%]"
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1, transition: { duration: 0.9 } }}
-        viewport={{ once: true }}
-      >
-        <img src={HeroImage} alt="RHADYANCE FPS50" className="w-full h-full object-cover" />
-      </motion.div>
+        animate={{ opacity: 1, transition: { duration: 0.9 } }}
+      />
+      {/* escurece só a base da foto para o texto ficar legível */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/10 to-transparent" />
 
-      {/* Painel de texto */}
       <motion.div
-        className="relative w-full md:w-1/2 flex flex-col justify-center gap-6 px-6 py-10 md:px-14 md:py-14"
-        style={{ backgroundColor: "var(--abanic-mist)" }}
-        initial={{ opacity: 0, x: 60 }}
-        whileInView={{ opacity: 1, x: 0, transition: { duration: 0.9 } }}
-        viewport={{ once: true }}
+        className="page-container relative h-full flex flex-col justify-end pb-14 md:pb-20"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0, transition: { duration: 0.9, delay: 0.2 } }}
       >
-        <div className="flex flex-col gap-3">
-          <SectionLabel rule={false} size="13px">A linha</SectionLabel>
-          <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: "var(--weight-light)",
-              fontSize: "var(--size-display-3)",
-              lineHeight: "var(--leading-display)",
-              letterSpacing: "var(--tracking-display)",
-              color: "var(--text-body)",
-              margin: 0,
-            }}
-          >
-            RHADYANCE
-          </h1>
-        </div>
-
+        <SectionLabel rule={false} inverse size="13px">
+          A linha
+        </SectionLabel>
+        <h1
+          style={{
+            marginTop: "var(--space-3)",
+            fontFamily: "var(--font-display)",
+            fontWeight: "var(--weight-light)",
+            fontSize: "clamp(48px, 8vw, 112px)",
+            lineHeight: 1,
+            letterSpacing: "var(--tracking-display)",
+            color: "var(--abanic-cream)",
+          }}
+        >
+          RHADYANCE
+        </h1>
         <p
           style={{
+            marginTop: "var(--space-4)",
+            maxWidth: "46ch",
             fontFamily: "var(--font-text)",
-            fontSize: "var(--size-body)",
+            fontSize: "var(--size-body-lg)",
             lineHeight: "var(--leading-body)",
-            color: "var(--text-body)",
-            maxWidth: "28rem",
+            color: "var(--abanic-cream)",
           }}
         >
-          Fórmulas desenvolvidas com ativos naturais extraídos de{" "}
-          <b style={{ color: "var(--text-body)" }}>
-            algas vermelhas, flores de margarida e esqualano vegetal
-          </b>
-          , reconhecidos por suas propriedades{" "}
-          <b style={{ color: "var(--text-body)" }}>
-            antioxidantes, clareadoras e iluminadoras
-          </b>
-          . Cada etapa da rotina reforça a barreira da pele e revela mais luminosidade e
-          equilíbrio.
+          Limpar, tratar e proteger. Três passos com ativos naturais de algas vermelhas, flor de
+          margarida e esqualano vegetal para uma pele mais luminosa e uniforme.
         </p>
 
-        <div className="grid grid-cols-3 gap-4 max-w-md">
-          {produtosLinha.map((produto) => (
-            <div key={produto.name} className="flex flex-col gap-2">
-              <div
-                style={{
-                  width: "100%",
-                  aspectRatio: "1 / 1",
-                  background: "var(--surface-card)",
-                  border: "var(--border-hairline) solid var(--border-default)",
-                  overflow: "hidden",
-                }}
-              >
-                <img
-                  src={produto.image}
-                  alt={produto.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <span
-                style={{
-                  fontFamily: "var(--font-text)",
-                  fontSize: "var(--size-body-sm)",
-                  fontWeight: "var(--weight-bold)",
-                  lineHeight: "var(--leading-tight)",
-                  color: "var(--text-body)",
-                }}
-              >
-                {produto.name}
-              </span>
-            </div>
-          ))}
+        <div className="flex flex-wrap items-center gap-6 mt-8">
+          <button
+            type="button"
+            onClick={() => scrollTo("rotina")}
+            className="transition-colors hover:bg-[var(--action-primary-bg-hover)]"
+            style={{
+              height: "48px",
+              padding: "0 var(--space-6)",
+              background: "var(--action-primary-bg)",
+              color: "var(--action-primary-fg)",
+              fontFamily: "var(--font-text)",
+              fontSize: "var(--size-body-sm)",
+              fontWeight: "var(--weight-medium)",
+              cursor: "pointer",
+            }}
+          >
+            Ver a rotina
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollTo("ativos")}
+            className="transition-colors hover:text-[var(--abanic-orange)]"
+            style={{
+              fontFamily: "var(--font-text)",
+              fontSize: "var(--size-body-sm)",
+              fontWeight: "var(--weight-medium)",
+              color: "var(--abanic-cream)",
+              borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
+              paddingBottom: "2px",
+              cursor: "pointer",
+            }}
+          >
+            Conhecer os ativos
+          </button>
         </div>
-
-        <button
-          onClick={scrollToAtivos}
-          style={{
-            marginTop: "var(--space-2)",
-            width: "fit-content",
-            fontFamily: "var(--font-text)",
-            fontSize: "var(--size-body-sm)",
-            fontWeight: "var(--weight-medium)",
-            color: "var(--text-body)",
-            borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
-            paddingBottom: "2px",
-            cursor: "pointer",
-            transition: "color var(--duration-base) var(--ease-standard)",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--abanic-orange)")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-body)")}
-        >
-          Descobrir mais
-        </button>
       </motion.div>
     </section>
   );

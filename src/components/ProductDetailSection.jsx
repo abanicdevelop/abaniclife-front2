@@ -1,24 +1,13 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ActiveIngredientsRow from "./ActiveIngredientsRow";
-import { Card } from "./design-system/Card";
+import ProductCard from "./product/ProductCard";
+import HomeDiferenciais from "./home/HomeDiferenciais";
 import { Button } from "./design-system/Button";
 import { SectionLabel } from "./design-system/SectionLabel";
 import { useCart } from "../context/CartContext";
-
-const accordionTriggerStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  width: "100%",
-  textAlign: "left",
-  fontFamily: "var(--font-text)",
-  fontWeight: "var(--weight-medium)",
-  fontSize: "var(--size-body)",
-  color: "var(--text-body)",
-  marginTop: "var(--space-2)",
-  cursor: "pointer",
-};
+import { productsData } from "../data/productsData";
+import { passos, destaqueDoProduto } from "../data/rotina";
 
 const bodyTextStyle = {
   fontFamily: "var(--font-text)",
@@ -27,189 +16,252 @@ const bodyTextStyle = {
   color: "var(--text-muted)",
 };
 
+/** Bloco recolhível com linha fina em cima e +/− à direita, como nas páginas de referência. */
+const Secao = ({ titulo, abertoInicial = false, children }) => {
+  const [aberto, setAberto] = useState(abertoInicial);
+  return (
+    <div style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
+      <button
+        type="button"
+        onClick={() => setAberto(!aberto)}
+        aria-expanded={aberto}
+        className="w-full flex items-center justify-between py-4 text-left"
+        style={{
+          fontFamily: "var(--font-text)",
+          fontWeight: "var(--weight-medium)",
+          fontSize: "var(--size-body-sm)",
+          color: "var(--text-body)",
+          cursor: "pointer",
+        }}
+      >
+        <span>{titulo}</span>
+        <span aria-hidden="true" style={{ fontSize: "var(--size-body-lg)", color: "var(--text-muted)" }}>
+          {aberto ? "−" : "+"}
+        </span>
+      </button>
+      {aberto && <div className="pb-5">{children}</div>}
+    </div>
+  );
+};
+
 const ProductDetailSection = ({ product }) => {
-  const [openAtivos, setOpenAtivos] = useState(false);
-  const [openUso, setOpenUso] = useState(false);
-  const [openIngredientes, setOpenIngredientes] = useState(false);
   const { addItem } = useCart();
+  const passo = passos[product.id];
+  const outrosProdutos = productsData.filter((p) => p.id !== product.id);
+
+  // Barra de compra fixa no celular: aparece quando o botão principal sai da tela
+  const comprarRef = useRef(null);
+  const [mostrarBarra, setMostrarBarra] = useState(false);
+  useEffect(() => {
+    const el = comprarRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setMostrarBarra(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [product.id]);
 
   return (
-    <motion.div
-      id={product.id}
-      className="mx-auto px-6 py-10"
-      style={{ maxWidth: "1070px" }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-    >
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-        {/* Imagem do Produto */}
-        <motion.div
-          className="w-4/5 md:w-2/5 flex justify-center md:justify-start"
-          variants={{
-            hidden: { opacity: 0, x: -100 },
-            visible: { opacity: 1, x: 0, transition: { duration: 1 } },
-          }}
-        >
-          <img
-            src={product.imagem}
-            alt={product.tituloDetalhe}
-            className="w-full h-auto max-h-[560px] object-contain"
-          />
-        </motion.div>
-
-        {/* Conteúdo do Produto */}
-        <motion.div
-          className="w-full md:w-3/5 flex flex-col gap-3 text-left"
-          variants={{
-            hidden: { opacity: 0, x: 100 },
-            visible: {
-              opacity: 1,
-              x: 0,
-              transition: { duration: 1, delay: 0.3 },
-            },
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              fontWeight: "var(--weight-light)",
-              fontSize: "var(--size-heading-1)",
-              lineHeight: "var(--leading-heading)",
-              letterSpacing: "var(--tracking-heading)",
-              color: "var(--text-body)",
-              margin: 0,
-            }}
+    <>
+      <div id={product.id} className="page-container py-10">
+        <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+          {/* Foto: fica parada no desktop enquanto as informações rolam */}
+          <motion.div
+            className="w-full md:w-1/2 md:sticky md:top-28 flex justify-center"
+            style={{ background: "var(--surface-raised)" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: 0.8 } }}
           >
-            {product.tituloDetalhe}
-          </h1>
-          <p
-            style={{
-              fontFamily: "var(--font-text)",
-              fontSize: "var(--size-body-sm)",
-              fontWeight: "var(--weight-medium)",
-              color: "var(--text-accent)",
-              margin: 0,
-            }}
-          >
-            {product.linha}
-          </p>
+            <img
+              src={product.imagem}
+              alt={product.tituloDetalhe}
+              className="w-full h-auto max-h-[760px] object-contain"
+            />
+          </motion.div>
 
-          <div
-            className="flex items-center justify-between"
-            style={{
-              fontFamily: "var(--font-text)",
-              fontSize: "var(--size-body-sm)",
-              fontWeight: "var(--weight-medium)",
-            }}
+          {/* Informações e compra */}
+          <motion.div
+            className="w-full md:w-1/2 md:max-w-[560px] flex flex-col text-left"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.15 } }}
           >
-            <span style={{ color: "var(--text-accent)" }}>
-              {product.usoLabel} • {product.volume}
-            </span>
-            <span style={{ color: "var(--text-body)" }}>{product.preco}</span>
-          </div>
+            <SectionLabel rule={false}>
+              {product.linha}
+              {passo ? ` · ${passo.numero} — ${passo.etapa}` : ""}
+            </SectionLabel>
 
-          {product.claims && (
-            <Card
-              surface="outlined"
-              padding="sm"
+            <h1
               style={{
-                textAlign: "center",
-                fontFamily: "var(--font-text)",
-                fontSize: "var(--size-caption)",
-                fontWeight: "var(--weight-medium)",
-                letterSpacing: "var(--tracking-label)",
+                marginTop: "var(--space-3)",
+                fontFamily: "var(--font-display)",
+                fontWeight: "var(--weight-light)",
+                fontSize: "var(--size-display-3)",
+                lineHeight: "var(--leading-display)",
+                letterSpacing: "var(--tracking-display)",
                 color: "var(--text-body)",
-                borderColor: "var(--abanic-orange)",
               }}
             >
-              {product.claims}
-            </Card>
-          )}
+              {product.tituloDetalhe}
+            </h1>
 
-          <div className="flex flex-col gap-2">
-            <SectionLabel>O produto</SectionLabel>
-            <p style={{ ...bodyTextStyle, whiteSpace: "pre-line" }}>{product.oProduto}</p>
-          </div>
+            <p style={{ ...bodyTextStyle, marginTop: "var(--space-3)", fontSize: "var(--size-body)" }}>
+              {destaqueDoProduto(product)}
+            </p>
+            <p style={{ ...bodyTextStyle, marginTop: "var(--space-1)" }}>
+              {product.usoLabel.charAt(0) + product.usoLabel.slice(1).toLowerCase()} · {product.volume}
+            </p>
 
-          {product.beneficios?.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <SectionLabel>Principais benefícios</SectionLabel>
-              <ul style={{ ...bodyTextStyle, paddingLeft: "var(--space-5)", listStyle: "disc" }}>
-                {product.beneficios.map((beneficio, i) => (
-                  <li key={i}>{beneficio}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {/* PRINCIPAIS ATIVOS */}
-          {product.principaisAtivos?.length > 0 && (
-            <div>
-              <button
-                onClick={() => setOpenAtivos(!openAtivos)}
-                aria-expanded={openAtivos}
-                style={accordionTriggerStyle}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-8">
+              <span
+                style={{
+                  fontFamily: "var(--font-text)",
+                  fontSize: "var(--size-heading-3)",
+                  fontWeight: "var(--weight-medium)",
+                  color: "var(--text-body)",
+                  minWidth: "8ch",
+                }}
               >
-                <span>{openAtivos ? "− Principais ativos" : "+ Principais ativos"}</span>
-              </button>
-              {openAtivos && (
-                <ul
-                  style={{ ...bodyTextStyle, marginTop: "var(--space-2)" }}
-                  className="space-y-1.5"
-                >
-                  {product.principaisAtivos.map((ativo) => (
-                    <li key={ativo.nome}>
-                      <b style={{ color: "var(--text-body)" }}>{ativo.nome}</b> {ativo.descricao}
-                    </li>
-                  ))}
-                </ul>
+                {product.preco}
+              </span>
+              <div ref={comprarRef} className="w-full sm:max-w-[320px]">
+                <Button variant="primary" size="lg" fullWidth onClick={() => addItem(product)}>
+                  Adicionar à sacola
+                </Button>
+              </div>
+            </div>
+
+            <div className="mt-10" style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}>
+              <Secao titulo="O produto" abertoInicial>
+                <p style={{ ...bodyTextStyle, whiteSpace: "pre-line" }}>{product.oProduto}</p>
+              </Secao>
+
+              {product.beneficios?.length > 0 && (
+                <Secao titulo="Principais benefícios">
+                  <ul style={{ ...bodyTextStyle, paddingLeft: "var(--space-5)", listStyle: "disc" }} className="space-y-1.5">
+                    {product.beneficios.map((beneficio, i) => (
+                      <li key={i}>{beneficio}</li>
+                    ))}
+                  </ul>
+                </Secao>
+              )}
+
+              {product.principaisAtivos?.length > 0 && (
+                <Secao titulo="Principais ativos">
+                  <ul style={bodyTextStyle} className="space-y-1.5">
+                    {product.principaisAtivos.map((ativo) => (
+                      <li key={ativo.nome}>
+                        <b style={{ color: "var(--text-body)" }}>{ativo.nome}</b> {ativo.descricao}
+                      </li>
+                    ))}
+                  </ul>
+                </Secao>
+              )}
+
+              {product.modoUso && (
+                <Secao titulo="Modo de usar">
+                  <p style={{ ...bodyTextStyle, whiteSpace: "pre-line" }}>{product.modoUso}</p>
+                </Secao>
+              )}
+
+              {product.ingredientes && (
+                <Secao titulo="Ingredientes">
+                  <p style={{ ...bodyTextStyle, whiteSpace: "pre-line" }}>{product.ingredientes}</p>
+                </Secao>
               )}
             </div>
-          )}
+          </motion.div>
+        </div>
 
-          {/* MODO DE USO */}
-          <div>
-            <button
-              onClick={() => setOpenUso(!openUso)}
-              aria-expanded={openUso}
-              style={accordionTriggerStyle}
-            >
-              <span>{openUso ? "− Modo de usar" : "+ Modo de usar"}</span>
-            </button>
-            {openUso && (
-              <p style={{ ...bodyTextStyle, whiteSpace: "pre-line", marginTop: "var(--space-1)" }}>
-                {product.modoUso}
-              </p>
-            )}
-          </div>
-
-          {/* INGREDIENTES */}
-          <div>
-            <button
-              onClick={() => setOpenIngredientes(!openIngredientes)}
-              aria-expanded={openIngredientes}
-              style={accordionTriggerStyle}
-            >
-              <span>{openIngredientes ? "− Ingredientes" : "+ Ingredientes"}</span>
-            </button>
-            {openIngredientes && (
-              <p style={{ ...bodyTextStyle, whiteSpace: "pre-line", marginTop: "var(--space-1)" }}>
-                {product.ingredientes}
-              </p>
-            )}
-          </div>
-
-          <div className="w-full max-w-[320px] mt-4">
-            <Button variant="primary" fullWidth onClick={() => addItem(product)}>
-              Comprar agora
-            </Button>
-          </div>
-        </motion.div>
+        <div className="mt-16">
+          <ActiveIngredientsRow items={product.ativosCarousel} />
+        </div>
       </div>
 
-      <ActiveIngredientsRow items={product.ativosCarousel} />
-    </motion.div>
+      {/* Complete sua rotina: texto na 1ª coluna, os outros 2 produtos nas demais */}
+      <section className="page-container pt-16 pb-24">
+        <SectionLabel meta="Rotina em 3 passos">Complete sua rotina</SectionLabel>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-6 mt-10">
+          <div className="sm:col-span-2 lg:col-span-1 flex flex-col justify-between gap-8 lg:pr-10">
+            <div>
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: "var(--weight-light)",
+                  fontSize: "var(--size-display-3)",
+                  lineHeight: "var(--leading-display)",
+                  letterSpacing: "var(--tracking-display)",
+                  color: "var(--text-body)",
+                }}
+              >
+                Os três passos se completam
+              </h2>
+              <p style={{ ...bodyTextStyle, fontSize: "var(--size-body)", marginTop: "var(--space-4)", maxWidth: "40ch" }}>
+                {passo ? `O ${passo.nome} é o passo ${passo.numero}: ${passo.etapa.toLowerCase()}. ` : ""}
+                Use com os outros produtos da linha RHADYANCE para limpar, tratar e proteger a pele
+                todos os dias.
+              </p>
+              <ol className="mt-6 space-y-2">
+                {productsData.map((p) => (
+                  <li
+                    key={p.id}
+                    style={{
+                      fontFamily: "var(--font-text)",
+                      fontSize: "var(--size-body-sm)",
+                      color: p.id === product.id ? "var(--text-body)" : "var(--text-muted)",
+                      fontWeight: p.id === product.id ? "var(--weight-medium)" : "var(--weight-regular)",
+                    }}
+                  >
+                    {passos[p.id]?.numero} — {passos[p.id]?.etapa} · {passos[p.id]?.nome}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="w-full sm:max-w-[360px]">
+              <Button
+                variant="primary"
+                fullWidth
+                onClick={() => outrosProdutos.forEach((p) => addItem(p))}
+              >
+                Adicionar os outros 2 à sacola
+              </Button>
+            </div>
+          </div>
+          {outrosProdutos.map((produto, index) => (
+            <ProductCard key={produto.id} produto={produto} index={index} />
+          ))}
+        </div>
+      </section>
+
+      <HomeDiferenciais />
+
+      {/* Barra de compra fixa (só celular) */}
+      <div
+        className="md:hidden fixed left-0 right-0 bottom-0 flex items-center gap-3 px-4 py-3 transition-transform duration-300"
+        style={{
+          zIndex: 45, // acima do botão "voltar ao topo" do rodapé
+          background: "var(--surface-page)",
+          borderTop: "var(--border-hairline) solid var(--border-default)",
+          transform: mostrarBarra ? "translateY(0)" : "translateY(100%)",
+        }}
+        aria-hidden={!mostrarBarra}
+      >
+        <div className="flex-1 min-w-0">
+          <p
+            className="truncate"
+            style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", color: "var(--text-body)" }}
+          >
+            {product.tituloDetalhe}
+          </p>
+          <p style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", color: "var(--text-muted)" }}>
+            {product.preco}
+          </p>
+        </div>
+        <Button variant="primary" size="md" onClick={() => addItem(product)} tabIndex={mostrarBarra ? 0 : -1}>
+          Adicionar
+        </Button>
+      </div>
+    </>
   );
 };
 

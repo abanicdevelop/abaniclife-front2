@@ -41,7 +41,7 @@ const BlogPostPage = () => {
         initial={{ x: -80, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-full md:w-1/2 lg:w-5/12 md:float-left md:mr-6 mb-6 object-contain rounded-xl shadow-lg"
+        className="w-full md:w-1/2 lg:w-5/12 md:float-left md:mr-6 mb-6 object-contain shadow-lg"
       />
 
       {/* Conteúdo animado */}

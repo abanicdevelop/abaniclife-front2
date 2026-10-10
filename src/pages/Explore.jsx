@@ -224,7 +224,7 @@ const Explore = () => {
               <img
                 src={FotoCreme}
                 alt="Produto prateado"
-                className="w-full h-auto object-contain rounded-lg shadow-lg"
+                className="w-full h-auto object-contain shadow-lg"
               />
             </motion.div>
           </div>
@@ -288,12 +288,12 @@ const Explore = () => {
                       whileInView="visible"
                       transition={{ duration: 0.8, ease: "easeOut" }}
                       viewport={{ once: true }}
-                      className="w-full h-48 md:h-56 lg:h-72 overflow-hidden rounded-xl"
+                      className="w-full h-48 md:h-56 lg:h-72 overflow-hidden"
                     >
                       <img
                         src={section.image}
                         alt="foto ativo"
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-cover"
                       />
                     </motion.div>
                   </React.Fragment>

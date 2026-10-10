@@ -25,8 +25,8 @@ const ProductActive = () => {
     >
       COM ATIVOS <b style={{ color: "var(--abanic-gray-dark)" }}>PRÓ-AGING,</b>{" "}
       <b style={{ color: "var(--abanic-gray-dark)" }}>HIDRATANTES</b> QUE
-      RELEVAM A{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>LUMINOSIUDADE</b> DA SUA
+      REVELAM A{" "}
+      <b style={{ color: "var(--abanic-gray-dark)" }}>LUMINOSIDADE</b> DA SUA
       PELE. DESENVOLVIDOS ATRAVÉS DA{" "}
       <b style={{ color: "var(--abanic-gray-dark)" }}>
         CIÊNCIA E SUSTENTABILIDADE.

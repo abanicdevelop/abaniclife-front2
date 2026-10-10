@@ -108,7 +108,7 @@ const NewsletterSection = () => {
       style={{ backgroundColor: "#A4B6C0" }}
       id="newsletter"
     >
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+      <div className="page-container">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* 📌 Image Side com animação */}
           <motion.div
@@ -119,7 +119,7 @@ const NewsletterSection = () => {
             className="relative"
           >
             <div
-              className="relative overflow-hidden rounded-2xl shadow-2xl flex items-center justify-center h-72 md:h-80 lg:h-[420px]"
+              className="relative overflow-hidden shadow-2xl flex items-center justify-center h-72 md:h-80 lg:h-[420px]"
               style={{ backgroundColor: "#A1B6C1" }}
             >
               <img
