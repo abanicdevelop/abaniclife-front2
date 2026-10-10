@@ -9,11 +9,11 @@ const MosaicoProdutos = () => (
       whileInView={{ opacity: 1, transition: { duration: 0.9 } }}
       viewport={{ once: true }}
     >
-      <div className="relative w-full overflow-hidden aspect-[4/5] md:aspect-[7/4]">
+      <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect-[21/9] max-h-[640px]">
         <img
           src={LivreDeCrueldade}
           alt="Pesquisadora formulando cosméticos em laboratório: produtos ABANIC livres de crueldade animal"
-          className="w-full h-full object-cover object-[72%_center] md:object-center"
+          className="w-full h-full object-cover object-[72%_center] md:object-[center_40%]"
           loading="lazy"
         />
         <figcaption
