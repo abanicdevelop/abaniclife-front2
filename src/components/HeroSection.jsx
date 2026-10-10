@@ -79,14 +79,15 @@ const HeroSection = () => {
               className="absolute inset-0 h-full w-full bg-no-repeat bg-cover "
               style={{
                 backgroundImage: `url(${slide.image})`,
+                // O cabeçalho é transparente sobre o banner, então a foto ocupa a tela toda
                 backgroundPosition:
                   window.innerWidth < 640
                     ? index === 0
-                      ? "left 52% top 50px"
+                      ? "left 52% center"
                       : index === 1
-                        ? "right 53% top 50px"
-                        : "center top 75px"
-                    : "center top 75px",
+                        ? "right 53% center"
+                        : "center"
+                    : "center 30%",
               }}
             />
 
