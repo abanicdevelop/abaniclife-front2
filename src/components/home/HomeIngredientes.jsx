@@ -11,10 +11,10 @@ import { DURACAO } from "../../utils/motion";
 const DESTAQUES = [
   "Algas Vermelhas",
   "Flor de Margarida",
-  "Alga Arco-Íris",
+  "Esqualano Vegetal",
   "Evódia Rutaecarpa",
   "Calêndula",
-  "Esqualano Vegetal",
+  "Óleo de Jojoba",
 ];
 
 const todosAtivos = productsData.flatMap((p) => p.ativosCarousel ?? []);
