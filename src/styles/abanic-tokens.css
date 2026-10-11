@@ -105,8 +105,8 @@
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --duration-fast: 120ms;
   --duration-base: 200ms;
-  --duration-slow: 400ms;
-  --duration-reveal: 640ms;
+  --duration-slow: 450ms; /* = DURACAO de src/utils/motion.js */
+  --duration-reveal: 450ms;
 
   /* Semantic aliases — prefer these in components */
   --surface-page: var(--abanic-cream);

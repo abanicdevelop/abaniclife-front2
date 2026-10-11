@@ -48,12 +48,11 @@ const ActiveIngredientsRow = ({ items }) => {
             className="group snap-start shrink-0 w-[160px] md:w-auto flex flex-col gap-2 text-left"
             style={{ cursor: saibaMais ? "pointer" : "default" }}
           >
-            <div className="w-full aspect-square overflow-hidden">
-              <img
-                src={item.imagem}
-                alt={item.nome}
-                className="w-full h-full object-cover"
-              />
+            {/* Sem foto ainda: mantém o espaço vazio no tom creme para a grade não desalinhar */}
+            <div className="w-full aspect-square overflow-hidden" style={{ background: "var(--abanic-cream)" }}>
+              {item.imagem && (
+                <img src={item.imagem} alt={item.nome} className="w-full h-full object-cover" />
+              )}
             </div>
             <span
               style={{

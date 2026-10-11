@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { DURACAO } from "../utils/motion";
 
 const TermsOfUse = () => {
   const textVariants = {
@@ -7,7 +8,7 @@ const TermsOfUse = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: DURACAO, ease: "easeOut" },
     },
   };
 

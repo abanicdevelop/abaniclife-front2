@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import FotoCreme from "../assets/Produtoladoesquerdo.png";
+import { Link } from "react-router-dom";
+import { SectionLabel } from "../components/design-system/SectionLabel";
+import HomeVitrine from "../components/home/HomeVitrine";
+import { productsData } from "../data/productsData";
+import { ativosSaibaMais } from "../data/ativosSaibaMais";
+import { passos } from "../data/rotina";
+import HeroAtivos from "../assets/products/principios-ativos.png";
 import rhodophytas from "../assets/explore/rhodophytas.jpeg";
 import bellis from "../assets/explore/belis.jpg";
 import evodia from "../assets/explore/evodia.jpg";
+import { DURACAO } from "../utils/motion";
 
 const sectionsData = [
   {
     id: "rhodophytas",
     title: "Rhodophytas - Algas vermelhas",
+    nome: "Algas Vermelhas",
+    chave: "Algas Vermelhas",
+    cientifico: "Rhodophyta",
+    origem: "Mar Báltico · Baía de Kassari, Estônia",
+    beneficio: "Hidratação e defesa antioxidante",
     image: rhodophytas,
-    intro: [
-      "<p><b>Ativo extraído de algas vermelhas – Glicanos Sulfatados</b><br><br>Presente no Creme Facial FPS 75 | Sérum Clareador | Gel de Limpeza</p>",
-    ],
     items: [
       {
         id: "rhodophytas1",
@@ -70,10 +79,12 @@ const sectionsData = [
   {
     id: "bellis",
     title: "Bellis perennis – Margarida",
+    nome: "Flor de Margarida",
+    chave: "Flor de Margarida",
+    cientifico: "Bellis perennis",
+    origem: "Europa · Cultivo orgânico certificado",
+    beneficio: "Uniformiza o tom e reduz manchas",
     image: bellis,
-    intro: [
-      "<p><b>Ativo extraído da flor de margarida - <em>Bellis perennis</em></b><br><br>Presente no Creme Facial FPS 75 | Sérum Clareador | Gel de Limpeza</p>",
-    ],
     items: [
       {
         id: "bellis1",
@@ -124,8 +135,14 @@ const sectionsData = [
   {
     id: "evodea",
     title: "Evodia rutaecarpa — Rutaceae",
+    nome: "Evódia",
+    chave: "Evódia Rutaecarpa",
+    cientifico: "Evodia rutaecarpa",
+    origem: "Província de Jiangxi, China",
+    beneficio: "Radiância e microcirculação",
     image: evodia,
-    intro: [
+    // texto de origem que antes ficava solto no topo; agora vira a 1ª seção recolhível
+    origemTexto: [
       "<p>Originária da medicina tradicional oriental, a planta  <em>Evodia rutaecarpa </em> (Wu-Zhu-Yu) é cultivada principalmente na província de Jiangxi, na China. Pertencente da família Rutaceae, O composto que está presente na linha <b>RHADYANCE</b> é o extrato padronizado obtido da fruta quase madura da planta e desenvolvido para estimular a microcirculação e devolver radiância e vitalidade à pele opaca ou sensibilizada.   <br><br>Seu extrato é rico em alcaloides (compostos nitrogenados bioativos derivados de plantas) indólicos bioativos, como evodiamina, rutaecarpina e dehidroevodiamina, além de conter flavonoides (compostos de fenóis) e ácidos graxos (molécula lipídica) (Tian et al., 2019; Chen et al., 2012; Jiang et al. 2009). </p>",
     ],
     items: [
@@ -181,168 +198,214 @@ const sectionsData = [
   },
 ];
 
+// Produtos em que cada ativo aparece, a partir dos dados dos produtos
+const produtosCom = (chave) =>
+  productsData.filter((p) => p.ativosCarousel?.some((a) => a.nome === chave));
+
+const textoCorrido = {
+  fontFamily: "var(--font-text)",
+  fontSize: "var(--size-body-sm)",
+  lineHeight: "var(--leading-body)",
+  color: "var(--text-muted)",
+};
+
+/** Bloco recolhível com linha fina e +/− à direita (mesmo padrão das páginas de produto). */
+const Secao = ({ titulo, aberto, onToggle, children }) => (
+  <div style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-expanded={aberto}
+      className="w-full flex items-center justify-between gap-4 py-4 text-left"
+      style={{
+        fontFamily: "var(--font-text)",
+        fontWeight: "var(--weight-medium)",
+        fontSize: "var(--size-body-sm)",
+        color: "var(--text-body)",
+        cursor: "pointer",
+      }}
+    >
+      <span>{titulo}</span>
+      <span aria-hidden="true" style={{ fontSize: "var(--size-body-lg)", color: "var(--text-muted)" }}>
+        {aberto ? "−" : "+"}
+      </span>
+    </button>
+    {aberto && (
+      <div className="pb-6 space-y-3" style={textoCorrido}>
+        {children}
+      </div>
+    )}
+  </div>
+);
+
 const Explore = () => {
-  const [openItemId, setOpenItemId] = useState(null);
-
-  const toggleSection = (id) => {
-    setOpenItemId((prev) => (prev === id ? null : id));
-  };
-
-  // ---------- VARIANTS (padronizado igual Product.jsx) ----------
-  const imageVariants = (reverse) => ({
-    hidden: { opacity: 0, x: reverse ? 40 : -40 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.8, ease: "easeOut", delay: 0.3 },
-    },
-  });
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut", delay: 0.3 },
-    },
-  };
+  const [abertos, setAbertos] = useState({});
+  const alternar = (id) => setAbertos((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
-    <section className="w-full" style={{ backgroundColor: "var(--abanic-cream)" }}>
-      <div className="max-w-[1070px] mx-auto px-6 py-10 mt-28 space-y-20">
-        {/* Header com foto + textos */}
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-10 mb-16">
-          <div className="flex-1 flex justify-center">
-            {/* --- imagem do header com motion (apenas envolvida) --- */}
-            <motion.div
-              variants={imageVariants(false)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              className="w-full max-w-md"
-            >
-              <img
-                src={FotoCreme}
-                alt="Produto prateado"
-                className="w-full h-auto object-contain shadow-lg"
-              />
-            </motion.div>
-          </div>
-
-          <div className="flex-1">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 leading-tight font-space-grotesk-h1">
-              SAIBA MAIS SOBRE ATIVOS E BENEFÍCIOS
-            </h1>
-
-            <p className="text-gray-700 mb-6">
-              A linha RHADYANCE foi desenvolvida com ativos naturais e
-              selecionados com base em seus benefícios. Conheça abaixo os
-              principais ativos de nossas formulações e sua ações.
-            </p>
-
-            <div>
-              <h3 className="text-lg font-bold text-black mb-3 font-space-grotesk-h3">
-                SUMÁRIO
-              </h3>
-              <ul className="list-disc pl-5 space-y-2 text-black">
-                {sectionsData.map((section) => (
-                  <li key={section.id}>
-                    <a href={`#${section.id}`} className="hover:underline">
-                      {section.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+    <main style={{ backgroundColor: "var(--abanic-cream)" }}>
+      {/* Abertura */}
+      <section className="page-container pt-32 md:pt-40 pb-20">
+        <SectionLabel meta="Princípios ativos">Explore</SectionLabel>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mt-8">
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: "var(--weight-light)",
+              fontSize: "clamp(44px, 6vw, 88px)",
+              lineHeight: 1.02,
+              letterSpacing: "var(--tracking-display)",
+              color: "var(--text-body)",
+            }}
+          >
+            A ciência dos ativos
+          </h1>
+          <p style={{ ...textoCorrido, fontSize: "var(--size-body)", maxWidth: "46ch" }}>
+            A linha RHADYANCE foi desenvolvida com ativos naturais, selecionados pelo que a ciência
+            mostra sobre eles. Conheça a origem de cada um e o que os estudos dizem.
+          </p>
         </div>
+        <motion.div
+          className="w-full overflow-hidden mt-12 aspect-[16/9]"
+          style={{ background: "var(--neutral-0)" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: DURACAO } }}
+        >
+          <img
+            src={HeroAtivos}
+            alt="Alga vermelha, flor de margarida e calêndula"
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </section>
 
-        {/* Seções detalhadas */}
-        <div className="space-y-12 text-left">
-          {sectionsData.map((section, idx) => (
-            <section key={section.id} id={section.id} className="scroll-mt-32">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-3 font-space-grotesk-h3">
-                {section.title}
-              </h2>
-
-              {/* Renderiza intro como string ou array */}
-              {Array.isArray(section.intro) ? (
-                section.intro.map((texto, i) => (
-                  <React.Fragment key={i}>
-                    {/* Texto animado */}
-                    <motion.div
-                      variants={textVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      viewport={{ once: true }}
-                      className="mb-4 text-left"
-                      style={{ color: "var(--abanic-gray)" }}
-                      dangerouslySetInnerHTML={{ __html: texto }}
-                    />
-
-                    {/* Imagem animada */}
-                    <motion.div
-                      variants={imageVariants(false)}
-                      initial="hidden"
-                      whileInView="visible"
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      viewport={{ once: true }}
-                      className="w-full h-48 md:h-56 lg:h-72 overflow-hidden"
-                    >
-                      <img
-                        src={section.image}
-                        alt="foto ativo"
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </React.Fragment>
-                ))
-              ) : (
-                <motion.div
-                  variants={textVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.35 }}
-                  className="mb-4 text-left"
-                  style={{ color: "var(--abanic-gray)" }}
-                  dangerouslySetInnerHTML={{ __html: section.intro }}
-                />
-              )}
-
-              {section.items.map((item) => (
-                <div key={item.id} className="border-t border-b py-3 w-full">
-                  <button
-                    className="flex items-center justify-between w-full text-left font-medium text-gray-800"
-                    onClick={() => toggleSection(item.id)}
-                  >
-                    <span>
-                      {openItemId === item.id ? "- " : "+ "} {item.title}
-                    </span>
-                  </button>
-
-                  {openItemId === item.id && (
-                    <motion.div
-                      variants={textVariants}
-                      initial="hidden"
-                      whileInView="visible"
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      viewport={{ once: true }}
-                      className="mt-2 text-left space-y-3 leading-loose"
-                      style={{ color: "var(--abanic-gray)" }}
-                    >
-                      {item.text.map((t, i) => (
-                        <div key={i} dangerouslySetInnerHTML={{ __html: t }} />
-                      ))}
-                    </motion.div>
-                  )}
+      {/* Um capítulo por ativo */}
+      {sectionsData.map((ativo, i) => {
+        const resumo = ativosSaibaMais[ativo.chave];
+        const produtos = produtosCom(ativo.chave);
+        const secoes = [
+          ...(ativo.origemTexto ? [{ id: `${ativo.id}_origem`, title: "Origem e composição", text: ativo.origemTexto }] : []),
+          ...ativo.items,
+        ];
+        return (
+          <section
+            key={ativo.id}
+            id={ativo.id}
+            style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
+          >
+            <div className="page-container py-20 flex flex-col md:flex-row md:items-start gap-10 md:gap-16">
+              {/* Foto da origem: fica parada no desktop enquanto o texto rola */}
+              <figure className="w-full md:w-5/12 md:sticky md:top-28">
+                <div className="w-full overflow-hidden aspect-[4/3] md:aspect-[4/5]">
+                  <img src={ativo.image} alt={`Origem: ${ativo.origem}`} className="w-full h-full object-cover" />
                 </div>
-              ))}
-            </section>
-          ))}
-        </div>
+                <figcaption
+                  style={{
+                    marginTop: "var(--space-3)",
+                    fontFamily: "var(--font-text)",
+                    fontSize: "var(--size-micro)",
+                    textTransform: "uppercase",
+                    letterSpacing: "var(--tracking-label)",
+                    color: "var(--text-muted)",
+                  }}
+                >
+                  Origem · {ativo.origem}
+                </figcaption>
+              </figure>
+
+              <div className="w-full md:w-7/12 md:max-w-[640px]">
+                <SectionLabel rule={false}>
+                  {`${String(i + 1).padStart(2, "0")} / ${String(sectionsData.length).padStart(2, "0")}`}
+                </SectionLabel>
+                <h2
+                  style={{
+                    marginTop: "var(--space-3)",
+                    fontFamily: "var(--font-display)",
+                    fontWeight: "var(--weight-light)",
+                    fontSize: "var(--size-display-3)",
+                    lineHeight: "var(--leading-display)",
+                    letterSpacing: "var(--tracking-display)",
+                    color: "var(--text-body)",
+                  }}
+                >
+                  {resumo?.titulo ?? ativo.nome}
+                </h2>
+                <p style={{ ...textoCorrido, marginTop: "var(--space-2)", fontStyle: "italic" }}>
+                  {ativo.cientifico}
+                </p>
+
+                {resumo && (
+                  <div className="space-y-4 mt-8">
+                    {resumo.paragrafos.map((texto, j) => (
+                      <p
+                        key={j}
+                        style={{ ...textoCorrido, fontSize: "var(--size-body)", color: "var(--text-body)" }}
+                        dangerouslySetInnerHTML={{ __html: texto }}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {produtos.length > 0 && (
+                  <div className="mt-8">
+                    <span
+                      style={{
+                        fontFamily: "var(--font-text)",
+                        fontSize: "var(--size-micro)",
+                        textTransform: "uppercase",
+                        letterSpacing: "var(--tracking-label-wide)",
+                        color: "var(--text-muted)",
+                      }}
+                    >
+                      Presente em
+                    </span>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {produtos.map((p) => (
+                        <Link
+                          key={p.id}
+                          to={`/product/${p.id}`}
+                          className="transition-colors hover:border-[var(--abanic-orange)] hover:text-[var(--abanic-orange)]"
+                          style={{
+                            padding: "var(--space-2) var(--space-4)",
+                            border: "var(--border-hairline) solid var(--neutral-900)",
+                            fontFamily: "var(--font-text)",
+                            fontSize: "var(--size-caption)",
+                            fontWeight: "var(--weight-medium)",
+                            color: "var(--text-body)",
+                          }}
+                        >
+                          {passos[p.id]?.nome ?? p.tituloDetalhe} →
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-10" style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}>
+                  {secoes.map((item) => (
+                    <Secao
+                      key={item.id}
+                      titulo={item.title}
+                      aberto={!!abertos[item.id]}
+                      onToggle={() => alternar(item.id)}
+                    >
+                      {item.text.map((t, k) => (
+                        <div key={k} dangerouslySetInnerHTML={{ __html: t }} />
+                      ))}
+                    </Secao>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/* Fechamento: da ciência à rotina */}
+      <div className="pt-20" style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
+        <HomeVitrine />
       </div>
-    </section>
+    </main>
   );
 };
 

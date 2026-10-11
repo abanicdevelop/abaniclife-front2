@@ -8,6 +8,7 @@ import { SectionLabel } from "./design-system/SectionLabel";
 import { useCart } from "../context/CartContext";
 import { productsData } from "../data/productsData";
 import { passos, destaqueDoProduto } from "../data/rotina";
+import { DURACAO } from "../utils/motion";
 
 const bodyTextStyle = {
   fontFamily: "var(--font-text)",
@@ -71,7 +72,7 @@ const ProductDetailSection = ({ product }) => {
             className="w-full md:w-1/2 md:sticky md:top-28 flex justify-center"
             style={{ background: "var(--surface-raised)" }}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: 0.8 } }}
+            animate={{ opacity: 1, transition: { duration: DURACAO } }}
           >
             <img
               src={product.imagem}
@@ -84,7 +85,7 @@ const ProductDetailSection = ({ product }) => {
           <motion.div
             className="w-full md:w-1/2 md:max-w-[560px] flex flex-col text-left"
             initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.15 } }}
+            animate={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: 0.15 } }}
           >
             <SectionLabel rule={false}>
               {product.linha}
@@ -237,7 +238,7 @@ const ProductDetailSection = ({ product }) => {
 
       {/* Barra de compra fixa (só celular) */}
       <div
-        className="md:hidden fixed left-0 right-0 bottom-0 flex items-center gap-3 px-4 py-3 transition-transform duration-300"
+        className="md:hidden fixed left-0 right-0 bottom-0 flex items-center gap-3 px-4 py-3 transition-transform duration-[450ms]"
         style={{
           zIndex: 45, // acima do botão "voltar ao topo" do rodapé
           background: "var(--surface-page)",

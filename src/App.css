@@ -219,15 +219,15 @@
   }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 0.45s ease-out forwards;
   }
 
   .animate-fade-in-left {
-    animation: fadeInLeft 0.8s ease-out forwards;
+    animation: fadeInLeft 0.45s ease-out forwards;
   }
 
   .animate-fade-in-right {
-    animation: fadeInRight 0.8s ease-out forwards;
+    animation: fadeInRight 0.45s ease-out forwards;
   }
 
   .animation-delay-300 {

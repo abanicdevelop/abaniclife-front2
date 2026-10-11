@@ -1,104 +1,184 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { articles } from "../data/articles";
-import { useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "../components/ui/button";
+import { articles } from "../data/articles";
+import { ArticleCard } from "../components/CultureSection";
+import { SectionLabel } from "../components/design-system/SectionLabel";
+import { DURACAO } from "../utils/motion";
+
+const tempoDeLeitura = (texto) => Math.max(1, Math.round(texto.trim().split(/\s+/).length / 200));
+
+const linkSublinhado = {
+  fontFamily: "var(--font-text)",
+  fontSize: "var(--size-body-sm)",
+  fontWeight: "var(--weight-medium)",
+  color: "var(--text-body)",
+  borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
+  paddingBottom: "2px",
+};
+
+const VoltarAoBlog = () => (
+  <Link to="/#cultura" className="transition-colors hover:text-[var(--abanic-orange)]" style={linkSublinhado}>
+    ← ABANIC Life
+  </Link>
+);
 
 const BlogPostPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const articleIndex = articles.findIndex((a) => a.id === parseInt(id));
   const article = articles[articleIndex];
 
-  useEffect(() => {
-    const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-    const timeoutId = setTimeout(scrollToTop, 50);
-    return () => clearTimeout(timeoutId);
-  }, [id]);
-
   if (!article) {
-    return <p>Artigo não encontrado.</p>;
+    return (
+      <main className="page-container pt-40 pb-24 min-h-[60vh]" style={{ backgroundColor: "var(--abanic-cream)" }}>
+        <p style={{ fontFamily: "var(--font-text)", color: "var(--text-body)", marginBottom: "var(--space-5)" }}>
+          Matéria não encontrada.
+        </p>
+        <VoltarAoBlog />
+      </main>
+    );
   }
 
-  const goToNext = () => {
-    const nextIndex = (articleIndex + 1) % articles.length;
-    navigate(`/blog/${articles[nextIndex].id}`);
-  };
-
-  const goToPrev = () => {
-    const prevIndex = (articleIndex - 1 + articles.length) % articles.length;
-    navigate(`/blog/${articles[prevIndex].id}`);
-  };
+  const proxima = articles[(articleIndex + 1) % articles.length];
+  const outras = articles.filter((a) => a.id !== article.id && a.id !== proxima.id);
+  const paragrafos = article.content.split("\n").map((p) => p.trim()).filter(Boolean);
 
   return (
-    <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 mt-28">
-      {/* Imagem flutuante com animação */}
-      <motion.img
-        key={`img-${id}`}
-        src={article.image}
-        alt={article.title}
-        initial={{ x: -80, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-full md:w-1/2 lg:w-5/12 md:float-left md:mr-6 mb-6 object-contain shadow-lg"
-      />
-
-      {/* Conteúdo animado */}
-      <motion.div
-        key={`content-${id}`}
-        initial={{ y: 40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-        className="text-left text-gray-800 text-[17px] md:text-[18px] leading-relaxed"
-      >
-        <p className="text-sm text-gray-500 mb-2">{article.category}</p>
-
-        <h1 className="text-[28px] sm:text-[34px] md:text-[42px] font-bold text-gray-800 mb-5 leading-tight font-space-grotesk-h1">
-          {article.title}
-        </h1>
-
-        {article.content.split("\n").map((p, i) => {
-          if (p.trim() === "") return null;
-          return (
-            <p key={i} className="text-gray-700 mb-5 text-left">
-              {p.trim()}
+    <main style={{ backgroundColor: "var(--abanic-cream)" }}>
+      {/* Cabeçalho da matéria */}
+      <header className="page-container pt-32 md:pt-40 pb-16">
+        <VoltarAoBlog />
+        <div className="flex flex-col md:flex-row md:items-end gap-10 md:gap-16 mt-10">
+          <motion.div
+            className="flex-1"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0, transition: { duration: DURACAO } }}
+          >
+            <SectionLabel rule={false}>{article.category}</SectionLabel>
+            <h1
+              style={{
+                marginTop: "var(--space-4)",
+                fontFamily: "var(--font-display)",
+                fontWeight: "var(--weight-light)",
+                fontSize: "clamp(36px, 4.5vw, 64px)",
+                lineHeight: "var(--leading-display)",
+                letterSpacing: "var(--tracking-display)",
+                color: "var(--text-body)",
+              }}
+            >
+              {article.title}
+            </h1>
+            <p
+              style={{
+                marginTop: "var(--space-5)",
+                fontFamily: "var(--font-text)",
+                fontSize: "var(--size-body-lg)",
+                lineHeight: "var(--leading-body)",
+                color: "var(--text-muted)",
+                maxWidth: "48ch",
+              }}
+            >
+              {article.description}
             </p>
-          );
-        })}
-      </motion.div>
+            <p
+              style={{
+                marginTop: "var(--space-5)",
+                fontFamily: "var(--font-text)",
+                fontSize: "var(--size-micro)",
+                textTransform: "uppercase",
+                letterSpacing: "var(--tracking-label-wide)",
+                color: "var(--text-muted)",
+              }}
+            >
+              {tempoDeLeitura(article.content)} min de leitura
+            </p>
+          </motion.div>
+          <motion.div
+            className="w-full md:w-5/12 md:max-w-[560px] aspect-square overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: DURACAO, delay: 0.1 } }}
+          >
+            <img src={article.image} alt="" className="w-full h-full object-cover" />
+          </motion.div>
+        </div>
+      </header>
 
-      {/* === SETAS DE NAVEGAÇÃO === */}
-      {/* Mobile → fixa no meio da tela / Desktop → posicionamento lateral */}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={goToPrev}
-        className="fixed md:absolute left-3 md:left-[-60px] top-1/2 md:top-[180px] -translate-y-1/2 md:translate-y-0 
-                   z-20 bg-black/10 hover:bg-black/20 text-gray-700 backdrop-blur-sm rounded-full 
-                   w-10 h-10 md:w-12 md:h-12 transition-all"
-        aria-label="Artigo anterior"
+      {/* Texto em coluna de leitura */}
+      <article
+        className="page-container pt-16 pb-24"
+        style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
       >
-        <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
-      </Button>
+        <div className="mx-auto space-y-6" style={{ maxWidth: "65ch" }}>
+          {paragrafos.map((p, i) => (
+            <p
+              key={i}
+              style={{
+                fontFamily: "var(--font-text)",
+                fontSize: "var(--size-body-lg)",
+                lineHeight: 1.75,
+                color: "var(--text-body)",
+              }}
+            >
+              {p}
+            </p>
+          ))}
+        </div>
+      </article>
 
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={goToNext}
-        className="fixed md:absolute right-3 md:right-[-60px] top-1/2 md:top-[180px] -translate-y-1/2 md:translate-y-0 
-                   z-20 bg-black/10 hover:bg-black/20 text-gray-700 backdrop-blur-sm rounded-full 
-                   w-10 h-10 md:w-12 md:h-12 transition-all"
-        aria-label="Próximo artigo"
-      >
-        <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-      </Button>
+      {/* Próxima matéria */}
+      <section className="page-container pb-24">
+        <Link
+          to={`/blog/${proxima.id}`}
+          className="group flex flex-col md:flex-row md:items-center gap-8 py-10"
+          style={{
+            borderTop: "var(--border-hairline) solid var(--border-default)",
+            borderBottom: "var(--border-hairline) solid var(--border-default)",
+          }}
+        >
+          <div className="w-32 md:w-40 shrink-0 aspect-square overflow-hidden">
+            <img src={proxima.image} alt="" className="w-full h-full object-cover" />
+          </div>
+          <div className="flex-1">
+            <SectionLabel rule={false}>Próxima matéria</SectionLabel>
+            <p
+              className="transition-colors group-hover:text-[var(--abanic-orange)]"
+              style={{
+                marginTop: "var(--space-3)",
+                fontFamily: "var(--font-display)",
+                fontWeight: "var(--weight-light)",
+                fontSize: "var(--size-heading-1)",
+                lineHeight: "var(--leading-display)",
+                color: "var(--text-body)",
+              }}
+            >
+              {proxima.title} →
+            </p>
+          </div>
+        </Link>
+      </section>
 
-      {/* Indicador de número de artigo */}
-      <div className="absolute bottom-6 right-6 text-gray-600 text-sm opacity-70">
-        {articleIndex + 1} / {articles.length}
-      </div>
-    </div>
+      {/* Leia também */}
+      {outras.length > 0 && (
+        <section className="page-container pb-24">
+          <SectionLabel>Leia também</SectionLabel>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-6 mt-10">
+            {outras.map((a, i) => (
+              <ArticleCard key={a.id} article={a} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Ponte discreta para os produtos */}
+      <section className="page-container pb-24">
+        <Link
+          to="/product"
+          className="transition-colors hover:text-[var(--abanic-orange)]"
+          style={linkSublinhado}
+        >
+          Conheça a linha RHADYANCE →
+        </Link>
+      </section>
+    </main>
   );
 };
 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "../design-system/Button";
 import { useCart } from "../../context/CartContext";
 import { passos, destaqueDoProduto } from "../../data/rotina";
+import { DURACAO } from "../../utils/motion";
 
 /** Card de produto com foto, passo da rotina, preço e "Adicionar à sacola". */
 const ProductCard = ({ produto, index = 0 }) => {
@@ -13,7 +14,7 @@ const ProductCard = ({ produto, index = 0 }) => {
     <motion.article
       className="flex flex-col"
       initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: index * 0.1 } }}
+      whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: index * 0.1 } }}
       viewport={{ once: true }}
     >
       <Link
