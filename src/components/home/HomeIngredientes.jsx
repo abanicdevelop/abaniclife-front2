@@ -19,6 +19,7 @@ const DESTAQUES = [
   "Óleo de Jojoba",
   "Melissa",
   "Mirtilo",
+  "Mandioca",
 ];
 
 const todosAtivos = productsData.flatMap((p) => p.ativosCarousel ?? []);

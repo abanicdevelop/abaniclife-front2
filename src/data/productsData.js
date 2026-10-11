@@ -11,6 +11,7 @@ import JojobaPetri from "../assets/products/ativos/novas/jojoba-petri.jpg";
 import MelissaPetri from "../assets/products/ativos/novas/melissa-petri.jpg";
 import MirtiloPetri from "../assets/products/ativos/novas/mirtilo-petri.jpg";
 import AlgaArcoIrisPetri from "../assets/products/ativos/novas/alga-arcoiris-petri.jpg";
+import MandiocaPetri from "../assets/products/ativos/novas/mandioca-petri.jpg";
 
 export const productsData = [
   {
@@ -80,6 +81,11 @@ export const productsData = [
         nome: "Mirtilo",
         imagem: MirtiloPetri,
         descricao: "Ação antioxidante.",
+      },
+      {
+        nome: "Mandioca",
+        imagem: MandiocaPetri,
+        descricao: "Ação hidratante.",
       },
     ],
   },
