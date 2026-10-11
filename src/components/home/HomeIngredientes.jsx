@@ -5,6 +5,22 @@ import { SectionLabel } from "../design-system/SectionLabel";
 import AtivoModal from "../AtivoModal";
 import { productsData } from "../../data/productsData";
 import { ativosSaibaMais } from "../../data/ativosSaibaMais";
+// Novas fotos das placas de Petri (fundo claro), em teste só na home (2026-10-11)
+import AlgasVermelhasNova from "../../assets/products/ativos/novas/algas-vermelhas-petri.jpg";
+import MargaridaNova from "../../assets/products/ativos/novas/margarida-petri.jpg";
+import AlgaArcoIrisNova from "../../assets/products/ativos/novas/alga-arcoiris-petri.jpg";
+import EvodiaNova from "../../assets/products/ativos/novas/evodia-petri.jpg";
+import CalendulaNova from "../../assets/products/ativos/novas/calendula-petri.jpg";
+import EsqualanoNova from "../../assets/products/ativos/novas/esqualano-petri.jpg";
+
+const FOTOS_NOVAS = {
+  "Algas Vermelhas": AlgasVermelhasNova,
+  "Flor de Margarida": MargaridaNova,
+  "Alga Arco-Íris": AlgaArcoIrisNova,
+  "Evódia Rutaecarpa": EvodiaNova,
+  "Calêndula": CalendulaNova,
+  "Esqualano Vegetal": EsqualanoNova,
+};
 import { DURACAO } from "../../utils/motion";
 
 // Ativos em destaque na home, na ordem em que aparecem; imagens vêm do carrossel de cada produto.
@@ -18,7 +34,9 @@ const DESTAQUES = [
 ];
 
 const todosAtivos = productsData.flatMap((p) => p.ativosCarousel ?? []);
-const ativos = DESTAQUES.map((nome) => todosAtivos.find((a) => a.nome === nome)).filter(Boolean);
+const ativos = DESTAQUES.map((nome) => todosAtivos.find((a) => a.nome === nome))
+  .filter(Boolean)
+  .map((a) => ({ ...a, imagem: FOTOS_NOVAS[a.nome] ?? a.imagem }));
 
 const HomeIngredientes = ({ id }) => {
   const [aberto, setAberto] = useState(null);
