@@ -93,7 +93,7 @@ const SmartChoiceSection = () => (
             </motion.div>
 
             <motion.div
-              className="flex-1 flex flex-col"
+              className={`flex-1 flex flex-col w-full md:max-w-[560px] ${reverse ? "md:ml-auto" : ""}`}
               variants={textVariants}
               initial="hidden"
               whileInView="visible"
