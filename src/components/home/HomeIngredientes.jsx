@@ -49,16 +49,28 @@ const HomeIngredientes = ({ id }) => {
     el.style.scrollSnapType = snap;
   }, []);
 
+  // Posição atual (para o indicador "03 / 09") e altura da foto (para centralizar as setas nela)
+  const [atual, setAtual] = useState(0);
+  const [alturaFoto, setAlturaFoto] = useState(0);
+  const atualizarPosicao = () => {
+    const el = trilhoRef.current;
+    const passo = passoDoCard();
+    if (!el || !passo) return;
+    setAtual(((Math.round(el.scrollLeft / passo) % ativos.length) + ativos.length) % ativos.length);
+  };
+
   // Começa no primeiro ativo da cópia do meio
   useEffect(() => {
     const el = trilhoRef.current;
     const posicionar = () => {
       const passo = passoDoCard();
       if (!el || !passo) return;
+      setAlturaFoto(passo - 24);
       const indice = Math.round(el.scrollLeft / passo) % ativos.length;
       el.style.scrollSnapType = "none";
       el.scrollLeft = (ativos.length + indice) * passo;
       el.style.scrollSnapType = "";
+      atualizarPosicao();
     };
     posicionar();
     window.addEventListener("resize", posicionar);
@@ -68,6 +80,7 @@ const HomeIngredientes = ({ id }) => {
   // Ao deslizar com o dedo/trackpad, recentraliza quando a rolagem para
   const fimDaRolagem = useRef(null);
   const aoRolar = () => {
+    atualizarPosicao();
     if (animando.current) return;
     clearTimeout(fimDaRolagem.current);
     fimDaRolagem.current = setTimeout(recentralizar, 150);
@@ -99,16 +112,24 @@ const HomeIngredientes = ({ id }) => {
     };
     requestAnimationFrame(quadro);
   };
-  const setaEstilo = {
-    width: "44px",
-    height: "44px",
-    display: "inline-flex",
+  // Setas sobre as bordas do carrossel, na altura do meio da foto: metade fica na margem da
+  // página, metade sobre o canto da placa (área de fundo), sem cobrir o ingrediente
+  const setaEstilo = (lado) => ({
+    position: "absolute",
+    top: alturaFoto ? alturaFoto / 2 : "35%",
+    [lado]: 0,
+    transform: `translate(${lado === "left" ? "-50%" : "50%"}, -50%)`,
+    zIndex: 2,
+    width: "48px",
+    height: "48px",
     alignItems: "center",
     justifyContent: "center",
+    background: "var(--abanic-cream)",
     border: "var(--border-hairline) solid var(--neutral-900)",
+    boxShadow: "var(--shadow-1)",
     color: "var(--text-body)",
     cursor: "pointer",
-  };
+  });
 
   return (
     <section id={id} style={{ background: "var(--surface-raised)" }}>
@@ -143,19 +164,30 @@ const HomeIngredientes = ({ id }) => {
           </p>
         </div>
 
-        <div className="flex justify-end gap-2 mt-10">
-          <button type="button" aria-label="Ativo anterior" onClick={() => mover(-1)} style={setaEstilo}>
-            <ChevronLeft size={20} strokeWidth={1.5} />
+        <div className="relative mt-12">
+          <button
+            type="button"
+            aria-label="Ativo anterior"
+            onClick={() => mover(-1)}
+            className="hidden sm:inline-flex transition-colors hover:text-[var(--abanic-orange)]"
+            style={setaEstilo("left")}
+          >
+            <ChevronLeft size={22} strokeWidth={1.5} />
           </button>
-          <button type="button" aria-label="Próximo ativo" onClick={() => mover(1)} style={setaEstilo}>
-            <ChevronRight size={20} strokeWidth={1.5} />
+          <button
+            type="button"
+            aria-label="Próximo ativo"
+            onClick={() => mover(1)}
+            className="hidden sm:inline-flex transition-colors hover:text-[var(--abanic-orange)]"
+            style={setaEstilo("right")}
+          >
+            <ChevronRight size={22} strokeWidth={1.5} />
           </button>
-        </div>
 
         <div
           ref={trilhoRef}
           onScroll={aoRolar}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory mt-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {[...ativos, ...ativos, ...ativos].map((ativo, i) => {
             const index = i % ativos.length;
@@ -203,6 +235,28 @@ const HomeIngredientes = ({ id }) => {
               </motion.button>
             );
           })}
+        </div>
+        </div>
+
+        {/* Indicador de posição: linha de progresso + "03 / 09" */}
+        <div className="flex items-center gap-4 mt-8" aria-live="polite">
+          <div className="relative flex-1 h-px" style={{ background: "var(--border-default)" }}>
+            <div
+              className="absolute top-0 left-0 h-px transition-[width] duration-[450ms]"
+              style={{ width: `${((atual + 1) / ativos.length) * 100}%`, background: "var(--neutral-900)" }}
+            />
+          </div>
+          <span
+            style={{
+              fontFamily: "var(--font-text)",
+              fontSize: "var(--size-caption)",
+              letterSpacing: "var(--tracking-label)",
+              color: "var(--text-muted)",
+              fontVariantNumeric: "tabular-nums",
+            }}
+          >
+            {String(atual + 1).padStart(2, "0")} / {String(ativos.length).padStart(2, "0")}
+          </span>
         </div>
 
         <Link
