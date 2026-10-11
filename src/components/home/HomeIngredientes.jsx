@@ -43,9 +43,35 @@ const HomeIngredientes = ({ id }) => {
     window.addEventListener("resize", atualizarSetas);
     return () => window.removeEventListener("resize", atualizarSetas);
   }, [atualizarSetas]);
+  // Avança um ativo por clique (entra um, sai outro), com rolagem suave no tempo padrão do site
+  const animando = useRef(false);
   const mover = (direcao) => {
     const el = trilhoRef.current;
-    if (el) el.scrollBy({ left: direcao * el.clientWidth * 0.8, behavior: "smooth" });
+    if (!el || animando.current || !el.firstElementChild) return;
+    const passo = el.firstElementChild.getBoundingClientRect().width + 24; // card + gap-6
+    const inicio = el.scrollLeft;
+    const indiceAtual = Math.round(inicio / passo);
+    const max = el.scrollWidth - el.clientWidth;
+    const destino = Math.min(max, Math.max(0, (indiceAtual + direcao) * passo));
+    if (Math.abs(destino - inicio) < 1) return;
+
+    animando.current = true;
+    el.style.scrollSnapType = "none"; // o "encaixe" brigaria com a animação
+    const duracao = DURACAO * 1000;
+    const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const t0 = performance.now();
+    const passoAnim = (agora) => {
+      const t = Math.min(1, (agora - t0) / duracao);
+      el.scrollLeft = inicio + (destino - inicio) * easeInOut(t);
+      if (t < 1) {
+        requestAnimationFrame(passoAnim);
+      } else {
+        el.style.scrollSnapType = "";
+        animando.current = false;
+        atualizarSetas();
+      }
+    };
+    requestAnimationFrame(passoAnim);
   };
   const setaEstilo = (ativa) => ({
     width: "44px",
