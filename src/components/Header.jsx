@@ -163,18 +163,23 @@ const Header = () => {
       // Navega para a página sem o hash primeiro
       navigate(path);
 
-      // Depois faz scroll suave para o elemento
-      setTimeout(() => {
+      // Depois faz scroll suave para o elemento: espera a transição de página terminar
+      // e a nova página aparecer (procura o elemento por até ~2,5s)
+      let tentativas = 0;
+      const procurar = () => {
         const element = document.getElementById(hash);
         if (element) {
           const yOffset = -140;
           const y =
             element.getBoundingClientRect().top + window.pageYOffset + yOffset;
           smoothScrollTo(y, 1000);
+          // Atualiza a URL com o hash
+          window.history.replaceState(null, "", href);
+        } else if (tentativas++ < 25) {
+          setTimeout(procurar, 100);
         }
-        // Atualiza a URL com o hash
-        window.history.replaceState(null, "", href);
-      }, 150);
+      };
+      setTimeout(procurar, 450);
     }
   };
 
