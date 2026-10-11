@@ -2,7 +2,8 @@ import GelImage from "../assets/products/gel-limpeza.png";
 import SerumImage from "../assets/products/serum-clareador.png";
 import CremeImage from "../assets/products/creme-fps50.png";
 import AlgasVermelhasPetri from "../assets/products/ativos/algas-vermelhas-petri.png";
-import MargaridaPetri from "../assets/products/ativos/margarida-petri.png";
+// Belides™ (extrato de Bellis perennis): pétala na placa de Petri, em teste (2026-10-11)
+import MargaridaPetri from "../assets/products/ativos/belides-petri.jpg";
 import CalendulaPetri from "../assets/products/ativos/calendula-petri.png";
 import MelissaPetri from "../assets/products/ativos/melissa-petri.png";
 import MirtiloPetri from "../assets/products/ativos/mirtilo-petri.png";
