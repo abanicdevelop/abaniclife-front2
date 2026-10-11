@@ -1,4 +1,5 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { SectionLabel } from "../design-system/SectionLabel";
@@ -7,14 +8,17 @@ import { productsData } from "../../data/productsData";
 import { ativosSaibaMais } from "../../data/ativosSaibaMais";
 import { DURACAO } from "../../utils/motion";
 
-// Ativos em destaque na home, na ordem em que aparecem; imagens vêm do carrossel de cada produto.
+// Todos os ativos com foto, na ordem do carrossel; imagens vêm do carrossel de cada produto.
 const DESTAQUES = [
   "Algas Vermelhas",
   "Flor de Margarida",
-  "Esqualano Vegetal",
+  "Alga Arco-Íris",
   "Evódia Rutaecarpa",
   "Calêndula",
+  "Esqualano Vegetal",
   "Óleo de Jojoba",
+  "Melissa",
+  "Mirtilo",
 ];
 
 const todosAtivos = productsData.flatMap((p) => p.ativosCarousel ?? []);
@@ -23,6 +27,37 @@ const ativos = DESTAQUES.map((nome) => todosAtivos.find((a) => a.nome === nome))
 const HomeIngredientes = ({ id }) => {
   const [aberto, setAberto] = useState(null);
   const fechar = useCallback(() => setAberto(null), []);
+
+  // Carrossel: setas avançam ~uma "página" de cards; ficam desativadas nas pontas
+  const trilhoRef = useRef(null);
+  const [podeVoltar, setPodeVoltar] = useState(false);
+  const [podeAvancar, setPodeAvancar] = useState(true);
+  const atualizarSetas = useCallback(() => {
+    const el = trilhoRef.current;
+    if (!el) return;
+    setPodeVoltar(el.scrollLeft > 4);
+    setPodeAvancar(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+  useEffect(() => {
+    atualizarSetas();
+    window.addEventListener("resize", atualizarSetas);
+    return () => window.removeEventListener("resize", atualizarSetas);
+  }, [atualizarSetas]);
+  const mover = (direcao) => {
+    const el = trilhoRef.current;
+    if (el) el.scrollBy({ left: direcao * el.clientWidth * 0.8, behavior: "smooth" });
+  };
+  const setaEstilo = (ativa) => ({
+    width: "44px",
+    height: "44px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "var(--border-hairline) solid var(--neutral-900)",
+    color: "var(--text-body)",
+    opacity: ativa ? 1 : 0.3,
+    cursor: ativa ? "pointer" : "default",
+  });
 
   return (
     <section id={id} style={{ background: "var(--surface-raised)" }}>
@@ -57,7 +92,20 @@ const HomeIngredientes = ({ id }) => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mt-12">
+        <div className="flex justify-end gap-2 mt-10">
+          <button type="button" aria-label="Ativos anteriores" disabled={!podeVoltar} onClick={() => mover(-1)} style={setaEstilo(podeVoltar)}>
+            <ChevronLeft size={20} strokeWidth={1.5} />
+          </button>
+          <button type="button" aria-label="Próximos ativos" disabled={!podeAvancar} onClick={() => mover(1)} style={setaEstilo(podeAvancar)}>
+            <ChevronRight size={20} strokeWidth={1.5} />
+          </button>
+        </div>
+
+        <div
+          ref={trilhoRef}
+          onScroll={atualizarSetas}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory mt-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {ativos.map((ativo, index) => {
             const saibaMais = ativosSaibaMais[ativo.nome];
             return (
@@ -65,7 +113,7 @@ const HomeIngredientes = ({ id }) => {
                 key={ativo.nome}
                 type="button"
                 onClick={() => setAberto({ ...saibaMais, imagem: ativo.imagem })}
-                className="group flex flex-col gap-3 text-left"
+                className="group snap-start shrink-0 w-[44%] sm:w-[30%] lg:w-[calc((100%-4*1.5rem)/5)] flex flex-col gap-3 text-left"
                 style={{ cursor: "pointer" }}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: index * 0.06 } }}
