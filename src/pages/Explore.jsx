@@ -266,7 +266,7 @@ const Explore = () => {
           </p>
         </div>
         <motion.div
-          className="w-full overflow-hidden mt-12 aspect-[4/3] md:aspect-[21/9]"
+          className="w-full overflow-hidden mt-12 aspect-[16/9]"
           style={{ background: "var(--neutral-0)" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: DURACAO } }}
