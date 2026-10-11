@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from "react";
+import React, { Suspense, lazy, useEffect, useLayoutEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -48,11 +48,25 @@ const PageFallback = () => (
   <div style={{ minHeight: "100vh", background: "var(--abanic-cream)" }} aria-busy="true" />
 );
 
+// O CSS tem "scroll-behavior: smooth", então a volta ao topo precisa ser explícita e instantânea;
+// senão ela vira uma animação que é interrompida no meio da troca e a página nova abre no meio.
+const voltarAoTopo = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+// Montado junto com cada página nova: garante que ela comece do topo
+const ComecarDoTopo = () => {
+  useLayoutEffect(voltarAoTopo, []);
+  return null;
+};
+
 // Transição suave entre páginas: a atual some, a tela volta ao topo e a nova aparece
 const AnimatedRoutes = () => {
   const location = useLocation();
 
   // Depois que o site abre, baixa as outras páginas em segundo plano para a troca ser imediata
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+  }, []);
+
   useEffect(() => {
     const preload = () => Object.values(loaders).forEach((load) => load().catch(() => {}));
     const idle = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 1500));
@@ -60,13 +74,14 @@ const AnimatedRoutes = () => {
   }, []);
 
   return (
-    <AnimatePresence mode="wait" initial={false} onExitComplete={() => window.scrollTo(0, 0)}>
+    <AnimatePresence mode="wait" initial={false} onExitComplete={voltarAoTopo}>
       <motion.div
         key={location.pathname}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.45, ease: [0.2, 0, 0, 1] } }}
         exit={{ opacity: 0, transition: { duration: 0.25, ease: [0.4, 0, 1, 1] } }}
       >
+        <ComecarDoTopo />
         <Suspense fallback={<PageFallback />}>
           <Routes location={location}>
             <Route path="/" element={<Home />} />
