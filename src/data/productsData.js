@@ -2,15 +2,12 @@ import GelImage from "../assets/products/gel-limpeza.png";
 import SerumImage from "../assets/products/serum-clareador.png";
 import CremeImage from "../assets/products/creme-fps50.png";
 // Placas de Petri no modelo novo (fundo creme #F7F3EC). Melissa, Mirtilo e Alga
-// Arco-Íris ainda usam as fotos antigas até chegarem as novas.
+// Arco-Íris ficam sem imagem até chegarem as fotos novas.
 import AlgasVermelhasPetri from "../assets/products/ativos/novas/algas-vermelhas-petri.jpg";
 import MargaridaPetri from "../assets/products/ativos/novas/margarida-petri.jpg";
 import CalendulaPetri from "../assets/products/ativos/novas/calendula-petri.jpg";
-import MelissaPetri from "../assets/products/ativos/melissa-petri.png";
-import MirtiloPetri from "../assets/products/ativos/mirtilo-petri.png";
 import EvodiaPetri from "../assets/products/ativos/novas/evodia-petri.jpg";
 import EsqualanoPetri from "../assets/products/ativos/novas/esqualano-petri.jpg";
-import AlgaArcoIrisPetri from "../assets/products/ativos/alga-arcoiris-petri.png";
 import JojobaPetri from "../assets/products/ativos/novas/jojoba-petri.jpg";
 
 export const productsData = [
@@ -74,12 +71,10 @@ export const productsData = [
       },
       {
         nome: "Melissa",
-        imagem: MelissaPetri,
         descricao: "Reduz a atividade anti-inflamatória, além de ação antioxidante.",
       },
       {
         nome: "Mirtilo",
-        imagem: MirtiloPetri,
         descricao: "Ação antioxidante.",
       },
     ],
@@ -141,7 +136,6 @@ export const productsData = [
       },
       {
         nome: "Alga Arco-Íris",
-        imagem: AlgaArcoIrisPetri,
         descricao: "Alga marinha com ação antioxidante e revitalizante.",
       },
       {
@@ -151,7 +145,6 @@ export const productsData = [
       },
       {
         nome: "Melissa",
-        imagem: MelissaPetri,
         descricao: "Reduz a atividade anti-inflamatória, além de ação antioxidante.",
       },
     ],
