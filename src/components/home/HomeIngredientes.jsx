@@ -28,52 +28,78 @@ const HomeIngredientes = ({ id }) => {
   const [aberto, setAberto] = useState(null);
   const fechar = useCallback(() => setAberto(null), []);
 
-  // Carrossel: setas avançam ~uma "página" de cards; ficam desativadas nas pontas
+  // Carrossel infinito: a lista é repetida 3 vezes e a rolagem fica sempre na cópia do meio.
+  // Ao passar do fim (ou do começo), a posição "salta" sem animação para o mesmo ativo na
+  // cópia do meio, então a sequência recomeça sem a pessoa perceber.
   const trilhoRef = useRef(null);
-  const [podeVoltar, setPodeVoltar] = useState(false);
-  const [podeAvancar, setPodeAvancar] = useState(true);
-  const atualizarSetas = useCallback(() => {
-    const el = trilhoRef.current;
-    if (!el) return;
-    setPodeVoltar(el.scrollLeft > 4);
-    setPodeAvancar(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
-  }, []);
-  useEffect(() => {
-    atualizarSetas();
-    window.addEventListener("resize", atualizarSetas);
-    return () => window.removeEventListener("resize", atualizarSetas);
-  }, [atualizarSetas]);
-  // Avança um ativo por clique (entra um, sai outro), com rolagem suave no tempo padrão do site
   const animando = useRef(false);
+  const passoDoCard = () => {
+    const el = trilhoRef.current;
+    return el?.firstElementChild ? el.firstElementChild.getBoundingClientRect().width + 24 : 0; // card + gap-6
+  };
+  const recentralizar = useCallback(() => {
+    const el = trilhoRef.current;
+    const passo = passoDoCard();
+    if (!el || !passo) return;
+    const largura = passo * ativos.length;
+    const snap = el.style.scrollSnapType;
+    el.style.scrollSnapType = "none";
+    if (el.scrollLeft < largura * 0.5) el.scrollLeft += largura;
+    else if (el.scrollLeft >= largura * 1.5) el.scrollLeft -= largura;
+    el.style.scrollSnapType = snap;
+  }, []);
+
+  // Começa no primeiro ativo da cópia do meio
+  useEffect(() => {
+    const el = trilhoRef.current;
+    const posicionar = () => {
+      const passo = passoDoCard();
+      if (!el || !passo) return;
+      const indice = Math.round(el.scrollLeft / passo) % ativos.length;
+      el.style.scrollSnapType = "none";
+      el.scrollLeft = (ativos.length + indice) * passo;
+      el.style.scrollSnapType = "";
+    };
+    posicionar();
+    window.addEventListener("resize", posicionar);
+    return () => window.removeEventListener("resize", posicionar);
+  }, []);
+
+  // Ao deslizar com o dedo/trackpad, recentraliza quando a rolagem para
+  const fimDaRolagem = useRef(null);
+  const aoRolar = () => {
+    if (animando.current) return;
+    clearTimeout(fimDaRolagem.current);
+    fimDaRolagem.current = setTimeout(recentralizar, 150);
+  };
+
+  // Avança um ativo por clique (entra um, sai outro), com rolagem suave no tempo padrão do site
   const mover = (direcao) => {
     const el = trilhoRef.current;
-    if (!el || animando.current || !el.firstElementChild) return;
-    const passo = el.firstElementChild.getBoundingClientRect().width + 24; // card + gap-6
+    const passo = passoDoCard();
+    if (!el || !passo || animando.current) return;
     const inicio = el.scrollLeft;
-    const indiceAtual = Math.round(inicio / passo);
-    const max = el.scrollWidth - el.clientWidth;
-    const destino = Math.min(max, Math.max(0, (indiceAtual + direcao) * passo));
-    if (Math.abs(destino - inicio) < 1) return;
+    const destino = (Math.round(inicio / passo) + direcao) * passo;
 
     animando.current = true;
     el.style.scrollSnapType = "none"; // o "encaixe" brigaria com a animação
     const duracao = DURACAO * 1000;
     const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
     const t0 = performance.now();
-    const passoAnim = (agora) => {
+    const quadro = (agora) => {
       const t = Math.min(1, (agora - t0) / duracao);
       el.scrollLeft = inicio + (destino - inicio) * easeInOut(t);
       if (t < 1) {
-        requestAnimationFrame(passoAnim);
+        requestAnimationFrame(quadro);
       } else {
         el.style.scrollSnapType = "";
         animando.current = false;
-        atualizarSetas();
+        recentralizar();
       }
     };
-    requestAnimationFrame(passoAnim);
+    requestAnimationFrame(quadro);
   };
-  const setaEstilo = (ativa) => ({
+  const setaEstilo = {
     width: "44px",
     height: "44px",
     display: "inline-flex",
@@ -81,9 +107,8 @@ const HomeIngredientes = ({ id }) => {
     justifyContent: "center",
     border: "var(--border-hairline) solid var(--neutral-900)",
     color: "var(--text-body)",
-    opacity: ativa ? 1 : 0.3,
-    cursor: ativa ? "pointer" : "default",
-  });
+    cursor: "pointer",
+  };
 
   return (
     <section id={id} style={{ background: "var(--surface-raised)" }}>
@@ -119,24 +144,28 @@ const HomeIngredientes = ({ id }) => {
         </div>
 
         <div className="flex justify-end gap-2 mt-10">
-          <button type="button" aria-label="Ativos anteriores" disabled={!podeVoltar} onClick={() => mover(-1)} style={setaEstilo(podeVoltar)}>
+          <button type="button" aria-label="Ativo anterior" onClick={() => mover(-1)} style={setaEstilo}>
             <ChevronLeft size={20} strokeWidth={1.5} />
           </button>
-          <button type="button" aria-label="Próximos ativos" disabled={!podeAvancar} onClick={() => mover(1)} style={setaEstilo(podeAvancar)}>
+          <button type="button" aria-label="Próximo ativo" onClick={() => mover(1)} style={setaEstilo}>
             <ChevronRight size={20} strokeWidth={1.5} />
           </button>
         </div>
 
         <div
           ref={trilhoRef}
-          onScroll={atualizarSetas}
+          onScroll={aoRolar}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory mt-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {ativos.map((ativo, index) => {
+          {[...ativos, ...ativos, ...ativos].map((ativo, i) => {
+            const index = i % ativos.length;
+            const copiaDoMeio = i >= ativos.length && i < ativos.length * 2;
             const saibaMais = ativosSaibaMais[ativo.nome];
             return (
               <motion.button
-                key={ativo.nome}
+                key={`${ativo.nome}-${i}`}
+                tabIndex={copiaDoMeio ? 0 : -1}
+                aria-hidden={copiaDoMeio ? undefined : true}
                 type="button"
                 onClick={() => setAberto({ ...saibaMais, imagem: ativo.imagem })}
                 className="group snap-start shrink-0 w-[44%] sm:w-[30%] lg:w-[calc((100%-4*1.5rem)/5)] flex flex-col gap-3 text-left"
