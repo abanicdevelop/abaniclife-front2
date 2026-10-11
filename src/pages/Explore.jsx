@@ -197,16 +197,9 @@ const sectionsData = [
   },
 ];
 
-// Foto da placa de Petri e produtos em que cada ativo aparece, a partir dos dados dos produtos
-const petriDo = (chave) =>
-  productsData.flatMap((p) => p.ativosCarousel ?? []).find((a) => a.nome === chave)?.imagem;
+// Produtos em que cada ativo aparece, a partir dos dados dos produtos
 const produtosCom = (chave) =>
   productsData.filter((p) => p.ativosCarousel?.some((a) => a.nome === chave));
-
-const rolarPara = (id) => {
-  const el = document.getElementById(id);
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 96, behavior: "smooth" });
-};
 
 const textoCorrido = {
   fontFamily: "var(--font-text)",
@@ -251,7 +244,7 @@ const Explore = () => {
   return (
     <main style={{ backgroundColor: "var(--abanic-cream)" }}>
       {/* Abertura */}
-      <section className="page-container pt-32 md:pt-40">
+      <section className="page-container pt-32 md:pt-40 pb-20">
         <SectionLabel meta="Princípios ativos">Explore</SectionLabel>
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mt-8">
           <h1
@@ -283,63 +276,6 @@ const Explore = () => {
             className="w-full h-full object-cover"
           />
         </motion.div>
-      </section>
-
-      {/* Índice visual */}
-      <section className="page-container py-20">
-        <SectionLabel meta={`${sectionsData.length} ativos`}>Nesta página</SectionLabel>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 mt-10">
-          {sectionsData.map((ativo, i) => (
-            <button
-              key={ativo.id}
-              type="button"
-              onClick={() => rolarPara(ativo.id)}
-              className="group flex items-center sm:flex-col sm:items-start gap-4 text-left"
-              style={{ cursor: "pointer" }}
-            >
-              <div className="shrink-0 w-24 sm:w-full aspect-square overflow-hidden">
-                <img src={petriDo(ativo.chave)} alt="" className="w-full h-full object-cover" />
-              </div>
-              <div className="flex flex-col gap-1">
-                <span
-                  style={{
-                    fontFamily: "var(--font-text)",
-                    fontSize: "var(--size-micro)",
-                    textTransform: "uppercase",
-                    letterSpacing: "var(--tracking-label-wide)",
-                    color: "var(--text-muted)",
-                  }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontWeight: "var(--weight-light)",
-                    fontSize: "var(--size-heading-2)",
-                    color: "var(--text-body)",
-                  }}
-                >
-                  {ativo.nome}
-                </span>
-                <span style={textoCorrido}>{ativo.beneficio}</span>
-                <span
-                  className="transition-colors group-hover:text-[var(--abanic-orange)]"
-                  style={{
-                    width: "fit-content",
-                    marginTop: "var(--space-1)",
-                    fontFamily: "var(--font-text)",
-                    fontSize: "var(--size-caption)",
-                    color: "var(--text-body)",
-                    borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
-                  }}
-                >
-                  Ler sobre o ativo ↓
-                </span>
-              </div>
-            </button>
-          ))}
-        </div>
       </section>
 
       {/* Um capítulo por ativo */}
