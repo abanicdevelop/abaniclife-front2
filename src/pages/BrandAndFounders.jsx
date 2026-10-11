@@ -4,6 +4,7 @@ import ImageWoman from "../assets/manifest/woman.png";
 import ImageHouse from "../assets/manifest/400X400.png";
 import ImageMountains from "../assets/manifest/mountains.png";
 import { useLocation } from "react-router-dom";
+import { DURACAO } from "../utils/motion";
 
 const BrandAndFounders = () => {
   const location = useLocation();
@@ -59,7 +60,7 @@ const BrandAndFounders = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 1, ease: "easeOut" },
+      transition: { duration: DURACAO, ease: "easeOut" },
     },
   });
 
@@ -68,7 +69,7 @@ const BrandAndFounders = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 1, delay: 0.3 },
+      transition: { duration: DURACAO, delay: 0.3 },
     },
   };
 

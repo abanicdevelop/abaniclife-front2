@@ -359,7 +359,7 @@ const Header = () => {
       {/* Mobile: gaveta lateral */}
       <div
         onClick={closeMobileMenu}
-        className={`lg:hidden fixed inset-0 transition-opacity duration-300 ${
+        className={`lg:hidden fixed inset-0 transition-opacity duration-[450ms] ${
           mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         style={{ background: "var(--ink-a40)", zIndex: 60 }}

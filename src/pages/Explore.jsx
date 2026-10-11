@@ -10,6 +10,7 @@ import HeroAtivos from "../assets/products/principios-ativos.png";
 import rhodophytas from "../assets/explore/rhodophytas.jpeg";
 import bellis from "../assets/explore/belis.jpg";
 import evodia from "../assets/explore/evodia.jpg";
+import { DURACAO } from "../utils/motion";
 
 const sectionsData = [
   {
@@ -268,7 +269,7 @@ const Explore = () => {
           className="w-full overflow-hidden mt-12 aspect-[4/3] md:aspect-[21/9]"
           style={{ background: "var(--neutral-0)" }}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 0.9 } }}
+          animate={{ opacity: 1, transition: { duration: DURACAO } }}
         >
           <img
             src={HeroAtivos}

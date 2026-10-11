@@ -6,6 +6,7 @@ import SmartChoiceImg1 from "../assets/smartchoice/1.jpg";
 import SmartChoiceImg2 from "../assets/smartchoice/2.png";
 import SmartChoiceImg3 from "../assets/smartchoice/3.jpg";
 import SmartChoiceImg4 from "../assets/smartchoice/4.png";
+import { DURACAO } from "../utils/motion";
 
 const smartChoices = [
   {
@@ -73,7 +74,7 @@ const SmartChoiceSection = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 1, ease: "easeOut" },
+      transition: { duration: DURACAO, ease: "easeOut" },
     },
   });
 
@@ -82,7 +83,7 @@ const SmartChoiceSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 1, delay: 0.3 },
+      transition: { duration: DURACAO, delay: 0.3 },
     },
   };
 

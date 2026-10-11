@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { SectionLabel } from "./design-system/SectionLabel";
+import { DURACAO } from "../utils/motion";
 
 /** Popup "Saiba mais" de um princípio ativo. Fecha com Esc, clique fora ou no X. */
 const AtivoModal = ({ ativo, onClose }) => {
@@ -31,7 +32,7 @@ const AtivoModal = ({ ativo, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: DURACAO }}
         >
           <motion.div
             role="dialog"
@@ -47,7 +48,7 @@ const AtivoModal = ({ ativo, onClose }) => {
             initial={{ y: 24, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 24, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.2, 0, 0, 1] }}
+            transition={{ duration: DURACAO, ease: [0.2, 0, 0, 1] }}
           >
             <button
               ref={closeRef}

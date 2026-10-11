@@ -5,6 +5,7 @@ import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
 import FiqueLigado from "../assets/Fiqueligado.png";
 import { motion } from "framer-motion";
+import { DURACAO } from "../utils/motion";
 
 // Variants reutilizáveis (mesmos usados no BrandAndFounders)
 const fadeUp = {
@@ -12,7 +13,7 @@ const fadeUp = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1, ease: "easeOut" },
+    transition: { duration: DURACAO, ease: "easeOut" },
   },
 };
 
@@ -21,7 +22,7 @@ const fadeLeft = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 1, ease: "easeOut" },
+    transition: { duration: DURACAO, ease: "easeOut" },
   },
 };
 

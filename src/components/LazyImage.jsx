@@ -68,7 +68,7 @@ const LazyImage = ({
         <img
           src={src}
           alt={alt}
-          className={`w-full h-full object-cover transition-opacity duration-300 ${
+          className={`w-full h-full object-cover transition-opacity duration-[450ms] ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           onLoad={handleLoad}

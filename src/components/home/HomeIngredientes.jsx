@@ -5,6 +5,7 @@ import { SectionLabel } from "../design-system/SectionLabel";
 import AtivoModal from "../AtivoModal";
 import { productsData } from "../../data/productsData";
 import { ativosSaibaMais } from "../../data/ativosSaibaMais";
+import { DURACAO } from "../../utils/motion";
 
 // Ativos em destaque na home, na ordem em que aparecem; imagens vêm do carrossel de cada produto.
 const DESTAQUES = [
@@ -67,7 +68,7 @@ const HomeIngredientes = ({ id }) => {
                 className="group flex flex-col gap-3 text-left"
                 style={{ cursor: "pointer" }}
                 initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: index * 0.06 } }}
+                whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: index * 0.06 } }}
                 viewport={{ once: true }}
               >
                 <div className="w-full aspect-square overflow-hidden">

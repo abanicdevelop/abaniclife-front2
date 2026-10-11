@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useLayoutEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { DURACAO, DURACAO_SAIDA, EASE_ENTRADA, EASE_SAIDA } from "./utils/motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { LanguageProvider } from "./context/LanguageContext";
@@ -78,8 +79,8 @@ const AnimatedRoutes = () => {
       <motion.div
         key={location.pathname}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: 0.45, ease: [0.2, 0, 0, 1] } }}
-        exit={{ opacity: 0, transition: { duration: 0.25, ease: [0.4, 0, 1, 1] } }}
+        animate={{ opacity: 1, transition: { duration: DURACAO, ease: EASE_ENTRADA } }}
+        exit={{ opacity: 0, transition: { duration: DURACAO_SAIDA, ease: EASE_SAIDA } }}
       >
         <ComecarDoTopo />
         <Suspense fallback={<PageFallback />}>

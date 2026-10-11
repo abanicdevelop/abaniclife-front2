@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../components/ui/button";
+import { DURACAO } from "../utils/motion";
 
 const BlogPostPage = () => {
   const { id } = useParams();
@@ -40,7 +41,7 @@ const BlogPostPage = () => {
         alt={article.title}
         initial={{ x: -80, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: DURACAO, ease: "easeOut" }}
         className="w-full md:w-1/2 lg:w-5/12 md:float-left md:mr-6 mb-6 object-contain shadow-lg"
       />
 
@@ -49,7 +50,7 @@ const BlogPostPage = () => {
         key={`content-${id}`}
         initial={{ y: 40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+        transition={{ duration: DURACAO, ease: "easeOut", delay: 0.2 }}
         className="text-left text-gray-800 text-[17px] md:text-[18px] leading-relaxed"
       >
         <p className="text-sm text-gray-500 mb-2">{article.category}</p>

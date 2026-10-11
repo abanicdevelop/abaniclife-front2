@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { DURACAO } from "../utils/motion";
 
 const ProductActive = () => {
   return (
     <motion.p
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: DURACAO, ease: "easeOut" }}
       viewport={{ once: true }}
       className="
            mt-40

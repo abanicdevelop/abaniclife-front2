@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import HeroImage from "../assets/home/MulherCreme.jpg";
 import { SectionLabel } from "./design-system/SectionLabel";
+import { DURACAO } from "../utils/motion";
 
 const scrollTo = (id) => {
   const section = document.getElementById(id);
@@ -21,7 +22,7 @@ const ProductBanner = () => {
         alt="Pele radiante e hidratada"
         className="absolute inset-0 w-full h-full object-cover object-[center_35%]"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: 0.9 } }}
+        animate={{ opacity: 1, transition: { duration: DURACAO } }}
       />
       {/* escurece só a base da foto para o texto ficar legível */}
       <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/10 to-transparent" />
@@ -29,7 +30,7 @@ const ProductBanner = () => {
       <motion.div
         className="page-container relative h-full flex flex-col justify-end pb-14 md:pb-20"
         initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0, transition: { duration: 0.9, delay: 0.2 } }}
+        animate={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: 0.2 } }}
       >
         <SectionLabel rule={false} inverse size="13px">
           A linha

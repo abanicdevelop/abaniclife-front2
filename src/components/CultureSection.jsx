@@ -5,6 +5,7 @@ import { Card } from "./ui/card";
 import { Link } from "react-router-dom";
 import { articles } from "../data/articles";
 import { motion } from "framer-motion";
+import { DURACAO } from "../utils/motion";
 
 const CultureSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,7 +18,7 @@ const CultureSection = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 1, ease: "easeOut" },
+      transition: { duration: DURACAO, ease: "easeOut" },
     },
   };
 
@@ -26,7 +27,7 @@ const CultureSection = () => {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.9, ease: "easeOut" },
+      transition: { duration: DURACAO, ease: "easeOut" },
     },
   };
 

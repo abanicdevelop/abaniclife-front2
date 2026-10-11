@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import LivreDeCrueldade from "../assets/home/livre-de-crueldade.jpg";
+import { DURACAO } from "../utils/motion";
 
 const MosaicoProdutos = () => (
   <section className="py-12" style={{ backgroundColor: "var(--abanic-cream)" }}>
     <motion.figure
       className="page-container"
       initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1, transition: { duration: 0.9 } }}
+      whileInView={{ opacity: 1, transition: { duration: DURACAO } }}
       viewport={{ once: true }}
     >
       <div className="relative w-full overflow-hidden aspect-[4/3] md:aspect-[2/1] max-h-[760px]">

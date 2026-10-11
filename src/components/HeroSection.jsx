@@ -70,7 +70,7 @@ const HeroSection = () => {
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute inset-0 transition-opacity  duration-1000 ease-in-out ${
+            className={`absolute inset-0 transition-opacity duration-[450ms] ease-in-out ${
               index === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >

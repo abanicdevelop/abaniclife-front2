@@ -8,6 +8,7 @@ import {
   RefreshCw,
   Headphones,
 } from "lucide-react";
+import { DURACAO } from "../utils/motion";
 
 const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -28,7 +29,7 @@ const Faq = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: DURACAO, ease: "easeOut" },
     },
   };
 
@@ -307,7 +308,7 @@ const Faq = () => {
             key={selectedCategory}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: DURACAO }}
             className="space-y-1"
           >
             {faqData[selectedCategory].questions.map((item, qIndex) => {
