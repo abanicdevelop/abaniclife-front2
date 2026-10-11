@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import { SectionLabel } from "../components/design-system/SectionLabel";
-import HomeVitrine from "../components/home/HomeVitrine";
-import LivreDeCrueldadeDestaque from "../assets/home/livre-de-crueldade.jpg";
 import SmartChoiceImg0 from "../assets/smartchoice/0.jpg";
 import SmartChoiceImg1 from "../assets/smartchoice/1.jpg";
 import SmartChoiceImg2 from "../assets/smartchoice/2.png";
@@ -27,8 +25,6 @@ const smartChoices = [
   {
     title: "Livre de crueldade",
     image: SmartChoiceImg2,
-    // compromisso em destaque: ganha a foto do laboratório em largura total
-    destaque: LivreDeCrueldadeDestaque,
     text: `A marca não realiza testes em animais e desenvolve suas fórmulas
     conforme regulamentações internacionais e legislações vigentes,
     garantindo altos padrões de segurança.`,
@@ -59,83 +55,69 @@ const toId = (title) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-const hairline = "var(--border-hairline) solid var(--border-default)";
+// Mesmo layout da página do Manifesto: blocos de foto quadrada + texto, alternando de lado
+const imageVariants = (reverse) => ({
+  hidden: { opacity: 0, x: reverse ? 32 : -32 },
+  visible: { opacity: 1, x: 0, transition: { duration: DURACAO, ease: "easeOut" } },
+});
+
+const textVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: DURACAO, delay: 0.15 } },
+};
 
 const SmartChoiceSection = () => (
-  <main style={{ backgroundColor: "var(--abanic-cream)" }}>
-    {/* Abertura */}
-    <section className="page-container pt-32 md:pt-40 pb-16">
-      <SectionLabel meta="Compromissos">Explore</SectionLabel>
-      <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mt-8">
-        <h1
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: "var(--weight-light)",
-            fontSize: "clamp(44px, 6vw, 88px)",
-            lineHeight: 1.02,
-            letterSpacing: "var(--tracking-display)",
-            color: "var(--text-body)",
-          }}
-        >
-          Escolha inteligente
-        </h1>
-        <p
-          style={{
-            fontFamily: "var(--font-text)",
-            fontSize: "var(--size-body)",
-            lineHeight: "var(--leading-body)",
-            color: "var(--text-muted)",
-            maxWidth: "46ch",
-          }}
-        >
-          Os compromissos que guiam cada fórmula ABANIC, da escolha dos ingredientes às pessoas
-          com quem trabalhamos.
-        </p>
-      </div>
-    </section>
-
-    {/* Os 5 compromissos em lista numerada */}
-    <section className="page-container pb-24">
-      <ol style={{ borderBottom: hairline }}>
-        {smartChoices.map((choice, i) => (
-          <motion.li
+  <section style={{ backgroundColor: "var(--abanic-cream)" }}>
+    <div className="page-container pt-32 md:pt-40 pb-24 space-y-24 md:space-y-32">
+      {smartChoices.map((choice, i) => {
+        const reverse = i % 2 === 1;
+        const Titulo = i === 0 ? "h1" : "h2";
+        return (
+          <div
             key={choice.title}
             id={toId(choice.title)}
-            className="scroll-mt-32 py-10 md:py-12"
-            style={{ borderTop: hairline }}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO } }}
-            viewport={{ once: true, amount: 0.3 }}
+            className={`scroll-mt-32 flex flex-col ${
+              reverse ? "md:flex-row-reverse" : "md:flex-row"
+            } md:items-center gap-10 md:gap-20`}
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
-              <span
-                className="md:col-span-1"
+            <motion.div
+              className="w-full md:w-5/12 md:max-w-[640px] shrink-0"
+              variants={imageVariants(reverse)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <div className="w-full aspect-square overflow-hidden">
+                <img src={choice.image} alt="" className="w-full h-full object-cover" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="flex-1 flex flex-col"
+              variants={textVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.4 }}
+            >
+              {i === 0 && <SectionLabel rule={false}>Escolha inteligente</SectionLabel>}
+              <Titulo
                 style={{
-                  fontFamily: "var(--font-text)",
-                  fontSize: "var(--size-caption)",
-                  letterSpacing: "var(--tracking-label)",
-                  color: "var(--text-muted)",
-                }}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h2
-                className="md:col-span-4"
-                style={{
+                  marginTop: i === 0 ? "var(--space-4)" : 0,
+                  marginBottom: "var(--space-6)",
                   fontFamily: "var(--font-display)",
                   fontWeight: "var(--weight-light)",
-                  fontSize: "var(--size-heading-1)",
+                  fontSize: "clamp(32px, 4vw, 56px)",
                   lineHeight: "var(--leading-display)",
+                  letterSpacing: "var(--tracking-display)",
                   color: "var(--text-body)",
                 }}
               >
                 {choice.title}
-              </h2>
+              </Titulo>
               <p
-                className="md:col-span-5"
                 style={{
                   fontFamily: "var(--font-text)",
-                  fontSize: "var(--size-body)",
+                  fontSize: "var(--size-body-lg)",
                   lineHeight: "var(--leading-body)",
                   color: "var(--text-body)",
                   maxWidth: "56ch",
@@ -143,31 +125,12 @@ const SmartChoiceSection = () => (
               >
                 {normalizeText(choice.text)}
               </p>
-              {!choice.destaque && (
-                <div className="md:col-span-2 w-full max-w-[220px] md:max-w-none aspect-square overflow-hidden">
-                  <img src={choice.image} alt="" className="w-full h-full object-cover" />
-                </div>
-              )}
-            </div>
-
-            {choice.destaque && (
-              <div className="w-full overflow-hidden mt-10 aspect-[4/3] md:aspect-[21/9]">
-                <img
-                  src={choice.destaque}
-                  alt="Pesquisadora formulando cosméticos em laboratório"
-                  className="w-full h-full object-cover object-[72%_center] md:object-[center_40%]"
-                  loading="lazy"
-                />
-              </div>
-            )}
-          </motion.li>
-        ))}
-      </ol>
-    </section>
-
-    {/* Fechamento: dos compromissos aos produtos */}
-    <HomeVitrine />
-  </main>
+            </motion.div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
 );
 
 export default SmartChoiceSection;
