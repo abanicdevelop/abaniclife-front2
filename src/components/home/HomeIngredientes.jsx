@@ -49,9 +49,8 @@ const HomeIngredientes = ({ id }) => {
     el.style.scrollSnapType = snap;
   }, []);
 
-  // Posição atual (para o indicador "03 / 09") e altura da foto (para centralizar as setas nela)
+  // Posição atual (para o indicador "03 / 09")
   const [atual, setAtual] = useState(0);
-  const [alturaFoto, setAlturaFoto] = useState(0);
   const atualizarPosicao = () => {
     const el = trilhoRef.current;
     const passo = passoDoCard();
@@ -65,7 +64,6 @@ const HomeIngredientes = ({ id }) => {
     const posicionar = () => {
       const passo = passoDoCard();
       if (!el || !passo) return;
-      setAlturaFoto(passo - 24);
       const indice = Math.round(el.scrollLeft / passo) % ativos.length;
       el.style.scrollSnapType = "none";
       el.scrollLeft = (ativos.length + indice) * passo;
@@ -112,24 +110,16 @@ const HomeIngredientes = ({ id }) => {
     };
     requestAnimationFrame(quadro);
   };
-  // Setas sobre as bordas do carrossel, na altura do meio da foto: metade fica na margem da
-  // página, metade sobre o canto da placa (área de fundo), sem cobrir o ingrediente
-  const setaEstilo = (lado) => ({
-    position: "absolute",
-    top: alturaFoto ? alturaFoto / 2 : "35%",
-    [lado]: 0,
-    transform: `translate(${lado === "left" ? "-50%" : "50%"}, -50%)`,
-    zIndex: 2,
+  const setaEstilo = {
     width: "48px",
     height: "48px",
+    display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    background: "var(--abanic-cream)",
     border: "var(--border-hairline) solid var(--neutral-900)",
-    boxShadow: "var(--shadow-1)",
     color: "var(--text-body)",
     cursor: "pointer",
-  });
+  };
 
   return (
     <section id={id} style={{ background: "var(--surface-raised)" }}>
@@ -164,13 +154,13 @@ const HomeIngredientes = ({ id }) => {
           </p>
         </div>
 
-        <div className="relative mt-12">
+        <div className="flex justify-end gap-2 mt-10">
           <button
             type="button"
             aria-label="Ativo anterior"
             onClick={() => mover(-1)}
-            className="hidden sm:inline-flex transition-colors hover:text-[var(--abanic-orange)]"
-            style={setaEstilo("left")}
+            className="transition-colors hover:text-[var(--abanic-orange)]"
+            style={setaEstilo}
           >
             <ChevronLeft size={22} strokeWidth={1.5} />
           </button>
@@ -178,16 +168,17 @@ const HomeIngredientes = ({ id }) => {
             type="button"
             aria-label="Próximo ativo"
             onClick={() => mover(1)}
-            className="hidden sm:inline-flex transition-colors hover:text-[var(--abanic-orange)]"
-            style={setaEstilo("right")}
+            className="transition-colors hover:text-[var(--abanic-orange)]"
+            style={setaEstilo}
           >
             <ChevronRight size={22} strokeWidth={1.5} />
           </button>
+        </div>
 
         <div
           ref={trilhoRef}
           onScroll={aoRolar}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory mt-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {[...ativos, ...ativos, ...ativos].map((ativo, i) => {
             const index = i % ativos.length;
@@ -235,7 +226,6 @@ const HomeIngredientes = ({ id }) => {
               </motion.button>
             );
           })}
-        </div>
         </div>
 
         {/* Indicador de posição: linha de progresso + "03 / 09" */}
