@@ -1,14 +1,17 @@
 import GelImage from "../assets/products/gel-limpeza.png";
 import SerumImage from "../assets/products/serum-clareador.png";
 import CremeImage from "../assets/products/creme-fps50.png";
-// Placas de Petri no modelo novo (fundo creme #F7F3EC). Melissa, Mirtilo e Alga
-// Arco-Íris ficam sem imagem até chegarem as fotos novas.
+// Placas de Petri no modelo novo (fundo creme #F7F3EC).
 import AlgasVermelhasPetri from "../assets/products/ativos/novas/algas-vermelhas-petri.jpg";
 import MargaridaPetri from "../assets/products/ativos/novas/margarida-petri.jpg";
 import CalendulaPetri from "../assets/products/ativos/novas/calendula-petri.jpg";
 import EvodiaPetri from "../assets/products/ativos/novas/evodia-petri.jpg";
 import EsqualanoPetri from "../assets/products/ativos/novas/esqualano-petri.jpg";
 import JojobaPetri from "../assets/products/ativos/novas/jojoba-petri.jpg";
+import MelissaPetri from "../assets/products/ativos/novas/melissa-petri.jpg";
+import MirtiloPetri from "../assets/products/ativos/novas/mirtilo-petri.jpg";
+import AlgaArcoIrisPetri from "../assets/products/ativos/novas/alga-arcoiris-petri.jpg";
+import MandiocaPetri from "../assets/products/ativos/novas/mandioca-petri.jpg";
 
 export const productsData = [
   {
@@ -71,11 +74,18 @@ export const productsData = [
       },
       {
         nome: "Melissa",
+        imagem: MelissaPetri,
         descricao: "Reduz a atividade anti-inflamatória, além de ação antioxidante.",
       },
       {
         nome: "Mirtilo",
+        imagem: MirtiloPetri,
         descricao: "Ação antioxidante.",
+      },
+      {
+        nome: "Mandioca",
+        imagem: MandiocaPetri,
+        descricao: "Ação hidratante.",
       },
     ],
   },
@@ -136,6 +146,7 @@ export const productsData = [
       },
       {
         nome: "Alga Arco-Íris",
+        imagem: AlgaArcoIrisPetri,
         descricao: "Alga marinha com ação antioxidante e revitalizante.",
       },
       {
@@ -145,6 +156,7 @@ export const productsData = [
       },
       {
         nome: "Melissa",
+        imagem: MelissaPetri,
         descricao: "Reduz a atividade anti-inflamatória, além de ação antioxidante.",
       },
     ],

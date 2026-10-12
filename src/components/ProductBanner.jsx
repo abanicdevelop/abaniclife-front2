@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import HeroImage from "../assets/home/MulherCreme.jpg";
+import HeroImage from "../assets/products/banner-linha.jpg";
 import { SectionLabel } from "./design-system/SectionLabel";
 import { DURACAO } from "../utils/motion";
 
