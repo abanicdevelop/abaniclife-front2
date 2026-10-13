@@ -3,7 +3,7 @@ import { Mail, CheckCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent } from "./ui/card";
-import FiqueLigado from "../assets/Fiqueligado.png";
+import FiqueLigado from "../assets/Fiqueligado.webp";
 import { motion } from "framer-motion";
 import { DURACAO } from "../utils/motion";
 

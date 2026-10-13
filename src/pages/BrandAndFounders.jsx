@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import ImageWoman from "../assets/manifest/woman.png";
-import ImageHouse from "../assets/manifest/400X400.png";
-import ImageMountains from "../assets/manifest/mountains.png";
+import ImageWoman from "../assets/manifest/woman.webp";
+import ImageHouse from "../assets/manifest/400X400.webp";
+import ImageMountains from "../assets/manifest/mountains.webp";
 import { useLocation } from "react-router-dom";
 import { DURACAO } from "../utils/motion";
 import { SectionLabel } from "../components/design-system/SectionLabel";

@@ -6,10 +6,10 @@ import HomeVitrine from "../components/home/HomeVitrine";
 import { productsData } from "../data/productsData";
 import { ativosSaibaMais } from "../data/ativosSaibaMais";
 import { passos } from "../data/rotina";
-import HeroAtivos from "../assets/products/principios-ativos.png";
-import rhodophytas from "../assets/explore/rhodophytas.jpeg";
-import bellis from "../assets/explore/belis.jpg";
-import evodia from "../assets/explore/evodia.jpg";
+import HeroAtivos from "../assets/products/principios-ativos.webp";
+import rhodophytas from "../assets/explore/rhodophytas.webp";
+import bellis from "../assets/explore/belis.webp";
+import evodia from "../assets/explore/evodia.webp";
 import { DURACAO } from "../utils/motion";
 
 const sectionsData = [

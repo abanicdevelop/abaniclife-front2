@@ -1,7 +1,7 @@
-import ArticleImageOne from "../assets/blog/article1.png";
-import ArticleImagetwo from "../assets/blog/article2.png";
-import ArticleImageThree from "../assets/blog/article3.png";
-import ArticleImageFour from "../assets/blog/article4.png";
+import ArticleImageOne from "../assets/blog/article1.webp";
+import ArticleImagetwo from "../assets/blog/article2.webp";
+import ArticleImageThree from "../assets/blog/article3.webp";
+import ArticleImageFour from "../assets/blog/article4.webp";
 export const articles = [
   {
     id: 1,

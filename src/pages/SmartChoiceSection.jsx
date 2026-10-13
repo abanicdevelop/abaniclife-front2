@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { SectionLabel } from "../components/design-system/SectionLabel";
 import SmartChoiceImg0 from "../assets/smartchoice/0.jpg";
-import SmartChoiceImg1 from "../assets/smartchoice/1.jpg";
-import SmartChoiceImg2 from "../assets/smartchoice/2.png";
-import SmartChoiceImg3 from "../assets/smartchoice/3.jpg";
-import SmartChoiceImg4 from "../assets/smartchoice/4.png";
+import SmartChoiceImg1 from "../assets/smartchoice/1.webp";
+import SmartChoiceImg2 from "../assets/smartchoice/2.webp";
+import SmartChoiceImg3 from "../assets/smartchoice/3.webp";
+import SmartChoiceImg4 from "../assets/smartchoice/4.webp";
 import { DURACAO } from "../utils/motion";
 
 const smartChoices = [

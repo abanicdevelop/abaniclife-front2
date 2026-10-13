@@ -1,17 +1,17 @@
-import GelImage from "../assets/products/gel-limpeza.png";
-import SerumImage from "../assets/products/serum-clareador.png";
-import CremeImage from "../assets/products/creme-fps50.png";
+import GelImage from "../assets/products/gel-limpeza.webp";
+import SerumImage from "../assets/products/serum-clareador.webp";
+import CremeImage from "../assets/products/creme-fps50.webp";
 // Placas de Petri no modelo novo (fundo creme #F7F3EC).
-import AlgasVermelhasPetri from "../assets/products/ativos/novas/algas-vermelhas-petri.jpg";
-import MargaridaPetri from "../assets/products/ativos/novas/margarida-petri.jpg";
-import CalendulaPetri from "../assets/products/ativos/novas/calendula-petri.jpg";
-import EvodiaPetri from "../assets/products/ativos/novas/evodia-petri.jpg";
-import EsqualanoPetri from "../assets/products/ativos/novas/esqualano-petri.jpg";
-import JojobaPetri from "../assets/products/ativos/novas/jojoba-petri.jpg";
-import MelissaPetri from "../assets/products/ativos/novas/melissa-petri.jpg";
-import MirtiloPetri from "../assets/products/ativos/novas/mirtilo-petri.jpg";
-import AlgaArcoIrisPetri from "../assets/products/ativos/novas/alga-arcoiris-petri.jpg";
-import MandiocaPetri from "../assets/products/ativos/novas/mandioca-petri.jpg";
+import AlgasVermelhasPetri from "../assets/products/ativos/novas/algas-vermelhas-petri.webp";
+import MargaridaPetri from "../assets/products/ativos/novas/margarida-petri.webp";
+import CalendulaPetri from "../assets/products/ativos/novas/calendula-petri.webp";
+import EvodiaPetri from "../assets/products/ativos/novas/evodia-petri.webp";
+import EsqualanoPetri from "../assets/products/ativos/novas/esqualano-petri.webp";
+import JojobaPetri from "../assets/products/ativos/novas/jojoba-petri.webp";
+import MelissaPetri from "../assets/products/ativos/novas/melissa-petri.webp";
+import MirtiloPetri from "../assets/products/ativos/novas/mirtilo-petri.webp";
+import AlgaArcoIrisPetri from "../assets/products/ativos/novas/alga-arcoiris-petri.webp";
+import MandiocaPetri from "../assets/products/ativos/novas/mandioca-petri.webp";
 
 export const productsData = [
   {

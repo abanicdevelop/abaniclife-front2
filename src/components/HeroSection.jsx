@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
-import Banner1 from "../assets/Bannerteste1.jpg";
-import Banner3 from "../assets/Banner3.jpg";
-import Banner2 from "../assets/Banner2.jpg";
+import Banner1 from "../assets/Bannerteste1.webp";
+import Banner3 from "../assets/Banner3.webp";
+import Banner2 from "../assets/Banner2.webp";
 import { trackEvent } from "../utils/analytics";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
