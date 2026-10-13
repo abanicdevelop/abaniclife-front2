@@ -1,30 +1,10 @@
-import React, { useState } from "react";
-import { Mail, CheckCircle } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Card, CardContent } from "./ui/card";
-import FiqueLigado from "../assets/Fiqueligado.webp";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { SectionLabel } from "./design-system/SectionLabel";
+import { Input } from "./design-system/Input";
+import { Button } from "./design-system/Button";
 import { DURACAO } from "../utils/motion";
-
-// Variants reutilizáveis (mesmos usados no BrandAndFounders)
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: DURACAO, ease: "easeOut" },
-  },
-};
-
-const fadeLeft = {
-  hidden: { opacity: 0, x: -100 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: DURACAO, ease: "easeOut" },
-  },
-};
 
 const NewsletterSection = () => {
   const [email, setEmail] = useState("");
@@ -104,180 +84,98 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section
-      className="py-16"
-      style={{ backgroundColor: "#A4B6C0" }}
-      id="newsletter"
-    >
-      <div className="page-container">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* 📌 Image Side com animação */}
-          <motion.div
-            variants={fadeLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="relative"
+    <section id="newsletter" style={{ backgroundColor: "var(--abanic-mist)" }}>
+      <motion.div
+        className="page-container py-20 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO } }}
+        viewport={{ once: true, amount: 0.1 }}
+      >
+        <div className="lg:col-span-6">
+          <SectionLabel rule={false}>Newsletter</SectionLabel>
+          <h2
+            style={{
+              marginTop: "var(--space-4)",
+              fontFamily: "var(--font-display)",
+              fontWeight: "var(--weight-light)",
+              fontSize: "clamp(36px, 4.5vw, 64px)",
+              lineHeight: "var(--leading-display)",
+              letterSpacing: "var(--tracking-display)",
+              color: "var(--text-body)",
+            }}
           >
-            <div
-              className="relative overflow-hidden shadow-2xl flex items-center justify-center h-72 md:h-80 lg:h-[420px]"
-              style={{ backgroundColor: "#A1B6C1" }}
-            >
-              <img
-                src={FiqueLigado}
-                alt="Imagem Newsletter"
-                className="w-auto h-auto max-w-full max-h-full"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
-            </div>
-
-            {/* Floating Elements */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-orange-500 rounded-full opacity-20 animate-pulse" />
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-blue-500 rounded-full opacity-30 animate-bounce" />
-          </motion.div>
-
-          {/* 📌 Content Side animado */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="space-y-8"
+            Fique por dentro
+          </h2>
+          <p
+            style={{
+              marginTop: "var(--space-4)",
+              fontFamily: "var(--font-text)",
+              fontSize: "var(--size-body-lg)",
+              lineHeight: "var(--leading-body)",
+              color: "var(--text-body)",
+              maxWidth: "46ch",
+            }}
           >
-            <div>
-              <h2
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-6"
+            Receba em primeira mão as novidades sobre lançamentos, edições especiais e eventos da
+            marca.
+          </p>
+        </div>
+
+        <div className="lg:col-span-6">
+          {!isSubscribed ? (
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input label="Nome" placeholder="Seu nome" value={nome} onChange={(e) => setNome(e.target.value)} />
+                <Input
+                  label="E-mail"
+                  type="email"
+                  placeholder="seu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <Button type="submit" variant="primary" size="lg" disabled={isLoading || !nome || !email} fullWidth>
+                {isLoading ? "Inscrevendo..." : "Assinar"}
+              </Button>
+              <p
                 style={{
-                  fontFamily: '"Space Grotesk", sans-serif',
-                  fontWeight: 400,
-                  color: "var(--abanic-gray-dark)",
+                  fontFamily: "var(--font-text)",
+                  fontSize: "var(--size-caption)",
+                  lineHeight: "var(--leading-body)",
+                  color: "var(--text-body)",
                 }}
               >
-                Fique por <span className="abanic-orange">dentro</span>
-              </h2>
+                Seus dados são tratados de acordo com a{" "}
+                <Link to="/privacy-policy" style={{ borderBottom: "var(--border-hairline) solid currentColor" }}>
+                  Política de Privacidade
+                </Link>
+                . Você pode cancelar a assinatura a qualquer momento.
+              </p>
+              {errorMessage && (
+                <p role="alert" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--status-critical)" }}>
+                  {errorMessage}
+                </p>
+              )}
+            </form>
+          ) : (
+            <div role="status" style={{ borderTop: "var(--border-hairline) solid var(--neutral-900)", paddingTop: "var(--space-5)" }}>
               <p
-                className="mb-4 text-left text-base sm:text-[17px] md:text-[18px]"
-                style={{ color: "var(--abanic-gray-dark)" }}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: "var(--weight-light)",
+                  fontSize: "var(--size-heading-2)",
+                  color: "var(--text-body)",
+                }}
               >
-                Assine a nossa newsletter e receba em primeira mão as
-                atualizações sobre lançamentos, edições especiais e eventos da
-                marca.
+                Inscrição realizada.
+              </p>
+              <p style={{ marginTop: "var(--space-2)", fontFamily: "var(--font-text)", fontSize: "var(--size-body)", color: "var(--text-body)" }}>
+                Obrigado por se inscrever. Você vai receber nossas novidades em breve.
               </p>
             </div>
-
-            {/* 📌 Card animado */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  {!isSubscribed ? (
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div className="flex items-center space-x-2 mb-4">
-                        <Mail className="h-5 w-5 text-orange-500" />
-                        <span
-                          className="font-semibold"
-                          style={{ color: "var(--abanic-gray-dark)" }}
-                        >
-                          Inscreva-se na nossa newsletter
-                        </span>
-                      </div>
-
-                      <div className="flex flex-col md:flex-row gap-3">
-                        <div className="flex flex-col gap-3 flex-1">
-                          <Input
-                            type="text"
-                            placeholder="Seu nome"
-                            value={nome}
-                            onChange={(e) => setNome(e.target.value)}
-                            required
-                            className="border-gray-300 focus:ring-2 focus:ring-orange-500"
-                          />
-
-                          <Input
-                            type="email"
-                            placeholder="Seu melhor e-mail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="border-gray-300 focus:ring-2 focus:ring-orange-500"
-                          />
-                        </div>
-
-                        <Button
-                          type="submit"
-                          disabled={isLoading || !nome || !email}
-                          className="text-white px-8 py-3 font-semibold transition-smooth hover-lift self-center md:self-end"
-                          style={{
-                            height: "100%",
-                            backgroundColor:
-                              isLoading || !nome || !email
-                                ? "#cccccc"
-                                : "#fc622b",
-                          }}
-                        >
-                          {isLoading ? (
-                            <div className="flex items-center space-x-2">
-                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                              <span>Inscrevendo...</span>
-                            </div>
-                          ) : (
-                            "Assinar"
-                          )}
-                        </Button>
-                      </div>
-
-                      <p className="text-gray-700 mb-4 text-left text-sm sm:text-[15px] md:text-[17px]">
-                        Segurança de dados de acordo com a Política de
-                        Privacidade. A assinatura poderá ser cancelada a
-                        qualquer momento.
-                      </p>
-
-                      {errorMessage && (
-                        <div className="text-red-600 text-sm text-center mt-2">
-                          {errorMessage}
-                        </div>
-                      )}
-                    </form>
-                  ) : (
-                    <div className="text-center py-4">
-                      <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold text-abanic-gray-dark mb-2">
-                        Inscrição realizada com sucesso!
-                      </h3>
-                      <p className="text-abanic-gray">
-                        Obrigado por se inscrever. Você receberá nossas
-                        novidades em breve.
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* 📌 Social proof animado */}
-            <motion.div
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              className="flex items-center space-x-4 text-sm text-abanic-gray"
-            >
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 bg-linear-to-br from-orange-400 to-pink-400 rounded-full border-2 border-white"
-                  />
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
+          )}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,17 +1,6 @@
 import { useState, useEffect } from "react";
-import {
-  Facebook,
-  Instagram,
-  Twitter,
-  Youtube,
-  Mail,
-  Phone,
-  MapPin,
-  Truck,
-  RotateCcw,
-  Sparkles,
-  ShieldCheck,
-} from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowUp, Mail, MapPin, Truck, RotateCcw, Sparkles, ShieldCheck } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext"; // ajuste o caminho conforme sua estrutura
 import AbanicLogo from "../assets/footer/AbanicLogo.png";
 import AbanicLogoName from "../assets/footer/AbanicLogoName.png";
@@ -101,7 +90,7 @@ const Footer = () => {
       {
         icon: Truck,
         title: "Entrega para todo o Brasil",
-        desc: "Prazo informado no checkout",
+        desc: "Prazos e valores informados na compra",
       },
       {
         icon: RotateCcw,
@@ -111,7 +100,7 @@ const Footer = () => {
       {
         icon: Sparkles,
         title: "Amostras sob consulta",
-        desc: "Solicite em Explore > ABANIC",
+        desc: "Fale com o nosso atendimento",
       },
       {
         icon: ShieldCheck,
@@ -143,22 +132,8 @@ const Footer = () => {
     ],
   };
 
-  const socialLinks = [
-    {
-      name: "Facebook",
-      icon: Facebook,
-      href: "#",
-      color: "hover:text-blue-600",
-    },
-    {
-      name: "Instagram",
-      icon: Instagram,
-      href: "#",
-      color: "hover:text-pink-600",
-    },
-    { name: "Twitter", icon: Twitter, href: "#", color: "hover:text-blue-400" },
-    { name: "YouTube", icon: Youtube, href: "#", color: "hover:text-red-600" },
-  ];
+  // Redes sociais: entram aqui quando houver os endereços oficiais (hoje estavam todas com "#")
+  const socialLinks = [];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -173,206 +148,129 @@ const Footer = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const tituloColuna = {
+    fontFamily: "var(--font-text)",
+    fontSize: "var(--size-micro)",
+    textTransform: "uppercase",
+    letterSpacing: "var(--tracking-label-wide)",
+    color: "rgba(247, 243, 236, 0.6)",
+    marginBottom: "var(--space-5)",
+  };
+  const linkRodape = {
+    fontFamily: "var(--font-text)",
+    fontSize: "var(--size-body-sm)",
+    color: "var(--abanic-cream)",
+  };
+  const textoSuave = { color: "rgba(247, 243, 236, 0.7)" };
+
+  const colunas = [
+    { titulo: t.productsTitle, links: [{ name: "Linha RHADYANCE", href: "/product" }, ...t.footerLinks.products, { name: "Encontre sua rotina", href: "/encontre-sua-rotina" }] },
+    { titulo: t.exploreTitle, links: t.footerLinks.explore },
+    { titulo: t.companyTitle, links: t.footerLinks.company },
+    { titulo: t.supportTitle, links: t.footerLinks.support },
+  ];
+
   return (
-    <footer className="text-[#444444]" style={{ backgroundColor: "var(--abanic-cream)" }}>
-      <div className="page-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-          <div className="lg:col-span-2">
-            <div className="mb-6">
-              <div className="flex items-center mb-4 space-x-2">
-                <img
-                  src={AbanicLogo}
-                  alt="Logo Abanic"
-                  className="h-8 w-auto sm:h-11 md:h-12 lg:h-7"
-                />
-                <img
-                  src={AbanicLogoName}
-                  alt="Abanic Nome"
-                  className="h-6 w-auto sm:h-11 md:h-10 lg:h-7"
-                />
-              </div>
-              <p
-                className="leading-relaxed mb-6"
-                style={{ color: "var(--abanic-gray)" }}
-              >
-                {language === "pt"
-                  ? "Queremos inspirar, de modo provocativo, as pessoas a buscarem todas as suas versões através do autocuidado, vida saudável e expansiva."
-                  : "We want to provocatively inspire people to seek out all their versions through self-care, healthy and expansive living"}
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-[#444444] flex-shrink-0" />
-                <span style={{ color: "var(--abanic-gray)" }}>
-                  contato@abaniclife.com.br
-                </span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-[#444444] flex-shrink-0" />
-                <span style={{ color: "var(--abanic-gray)" }}>
-                  {language === "pt"
-                    ? "São Paulo, Brasil"
-                    : "São Paulo, Brazil"}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Company Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 font-space-grotesk-h3">
-              {" "}
-              {t.companyTitle}{" "}
-            </h4>
-            <ul className="space-y-3">
-              {t.footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="hover:text-[#fc622b] transition-all duration-200 hover:translate-x-1 inline-block"
-                    style={{ color: "var(--abanic-gray)" }}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Products Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 font-space-grotesk-h3">
-              {" "}
-              {t.productsTitle}{" "}
-            </h4>
-            <ul className="space-y-3">
-              {t.footerLinks.products.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="hover:text-[#fc622b] transition-all duration-200 hover:translate-x-1 inline-block"
-                    style={{ color: "var(--abanic-gray)" }}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          {/* Explore Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 font-space-grotesk-h3">
-              {" "}
-              {t.exploreTitle}{" "}
-            </h4>
-            <ul className="space-y-3">
-              {t.footerLinks.explore.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="hover:text-[#fc622b] transition-all duration-200 hover:translate-x-1 inline-block"
-                    style={{ color: "var(--abanic-gray)" }}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          {/* Support Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6 font-space-grotesk-h3">
-              {" "}
-              {t.supportTitle}{" "}
-            </h4>
-            <ul className="space-y-3">
-              {t.footerLinks.support.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="hover:text-[#fc622b] transition-all duration-200 hover:translate-x-1 inline-block"
-                    style={{ color: "var(--abanic-gray)" }}
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Selos de confiança */}
-        <div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 py-8 border-t"
-          style={{ borderColor: "var(--border-default)" }}
-        >
+    <footer style={{ backgroundColor: "var(--abanic-black)", color: "var(--abanic-cream)" }}>
+      {/* Serviços */}
+      <div style={{ borderBottom: "var(--border-hairline) solid rgba(247, 243, 236, 0.15)" }}>
+        <ul className="page-container py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {trustBadges[language].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="flex items-start gap-3">
-              <Icon
-                className="h-5 w-5 flex-shrink-0 mt-0.5"
-                style={{ color: "var(--abanic-orange)" }}
-              />
+            <li key={title} className="flex items-start gap-4">
+              <Icon size={20} strokeWidth={1.25} style={{ color: "var(--abanic-orange)", flexShrink: 0, marginTop: "2px" }} />
               <div>
-                <p className="text-sm font-medium" style={{ color: "var(--abanic-gray-dark)" }}>
-                  {title}
-                </p>
-                <p className="text-xs mt-0.5" style={{ color: "var(--abanic-gray)" }}>
-                  {desc}
-                </p>
+                <p style={{ ...linkRodape, fontWeight: "var(--weight-medium)" }}>{title}</p>
+                <p style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)", marginTop: "var(--space-1)" }}>{desc}</p>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
-
-        {/* Bottom Footer */}
-        <div className="border-t border-[#444444]">
-          <div className="page-container py-6">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="text-[#444444] text-sm">{t.copyright}</div>
-
-              <div className="flex items-center space-x-6">
-                {socialLinks.map((social) => {
-                  const IconComponent = social.icon;
-                  return (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      className="text-[#444444] transition-colors"
-                      aria-label={social.name}
-                    >
-                      <IconComponent className="h-5 w-5" />
-                    </a>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Back to Top Button */}
-        {showButton && (
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-8 right-8 bg-abanic-orange hover:bg-orange-600 text-white p-3 rounded-full shadow-lg transition-smooth hover-lift z-40"
-            aria-label={language === "pt" ? "Voltar ao topo" : "Back to top"}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 10l7-7m0 0l7 7m-7-7v18"
-              />
-            </svg>
-          </button>
-        )}
+        </ul>
       </div>
+
+      {/* Marca + links */}
+      <div className="page-container py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10">
+        <div className="sm:col-span-2 lg:col-span-4">
+          <div className="flex items-center gap-2">
+            <img src={AbanicLogo} alt="" className="h-8 w-auto" style={{ filter: "brightness(0) invert(1)" }} />
+            <img src={AbanicLogoName} alt="ABANIC" className="h-6 w-auto" style={{ filter: "brightness(0) invert(1)" }} />
+          </div>
+          <p className="mt-6" style={{ ...linkRodape, ...textoSuave, lineHeight: "var(--leading-body)", maxWidth: "40ch" }}>
+            {language === "pt"
+              ? "Queremos inspirar, de modo provocativo, as pessoas a buscarem todas as suas versões através do autocuidado, vida saudável e expansiva."
+              : "We want to provocatively inspire people to seek out all their versions through self-care, healthy and expansive living"}
+          </p>
+          <ul className="mt-6 space-y-3">
+            <li>
+              <a href="mailto:contato@abaniclife.com.br" className="inline-flex items-center gap-3 min-h-[32px] hover:text-[var(--abanic-orange)] transition-colors" style={linkRodape}>
+                <Mail size={18} strokeWidth={1.25} /> contato@abaniclife.com.br
+              </a>
+            </li>
+            <li className="inline-flex items-center gap-3" style={{ ...linkRodape, ...textoSuave }}>
+              <MapPin size={18} strokeWidth={1.25} /> {language === "pt" ? "São Paulo, Brasil" : "São Paulo, Brazil"}
+            </li>
+          </ul>
+        </div>
+
+        {colunas.map((col) => (
+          <nav key={col.titulo} className="lg:col-span-2" aria-label={col.titulo}>
+            <p style={tituloColuna}>{col.titulo}</p>
+            <ul className="space-y-1">
+              {col.links.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors"
+                    style={linkRodape}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))}
+      </div>
+
+      {/* Base */}
+      <div style={{ borderTop: "var(--border-hairline) solid rgba(247, 243, 236, 0.15)" }}>
+        <div className="page-container py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <p style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}>{t.copyright}</p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-1">
+            {t.legalLinks.map((link) => (
+              <li key={link.name}>
+                <Link
+                  to={link.href}
+                  className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors"
+                  style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {socialLinks.length > 0 && (
+            <div className="flex items-center gap-2">
+              {socialLinks.map(({ name, icon: Icon, href }) => (
+                <a key={name} href={href} aria-label={name} className="inline-flex items-center justify-center w-11 h-11">
+                  <Icon size={20} strokeWidth={1.25} />
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Voltar ao topo */}
+      {showButton && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-6 right-6 z-40 inline-flex items-center justify-center w-12 h-12 transition-colors hover:bg-[var(--abanic-orange)]"
+          style={{ background: "var(--abanic-black)", color: "var(--abanic-cream)", border: "var(--border-hairline) solid rgba(247, 243, 236, 0.3)" }}
+          aria-label={language === "pt" ? "Voltar ao topo" : "Back to top"}
+        >
+          <ArrowUp size={20} strokeWidth={1.5} />
+        </button>
+      )}
     </footer>
   );
 };

@@ -69,7 +69,7 @@ export function Input({
             outline: "none",
             background: "transparent",
             fontFamily: "var(--font-text)",
-            fontSize: "var(--size-body-sm)",
+            fontSize: "16px", // 16px evita o zoom automático do iPhone ao tocar no campo
             color: "var(--text-body)",
           }}
           {...rest}
