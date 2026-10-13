@@ -222,7 +222,7 @@ const Faq = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
         >
           <h1
             className="text-3xl md:text-4xl lg:text-5xl leading-tight font-space-grotesk-h1 text-center mb-4"
@@ -244,7 +244,7 @@ const Faq = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="w-full mb-16"
         >
           <h3
@@ -301,7 +301,7 @@ const Faq = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="w-full"
         >
           <motion.div
@@ -321,7 +321,7 @@ const Faq = () => {
                   variants={textVariants}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   className="border-b border-gray-300 transition-all duration-200"
                 >
                   <button
@@ -370,7 +370,7 @@ const Faq = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="w-full mt-16"
         >
           <h2

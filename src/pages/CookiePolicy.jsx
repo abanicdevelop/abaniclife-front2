@@ -49,7 +49,7 @@ const CookiePolicy = () => {
         variants={textVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }}
         className="w-full px-6 py-16 md:py-24 flex flex-col items-center"
       >
         <div className="max-w-6xl text-center">
@@ -78,7 +78,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16"
         >
           <h2
@@ -101,7 +101,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16"
         >
           <h2
@@ -135,7 +135,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16"
         >
           <h2
@@ -189,7 +189,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16"
         >
           <h2
@@ -226,7 +226,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16"
         >
           <h2
@@ -297,7 +297,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16 p-6 bg-orange-50 border-l-4 border-abanic-orange rounded-r-lg"
         >
           <h2
@@ -330,7 +330,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16"
         >
           <h2
@@ -352,7 +352,7 @@ const CookiePolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16"
         >
           <h2

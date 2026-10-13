@@ -7,9 +7,10 @@ import { DURACAO } from "../utils/motion";
 /** Card de matéria no estilo "journal": sem caixa nem sombra, foto quadrada e texto abaixo. */
 export const ArticleCard = ({ article, index = 0 }) => (
   <motion.article
-    initial={{ opacity: 0, y: 24 }}
-    whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: index * 0.08 } }}
-    viewport={{ once: true, amount: 0.3 }}
+    initial={{ opacity: 0, y: 16 }}
+    whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: Math.min(index, 3) * 0.06 } }}
+    // margem lateral grande: no celular os cards fora da tela (carrossel) já contam como visíveis
+    viewport={{ once: true, amount: 0, margin: "0px 100% 0px 100%" }}
   >
     <Link to={`/blog/${article.id}`} className="group flex flex-col">
       <div className="w-full aspect-square overflow-hidden" style={{ background: "var(--surface-raised)" }}>

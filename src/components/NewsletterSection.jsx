@@ -116,7 +116,7 @@ const NewsletterSection = () => {
             variants={fadeLeft}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             className="relative"
           >
             <div
@@ -141,7 +141,7 @@ const NewsletterSection = () => {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             className="space-y-8"
           >
             <div>
@@ -170,7 +170,7 @@ const NewsletterSection = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.1 }}
             >
               <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                 <CardContent className="p-6">
@@ -263,7 +263,7 @@ const NewsletterSection = () => {
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.1 }}
               className="flex items-center space-x-4 text-sm text-abanic-gray"
             >
               <div className="flex -space-x-2">

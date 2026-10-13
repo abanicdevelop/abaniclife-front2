@@ -19,7 +19,7 @@ const TermsOfUse = () => {
         variants={textVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }}
         className="w-full px-6 py-16 md:py-24 flex flex-col items-center"
       >
         <div className="max-w-6xl text-center">
@@ -48,7 +48,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -74,7 +74,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -121,7 +121,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -174,7 +174,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -220,7 +220,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -245,7 +245,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -266,7 +266,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -287,7 +287,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -307,7 +307,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -327,7 +327,7 @@ const TermsOfUse = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2

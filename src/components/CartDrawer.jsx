@@ -57,7 +57,8 @@ const CartDrawer = () => {
           <button
             onClick={closeCart}
             aria-label="Fechar sacola"
-            style={{ cursor: "pointer", color: "var(--text-muted)" }}
+            className="inline-flex items-center justify-center w-11 h-11 -mr-2"
+            style={{ cursor: "pointer", color: "var(--text-body)" }}
           >
             <X size={22} />
           </button>
@@ -125,15 +126,15 @@ const CartDrawer = () => {
                           style={{
                             cursor: "pointer",
                             border: "var(--border-hairline) solid var(--border-default)",
-                            width: "26px",
-                            height: "26px",
+                            width: "40px",
+                            height: "40px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             color: "var(--text-body)",
                           }}
                         >
-                          <Minus size={13} />
+                          <Minus size={15} />
                         </button>
                         <span
                           style={{
@@ -152,21 +153,22 @@ const CartDrawer = () => {
                           style={{
                             cursor: "pointer",
                             border: "var(--border-hairline) solid var(--border-default)",
-                            width: "26px",
-                            height: "26px",
+                            width: "40px",
+                            height: "40px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
                             color: "var(--text-body)",
                           }}
                         >
-                          <Plus size={13} />
+                          <Plus size={15} />
                         </button>
                       </div>
 
                       <button
                         onClick={() => removeItem(item.id)}
                         aria-label={`Remover ${item.nome} da sacola`}
+                        className="inline-flex items-center justify-center w-11 h-11 -mr-3"
                         style={{ cursor: "pointer", color: "var(--text-muted)" }}
                       >
                         <Trash2 size={16} />

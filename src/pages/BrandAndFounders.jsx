@@ -78,7 +78,7 @@ const BrandAndFounders = () => {
         variants={imageVariants(reverse)}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         <div className="w-full aspect-square overflow-hidden">
           <img
@@ -96,7 +96,7 @@ const BrandAndFounders = () => {
         variants={textVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.4 }}
+        viewport={{ once: true, amount: 0.1 }}
       >
         {hasTitle && (
           <>

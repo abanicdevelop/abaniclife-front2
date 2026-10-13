@@ -257,7 +257,7 @@ const Header = () => {
   const cartButton = (
     <button
       onClick={openCart}
-      className={`relative transition-smooth ${tone}`}
+      className={`relative inline-flex items-center justify-center w-11 h-11 -mr-2 transition-smooth ${tone}`}
       aria-label={`Abrir sacola${totalItems > 0 ? ` (${totalItems} ${totalItems === 1 ? "item" : "itens"})` : ""}`}
     >
       <ShoppingBag size={22} strokeWidth={1.5} />
@@ -265,8 +265,8 @@ const Header = () => {
         <span
           style={{
             position: "absolute",
-            top: "-6px",
-            right: "-8px",
+            top: "2px",
+            right: "0px",
             minWidth: "18px",
             height: "18px",
             padding: "0 4px",
@@ -300,7 +300,7 @@ const Header = () => {
           <div className="relative flex items-center justify-between h-16 lg:h-20">
             {/* Mobile: botão do menu à esquerda */}
             <button
-              className={`lg:hidden ${tone}`}
+              className={`lg:hidden inline-flex items-center justify-center w-11 h-11 -ml-2 ${tone}`}
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Abrir menu"
               aria-expanded={mobileMenuOpen}
@@ -471,7 +471,12 @@ const Header = () => {
           style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}
         >
           <img src={LogoAbanic} alt="Logo Abanic" className="h-8 w-auto object-contain" />
-          <button onClick={closeMobileMenu} aria-label="Fechar menu" style={{ color: "var(--text-muted)" }}>
+          <button
+            onClick={closeMobileMenu}
+            aria-label="Fechar menu"
+            className="inline-flex items-center justify-center w-11 h-11 -mr-2"
+            style={{ color: "var(--text-body)" }}
+          >
             <X size={22} strokeWidth={1.5} />
           </button>
         </div>
@@ -557,8 +562,10 @@ const Header = () => {
                   key={n.slug}
                   to={`/encontre-sua-rotina?necessidade=${n.slug}`}
                   onClick={closeMobileMenu}
+                  className="inline-flex items-center"
                   style={{
-                    padding: "var(--space-2) var(--space-3)",
+                    minHeight: "44px",
+                    padding: "0 var(--space-4)",
                     border: "var(--border-hairline) solid var(--neutral-900)",
                     fontFamily: "var(--font-text)",
                     fontSize: "var(--size-caption)",
