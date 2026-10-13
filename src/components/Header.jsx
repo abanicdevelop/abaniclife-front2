@@ -10,6 +10,8 @@ import { useLanguage } from "../context/LanguageContext";
 import { useCart } from "../context/CartContext";
 import { SectionLabel } from "./design-system/SectionLabel";
 import { productsData } from "../data/productsData";
+import { passos } from "../data/rotina";
+import { necessidades } from "../data/necessidades";
 
 // Scroll suave customizado
 const smoothScrollTo = (targetY, duration = 1000) => {
@@ -227,6 +229,26 @@ const Header = () => {
     ? "text-white hover:text-white/80"
     : "text-abanic-gray hover:text-abanic-gray-dark";
 
+  const megaRotulo = {
+    fontFamily: "var(--font-text)",
+    fontSize: "var(--size-micro)",
+    textTransform: "uppercase",
+    letterSpacing: "var(--tracking-label-wide)",
+    color: "var(--text-muted)",
+  };
+  const megaTitulo = {
+    fontFamily: "var(--font-display)",
+    fontWeight: "var(--weight-light)",
+    fontSize: "var(--size-heading-1)",
+    color: "var(--text-body)",
+  };
+  const megaLink = {
+    display: "block",
+    fontFamily: "var(--font-text)",
+    fontSize: "var(--size-body-sm)",
+    color: "var(--text-body)",
+  };
+
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
     setMobileActiveSubmenu(null);
@@ -329,7 +351,75 @@ const Header = () => {
                     </Link>
                   )}
 
-                  {item.submenu && activeSubmenu === index && (
+                  {/* "Produtos": painel largo com os 3 produtos e a navegação por necessidade */}
+                  {item.href === "#" && item.submenu?.some((s) => s.href === "/product") && activeSubmenu === index && (
+                    <div
+                      className="fixed left-0 right-0 top-20 z-50"
+                      style={{
+                        background: "var(--surface-page)",
+                        borderTop: "var(--border-hairline) solid var(--border-default)",
+                        borderBottom: "var(--border-hairline) solid var(--border-default)",
+                        boxShadow: "var(--shadow-2)",
+                      }}
+                    >
+                      <div className="page-container py-10 grid grid-cols-12 gap-8">
+                        <div className="col-span-3 flex flex-col gap-6">
+                          <div>
+                            <span style={megaRotulo}>A linha</span>
+                            <Link to="/product" onClick={() => setActiveSubmenu(null)} className="block mt-2 hover:text-[var(--abanic-orange)] transition-colors" style={megaTitulo}>
+                              RHADYANCE
+                            </Link>
+                          </div>
+                          <div>
+                            <span style={megaRotulo}>Por necessidade</span>
+                            <ul className="mt-3 space-y-2">
+                              {necessidades.map((n) => (
+                                <li key={n.slug}>
+                                  <Link
+                                    to={`/encontre-sua-rotina?necessidade=${n.slug}`}
+                                    onClick={() => setActiveSubmenu(null)}
+                                    className="hover:text-[var(--abanic-orange)] transition-colors"
+                                    style={megaLink}
+                                  >
+                                    {n.curto}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <Link
+                            to="/encontre-sua-rotina"
+                            onClick={() => setActiveSubmenu(null)}
+                            className="hover:text-[var(--abanic-orange)] transition-colors"
+                            style={{ ...megaLink, width: "fit-content", borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}
+                          >
+                            Encontre sua rotina →
+                          </Link>
+                        </div>
+                        {productsData.map((p) => (
+                          <Link
+                            key={p.id}
+                            to={`/product/${p.id}`}
+                            onClick={() => setActiveSubmenu(null)}
+                            className="col-span-3 group flex flex-col"
+                          >
+                            <div className="w-full overflow-hidden aspect-[4/3]" style={{ background: "var(--surface-raised)" }}>
+                              <img src={p.imagem} alt="" className="w-full h-full object-cover" />
+                            </div>
+                            <span style={{ ...megaRotulo, marginTop: "var(--space-3)" }}>
+                              {passos[p.id]?.numero} — {passos[p.id]?.etapa}
+                            </span>
+                            <span className="group-hover:text-[var(--abanic-orange)] transition-colors" style={{ ...megaLink, marginTop: "var(--space-1)" }}>
+                              {p.tituloDetalhe}
+                            </span>
+                            <span style={{ ...megaLink, color: "var(--text-muted)" }}>{p.preco}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {item.submenu && activeSubmenu === index && !item.submenu.some((s) => s.href === "/product") && (
                     <div className="absolute top-full left-0 w-60 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                       {item.submenu.map((subItem) => (
                         <a
@@ -457,6 +547,42 @@ const Header = () => {
               </li>
             ))}
           </ul>
+
+          {/* Por necessidade */}
+          <div className="mt-8">
+            <SectionLabel>Por necessidade</SectionLabel>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {necessidades.map((n) => (
+                <Link
+                  key={n.slug}
+                  to={`/encontre-sua-rotina?necessidade=${n.slug}`}
+                  onClick={closeMobileMenu}
+                  style={{
+                    padding: "var(--space-2) var(--space-3)",
+                    border: "var(--border-hairline) solid var(--neutral-900)",
+                    fontFamily: "var(--font-text)",
+                    fontSize: "var(--size-caption)",
+                    color: "var(--text-body)",
+                  }}
+                >
+                  {n.curto}
+                </Link>
+              ))}
+            </div>
+            <Link
+              to="/encontre-sua-rotina"
+              onClick={closeMobileMenu}
+              className="inline-block mt-4"
+              style={{
+                fontFamily: "var(--font-text)",
+                fontSize: "var(--size-body-sm)",
+                color: "var(--text-body)",
+                borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
+              }}
+            >
+              Encontre sua rotina →
+            </Link>
+          </div>
 
           {/* Destaque da linha, como nas referências */}
           <div className="mt-8">
