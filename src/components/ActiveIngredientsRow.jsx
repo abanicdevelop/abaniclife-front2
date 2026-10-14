@@ -95,21 +95,25 @@ const ActiveIngredientsRow = ({ items }) => {
       </div>
 
       {items.length > 1 && (
-        <div className="flex md:hidden justify-center gap-2 mt-3">
+        <div className="flex md:hidden justify-center mt-2">
           {items.map((_, i) => (
             <button
               key={i}
               onClick={() => scrollToIndex(i)}
               aria-label={`Ir para item ${i + 1}`}
-              style={{
-                width: "8px",
-                height: "8px",
-                borderRadius: "var(--radius-pill)",
-                cursor: "pointer",
-                transition: "background-color var(--duration-base) var(--ease-standard)",
-                background: i === activeIndex ? "var(--abanic-orange)" : "var(--neutral-300)",
-              }}
-            />
+              className="inline-flex items-center justify-center w-8 h-8"
+              style={{ cursor: "pointer" }}
+            >
+              <span
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "var(--radius-pill)",
+                  transition: "background-color var(--duration-base) var(--ease-standard)",
+                  background: i === activeIndex ? "var(--abanic-orange)" : "var(--neutral-300)",
+                }}
+              />
+            </button>
           ))}
         </div>
       )}

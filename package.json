@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-server && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -53,7 +53,6 @@
     "react": "^18.2.0",
     "react-day-picker": "8.10.1",
     "react-dom": "^18.2.0",
-    "react-ga4": "^2.1.0",
     "react-hook-form": "^7.56.3",
     "react-i18next": "^15.6.0",
     "react-resizable-panels": "^3.0.2",

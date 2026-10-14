@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 const CartContext = createContext(null);
 const STORAGE_KEY = "abanic_cart";
@@ -20,10 +20,19 @@ const readInitialCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [items, setItems] = useState(readInitialCart);
+  // Começa vazio e lê o que foi salvo só depois de montar: assim o HTML pré-renderizado e o
+  // navegador começam iguais (sem "piscar") e a sacola salva não é sobrescrita.
+  const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const carregou = useRef(false);
 
   useEffect(() => {
+    setItems(readInitialCart());
+    carregou.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!carregou.current) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {

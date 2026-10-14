@@ -21,8 +21,7 @@ npm-debug.log
 # System files
 .DS_Store
 
-# Public folder (caso tenha arquivos gerados que não queira versionar)
-public/
 
 # Outros arquivos que não quer subir
 *.env
+dist-server/

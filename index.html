@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ABANIC | Site oficial</title>
-  </head>
-  <!-- Google tag (gtag.js) -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-0ZJKNZPX56"
-  ></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
+    <meta name="theme-color" content="#F7F3EC" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!--seo:start-->
+    <title>ABANIC | Skincare com ativos naturais · Linha RHADYANCE</title>
+    <meta name="description" content="Limpar, tratar e proteger: a linha RHADYANCE reúne ativos naturais de algas vermelhas, flor de margarida e esqualano vegetal para uma pele mais luminosa e uniforme." />
+    <meta property="og:image" content="https://www.abaniclife.com/og/padrao.jpg" />
+    <!--seo:end-->
 
-    gtag("config", "G-0ZJKNZPX56");
-  </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0ZJKNZPX56"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-0ZJKNZPX56");
+    </script>
+  </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

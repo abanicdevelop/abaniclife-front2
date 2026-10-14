@@ -1,11 +1,12 @@
-import ArticleImageOne from "../assets/blog/article1.png";
-import ArticleImagetwo from "../assets/blog/article2.png";
-import ArticleImageThree from "../assets/blog/article3.png";
-import ArticleImageFour from "../assets/blog/article4.png";
+import ArticleImageOne from "../assets/blog/article1.webp";
+import ArticleImagetwo from "../assets/blog/article2.webp";
+import ArticleImageThree from "../assets/blog/article3.webp";
+import ArticleImageFour from "../assets/blog/article4.webp";
 export const articles = [
   {
     id: 1,
     title: "A arte como forma de expressão na criação de uma marca",
+    slug: "a-arte-como-forma-de-expressao-na-criacao-de-uma-marca",
     category: "Arte & Branding",
     description: "A arte sempre acompanhou a humanidade como espelho e farol.",
     image: ArticleImageOne,
@@ -55,6 +56,7 @@ export const articles = [
   {
     id: 2,
     title: "A Estética Contemporânea e as possibilidades",
+    slug: "a-estetica-contemporanea-e-as-possibilidades",
     category: "Comunicação & Estética",
     description:
       "Explorando a comunicação visual da ABANIC e sua conexão com a estética contemporânea.",
@@ -80,6 +82,7 @@ As nossas múltiplas versões é que nos tornam únicos.
   {
     id: 3,
     title: "Inovação e Sustentabilidade: O Futuro dos Cosméticos",
+    slug: "inovacao-e-sustentabilidade-o-futuro-dos-cosmeticos",
     category: "Inovação & Sustentabilidade",
     description:
       "Como a ABANIC está reinventando a indústria de cosméticos com práticas sustentáveis.",
@@ -89,6 +92,7 @@ As nossas múltiplas versões é que nos tornam únicos.
   {
     id: 4,
     title: "Vida to the Fullest e o que isso significa",
+    slug: "vida-to-the-fullest-e-o-que-isso-significa",
     category: "Lifestyle & Bem-Estar",
     description:
       "Como o estilo de vida fullest transforma nossa busca por equilíbrio e novas experiências.",

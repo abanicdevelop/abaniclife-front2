@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
         variants={textVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount: 0.1 }}
         className="w-full px-6 py-16 md:py-24 flex flex-col items-center"
       >
         <div className="max-w-6xl text-center">
@@ -46,7 +46,7 @@ const PrivacyPolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -67,7 +67,7 @@ const PrivacyPolicy = () => {
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-12"
         >
           <h2
@@ -351,11 +351,11 @@ const PrivacyPolicy = () => {
           <p className="text-base text-abanic-gray mt-4">
             Para exercer seus direitos, entre em contato através do e-mail:{" "}
             <a
-              href="mailto:contato@abaniclife.com"
+              href="mailto:contato@abaniclife.com.br"
               className="font-semibold"
               style={{ color: "#fc622b" }}
             >
-              contato@abaniclife.com
+              contato@abaniclife.com.br
             </a>
           </p>
         </div>
@@ -469,11 +469,11 @@ const PrivacyPolicy = () => {
               ✉
             </span>
             <a
-              href="mailto:contato@abaniclife.com"
+              href="mailto:contato@abaniclife.com.br"
               className="font-semibold text-lg transition-colors"
               style={{ color: "#fc622b" }}
             >
-              contato@abaniclife.com
+              contato@abaniclife.com.br
             </a>
           </div>
         </div>

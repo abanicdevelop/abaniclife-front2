@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import LivreDeCrueldade from "../assets/home/livre-de-crueldade.jpg";
+import LivreDeCrueldade from "../assets/home/livre-de-crueldade.webp";
 import { DURACAO } from "../utils/motion";
 
 const MosaicoProdutos = () => (

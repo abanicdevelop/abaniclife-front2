@@ -8,6 +8,7 @@ import BreadText from "../components/BreadText";
 import HomeVitrine from "../components/home/HomeVitrine";
 import HomeDiferenciais from "../components/home/HomeDiferenciais";
 import HomeIngredientes from "../components/home/HomeIngredientes";
+import HomeNecessidades from "../components/home/HomeNecessidades";
 function Home() {
   const { hash } = useLocation();
 
@@ -33,6 +34,7 @@ function Home() {
       <BreadText />
       <HomeVitrine />
       <HomeDiferenciais />
+      <HomeNecessidades />
       <HomeIngredientes />
       <MosaicoProdutos />
       <CultureSection />

@@ -1,18 +1,27 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
-import Banner1 from "../assets/Bannerteste1.jpg";
-import Banner3 from "../assets/Banner3.jpg";
-import Banner2 from "../assets/Banner2.jpg";
+import Banner1 from "../assets/Bannerteste1.webp";
+import Banner3 from "../assets/Banner3.webp";
+import Banner2 from "../assets/Banner2.webp";
 import { trackEvent } from "../utils/analytics";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { productsData } from "../data/productsData";
+import { rotaProduto } from "../data/rotas";
 
 const produtoPorId = (id) => productsData.find((p) => p.id === id);
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  // Enquadramento do celular calculado depois de montar (no build não existe window)
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const atualizar = () => setIsMobile(window.innerWidth < 640);
+    atualizar();
+    window.addEventListener("resize", atualizar);
+    return () => window.removeEventListener("resize", atualizar);
+  }, []);
   const { addItem } = useCart();
 
   const slides = [
@@ -81,7 +90,7 @@ const HeroSection = () => {
                 backgroundImage: `url(${slide.image})`,
                 // O cabeçalho é transparente sobre o banner, então a foto ocupa a tela toda
                 backgroundPosition:
-                  window.innerWidth < 640
+                  isMobile
                     ? index === 0
                       ? "left 52% center"
                       : index === 1
@@ -123,7 +132,7 @@ const HeroSection = () => {
                   }}
                 >
                   <Link
-                    to={`/product/${slide.produto.id}`}
+                    to={rotaProduto(slide.produto)}
                     className="shrink-0 w-[72px] h-[88px] overflow-hidden"
                     style={{ background: "var(--surface-raised)" }}
                   >
@@ -136,7 +145,7 @@ const HeroSection = () => {
                   <div className="flex flex-col justify-between min-w-0 flex-1">
                     <div>
                       <Link
-                        to={`/product/${slide.produto.id}`}
+                        to={rotaProduto(slide.produto)}
                         className="block truncate"
                         style={{
                           fontFamily: "var(--font-text)",
@@ -184,7 +193,7 @@ const HeroSection = () => {
                       Comprar
                     </button>
                     <Link
-                      to={`/product/${slide.produto.id}`}
+                      to={rotaProduto(slide.produto)}
                       onClick={() =>
                         trackEvent({
                           name: "click_banner_saiba_mais",
@@ -247,18 +256,20 @@ const HeroSection = () => {
       </Button>
 
       {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3 ">
+      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-20 flex">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-smooth ${
-              index === currentSlide
-                ? "bg-white"
-                : "bg-white/50 hover:bg-white/75"
-            }`}
+            className="inline-flex items-center justify-center w-9 h-9"
             aria-label={`Ir para slide ${index + 1}`}
-          />
+          >
+            <span
+              className={`w-3 h-3 rounded-full transition-smooth ${
+                index === currentSlide ? "bg-white" : "bg-white/50 hover:bg-white/75"
+              }`}
+            />
+          </button>
         ))}
       </div>
 

@@ -168,10 +168,10 @@ export default async function handler(req, res) {
   const resend = new Resend(apiKey);
 
   try {
-    // Enviar email para contato@abaniclife.com
+    // Enviar email para contato@abaniclife.com.br
     const result = await resend.emails.send({
       from: "ABANIC Life <onboarding@resend.dev>",
-      to: "contato@abaniclife.com",
+      to: "contato@abaniclife.com.br",
       replyTo: email, // Permite responder diretamente ao remetente
       subject: `Nova mensagem de contato - ${nome}`,
       html: contactEmailTemplate(nome, email, mensagem),

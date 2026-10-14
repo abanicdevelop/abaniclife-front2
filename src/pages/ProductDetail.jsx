@@ -4,7 +4,7 @@ import { productsData } from "../data/productsData";
 
 const BackLink = () => (
   <Link
-    to="/product"
+    to="/produtos"
     style={{
       display: "inline-flex",
       alignItems: "center",
@@ -23,8 +23,8 @@ const BackLink = () => (
 );
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const product = productsData.find((p) => p.id === id);
+  const { slug } = useParams();
+  const product = productsData.find((p) => p.slug === slug);
 
   if (!product) {
     return (

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import HeroImage from "../assets/products/banner-linha.jpg";
+import HeroImage from "../assets/products/banner-linha.webp";
 import { SectionLabel } from "./design-system/SectionLabel";
 import { DURACAO } from "../utils/motion";
 

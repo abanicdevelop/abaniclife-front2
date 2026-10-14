@@ -176,13 +176,17 @@ const HomeIngredientes = ({ id }) => {
           </button>
         </div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO } }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
         <div
           ref={trilhoRef}
           onScroll={aoRolar}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory mt-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {[...ativos, ...ativos, ...ativos].map((ativo, i) => {
-            const index = i % ativos.length;
             const copiaDoMeio = i >= ativos.length && i < ativos.length * 2;
             const saibaMais = ativosSaibaMais[ativo.nome];
             return (
@@ -194,9 +198,7 @@ const HomeIngredientes = ({ id }) => {
                 onClick={() => setAberto({ ...saibaMais, imagem: ativo.imagem })}
                 className="group snap-start shrink-0 w-[44%] sm:w-[30%] lg:w-[calc((100%-4*1.5rem)/5)] flex flex-col gap-3 text-left"
                 style={{ cursor: "pointer" }}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: index * 0.06 } }}
-                viewport={{ once: true }}
+
               >
                 <div className="w-full aspect-square overflow-hidden">
                   <img src={ativo.imagem} alt="" className="w-full h-full object-cover" />
@@ -228,6 +230,7 @@ const HomeIngredientes = ({ id }) => {
             );
           })}
         </div>
+        </motion.div>
 
         {/* Indicador de posição: linha de progresso + "03 / 09" */}
         <div className="flex items-center gap-4 mt-8" aria-live="polite">
@@ -251,7 +254,7 @@ const HomeIngredientes = ({ id }) => {
         </div>
 
         <Link
-          to="/explore"
+          to="/ativos"
           className="inline-block mt-12 transition-colors hover:text-[var(--abanic-orange)]"
           style={{
             fontFamily: "var(--font-text)",

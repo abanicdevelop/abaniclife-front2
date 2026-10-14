@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Search, User, ChevronDown, Menu, X, ShoppingBag } from "lucide-react";
 import { Heart, Star, StarHalf, StarOff } from "lucide-react";
@@ -10,6 +10,9 @@ import { useLanguage } from "../context/LanguageContext";
 import { useCart } from "../context/CartContext";
 import { SectionLabel } from "./design-system/SectionLabel";
 import { productsData } from "../data/productsData";
+import { passos } from "../data/rotina";
+import { necessidades } from "../data/necessidades";
+import { rotaProduto } from "../data/rotas";
 
 // Scroll suave customizado
 const smoothScrollTo = (targetY, duration = 1000) => {
@@ -47,24 +50,24 @@ const translations = {
       {
         name: "Sobre",
         href: "#",
-        submenu: [{ name: "Manifesto da Marca", href: "/about#marca" }],
+        submenu: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
       },
       {
         name: "Produtos",
         href: "#",
         submenu: [
-          { name: "Linha RHADYANCE", href: "/product" },
-          { name: "Gel de Limpeza Facial", href: "/product/gel" },
-          { name: "Sérum Facial Clareador", href: "/product/serum" },
-          { name: "Creme Facial Radiance FPS75", href: "/product/fps50" },
+          { name: "Linha RHADYANCE", href: "/produtos" },
+          { name: "Gel de Limpeza Facial", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Facial Clareador", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Radiance FPS75", href: "/produtos/creme-facial-fps75" },
         ],
       },
       {
         name: "Explore",
         href: "#",
         submenu: [
-          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/explore" },
-          { name: "Escolha Inteligente", href: "/smart-choice" },
+          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/ativos" },
+          { name: "Escolha Inteligente", href: "/escolha-inteligente" },
         ],
       },
       {
@@ -72,9 +75,9 @@ const translations = {
         href: "#",
         submenu: [
           { name: "Perguntas Frequentes", href: "/faq" },
-          { name: "Política de Privacidade", href: "/privacy-policy" },
-          { name: "Política de Cookies", href: "/cookie-policy" },
-          { name: "Termos de Uso", href: "/terms-of-use" },
+          { name: "Política de Privacidade", href: "/politica-de-privacidade" },
+          { name: "Política de Cookies", href: "/politica-de-cookies" },
+          { name: "Termos de Uso", href: "/termos-de-uso" },
         ],
       },
     ],
@@ -90,22 +93,22 @@ const translations = {
       {
         name: "About",
         href: "#",
-        submenu: [{ name: "Brand Manifesto", href: "/about#marca" }],
+        submenu: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
       },
       {
         name: "Product",
         href: "#",
         submenu: [
-          { name: "RHADYANCE FPS75", href: "/product/fps50" },
-          { name: "Lip Balm", href: "/product#ativos" },
+          { name: "RHADYANCE FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "Lip Balm", href: "/produtos#ativos" },
         ],
       },
       {
         name: "Explore",
         href: "#",
         submenu: [
-          { name: "Actives and Benefits", href: "/explore" },
-          { name: "Smart Choice", href: "/smart-choice" },
+          { name: "Actives and Benefits", href: "/ativos" },
+          { name: "Smart Choice", href: "/escolha-inteligente" },
         ],
       },
       {
@@ -113,8 +116,8 @@ const translations = {
         href: "#",
         submenu: [
           { name: "FAQ", href: "/faq" },
-          { name: "Privacy Policy", href: "/privacy-policy" },
-          { name: "Cookie Policy", href: "/cookie-policy" },
+          { name: "Privacy Policy", href: "/politica-de-privacidade" },
+          { name: "Cookie Policy", href: "/politica-de-cookies" },
           { name: "Terms of Use", href: "#tutorial" },
         ],
       },
@@ -221,11 +224,44 @@ const Header = () => {
 
   // Nas páginas com banner em tela cheia (home e linha), o cabeçalho fica transparente
   // sobre a foto até a pessoa rolar a página
-  const temBannerCheio = location.pathname === "/" || location.pathname === "/product";
+  const temBannerCheio = location.pathname === "/" || location.pathname === "/produtos";
   const transparent = temBannerCheio && !isScrolled && activeSubmenu === null;
   const tone = transparent
     ? "text-white hover:text-white/80"
     : "text-abanic-gray hover:text-abanic-gray-dark";
+
+  // Submenus no desktop: abrem ao passar o mouse e só fecham depois de um instante fora,
+  // para dar tempo de levar o cursor até o painel (inclusive na diagonal)
+  const fecharTimer = useRef(null);
+  const abrirSubmenu = (index) => {
+    clearTimeout(fecharTimer.current);
+    setActiveSubmenu(index);
+  };
+  const agendarFechar = () => {
+    clearTimeout(fecharTimer.current);
+    fecharTimer.current = setTimeout(() => setActiveSubmenu(null), 250);
+  };
+  useEffect(() => () => clearTimeout(fecharTimer.current), []);
+
+  const megaRotulo = {
+    fontFamily: "var(--font-text)",
+    fontSize: "var(--size-micro)",
+    textTransform: "uppercase",
+    letterSpacing: "var(--tracking-label-wide)",
+    color: "var(--text-muted)",
+  };
+  const megaTitulo = {
+    fontFamily: "var(--font-display)",
+    fontWeight: "var(--weight-light)",
+    fontSize: "var(--size-heading-1)",
+    color: "var(--text-body)",
+  };
+  const megaLink = {
+    display: "block",
+    fontFamily: "var(--font-text)",
+    fontSize: "var(--size-body-sm)",
+    color: "var(--text-body)",
+  };
 
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
@@ -235,7 +271,7 @@ const Header = () => {
   const cartButton = (
     <button
       onClick={openCart}
-      className={`relative transition-smooth ${tone}`}
+      className={`relative inline-flex items-center justify-center w-11 h-11 -mr-2 transition-smooth ${tone}`}
       aria-label={`Abrir sacola${totalItems > 0 ? ` (${totalItems} ${totalItems === 1 ? "item" : "itens"})` : ""}`}
     >
       <ShoppingBag size={22} strokeWidth={1.5} />
@@ -243,8 +279,8 @@ const Header = () => {
         <span
           style={{
             position: "absolute",
-            top: "-6px",
-            right: "-8px",
+            top: "2px",
+            right: "0px",
             minWidth: "18px",
             height: "18px",
             padding: "0 4px",
@@ -278,7 +314,7 @@ const Header = () => {
           <div className="relative flex items-center justify-between h-16 lg:h-20">
             {/* Mobile: botão do menu à esquerda */}
             <button
-              className={`lg:hidden ${tone}`}
+              className={`lg:hidden inline-flex items-center justify-center w-11 h-11 -ml-2 ${tone}`}
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Abrir menu"
               aria-expanded={mobileMenuOpen}
@@ -300,20 +336,21 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-12">
+            {/* O menu ocupa a altura toda do cabeçalho: não há "vão" entre o item e o painel */}
+            <nav className="hidden lg:flex items-stretch self-stretch gap-12">
               {menuItems.map((item, index) => (
                 <div
                   key={item.name}
-                  className="relative"
-                  onMouseLeave={() => activeSubmenu === index && setActiveSubmenu(null)}
+                  className="relative flex items-stretch"
+                  onMouseEnter={() => item.submenu && abrirSubmenu(index)}
+                  onMouseLeave={() => item.submenu && agendarFechar()}
                 >
                   {item.submenu ? (
                     <button
                       type="button"
                       onClick={() => setActiveSubmenu(activeSubmenu === index ? null : index)}
-                      onMouseEnter={() => setActiveSubmenu(index)}
                       aria-expanded={activeSubmenu === index}
-                      className={`flex items-center py-6 cursor-pointer transition-smooth ${tone}`}
+                      className={`flex items-center cursor-pointer transition-smooth ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
                       {item.name}
@@ -322,14 +359,82 @@ const Header = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`block py-6 transition-smooth ${tone}`}
+                      className={`flex items-center transition-smooth ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
                       {item.name}
                     </Link>
                   )}
 
-                  {item.submenu && activeSubmenu === index && (
+                  {/* "Produtos": painel largo com os 3 produtos e a navegação por necessidade */}
+                  {item.href === "#" && item.submenu?.some((s) => s.href === "/produtos") && activeSubmenu === index && (
+                    <div
+                      className="fixed left-0 right-0 top-20 z-50"
+                      style={{
+                        background: "var(--surface-page)",
+                        borderTop: "var(--border-hairline) solid var(--border-default)",
+                        borderBottom: "var(--border-hairline) solid var(--border-default)",
+                        boxShadow: "var(--shadow-2)",
+                      }}
+                    >
+                      <div className="page-container py-10 grid grid-cols-12 gap-8">
+                        <div className="col-span-3 flex flex-col gap-6">
+                          <div>
+                            <span style={megaRotulo}>A linha</span>
+                            <Link to="/produtos" onClick={() => setActiveSubmenu(null)} className="block mt-2 hover:text-[var(--abanic-orange)] transition-colors" style={megaTitulo}>
+                              RHADYANCE
+                            </Link>
+                          </div>
+                          <div>
+                            <span style={megaRotulo}>Por necessidade</span>
+                            <ul className="mt-3 space-y-2">
+                              {necessidades.map((n) => (
+                                <li key={n.slug}>
+                                  <Link
+                                    to={`/encontre-sua-rotina?necessidade=${n.slug}`}
+                                    onClick={() => setActiveSubmenu(null)}
+                                    className="hover:text-[var(--abanic-orange)] transition-colors"
+                                    style={megaLink}
+                                  >
+                                    {n.curto}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <Link
+                            to="/encontre-sua-rotina"
+                            onClick={() => setActiveSubmenu(null)}
+                            className="hover:text-[var(--abanic-orange)] transition-colors"
+                            style={{ ...megaLink, width: "fit-content", borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}
+                          >
+                            Encontre sua rotina →
+                          </Link>
+                        </div>
+                        {productsData.map((p) => (
+                          <Link
+                            key={p.id}
+                            to={rotaProduto(p)}
+                            onClick={() => setActiveSubmenu(null)}
+                            className="col-span-3 group flex flex-col"
+                          >
+                            <div className="w-full overflow-hidden aspect-[4/3]" style={{ background: "var(--surface-raised)" }}>
+                              <img src={p.imagem} alt="" className="w-full h-full object-cover" />
+                            </div>
+                            <span style={{ ...megaRotulo, marginTop: "var(--space-3)" }}>
+                              {passos[p.id]?.numero} — {passos[p.id]?.etapa}
+                            </span>
+                            <span className="group-hover:text-[var(--abanic-orange)] transition-colors" style={{ ...megaLink, marginTop: "var(--space-1)" }}>
+                              {p.tituloDetalhe}
+                            </span>
+                            <span style={{ ...megaLink, color: "var(--text-muted)" }}>{p.preco}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {item.submenu && activeSubmenu === index && !item.submenu.some((s) => s.href === "/produtos") && (
                     <div className="absolute top-full left-0 w-60 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                       {item.submenu.map((subItem) => (
                         <a
@@ -381,7 +486,12 @@ const Header = () => {
           style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}
         >
           <img src={LogoAbanic} alt="Logo Abanic" className="h-8 w-auto object-contain" />
-          <button onClick={closeMobileMenu} aria-label="Fechar menu" style={{ color: "var(--text-muted)" }}>
+          <button
+            onClick={closeMobileMenu}
+            aria-label="Fechar menu"
+            className="inline-flex items-center justify-center w-11 h-11 -mr-2"
+            style={{ color: "var(--text-body)" }}
+          >
             <X size={22} strokeWidth={1.5} />
           </button>
         </div>
@@ -458,6 +568,44 @@ const Header = () => {
             ))}
           </ul>
 
+          {/* Por necessidade */}
+          <div className="mt-8">
+            <SectionLabel>Por necessidade</SectionLabel>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {necessidades.map((n) => (
+                <Link
+                  key={n.slug}
+                  to={`/encontre-sua-rotina?necessidade=${n.slug}`}
+                  onClick={closeMobileMenu}
+                  className="inline-flex items-center"
+                  style={{
+                    minHeight: "44px",
+                    padding: "0 var(--space-4)",
+                    border: "var(--border-hairline) solid var(--neutral-900)",
+                    fontFamily: "var(--font-text)",
+                    fontSize: "var(--size-caption)",
+                    color: "var(--text-body)",
+                  }}
+                >
+                  {n.curto}
+                </Link>
+              ))}
+            </div>
+            <Link
+              to="/encontre-sua-rotina"
+              onClick={closeMobileMenu}
+              className="inline-block mt-4"
+              style={{
+                fontFamily: "var(--font-text)",
+                fontSize: "var(--size-body-sm)",
+                color: "var(--text-body)",
+                borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
+              }}
+            >
+              Encontre sua rotina →
+            </Link>
+          </div>
+
           {/* Destaque da linha, como nas referências */}
           <div className="mt-8">
             <SectionLabel>Linha RHADYANCE</SectionLabel>
@@ -465,7 +613,7 @@ const Header = () => {
               {productsData.map((produto) => (
                 <Link
                   key={produto.id}
-                  to={`/product/${produto.id}`}
+                  to={rotaProduto(produto)}
                   onClick={closeMobileMenu}
                   className="flex flex-col gap-2"
                 >
