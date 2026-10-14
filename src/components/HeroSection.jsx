@@ -8,11 +8,20 @@ import { trackEvent } from "../utils/analytics";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { productsData } from "../data/productsData";
+import { rotaProduto } from "../data/rotas";
 
 const produtoPorId = (id) => productsData.find((p) => p.id === id);
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  // Enquadramento do celular calculado depois de montar (no build não existe window)
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const atualizar = () => setIsMobile(window.innerWidth < 640);
+    atualizar();
+    window.addEventListener("resize", atualizar);
+    return () => window.removeEventListener("resize", atualizar);
+  }, []);
   const { addItem } = useCart();
 
   const slides = [
@@ -81,7 +90,7 @@ const HeroSection = () => {
                 backgroundImage: `url(${slide.image})`,
                 // O cabeçalho é transparente sobre o banner, então a foto ocupa a tela toda
                 backgroundPosition:
-                  window.innerWidth < 640
+                  isMobile
                     ? index === 0
                       ? "left 52% center"
                       : index === 1
@@ -123,7 +132,7 @@ const HeroSection = () => {
                   }}
                 >
                   <Link
-                    to={`/product/${slide.produto.id}`}
+                    to={rotaProduto(slide.produto)}
                     className="shrink-0 w-[72px] h-[88px] overflow-hidden"
                     style={{ background: "var(--surface-raised)" }}
                   >
@@ -136,7 +145,7 @@ const HeroSection = () => {
                   <div className="flex flex-col justify-between min-w-0 flex-1">
                     <div>
                       <Link
-                        to={`/product/${slide.produto.id}`}
+                        to={rotaProduto(slide.produto)}
                         className="block truncate"
                         style={{
                           fontFamily: "var(--font-text)",
@@ -184,7 +193,7 @@ const HeroSection = () => {
                       Comprar
                     </button>
                     <Link
-                      to={`/product/${slide.produto.id}`}
+                      to={rotaProduto(slide.produto)}
                       onClick={() =>
                         trackEvent({
                           name: "click_banner_saiba_mais",

@@ -146,7 +146,7 @@ const NewsletterSection = () => {
                 }}
               >
                 Seus dados são tratados de acordo com a{" "}
-                <Link to="/privacy-policy" style={{ borderBottom: "var(--border-hairline) solid currentColor" }}>
+                <Link to="/politica-de-privacidade" style={{ borderBottom: "var(--border-hairline) solid currentColor" }}>
                   Política de Privacidade
                 </Link>
                 . Você pode cancelar a assinatura a qualquer momento.

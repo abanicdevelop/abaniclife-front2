@@ -12,6 +12,7 @@ import { SectionLabel } from "./design-system/SectionLabel";
 import { productsData } from "../data/productsData";
 import { passos } from "../data/rotina";
 import { necessidades } from "../data/necessidades";
+import { rotaProduto } from "../data/rotas";
 
 // Scroll suave customizado
 const smoothScrollTo = (targetY, duration = 1000) => {
@@ -49,24 +50,24 @@ const translations = {
       {
         name: "Sobre",
         href: "#",
-        submenu: [{ name: "Manifesto da Marca", href: "/about#marca" }],
+        submenu: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
       },
       {
         name: "Produtos",
         href: "#",
         submenu: [
-          { name: "Linha RHADYANCE", href: "/product" },
-          { name: "Gel de Limpeza Facial", href: "/product/gel" },
-          { name: "Sérum Facial Clareador", href: "/product/serum" },
-          { name: "Creme Facial Radiance FPS75", href: "/product/fps50" },
+          { name: "Linha RHADYANCE", href: "/produtos" },
+          { name: "Gel de Limpeza Facial", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Facial Clareador", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Radiance FPS75", href: "/produtos/creme-facial-fps75" },
         ],
       },
       {
         name: "Explore",
         href: "#",
         submenu: [
-          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/explore" },
-          { name: "Escolha Inteligente", href: "/smart-choice" },
+          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/ativos" },
+          { name: "Escolha Inteligente", href: "/escolha-inteligente" },
         ],
       },
       {
@@ -74,9 +75,9 @@ const translations = {
         href: "#",
         submenu: [
           { name: "Perguntas Frequentes", href: "/faq" },
-          { name: "Política de Privacidade", href: "/privacy-policy" },
-          { name: "Política de Cookies", href: "/cookie-policy" },
-          { name: "Termos de Uso", href: "/terms-of-use" },
+          { name: "Política de Privacidade", href: "/politica-de-privacidade" },
+          { name: "Política de Cookies", href: "/politica-de-cookies" },
+          { name: "Termos de Uso", href: "/termos-de-uso" },
         ],
       },
     ],
@@ -92,22 +93,22 @@ const translations = {
       {
         name: "About",
         href: "#",
-        submenu: [{ name: "Brand Manifesto", href: "/about#marca" }],
+        submenu: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
       },
       {
         name: "Product",
         href: "#",
         submenu: [
-          { name: "RHADYANCE FPS75", href: "/product/fps50" },
-          { name: "Lip Balm", href: "/product#ativos" },
+          { name: "RHADYANCE FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "Lip Balm", href: "/produtos#ativos" },
         ],
       },
       {
         name: "Explore",
         href: "#",
         submenu: [
-          { name: "Actives and Benefits", href: "/explore" },
-          { name: "Smart Choice", href: "/smart-choice" },
+          { name: "Actives and Benefits", href: "/ativos" },
+          { name: "Smart Choice", href: "/escolha-inteligente" },
         ],
       },
       {
@@ -115,8 +116,8 @@ const translations = {
         href: "#",
         submenu: [
           { name: "FAQ", href: "/faq" },
-          { name: "Privacy Policy", href: "/privacy-policy" },
-          { name: "Cookie Policy", href: "/cookie-policy" },
+          { name: "Privacy Policy", href: "/politica-de-privacidade" },
+          { name: "Cookie Policy", href: "/politica-de-cookies" },
           { name: "Terms of Use", href: "#tutorial" },
         ],
       },
@@ -223,7 +224,7 @@ const Header = () => {
 
   // Nas páginas com banner em tela cheia (home e linha), o cabeçalho fica transparente
   // sobre a foto até a pessoa rolar a página
-  const temBannerCheio = location.pathname === "/" || location.pathname === "/product";
+  const temBannerCheio = location.pathname === "/" || location.pathname === "/produtos";
   const transparent = temBannerCheio && !isScrolled && activeSubmenu === null;
   const tone = transparent
     ? "text-white hover:text-white/80"
@@ -352,7 +353,7 @@ const Header = () => {
                   )}
 
                   {/* "Produtos": painel largo com os 3 produtos e a navegação por necessidade */}
-                  {item.href === "#" && item.submenu?.some((s) => s.href === "/product") && activeSubmenu === index && (
+                  {item.href === "#" && item.submenu?.some((s) => s.href === "/produtos") && activeSubmenu === index && (
                     <div
                       className="fixed left-0 right-0 top-20 z-50"
                       style={{
@@ -366,7 +367,7 @@ const Header = () => {
                         <div className="col-span-3 flex flex-col gap-6">
                           <div>
                             <span style={megaRotulo}>A linha</span>
-                            <Link to="/product" onClick={() => setActiveSubmenu(null)} className="block mt-2 hover:text-[var(--abanic-orange)] transition-colors" style={megaTitulo}>
+                            <Link to="/produtos" onClick={() => setActiveSubmenu(null)} className="block mt-2 hover:text-[var(--abanic-orange)] transition-colors" style={megaTitulo}>
                               RHADYANCE
                             </Link>
                           </div>
@@ -399,7 +400,7 @@ const Header = () => {
                         {productsData.map((p) => (
                           <Link
                             key={p.id}
-                            to={`/product/${p.id}`}
+                            to={rotaProduto(p)}
                             onClick={() => setActiveSubmenu(null)}
                             className="col-span-3 group flex flex-col"
                           >
@@ -419,7 +420,7 @@ const Header = () => {
                     </div>
                   )}
 
-                  {item.submenu && activeSubmenu === index && !item.submenu.some((s) => s.href === "/product") && (
+                  {item.submenu && activeSubmenu === index && !item.submenu.some((s) => s.href === "/produtos") && (
                     <div className="absolute top-full left-0 w-60 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                       {item.submenu.map((subItem) => (
                         <a
@@ -598,7 +599,7 @@ const Header = () => {
               {productsData.map((produto) => (
                 <Link
                   key={produto.id}
-                  to={`/product/${produto.id}`}
+                  to={rotaProduto(produto)}
                   onClick={closeMobileMenu}
                   className="flex flex-col gap-2"
                 >

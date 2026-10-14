@@ -11,6 +11,7 @@ import rhodophytas from "../assets/explore/rhodophytas.webp";
 import bellis from "../assets/explore/belis.webp";
 import evodia from "../assets/explore/evodia.webp";
 import { DURACAO } from "../utils/motion";
+import { rotaProduto } from "../data/rotas";
 
 const sectionsData = [
   {
@@ -363,7 +364,7 @@ const Explore = () => {
                       {produtos.map((p) => (
                         <Link
                           key={p.id}
-                          to={`/product/${p.id}`}
+                          to={rotaProduto(p)}
                           className="transition-colors hover:border-[var(--abanic-orange)] hover:text-[var(--abanic-orange)]"
                           style={{
                             padding: "var(--space-2) var(--space-4)",

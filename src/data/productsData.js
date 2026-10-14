@@ -16,6 +16,7 @@ import MandiocaPetri from "../assets/products/ativos/novas/mandioca-petri.webp";
 export const productsData = [
   {
     id: "gel",
+    slug: "gel-de-limpeza-facial",
     nomeCard: "GEL RHODY CLEANSE",
     corSurface: "raised",
     imagem: GelImage,
@@ -91,6 +92,7 @@ export const productsData = [
   },
   {
     id: "serum",
+    slug: "serum-facial-clareador",
     nomeCard: "SÉRUM RHODY CLAREADOR",
     corSurface: "raised",
     imagem: SerumImage,
@@ -163,6 +165,7 @@ export const productsData = [
   },
   {
     id: "fps50",
+    slug: "creme-facial-fps75",
     nomeCard: "CREME RHADYANCE FPS75",
     corSurface: "raised",
     imagem: CremeImage,

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { SectionLabel } from "./design-system/SectionLabel";
 import { articles } from "../data/articles";
 import { DURACAO } from "../utils/motion";
+import { rotaArtigo } from "../data/rotas";
 
 /** Card de matéria no estilo "journal": sem caixa nem sombra, foto quadrada e texto abaixo. */
 export const ArticleCard = ({ article, index = 0 }) => (
@@ -12,7 +13,7 @@ export const ArticleCard = ({ article, index = 0 }) => (
     // margem lateral grande: no celular os cards fora da tela (carrossel) já contam como visíveis
     viewport={{ once: true, amount: 0, margin: "0px 100% 0px 100%" }}
   >
-    <Link to={`/blog/${article.id}`} className="group flex flex-col">
+    <Link to={rotaArtigo(article)} className="group flex flex-col">
       <div className="w-full aspect-square overflow-hidden" style={{ background: "var(--surface-raised)" }}>
         <img src={article.image} alt="" className="w-full h-full object-cover" loading="lazy" />
       </div>

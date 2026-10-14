@@ -4,6 +4,7 @@ import { Button } from "../design-system/Button";
 import { useCart } from "../../context/CartContext";
 import { passos, destaqueDoProduto } from "../../data/rotina";
 import { DURACAO } from "../../utils/motion";
+import { rotaProduto } from "../../data/rotas";
 
 /** Card de produto com foto, passo da rotina, preço e "Adicionar à sacola". */
 const ProductCard = ({ produto, index = 0 }) => {
@@ -18,7 +19,7 @@ const ProductCard = ({ produto, index = 0 }) => {
       viewport={{ once: true }}
     >
       <Link
-        to={`/product/${produto.id}`}
+        to={rotaProduto(produto)}
         className="block overflow-hidden"
         style={{ aspectRatio: "4 / 5", background: "var(--surface-raised)" }}
       >
@@ -41,7 +42,7 @@ const ProductCard = ({ produto, index = 0 }) => {
       )}
 
       <Link
-        to={`/product/${produto.id}`}
+        to={rotaProduto(produto)}
         style={{
           marginTop: "var(--space-2)",
           fontFamily: "var(--font-display)",

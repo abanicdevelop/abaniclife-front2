@@ -1,9 +1,10 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { articles } from "../data/articles";
 import { ArticleCard } from "../components/CultureSection";
 import { SectionLabel } from "../components/design-system/SectionLabel";
 import { DURACAO } from "../utils/motion";
+import { rotaArtigo } from "../data/rotas";
 
 const tempoDeLeitura = (texto) => Math.max(1, Math.round(texto.trim().split(/\s+/).length / 200));
 
@@ -23,9 +24,13 @@ const VoltarAoBlog = () => (
 );
 
 const BlogPostPage = () => {
-  const { id } = useParams();
-  const articleIndex = articles.findIndex((a) => a.id === parseInt(id));
+  const { slug } = useParams();
+  const articleIndex = articles.findIndex((a) => a.slug === slug);
   const article = articles[articleIndex];
+
+  // Endereço antigo (/blog/1): leva para o novo, com o título no endereço
+  const antigo = !article && articles.find((a) => String(a.id) === slug);
+  if (antigo) return <Navigate to={`/blog/${antigo.slug}`} replace />;
 
   if (!article) {
     return (
@@ -127,7 +132,7 @@ const BlogPostPage = () => {
       {/* Próxima matéria */}
       <section className="page-container pb-24">
         <Link
-          to={`/blog/${proxima.id}`}
+          to={rotaArtigo(proxima)}
           className="group flex flex-col md:flex-row md:items-center gap-8 py-10"
           style={{
             borderTop: "var(--border-hairline) solid var(--border-default)",
@@ -171,7 +176,7 @@ const BlogPostPage = () => {
       {/* Ponte discreta para os produtos */}
       <section className="page-container pb-24">
         <Link
-          to="/product"
+          to="/produtos"
           className="transition-colors hover:text-[var(--abanic-orange)]"
           style={linkSublinhado}
         >

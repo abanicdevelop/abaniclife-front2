@@ -254,7 +254,7 @@ const HomeIngredientes = ({ id }) => {
         </div>
 
         <Link
-          to="/explore"
+          to="/ativos"
           className="inline-block mt-12 transition-colors hover:text-[var(--abanic-orange)]"
           style={{
             fontFamily: "var(--font-text)",

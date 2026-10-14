@@ -9,6 +9,7 @@ import { passos } from "../data/rotina";
 import { perguntas, montarRotina, motivoDoProduto, necessidades } from "../data/necessidades";
 import { trackEvent } from "../utils/analytics";
 import { DURACAO, DURACAO_SAIDA } from "../utils/motion";
+import { rotaProduto } from "../data/rotas";
 
 const tituloGrande = {
   fontFamily: "var(--font-display)",
@@ -55,7 +56,7 @@ const Resultado = ({ respostas, onRefazer }) => {
           const destaque = p.id === rotina.principal;
           return (
             <article key={p.id} className="flex flex-col">
-              <Link to={`/product/${p.id}`} className="block overflow-hidden aspect-[4/5]" style={{ background: "var(--surface-raised)" }}>
+              <Link to={rotaProduto(p)} className="block overflow-hidden aspect-[4/5]" style={{ background: "var(--surface-raised)" }}>
                 <img src={p.imagem} alt={p.tituloDetalhe} className="w-full h-full object-cover" />
               </Link>
               <div className="flex items-center gap-3 mt-5">
@@ -76,7 +77,7 @@ const Resultado = ({ respostas, onRefazer }) => {
                 )}
               </div>
               <Link
-                to={`/product/${p.id}`}
+                to={rotaProduto(p)}
                 style={{
                   marginTop: "var(--space-2)",
                   fontFamily: "var(--font-display)",

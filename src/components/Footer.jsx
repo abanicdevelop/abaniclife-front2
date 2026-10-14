@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUp, Mail, MapPin, Truck, RotateCcw, Sparkles, ShieldCheck } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext"; // ajuste o caminho conforme sua estrutura
+import { EMPRESA } from "../data/empresa";
 import AbanicLogo from "../assets/footer/AbanicLogo.png";
 import AbanicLogoName from "../assets/footer/AbanicLogoName.png";
 
@@ -23,26 +24,26 @@ const Footer = () => {
       subscribeBtn: "Inscrever-se",
       copyright: `© ${currentYear} ABANIC. Todos os direitos reservados.`,
       legalLinks: [
-        { name: "Termos de Uso", href: "/terms-of-use" },
-        { name: "Privacidade", href: "/privacy-policy" },
-        { name: "Cookies", href: "/cookie-policy" },
+        { name: "Termos de Uso", href: "/termos-de-uso" },
+        { name: "Privacidade", href: "/politica-de-privacidade" },
+        { name: "Cookies", href: "/politica-de-cookies" },
       ],
       footerLinks: {
-        company: [{ name: "Manifesto da Marca", href: "/about#marca" }],
+        company: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
         products: [
-          { name: "Gel de Limpeza Facial", href: "/product/gel" },
-          { name: "Sérum Facial Clareador", href: "/product/serum" },
-          { name: "Creme Facial Radiance FPS75", href: "/product/fps50" },
+          { name: "Gel de Limpeza Facial", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Facial Clareador", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Radiance FPS75", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
           { name: "Perguntas Frequentes", href: "/faq" },
-          { name: "Política de Privacidade", href: "/privacy-policy" },
-          { name: "Política de Cookies", href: "/cookie-policy" },
-          { name: "Termos de Uso", href: "/terms-of-use" },
+          { name: "Política de Privacidade", href: "/politica-de-privacidade" },
+          { name: "Política de Cookies", href: "/politica-de-cookies" },
+          { name: "Termos de Uso", href: "/termos-de-uso" },
         ],
         explore: [
-          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/explore" },
-          { name: "Escolha Inteligente", href: "/smart-choice" },
+          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/ativos" },
+          { name: "Escolha Inteligente", href: "/escolha-inteligente" },
         ],
       },
     },
@@ -57,24 +58,24 @@ const Footer = () => {
       subscribeBtn: "Subscribe",
       copyright: `© ${currentYear} ABANIC. All rights reserved.`,
       legalLinks: [
-        { name: "Terms of Use", href: "/terms-of-use" },
-        { name: "Privacy", href: "/privacy-policy" },
-        { name: "Cookies", href: "/cookie-policy" },
+        { name: "Terms of Use", href: "/termos-de-uso" },
+        { name: "Privacy", href: "/politica-de-privacidade" },
+        { name: "Cookies", href: "/politica-de-cookies" },
       ],
       footerLinks: {
-        company: [{ name: "Brand Manifesto", href: "/about#marca" }],
+        company: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
         products: [
-          { name: "RHADYANCE FPS75", href: "/product/fps50" },
-          { name: "Lip Balm", href: "/product#ativos" },
+          { name: "RHADYANCE FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "Lip Balm", href: "/produtos#ativos" },
         ],
         support: [
           { name: "FAQ", href: "/faq" },
-          { name: "Privacy Policy", href: "/privacy-policy" },
-          { name: "Cookie Policy", href: "/cookie-policy" },
-          { name: "Terms of Use", href: "/terms-of-use" },
+          { name: "Privacy Policy", href: "/politica-de-privacidade" },
+          { name: "Cookie Policy", href: "/politica-de-cookies" },
+          { name: "Terms of Use", href: "/termos-de-uso" },
         ],
         explore: [
-          { name: "Actives and Benefits", href: "/explore" },
+          { name: "Actives and Benefits", href: "/ativos" },
           { name: "The Importance of Sun Protection", href: "#importancia" },
           { name: "ABANIC and Sustainability", href: "#dicas" },
         ],
@@ -164,7 +165,7 @@ const Footer = () => {
   const textoSuave = { color: "rgba(247, 243, 236, 0.7)" };
 
   const colunas = [
-    { titulo: t.productsTitle, links: [{ name: "Linha RHADYANCE", href: "/product" }, ...t.footerLinks.products, { name: "Encontre sua rotina", href: "/encontre-sua-rotina" }] },
+    { titulo: t.productsTitle, links: [{ name: "Linha RHADYANCE", href: "/produtos" }, ...t.footerLinks.products, { name: "Encontre sua rotina", href: "/encontre-sua-rotina" }] },
     { titulo: t.exploreTitle, links: t.footerLinks.explore },
     { titulo: t.companyTitle, links: t.footerLinks.company },
     { titulo: t.supportTitle, links: t.footerLinks.support },
@@ -234,7 +235,15 @@ const Footer = () => {
       {/* Base */}
       <div style={{ borderTop: "var(--border-hairline) solid rgba(247, 243, 236, 0.15)" }}>
         <div className="page-container py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <p style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}>{t.copyright}</p>
+          <div style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)", lineHeight: "var(--leading-body)" }}>
+            <p>{t.copyright}</p>
+            <p>
+              {EMPRESA.razaoSocial} · CNPJ {EMPRESA.cnpj}
+            </p>
+            <p>
+              {EMPRESA.endereco} · {EMPRESA.cidade}/{EMPRESA.uf}
+            </p>
+          </div>
           <ul className="flex flex-wrap gap-x-6 gap-y-1">
             {t.legalLinks.map((link) => (
               <li key={link.name}>
