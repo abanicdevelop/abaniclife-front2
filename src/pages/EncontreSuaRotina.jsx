@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { SectionLabel } from "../components/design-system/SectionLabel";
@@ -147,6 +147,11 @@ const EncontreSuaRotina = () => {
   const [etapa, setEtapa] = useState(valida ? perguntas.length : 0);
   const [chaveUrl, setChaveUrl] = useState(necessidadeDaUrl);
 
+  // A página é pré-renderizada sem "?necessidade=...": só mostra o conteúdo depois de montar no
+  // navegador, para não haver diferença entre o HTML pronto e o que o React desenha.
+  const [montado, setMontado] = useState(false);
+  useEffect(() => setMontado(true), []);
+
   // Se a necessidade da URL mudar (ex.: clicou em outra no menu), atualiza o resultado
   if (chaveUrl !== necessidadeDaUrl) {
     setChaveUrl(necessidadeDaUrl);
@@ -162,21 +167,25 @@ const EncontreSuaRotina = () => {
     if (proxima === perguntas.length) {
       trackEvent({ name: "rotina_resultado", category: "Rotina", action: novas.necessidade });
     }
-    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   const refazer = () => {
     setRespostas({});
     setEtapa(0);
-    if (necessidadeDaUrl) setSearchParams({});
+    setChaveUrl(null);
+    if (necessidadeDaUrl) setSearchParams({}, { replace: true });
   };
+
+  // Cada troca de etapa (responder, voltar, refazer) começa do topo, quando a anterior já saiu
+  const voltarAoTopo = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
   const pergunta = perguntas[etapa];
 
   return (
     <main style={{ backgroundColor: "var(--abanic-cream)" }}>
       <section className="page-container pt-32 md:pt-40 pb-24 min-h-[80vh]">
-        <AnimatePresence mode="wait">
+        {montado && (
+        <AnimatePresence mode="wait" onExitComplete={voltarAoTopo}>
           <motion.div
             key={etapa}
             initial={{ opacity: 0, y: 16 }}
@@ -253,6 +262,7 @@ const EncontreSuaRotina = () => {
             )}
           </motion.div>
         </AnimatePresence>
+        )}
       </section>
     </main>
   );
