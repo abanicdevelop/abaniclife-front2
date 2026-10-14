@@ -241,7 +241,7 @@ const Footer = () => {
               {EMPRESA.razaoSocial} · CNPJ {EMPRESA.cnpj}
             </p>
             <p>
-              {EMPRESA.endereco} · {EMPRESA.cidade}/{EMPRESA.uf}
+              {EMPRESA.endereco} · {EMPRESA.cidade}/{EMPRESA.uf} · CEP {EMPRESA.cep}
             </p>
           </div>
           <ul className="flex flex-wrap gap-x-6 gap-y-1">

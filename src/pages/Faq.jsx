@@ -71,7 +71,7 @@ const Faq = () => {
           }\nMensagem:\n${
             formData.mensagem
           }\n\nData: ${new Date().toLocaleString("pt-BR")}`,
-          to: "contato@abaniclife.com",
+          to: "contato@abaniclife.com.br",
         }),
       });
 
@@ -278,8 +278,8 @@ const Faq = () => {
               }}
             >
               Envie sua mensagem ou escreva para{" "}
-              <a href="mailto:contato@abaniclife.com" style={{ color: "var(--text-body)", borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>
-                contato@abaniclife.com
+              <a href="mailto:contato@abaniclife.com.br" style={{ color: "var(--text-body)", borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>
+                contato@abaniclife.com.br
               </a>
               .
             </p>

@@ -351,11 +351,11 @@ const PrivacyPolicy = () => {
           <p className="text-base text-abanic-gray mt-4">
             Para exercer seus direitos, entre em contato através do e-mail:{" "}
             <a
-              href="mailto:contato@abaniclife.com"
+              href="mailto:contato@abaniclife.com.br"
               className="font-semibold"
               style={{ color: "#fc622b" }}
             >
-              contato@abaniclife.com
+              contato@abaniclife.com.br
             </a>
           </p>
         </div>
@@ -469,11 +469,11 @@ const PrivacyPolicy = () => {
               ✉
             </span>
             <a
-              href="mailto:contato@abaniclife.com"
+              href="mailto:contato@abaniclife.com.br"
               className="font-semibold text-lg transition-colors"
               style={{ color: "#fc622b" }}
             >
-              contato@abaniclife.com
+              contato@abaniclife.com.br
             </a>
           </div>
         </div>

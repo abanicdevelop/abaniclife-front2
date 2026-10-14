@@ -9,14 +9,9 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { CartProvider } from "./context/CartContext";
 import CartDrawer from "./components/CartDrawer";
 import { Toaster } from "./components/ui/sonner";
-import { GAListener } from "./GAListener";
-import ReactGA from "react-ga4";
 
 import SeoHead from "./seo/SeoHead";
 import { productsData } from "./data/productsData";
-
-// No build (pré-renderização no servidor) não existe window
-if (typeof window !== "undefined") ReactGA.initialize(import.meta.env.VITE_GA_ID);
 
 // Endereços antigos (em inglês) levam para os novos, também na navegação dentro do site
 const ProdutoAntigo = () => {
@@ -137,7 +132,6 @@ export function AppShell() {
   return (
     <LanguageProvider>
       <CartProvider>
-        <GAListener />
         <div className="App">
           <Header />
           <CartDrawer />

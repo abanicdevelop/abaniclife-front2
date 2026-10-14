@@ -151,7 +151,7 @@ const emailTemplate = (nome) => `
                 Fique por dentro de tudo que acontece na ABANIC Life. Nos vemos em breve! 💚
             </div>
             
-            <a href="https://abaniclife.com" class="cta-button">Visitar nosso site</a>
+            <a href="https://www.abaniclife.com" class="cta-button">Visitar nosso site</a>
         </div>
         
         <div class="footer">
@@ -160,8 +160,8 @@ const emailTemplate = (nome) => `
                 Se você não deseja receber mais emails, poderá se desinscrever a qualquer momento.
             </p>
             <div class="social-links">
-                <a href="mailto:contato@abaniclife.com">Entre em contato</a> | 
-                <a href="https://abaniclife.com">Acesse o site</a>
+                <a href="mailto:contato@abaniclife.com.br">Entre em contato</a> | 
+                <a href="https://www.abaniclife.com">Acesse o site</a>
             </div>
         </div>
     </div>

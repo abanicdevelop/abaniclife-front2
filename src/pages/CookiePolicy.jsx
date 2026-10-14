@@ -370,11 +370,11 @@ const CookiePolicy = () => {
               ✉
             </span>
             <a
-              href="mailto:contato@abaniclife.com"
+              href="mailto:contato@abaniclife.com.br"
               className="font-semibold text-lg transition-colors"
               style={{ color: "#fc622b" }}
             >
-              contato@abaniclife.com
+              contato@abaniclife.com.br
             </a>
           </div>
         </motion.div>

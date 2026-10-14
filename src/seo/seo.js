@@ -25,6 +25,7 @@ const organizacao = {
     streetAddress: EMPRESA.endereco,
     addressLocality: EMPRESA.cidade,
     addressRegion: EMPRESA.uf,
+    postalCode: EMPRESA.cep,
     addressCountry: "BR",
   },
 };
