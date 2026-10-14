@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "../design-system/Button";
+import SeloLancamento from "./SeloLancamento";
 import { useCart } from "../../context/CartContext";
 import { passos, destaqueDoProduto } from "../../data/rotina";
 import { DURACAO } from "../../utils/motion";
@@ -20,10 +21,11 @@ const ProductCard = ({ produto, index = 0 }) => {
     >
       <Link
         to={rotaProduto(produto)}
-        className="block overflow-hidden"
+        className="relative block overflow-hidden"
         style={{ aspectRatio: "4 / 5", background: "var(--surface-raised)" }}
       >
         <img src={produto.imagem} alt={produto.tituloDetalhe} className="w-full h-full object-cover" />
+        <SeloLancamento sobreFoto style={{ position: "absolute", top: "12px", left: "12px" }} />
       </Link>
 
       {passo && (

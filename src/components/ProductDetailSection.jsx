@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ActiveIngredientsRow from "./ActiveIngredientsRow";
 import ProductCard from "./product/ProductCard";
+import SeloLancamento from "./product/SeloLancamento";
+import { Link } from "react-router-dom";
+import { ROTAS } from "../data/rotas";
 import HomeDiferenciais from "./home/HomeDiferenciais";
 import { Button } from "./design-system/Button";
 import { SectionLabel } from "./design-system/SectionLabel";
@@ -87,10 +90,13 @@ const ProductDetailSection = ({ product }) => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: 0.15 } }}
           >
-            <SectionLabel rule={false}>
-              {product.linha}
-              {passo ? ` · ${passo.numero} — ${passo.etapa}` : ""}
-            </SectionLabel>
+            <div className="flex flex-wrap items-center gap-3">
+              <SectionLabel rule={false}>
+                {product.linha}
+                {passo ? ` · ${passo.numero} — ${passo.etapa}` : ""}
+              </SectionLabel>
+              <SeloLancamento />
+            </div>
 
             <h1
               style={{
@@ -113,6 +119,39 @@ const ProductDetailSection = ({ product }) => {
               {product.usoLabel.charAt(0) + product.usoLabel.slice(1).toLowerCase()} · {product.volume}
             </p>
 
+            {/* Bom saber: resumo de 2 segundos */}
+            {product.bomSaber?.length > 0 && (
+              <div className="mt-6">
+                <span
+                  style={{
+                    fontFamily: "var(--font-text)",
+                    fontSize: "var(--size-micro)",
+                    textTransform: "uppercase",
+                    letterSpacing: "var(--tracking-label-wide)",
+                    color: "var(--text-muted)",
+                  }}
+                >
+                  Bom saber
+                </span>
+                <ul className="flex flex-wrap gap-2 mt-2">
+                  {product.bomSaber.map((t) => (
+                    <li
+                      key={t}
+                      style={{
+                        padding: "6px 12px",
+                        border: "var(--border-hairline) solid var(--border-default)",
+                        fontFamily: "var(--font-text)",
+                        fontSize: "var(--size-caption)",
+                        color: "var(--text-body)",
+                      }}
+                    >
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-8">
               <span
                 style={{
@@ -131,6 +170,17 @@ const ProductDetailSection = ({ product }) => {
                 </Button>
               </div>
             </div>
+
+            {/* Entrega e troca, logo abaixo do botão */}
+            <p
+              className="mt-4"
+              style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", lineHeight: "var(--leading-body)", color: "var(--text-muted)" }}
+            >
+              Envio pelos Correios para todo o Brasil · 7 dias para desistir da compra ·{" "}
+              <Link to={ROTAS.faq} className="hover:text-[var(--abanic-orange)]" style={{ borderBottom: "var(--border-hairline) solid currentColor" }}>
+                Saiba mais
+              </Link>
+            </p>
 
             <div className="mt-10" style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}>
               <Secao titulo="O produto" abertoInicial>

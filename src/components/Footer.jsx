@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowUp, Mail, MapPin, Truck, RotateCcw, Sparkles, ShieldCheck } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext"; // ajuste o caminho conforme sua estrutura
 import { EMPRESA } from "../data/empresa";
+import { abrirAvisoDeCookies } from "./CookieBanner";
 import AbanicLogo from "../assets/footer/AbanicLogo.png";
 import AbanicLogoName from "../assets/footer/AbanicLogoName.png";
 
@@ -256,6 +257,16 @@ const Footer = () => {
                 </Link>
               </li>
             ))}
+            <li>
+              <button
+                type="button"
+                onClick={abrirAvisoDeCookies}
+                className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors cursor-pointer"
+                style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}
+              >
+                {language === "pt" ? "Gerenciar cookies" : "Manage cookies"}
+              </button>
+            </li>
           </ul>
           {socialLinks.length > 0 && (
             <div className="flex items-center gap-2">

@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import { LanguageProvider } from "./context/LanguageContext";
 import { CartProvider } from "./context/CartContext";
 import CartDrawer from "./components/CartDrawer";
+import CookieBanner from "./components/CookieBanner";
 import { Toaster } from "./components/ui/sonner";
 
 import SeoHead from "./seo/SeoHead";
@@ -133,11 +134,22 @@ export function AppShell() {
     <LanguageProvider>
       <CartProvider>
         <div className="App">
+          {/* Acessibilidade: primeiro item do teclado (Tab), visível só quando recebe foco */}
+          <a
+            href="#conteudo"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-3"
+            style={{ background: "var(--abanic-black)", color: "var(--abanic-cream)", fontFamily: "var(--font-text)" }}
+          >
+            Pular para o conteúdo
+          </a>
           <Header />
           <CartDrawer />
           <Toaster position="bottom-center" />
-          <AnimatedRoutes />
+          <div id="conteudo" tabIndex={-1} style={{ outline: "none" }}>
+            <AnimatedRoutes />
+          </div>
           <Footer />
+          <CookieBanner />
         </div>
       </CartProvider>
     </LanguageProvider>

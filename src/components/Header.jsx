@@ -12,6 +12,7 @@ import { SectionLabel } from "./design-system/SectionLabel";
 import { productsData } from "../data/productsData";
 import { passos } from "../data/rotina";
 import { necessidades } from "../data/necessidades";
+import SeloLancamento from "./product/SeloLancamento";
 import { rotaProduto } from "../data/rotas";
 
 // Scroll suave customizado
@@ -418,8 +419,9 @@ const Header = () => {
                             onClick={() => setActiveSubmenu(null)}
                             className="col-span-3 group flex flex-col"
                           >
-                            <div className="w-full overflow-hidden aspect-[4/3]" style={{ background: "var(--surface-raised)" }}>
+                            <div className="relative w-full overflow-hidden aspect-[4/3]" style={{ background: "var(--surface-raised)" }}>
                               <img src={p.imagem} alt="" className="w-full h-full object-cover" />
+                              <SeloLancamento sobreFoto style={{ position: "absolute", top: "10px", left: "10px" }} />
                             </div>
                             <span style={{ ...megaRotulo, marginTop: "var(--space-3)" }}>
                               {passos[p.id]?.numero} — {passos[p.id]?.etapa}
