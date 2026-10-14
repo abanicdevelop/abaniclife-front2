@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ActiveIngredientsRow from "./ActiveIngredientsRow";
 import ProductCard from "./product/ProductCard";
-import SeloLancamento from "./product/SeloLancamento";
 import { Link } from "react-router-dom";
 import { ROTAS } from "../data/rotas";
 import HomeDiferenciais from "./home/HomeDiferenciais";
@@ -90,13 +89,10 @@ const ProductDetailSection = ({ product }) => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: 0.15 } }}
           >
-            <div className="flex flex-wrap items-center gap-3">
-              <SectionLabel rule={false}>
-                {product.linha}
-                {passo ? ` · ${passo.numero} — ${passo.etapa}` : ""}
-              </SectionLabel>
-              <SeloLancamento />
-            </div>
+            <SectionLabel rule={false}>
+              {product.linha}
+              {passo ? ` · ${passo.numero} — ${passo.etapa}` : ""}
+            </SectionLabel>
 
             <h1
               style={{
