@@ -70,16 +70,17 @@ const ProductDetailSection = ({ product }) => {
       <div id={product.id} className="page-container py-10">
         <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
           {/* Foto: fica parada no desktop enquanto as informações rolam */}
-          {/* A foto preenche todo o quadro (sem faixas claras dos lados); a altura é limitada à tela */}
+          {/* Foto inteira, na proporção original (sem corte e sem faixas): no desktop cabe na altura
+              da tela e fica parada enquanto as informações rolam */}
           <motion.div
-            className="w-full md:w-1/2 md:sticky md:top-28 overflow-hidden aspect-[4/5] md:max-h-[calc(100dvh-9rem)]"
+            className="w-full md:w-1/2 md:sticky md:top-28"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: DURACAO } }}
           >
             <img
               src={product.imagem}
               alt={product.tituloDetalhe}
-              className="w-full h-full object-cover"
+              className="block w-full h-auto md:w-auto md:max-w-full md:max-h-[calc(100dvh-9rem)]"
             />
           </motion.div>
 
