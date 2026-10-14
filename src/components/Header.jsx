@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Search, User, ChevronDown, Menu, X, ShoppingBag } from "lucide-react";
 import { Heart, Star, StarHalf, StarOff } from "lucide-react";
@@ -230,6 +230,19 @@ const Header = () => {
     ? "text-white hover:text-white/80"
     : "text-abanic-gray hover:text-abanic-gray-dark";
 
+  // Submenus no desktop: abrem ao passar o mouse e só fecham depois de um instante fora,
+  // para dar tempo de levar o cursor até o painel (inclusive na diagonal)
+  const fecharTimer = useRef(null);
+  const abrirSubmenu = (index) => {
+    clearTimeout(fecharTimer.current);
+    setActiveSubmenu(index);
+  };
+  const agendarFechar = () => {
+    clearTimeout(fecharTimer.current);
+    fecharTimer.current = setTimeout(() => setActiveSubmenu(null), 250);
+  };
+  useEffect(() => () => clearTimeout(fecharTimer.current), []);
+
   const megaRotulo = {
     fontFamily: "var(--font-text)",
     fontSize: "var(--size-micro)",
@@ -323,20 +336,21 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-12">
+            {/* O menu ocupa a altura toda do cabeçalho: não há "vão" entre o item e o painel */}
+            <nav className="hidden lg:flex items-stretch self-stretch gap-12">
               {menuItems.map((item, index) => (
                 <div
                   key={item.name}
-                  className="relative"
-                  onMouseLeave={() => activeSubmenu === index && setActiveSubmenu(null)}
+                  className="relative flex items-stretch"
+                  onMouseEnter={() => item.submenu && abrirSubmenu(index)}
+                  onMouseLeave={() => item.submenu && agendarFechar()}
                 >
                   {item.submenu ? (
                     <button
                       type="button"
                       onClick={() => setActiveSubmenu(activeSubmenu === index ? null : index)}
-                      onMouseEnter={() => setActiveSubmenu(index)}
                       aria-expanded={activeSubmenu === index}
-                      className={`flex items-center py-6 cursor-pointer transition-smooth ${tone}`}
+                      className={`flex items-center cursor-pointer transition-smooth ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
                       {item.name}
@@ -345,7 +359,7 @@ const Header = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`block py-6 transition-smooth ${tone}`}
+                      className={`flex items-center transition-smooth ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
                       {item.name}
