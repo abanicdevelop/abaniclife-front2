@@ -16,6 +16,8 @@ import MandiocaPetri from "../assets/products/ativos/novas/mandioca-petri.webp";
 export const productsData = [
   {
     id: "gel",
+    // "Bom saber": resumo rápido na página do produto
+    bomSaber: ["Todos os tipos de pele", "Fragrância hipoalergênica", "Uso diário"],
     slug: "gel-de-limpeza-facial",
     nomeCard: "GEL RHODY CLEANSE",
     corSurface: "raised",
@@ -92,6 +94,8 @@ export const productsData = [
   },
   {
     id: "serum",
+    // "Bom saber": resumo rápido na página do produto
+    bomSaber: ["Todos os tipos de pele", "Fragrância hipoalergênica", "Dia e noite"],
     slug: "serum-facial-clareador",
     nomeCard: "SÉRUM RHODY CLAREADOR",
     corSurface: "raised",
@@ -165,6 +169,8 @@ export const productsData = [
   },
   {
     id: "fps50",
+    // "Bom saber": resumo rápido na página do produto
+    bomSaber: ["Proteção FPS75", "Fragrância hipoalergênica", "Uso diário"],
     slug: "creme-facial-fps75",
     nomeCard: "CREME RHADYANCE FPS75",
     corSurface: "raised",

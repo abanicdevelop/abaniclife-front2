@@ -1,6 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { CreditCard, Package, Sparkles, Heart, RefreshCw, Headphones } from "lucide-react";
 import { faqData } from "../data/faq";
+
+// Ícone de cada categoria (os dados da FAQ ficam sem ícones porque também alimentam o SEO)
+const ICONES = {
+  "PEDIDOS & PAGAMENTOS": CreditCard,
+  "ENVIO & ENTREGA": Package,
+  "PRODUTOS & EXPERIÊNCIA": Sparkles,
+  "MARCA & COMPROMISSOS": Heart,
+  "TROCAS & DEVOLUÇÕES": RefreshCw,
+  ATENDIMENTO: Headphones,
+};
 import { SectionLabel } from "../components/design-system/SectionLabel";
 import { Input } from "../components/design-system/Input";
 import { Button } from "../components/design-system/Button";
@@ -164,7 +175,20 @@ const Faq = () => {
                           cursor: "pointer",
                         }}
                       >
-                        <span className="whitespace-nowrap lg:whitespace-normal lg:pl-4">{category.category}</span>
+                        <span className="inline-flex items-center gap-3 whitespace-nowrap lg:whitespace-normal lg:pl-4">
+                          {(() => {
+                            const Icone = ICONES[category.category];
+                            return Icone ? (
+                              <Icone
+                                size={18}
+                                strokeWidth={1.25}
+                                aria-hidden="true"
+                                style={{ color: ativa ? "var(--abanic-orange)" : "currentColor", flexShrink: 0 }}
+                              />
+                            ) : null;
+                          })()}
+                          {category.category}
+                        </span>
                         <span className="hidden lg:inline pr-4" style={{ color: "var(--text-muted)" }}>
                           {category.questions.length}
                         </span>
@@ -184,6 +208,7 @@ const Faq = () => {
             animate={{ opacity: 1, y: 0, transition: { duration: DURACAO } }}
           >
             <h2
+              className="flex items-center gap-4"
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: "var(--weight-light)",
@@ -192,6 +217,12 @@ const Faq = () => {
                 marginBottom: "var(--space-6)",
               }}
             >
+              {(() => {
+                const Icone = ICONES[faqData[selectedCategory].category];
+                return Icone ? (
+                  <Icone size={32} strokeWidth={1} aria-hidden="true" style={{ color: "var(--abanic-orange)", flexShrink: 0 }} />
+                ) : null;
+              })()}
               {faqData[selectedCategory].category.charAt(0) +
                 faqData[selectedCategory].category.slice(1).toLowerCase()}
             </h2>

@@ -19,6 +19,16 @@
       function gtag() {
         dataLayer.push(arguments);
       }
+      // LGPD: medição só com consentimento (modo de consentimento do Google). A escolha fica salva
+      // no navegador e é feita no aviso de cookies (src/components/CookieBanner.jsx).
+      var escolhaCookies = null;
+      try { escolhaCookies = localStorage.getItem("abanic_cookies"); } catch (e) {}
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: escolhaCookies === "aceito" ? "granted" : "denied",
+      });
       gtag("js", new Date());
       gtag("config", "G-0ZJKNZPX56");
     </script>
