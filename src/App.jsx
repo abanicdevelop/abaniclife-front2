@@ -9,6 +9,7 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { CartProvider } from "./context/CartContext";
 import CartDrawer from "./components/CartDrawer";
 import CookieBanner from "./components/CookieBanner";
+import NewsletterBar from "./components/NewsletterBar";
 import { Toaster } from "./components/ui/sonner";
 
 import SeoHead from "./seo/SeoHead";
@@ -152,6 +153,7 @@ export function AppShell() {
             <AnimatedRoutes />
           </div>
           <Footer />
+          <NewsletterBar />
           <CookieBanner />
         </div>
       </CartProvider>
