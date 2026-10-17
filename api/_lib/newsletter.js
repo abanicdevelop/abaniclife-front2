@@ -61,7 +61,7 @@ export const idDoSegmento = async (resend) => {
 };
 
 // ── E-mails ─────────────────────────────────────────────────────────────────
-const escapar = (texto) =>
+export const escapar = (texto) =>
   String(texto).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
 const COR = { creme: "#F7F3EC", texto: "#151515", grafite: "#444444", laranja: "#FC622B", linha: "#D9D4CB" };
@@ -69,7 +69,7 @@ const FONTE_DISPLAY = "'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans
 const FONTE_TEXTO = "Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif";
 
 // Estrutura em tabelas e estilos inline: é o que os programas de e-mail (Gmail, Outlook) entendem
-const layout = ({ previa, titulo, paragrafos, botao, rodape }) => `<!DOCTYPE html>
+export const layout = ({ previa, titulo, paragrafos, botao, rodape }) => `<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">

@@ -203,8 +203,8 @@ const Footer = () => {
           </p>
           <ul className="mt-6 space-y-3">
             <li>
-              <a href="mailto:contato@abaniclife.com.br" className="inline-flex items-center gap-3 min-h-[32px] hover:text-[var(--abanic-orange)] transition-colors" style={linkRodape}>
-                <Mail size={18} strokeWidth={1.25} /> contato@abaniclife.com.br
+              <a href="mailto:contato@abaniclife.com" className="inline-flex items-center gap-3 min-h-[32px] hover:text-[var(--abanic-orange)] transition-colors" style={linkRodape}>
+                <Mail size={18} strokeWidth={1.25} /> contato@abaniclife.com
               </a>
             </li>
             <li className="inline-flex items-center gap-3" style={{ ...linkRodape, ...textoSuave }}>
