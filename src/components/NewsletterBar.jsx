@@ -17,13 +17,15 @@ const barraLiberada = () => {
   return true;
 };
 
-/** Faixa fina presa ao pé de todas as páginas que abre o cadastro da newsletter num painel lateral
- *  (inspirada no "Pssst…" da Loewe). Só aparece depois da escolha no aviso de cookies, para as duas
- *  faixas não se empilharem, e se esconde enquanto a seção de newsletter da home está na tela. */
+/** Faixa fina que sobe no pé da tela quando a pessoa chega ao rodapé e abre o cadastro da newsletter
+ *  num painel lateral (inspirada no "Pssst…" da Loewe). Só aparece depois da escolha no aviso de
+ *  cookies, para as duas faixas não se empilharem, e não aparece enquanto a seção de newsletter da
+ *  home está na tela. */
 const NewsletterBar = () => {
   const { pathname } = useLocation();
   const [liberada, setLiberada] = useState(false);
   const [secaoVisivel, setSecaoVisivel] = useState(false);
+  const [noFim, setNoFim] = useState(false);
   const [aberto, setAberto] = useState(false);
 
   useEffect(() => {
@@ -43,28 +45,56 @@ const NewsletterBar = () => {
     return () => window.removeEventListener("abanic:secao-newsletter", aoMudar);
   }, []);
 
+  // "Fim da página" = o rodapé apareceu na tela
+  useEffect(() => {
+    const rodape = document.querySelector("footer");
+    if (!rodape || !("IntersectionObserver" in window)) return;
+    const observador = new IntersectionObserver(([entrada]) => setNoFim(entrada.isIntersecting));
+    observador.observe(rodape);
+    return () => observador.disconnect();
+  }, []);
+
   const esconderPorUmTempo = () => gravarNewsletter(String(Date.now() + DIAS_ESCONDIDA * 24 * 60 * 60 * 1000));
 
   const naPaginaDaNewsletter = pathname.startsWith("/newsletter/");
+  // No celular, a página de produto já tem a barra fixa de compra no pé; ali a compra tem prioridade
+  const naPaginaDeProduto = /^\/produtos\/[^/]+/.test(pathname);
   // O painel continua montado depois da inscrição, para a mensagem "Confira seu e-mail" aparecer
-  const mostrarBarra = liberada && !naPaginaDaNewsletter && !secaoVisivel;
-  if (!mostrarBarra && !aberto) return null;
+  const podeMostrar = liberada && !naPaginaDaNewsletter;
+  const visivel = podeMostrar && noFim && !secaoVisivel;
+
+  // O botão "voltar ao topo" do rodapé sobe junto com a faixa
+  useEffect(() => {
+    document.documentElement.style.setProperty("--altura-barra-newsletter", visivel ? `${ALTURA}px` : "0px");
+  }, [visivel]);
+
+  if (!podeMostrar && !aberto) return null;
+  const soNoComputador = naPaginaDeProduto ? "hidden md:flex" : "flex";
 
   const texto = {
     fontFamily: "var(--font-text)",
     fontSize: "var(--size-body-sm)",
-    color: "var(--abanic-black)",
+    color: "var(--text-body)",
   };
 
   return (
     <Dialog.Root open={aberto} onOpenChange={setAberto}>
-      {mostrarBarra && (
+      {podeMostrar && (
         <>
           {/* Espaço no fim da página para a faixa não cobrir o rodapé */}
-          <div aria-hidden="true" style={{ height: ALTURA }} />
+          <div aria-hidden="true" className={soNoComputador} style={{ height: ALTURA, background: "var(--abanic-black)" }} />
           <div
-            className="fixed left-0 right-0 bottom-0 flex items-stretch"
-            style={{ height: ALTURA, zIndex: 40, background: "var(--abanic-orange)" }}
+            className={`fixed left-0 right-0 bottom-0 items-stretch ${soNoComputador}`}
+            aria-hidden={!visivel}
+            inert={visivel ? undefined : ""}
+            style={{
+              height: ALTURA,
+              zIndex: 40,
+              background: "var(--surface-page)",
+              borderTop: "var(--border-hairline) solid var(--border-default)",
+              transform: visivel ? "translateY(0)" : "translateY(100%)",
+              transition: "transform var(--duration-slow) var(--ease-standard)",
+            }}
           >
             <Dialog.Trigger asChild>
               <button type="button" className="flex-1 flex items-center justify-between page-container cursor-pointer" style={texto}>
@@ -78,7 +108,7 @@ const NewsletterBar = () => {
               onClick={esconderPorUmTempo}
               aria-label="Fechar aviso da newsletter"
               className="flex items-center justify-center cursor-pointer"
-              style={{ ...texto, width: ALTURA, borderLeft: "var(--border-hairline) solid var(--ink-a40)" }}
+              style={{ ...texto, width: ALTURA, borderLeft: "var(--border-hairline) solid var(--border-default)" }}
             >
               <X size={18} strokeWidth={1.5} aria-hidden="true" />
             </button>

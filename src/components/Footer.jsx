@@ -284,8 +284,8 @@ const Footer = () => {
       {showButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-40 inline-flex items-center justify-center w-12 h-12 transition-colors hover:bg-[var(--abanic-orange)]"
-          style={{ background: "var(--abanic-black)", color: "var(--abanic-cream)", border: "var(--border-hairline) solid rgba(247, 243, 236, 0.3)" }}
+          className="fixed right-6 z-40 inline-flex items-center justify-center w-12 h-12 transition-all duration-[450ms] hover:bg-[var(--abanic-orange)]"
+          style={{ bottom: "calc(24px + var(--altura-barra-newsletter, 0px))", background: "var(--abanic-black)", color: "var(--abanic-cream)", border: "var(--border-hairline) solid rgba(247, 243, 236, 0.3)" }}
           aria-label={language === "pt" ? "Voltar ao topo" : "Back to top"}
         >
           <ArrowUp size={20} strokeWidth={1.5} />
