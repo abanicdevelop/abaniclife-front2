@@ -25,3 +25,6 @@ npm-debug.log
 # Outros arquivos que não quer subir
 *.env
 dist-server/
+
+# Playwright MCP
+.playwright-mcp/

@@ -37,6 +37,7 @@ const loaders = {
   PrivacyPolicy: () => import("./pages/PrivacyPolicy"),
   TermsOfUse: () => import("./pages/TermsOfUse"),
   EncontreSuaRotina: () => import("./pages/EncontreSuaRotina"),
+  NewsletterStatus: () => import("./pages/NewsletterStatus"),
 };
 const Home = lazy(loaders.Home);
 const Product = lazy(loaders.Product);
@@ -52,6 +53,7 @@ const CookiePolicy = lazy(loaders.CookiePolicy);
 const PrivacyPolicy = lazy(loaders.PrivacyPolicy);
 const TermsOfUse = lazy(loaders.TermsOfUse);
 const EncontreSuaRotina = lazy(loaders.EncontreSuaRotina);
+const NewsletterStatus = lazy(loaders.NewsletterStatus);
 
 // Espaço vazio na cor da página enquanto uma página carrega (evita o "Loading..." e o rodapé pulando)
 const PageFallback = () => (
@@ -112,6 +114,7 @@ const AnimatedRoutes = () => {
             <Route path="/termos-de-uso" element={<TermsOfUse />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/encontre-sua-rotina" element={<EncontreSuaRotina />} />
+            <Route path="/newsletter/:estado" element={<NewsletterStatus />} />
 
             {/* Endereços antigos */}
             <Route path="/product" element={<Navigate to="/produtos" replace />} />
