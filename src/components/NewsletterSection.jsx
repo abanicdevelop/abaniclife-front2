@@ -12,31 +12,9 @@ const NewsletterSection = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [empresa, setEmpresa] = useState(""); // campo-isca invisível: só robôs preenchem
 
-  // Função para enviar email de confirmação via serverless
-  const sendConfirmationEmail = async (nome, email) => {
-    try {
-      const response = await fetch("/api/send-confirmation-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        console.log("Email de confirmação enviado com sucesso");
-      } else {
-        console.warn("Erro ao enviar email de confirmação:", data.message);
-      }
-    } catch (error) {
-      console.warn(
-        "Erro ao enviar email de confirmação (pode ser local):",
-        error,
-      );
-    }
-  };
-
+  // A pessoa recebe um e-mail com link de confirmação; só entra na lista depois de clicar nele
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !nome) return;
@@ -45,39 +23,19 @@ const NewsletterSection = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/newsletter", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "f8916c6d-ef8f-4673-849c-e4f0283edb29",
-          subject: `Nova inscrição na Newsletter - ${nome}`,
-          from_name: "ABANIC Life Website",
-          name: nome,
-          email: email,
-          message: `Nova inscrição na Newsletter:\n\nNome: ${nome}\nEmail: ${email}\nData: ${new Date().toLocaleString(
-            "pt-BR",
-          )}`,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, empresa }),
       });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.success) throw new Error(data.message);
 
-      const data = await response.json();
-
-      if (data.success) {
-        // Enviar email de confirmação via EmailJS
-        await sendConfirmationEmail(nome, email);
-
-        setIsSubscribed(true);
-        setEmail("");
-        setNome("");
-      } else {
-        throw new Error("Erro ao enviar inscrição");
-      }
+      setIsSubscribed(true);
+      setEmail("");
+      setNome("");
     } catch (error) {
-      console.error("Erro:", error);
-      setErrorMessage("Erro ao processar inscrição. Tente novamente.");
+      setErrorMessage(error.message || "Erro ao processar inscrição. Tente novamente.");
     } finally {
       setIsLoading(false);
     }
@@ -124,6 +82,16 @@ const NewsletterSection = () => {
         <div className="lg:col-span-6">
           {!isSubscribed ? (
             <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+              <input
+                type="text"
+                name="empresa"
+                value={empresa}
+                onChange={(e) => setEmpresa(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }}
+              />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input label="Nome" placeholder="Seu nome" value={nome} onChange={(e) => setNome(e.target.value)} />
                 <Input
@@ -167,10 +135,10 @@ const NewsletterSection = () => {
                   color: "var(--text-body)",
                 }}
               >
-                Inscrição realizada.
+                Confira seu e-mail.
               </p>
               <p style={{ marginTop: "var(--space-2)", fontFamily: "var(--font-text)", fontSize: "var(--size-body)", color: "var(--text-body)" }}>
-                Obrigado por se inscrever. Você vai receber nossas novidades em breve.
+                Enviamos um link para confirmar sua inscrição. Se não encontrar, olhe também a caixa de spam ou promoções.
               </p>
             </div>
           )}

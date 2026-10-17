@@ -190,6 +190,9 @@ export const getSeo = (pathname) => {
     const a = articles.find((x) => x.slug === caminho.split("/")[2]);
     if (a) seo = paginaDeArtigo(a);
   }
+  if (!seo && caminho.startsWith("/newsletter/")) {
+    seo = { title: "Newsletter | ABANIC", description: "Sua inscrição na newsletter ABANIC.", robots: "noindex, follow" };
+  }
   seo = seo ?? { ...PAGINAS["/"], jsonLd: [] };
   return {
     type: "website",
