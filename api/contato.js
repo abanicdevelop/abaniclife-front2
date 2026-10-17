@@ -4,7 +4,9 @@ import { EMAIL_REGEX, escapar, getResend, layout } from "./_lib/newsletter.js";
 
 const DOMINIO = process.env.RESEND_EMAIL_DOMAIN || "abaniclife.com";
 const REMETENTE = `Site ABANIC <formulario@${DOMINIO}>`;
-const DESTINO = "contato@abaniclife.com";
+// O site exibe contato@abaniclife.com, mas essa conta ainda não tem caixa de e-mail no Microsoft 365;
+// por enquanto as mensagens do formulário vão direto para a caixa do Diego.
+const DESTINO = "diego.ramao@abaniclife.com";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
