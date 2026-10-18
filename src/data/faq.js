@@ -80,7 +80,7 @@ export const faqData = [
       {
         question: "E em caso de reações adversas?",
         answer:
-          "Os produtos comercializados pela ABANIC são regularizados junto à Agência Nacional de Vigilância Sanitária (ANVISA). Cada organismo pode reagir de forma distinta aos ingredientes cosméticos, mesmo quando utilizados conforme as orientações de uso. Em caso de reação adversa, recomendamos: Suspender imediatamente o uso do produto; Entrar em contato com nosso atendimento através do email: contato@abaniclife.com.br informando o ocorrido; Realizar o envio de imagens, vídeos ou outras evidências; Buscar orientação médica, se necessário. A ABANIC poderá, sem reconhecimento de responsabilidade, avaliar cada situação individualmente e, a seu critério, oferecer reembolso como gesto de cuidado, sem a necessidade de devolução do produto.",
+          "Os produtos comercializados pela ABANIC são regularizados junto à Agência Nacional de Vigilância Sanitária (ANVISA). Cada organismo pode reagir de forma distinta aos ingredientes cosméticos, mesmo quando utilizados conforme as orientações de uso. Em caso de reação adversa, recomendamos: Suspender imediatamente o uso do produto; Entrar em contato com nosso atendimento através do email: contato@abaniclife.com informando o ocorrido; Realizar o envio de imagens, vídeos ou outras evidências; Buscar orientação médica, se necessário. A ABANIC poderá, sem reconhecimento de responsabilidade, avaliar cada situação individualmente e, a seu critério, oferecer reembolso como gesto de cuidado, sem a necessidade de devolução do produto.",
       },
       {
         question:
@@ -91,7 +91,7 @@ export const faqData = [
       {
         question: "Como solicitar análise de troca ou reembolso?",
         answer:
-          "Para iniciar uma solicitação, entre em contato com nosso atendimento através do e-mail contato@abaniclife.com.br informando: Número do pedido; Motivo da solicitação; Imagens ou vídeos do produto, quando aplicável. Todas as solicitações são analisadas individualmente, respeitando os critérios legais e sanitários.",
+          "Para iniciar uma solicitação, entre em contato com nosso atendimento através do e-mail contato@abaniclife.com informando: Número do pedido; Motivo da solicitação; Imagens ou vídeos do produto, quando aplicável. Todas as solicitações são analisadas individualmente, respeitando os critérios legais e sanitários.",
       },
     ],
   },
@@ -101,7 +101,7 @@ export const faqData = [
       {
         question: "Como entrar em contato com a ABANIC?",
         answer:
-          "Nossa equipe está disponível por meio do formulário de contato ou pelo e-mail contato@abaniclife.com.br exclusivamente em nosso site. Responderemos o mais breve possível.",
+          "Nossa equipe está disponível por meio do formulário de contato ou pelo e-mail contato@abaniclife.com exclusivamente em nosso site. Responderemos o mais breve possível.",
       },
     ],
   },

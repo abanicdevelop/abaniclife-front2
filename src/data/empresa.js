@@ -6,5 +6,5 @@ export const EMPRESA = {
   cep: "04569-000",
   cidade: "São Paulo",
   uf: "SP",
-  email: "contato@abaniclife.com.br",
+  email: "contato@abaniclife.com",
 };

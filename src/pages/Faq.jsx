@@ -26,6 +26,7 @@ const Faq = () => {
     nome: "",
     email: "",
     mensagem: "",
+    empresa: "", // campo-isca invisível: só robôs preenchem
   });
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
@@ -65,32 +66,16 @@ const Faq = () => {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/contato", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          access_key: "f8916c6d-ef8f-4673-849c-e4f0283edb29",
-          subject: `FAQ - Nova mensagem de ${formData.nome}`,
-          from_name: "ABANIC Life - FAQ",
-          name: formData.nome,
-          email: formData.email,
-          message: `Nova mensagem via FAQ:\n\nNome: ${formData.nome}\nEmail: ${
-            formData.email
-          }\nMensagem:\n${
-            formData.mensagem
-          }\n\nData: ${new Date().toLocaleString("pt-BR")}`,
-          to: "contato@abaniclife.com.br",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
+      const data = await response.json().catch(() => ({}));
 
-      const data = await response.json();
-
-      if (data.success) {
+      if (response.ok && data.success) {
         setSubmitStatus("success");
-        setFormData({ nome: "", email: "", mensagem: "" });
+        setFormData({ nome: "", email: "", mensagem: "", empresa: "" });
 
         // Resetar status após 5 segundos
         setTimeout(() => setSubmitStatus(null), 5000);
@@ -309,14 +294,24 @@ const Faq = () => {
               }}
             >
               Envie sua mensagem ou escreva para{" "}
-              <a href="mailto:contato@abaniclife.com.br" style={{ color: "var(--text-body)", borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>
-                contato@abaniclife.com.br
+              <a href="mailto:contato@abaniclife.com" style={{ color: "var(--text-body)", borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>
+                contato@abaniclife.com
               </a>
               .
             </p>
           </div>
 
           <form onSubmit={handleSubmit} noValidate className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-5">
+            <input
+              type="text"
+              name="empresa"
+              value={formData.empresa}
+              onChange={handleInputChange}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }}
+            />
             <Input label="Nome" name="nome" placeholder="Seu nome" value={formData.nome} onChange={handleInputChange} />
             <Input label="E-mail" name="email" type="email" placeholder="seu@email.com" value={formData.email} onChange={handleInputChange} />
             <label className="md:col-span-2 block">
