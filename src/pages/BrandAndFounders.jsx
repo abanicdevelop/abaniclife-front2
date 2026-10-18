@@ -47,7 +47,7 @@ const BrandAndFounders = () => {
     {
       id: "section3",
       text: `
-        Muito além de produtos de qualidade, a ABANIC cria um espaço para conversar com quem enxerga a vida como autenticidade e tem interesse em explorar diferentes combinações de experiências. De forma disruptiva, original e provocativa, a ABANIC é para quem vive todas suas versões.
+        Muito além de produtos de qualidade, a ABANIC cria um espaço para conversar com quem tem interesse em explorar diferentes combinações de experiências e possibilidades. De forma disruptiva, original e provocativa, a ABANIC é para quem vive todas suas versões.
       `,
       image: ImageMountains,
       reverse: false,
