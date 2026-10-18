@@ -8,11 +8,13 @@ import {
   getResend,
   origemDoPedido,
 } from "./_lib/newsletter.js";
+import { emailNoLimite, pedidoPermitido } from "./_lib/protecao.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, message: "Método não permitido" });
   }
+  if (!pedidoPermitido(req, res, "newsletter")) return;
 
   const { nome: nomeBruto, email: emailBruto, empresa } = req.body || {};
 
@@ -23,6 +25,9 @@ export default async function handler(req, res) {
   const email = String(emailBruto || "").trim().toLowerCase();
   if (!nome || !EMAIL_REGEX.test(email)) {
     return res.status(400).json({ success: false, message: "Informe seu nome e um e-mail válido." });
+  }
+  if (emailNoLimite("newsletter", email)) {
+    return res.status(429).json({ success: false, message: "Já enviamos o link para este e-mail. Confira sua caixa de entrada e o spam." });
   }
 
   try {

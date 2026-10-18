@@ -4,7 +4,7 @@ import { renderToPipeableStream } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { AppShell } from "./App.jsx";
 
-export { getSeo, headHtml, rotasIndexaveis } from "./seo/seo.js";
+export { INDEXAR, getSeo, headHtml, rotasIndexaveis } from "./seo/seo.js";
 
 export function render(url) {
   return new Promise((resolve, reject) => {

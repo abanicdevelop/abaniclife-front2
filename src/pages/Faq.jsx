@@ -40,6 +40,7 @@ const Faq = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  const [mensagemErro, setMensagemErro] = useState("");
 
   // Animation variants similar to Explore page
   const textVariants = {
@@ -91,10 +92,12 @@ const Faq = () => {
         // Resetar status após 5 segundos
         setTimeout(() => setSubmitStatus(null), 5000);
       } else {
-        throw new Error("Erro ao enviar mensagem");
+        // Mostra a mensagem do servidor quando ela existe (ex.: limite de tentativas)
+        throw new Error(data.message || "");
       }
     } catch (error) {
       console.error("Erro:", error);
+      setMensagemErro(error.message && !/fetch/i.test(error.message) ? error.message : "");
       setSubmitStatus("error");
     } finally {
       setIsLoading(false);
@@ -374,7 +377,7 @@ const Faq = () => {
               )}
               {submitStatus === "error" && (
                 <p role="alert" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--status-critical)" }}>
-                  Não foi possível enviar. Confira os campos e tente novamente.
+                  {mensagemErro || "Não foi possível enviar. Confira os campos e tente novamente."}
                 </p>
               )}
             </div>

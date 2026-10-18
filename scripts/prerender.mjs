@@ -5,7 +5,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(raiz, "dist");
-const { render, getSeo, headHtml, rotasIndexaveis } = await import(
+const { INDEXAR, render, getSeo, headHtml, rotasIndexaveis } = await import(
   pathToFileURL(path.join(raiz, "dist-server", "entry-server.js")).href
 );
 
@@ -40,4 +40,11 @@ ${rotas
 </urlset>
 `;
 fs.writeFileSync(path.join(dist, "sitemap.xml"), sitemap);
-console.log(`sitemap.xml com ${rotas.length} endereços`);
+console.log(`sitemap.xml com ${sitemap.split("<url>").length - 1} endereços`);
+
+// Antes do lançamento (INDEXAR = false) o robots.txt não divulga o sitemap
+if (!INDEXAR) {
+  const arquivo = path.join(dist, "robots.txt");
+  fs.writeFileSync(arquivo, fs.readFileSync(arquivo, "utf8").replace(/\n*Sitemap:.*\n?/, "\n"));
+  console.log("INDEXAR = false: páginas com noindex e robots.txt sem sitemap");
+}

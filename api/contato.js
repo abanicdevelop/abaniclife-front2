@@ -1,6 +1,7 @@
 // Formulário de contato do FAQ: envia a mensagem para a caixa de atendimento.
 // "Responder" no e-mail recebido vai direto para quem escreveu.
 import { EMAIL_REGEX, escapar, getResend, layout } from "./_lib/newsletter.js";
+import { pedidoPermitido } from "./_lib/protecao.js";
 
 const DOMINIO = process.env.RESEND_EMAIL_DOMAIN || "abaniclife.com";
 const REMETENTE = `Site ABANIC <formulario@${DOMINIO}>`;
@@ -10,6 +11,7 @@ export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, message: "Método não permitido" });
   }
+  if (!pedidoPermitido(req, res, "contato")) return;
 
   const { nome: nomeBruto, email: emailBruto, telefone: telefoneBruto, mensagem: mensagemBruta, empresa } = req.body || {};
 
