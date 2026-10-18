@@ -1,6 +1,6 @@
 import GelImage from "../assets/products/gel-limpeza.webp";
 import SerumImage from "../assets/products/serum-clareador.webp";
-import CremeImage from "../assets/products/creme-fps50.webp";
+import CremeImage from "../assets/products/creme-fps75.webp";
 // Placas de Petri no modelo novo (fundo creme #F7F3EC).
 import AlgasVermelhasPetri from "../assets/products/ativos/novas/algas-vermelhas-petri.webp";
 import MargaridaPetri from "../assets/products/ativos/novas/margarida-petri.webp";
