@@ -58,7 +58,7 @@ const PAGINAS = {
   [ROTAS.home]: {
     title: "ABANIC | Skincare com ativos naturais · Linha RHADYANCE",
     description:
-      "Limpar, tratar e proteger: a linha RHADYANCE reúne ativos naturais de algas vermelhas, flor de margarida e esqualano vegetal para uma pele mais luminosa e uniforme.",
+      "Linha de cuidado facial RHADYANCE: gel de limpeza delicada, sérum clareador que pode ser usado de dia e hidratante com FPS 75. Protagonista da linha, a alga vermelha do Báltico tem ação revitalizante e reforça a barreira cutânea. A cada passo, outros ativos completam o cuidado, para uma pele de aparência uniforme e luminosa.",
     image: og("padrao.jpg"),
     jsonLd: [organizacao, site],
   },
@@ -134,7 +134,7 @@ const PAGINAS = {
 const DESCRICAO_PRODUTO = {
   gel: "Gel de limpeza facial com limpeza delicada e extratos de algas vermelhas, flor de margarida e calêndula. Ativos de ação antioxidante e calmante. Para todos os tipos de pele.",
   serum: "Sérum facial clareador com algas vermelhas, flor de margarida e alga arco-íris: ativos que uniformizam a aparência da pele e a iluminam. Pode ser usado de dia e à noite.",
-  fps50: "Creme facial hidratante com FPS 75 e ativos de algas vermelhas, flor de margarida, evódia e esqualano vegetal: antioxidantes, hidratantes e que protegem a barreira da pele.",
+  fps50: "Creme facial hidratante com FPS 75 e ativos de alga vermelha, flor de margarida, alga arco-íris e esqualano vegetal: revitalizantes, hidratantes e que protegem a barreira da pele. Não é um protetor solar.",
 };
 
 const NOME_PRODUTO = {

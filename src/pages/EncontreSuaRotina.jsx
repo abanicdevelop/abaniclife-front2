@@ -35,13 +35,63 @@ const rotulo = {
   color: "var(--text-muted)",
 };
 
+const seloIndicado = {
+  ...rotulo,
+  color: "var(--abanic-orange)",
+  border: "var(--border-hairline) solid var(--abanic-orange)",
+  padding: "2px 8px",
+};
+
+// Card de produto do resultado. "grande" = o produto em destaque (imagem ao lado do texto no desktop)
+const CardRotina = ({ produto: p, grande = false, onAdicionar }) => (
+  <article className={grande ? "grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10" : "flex flex-col"}>
+    <Link to={rotaProduto(p)} className="block overflow-hidden aspect-[4/5]" style={{ background: "var(--surface-raised)" }}>
+      <img src={p.imagem} alt={p.tituloDetalhe} className="w-full h-full object-cover" />
+    </Link>
+    <div className={grande ? "flex flex-col md:justify-center" : "flex flex-col flex-1"}>
+      <div className={`flex items-center gap-3 ${grande ? "" : "mt-5"}`}>
+        <span style={rotulo}>
+          {passos[p.id]?.numero} — {passos[p.id]?.etapa}
+        </span>
+        {grande && <span style={seloIndicado}>Indicado para você</span>}
+      </div>
+      <Link
+        to={rotaProduto(p)}
+        style={{
+          marginTop: "var(--space-2)",
+          fontFamily: "var(--font-display)",
+          fontWeight: "var(--weight-light)",
+          fontSize: grande ? "var(--size-heading-1)" : "var(--size-heading-2)",
+          lineHeight: "var(--leading-heading)",
+          color: "var(--text-body)",
+        }}
+      >
+        {p.tituloDetalhe}
+      </Link>
+      <p style={{ ...textoApoio, fontSize: grande ? "var(--size-body)" : "var(--size-body-sm)", marginTop: "var(--space-2)" }}>
+        {motivoDoProduto[p.id]}
+      </p>
+      <div className={`flex items-center justify-between gap-4 pt-5 ${grande ? "mt-4" : "mt-auto"}`}>
+        <span style={{ fontFamily: "var(--font-text)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}>
+          {p.preco}
+        </span>
+        <Button variant={grande ? "primary" : "secondary"} size="sm" onClick={() => onAdicionar(p)}>
+          Adicionar à sacola
+        </Button>
+      </div>
+    </div>
+  </article>
+);
+
 const Resultado = ({ respostas, onRefazer }) => {
   const { addItem } = useCart();
   const rotina = montarRotina(respostas);
-  const produtos = rotina.ordem.map((id) => productsData.find((p) => p.id === id)).filter(Boolean);
+  const porId = (id) => productsData.find((p) => p.id === id);
+  const destaque = porId(rotina.destaque);
+  const complemento = rotina.complemento.map(porId).filter(Boolean);
 
   const adicionarTodos = () => {
-    produtos.forEach((p) => addItem(p));
+    [destaque, ...complemento].forEach((p) => addItem(p));
     trackEvent({ name: "rotina_adicionar_todos", category: "Rotina", action: rotina.necessidade.slug });
   };
 
@@ -51,57 +101,26 @@ const Resultado = ({ respostas, onRefazer }) => {
       <h1 style={{ ...tituloGrande, marginTop: "var(--space-4)" }}>Para {rotina.necessidade.nome.toLowerCase()}</h1>
       <p style={{ ...textoApoio, marginTop: "var(--space-4)", maxWidth: "56ch" }}>{rotina.abertura}</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 mt-12">
-        {produtos.map((p) => {
-          const destaque = rotina.indicados.includes(p.id);
-          return (
-            <article key={p.id} className="flex flex-col">
-              <Link to={rotaProduto(p)} className="block overflow-hidden aspect-[4/5]" style={{ background: "var(--surface-raised)" }}>
-                <img src={p.imagem} alt={p.tituloDetalhe} className="w-full h-full object-cover" />
-              </Link>
-              <div className="flex items-center gap-3 mt-5">
-                <span style={rotulo}>
-                  {passos[p.id]?.numero} — {passos[p.id]?.etapa}
-                </span>
-                {destaque && (
-                  <span
-                    style={{
-                      ...rotulo,
-                      color: "var(--abanic-orange)",
-                      border: "var(--border-hairline) solid var(--abanic-orange)",
-                      padding: "2px 8px",
-                    }}
-                  >
-                    Indicado para você
-                  </span>
-                )}
-              </div>
-              <Link
-                to={rotaProduto(p)}
-                style={{
-                  marginTop: "var(--space-2)",
-                  fontFamily: "var(--font-display)",
-                  fontWeight: "var(--weight-light)",
-                  fontSize: "var(--size-heading-2)",
-                  color: "var(--text-body)",
-                }}
-              >
-                {p.tituloDetalhe}
-              </Link>
-              <p style={{ ...textoApoio, fontSize: "var(--size-body-sm)", marginTop: "var(--space-2)" }}>
-                {motivoDoProduto[p.id]}
-              </p>
-              <div className="flex items-center justify-between gap-4 mt-auto pt-5">
-                <span style={{ fontFamily: "var(--font-text)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}>
-                  {p.preco}
-                </span>
-                <Button variant="secondary" size="sm" onClick={() => addItem(p)}>
-                  Adicionar à sacola
-                </Button>
-              </div>
-            </article>
-          );
-        })}
+      <div className="mt-12">
+        <CardRotina produto={destaque} grande onAdicionar={addItem} />
+      </div>
+
+      <h2
+        className="mt-16"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontWeight: "var(--weight-light)",
+          fontSize: "var(--size-heading-2)",
+          lineHeight: "var(--leading-heading)",
+          color: "var(--text-body)",
+        }}
+      >
+        Complemente sua rotina para um cuidado completo
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 sm:gap-6 mt-8">
+        {complemento.map((p) => (
+          <CardRotina key={p.id} produto={p} onAdicionar={addItem} />
+        ))}
       </div>
 
       <div

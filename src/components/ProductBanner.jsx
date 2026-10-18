@@ -59,8 +59,7 @@ const ProductBanner = () => {
           }}
         >
           Limpar, tratar e revitalizar. A linha RHADYANCE tem como protagonista a alga vermelha do Mar
-          Báltico, com ação antioxidante, de proteção da barreira e hidratante. Ao lado dela, outros
-          nove ativos promovem uma aparência uniforme e luminosa à pele.
+          Báltico e, ao lado dela, outros ativos que promovem uma aparência uniforme e luminosa à pele.
         </p>
 
         <div className="flex flex-wrap items-center gap-6 mt-8">

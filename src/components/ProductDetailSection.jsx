@@ -213,6 +213,11 @@ const ProductDetailSection = ({ product }) => {
                       </li>
                     ))}
                   </ul>
+                  {product.rodapeAtivos && (
+                    <p className="mt-3" style={{ ...bodyTextStyle, fontSize: "var(--size-caption)", color: "var(--text-muted)" }}>
+                      {product.rodapeAtivos}
+                    </p>
+                  )}
                 </Secao>
               )}
 
