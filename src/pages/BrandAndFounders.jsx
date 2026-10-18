@@ -29,7 +29,7 @@ const BrandAndFounders = () => {
     {
       id: "section1",
       text: `
-        Nós, da ABANIC, acreditamos que as pessoas são múltiplas e que devem se permitir explorar todos seus interesses, capacidades e versões, criando um leque de possibilidades em suas vidas. Por isso criamos uma marca autêntica, cult e inovadora, que traz uma nova perspectiva sobre beleza, estilo de vida e autocuidado, com produtos de alta eficiência que inspiram e transformam.
+        Na ABANIC acreditamos que as pessoas são múltiplas. Ninguém é uma coisa só. Somos feitos de interesses e talentos diversos, que se abrem com um leque de possibilidades em nossas vidas. É isso que define a nossa autenticidade.
       `,
       image: ImageWoman,
       reverse: false,
@@ -38,7 +38,7 @@ const BrandAndFounders = () => {
     {
       id: "section2",
       text: `
-      Influenciada pela arte, design e arquitetura, a ABANIC apoia seus pilares na ciência e tecnologia para criar produtos de alta qualidade e respeito à natureza. Nosso propósito é acompanhar as pessoas nas suas jornadas, em todos os momentos, de forma disruptiva e original com uma pitada de questionamento, para que testem as suas habilidades, se abram para o novo e se permitam viver suas múltiplas facetas.
+      A ABANIC nasceu para trazer uma nova perspectiva sobre autocuidado e estilo de vida. Nossas referências vêm do design, da arte e da arquitetura. Nosso critério vem da ciência e da busca pela qualidade. Nosso propósito é acompanhar as pessoas em todos os momentos de suas jornadas.
       `,
       image: ImageHouse,
       reverse: true,
@@ -47,7 +47,7 @@ const BrandAndFounders = () => {
     {
       id: "section3",
       text: `
-        Muito além de produtos de alta qualidade, criamos um espaço onde podemos dialogar com as pessoas que possuem essa autenticidade e compartilhem o interesse em lançar um olhar diferente sobre as possíveis combinações de experiências para viverem todas suas versões da melhor forma. A ABANIC é para aqueles que desejam viver todas possibilidades.
+        Muito além de produtos de qualidade, a ABANIC cria um espaço para conversar com quem enxerga a vida como autenticidade e tem interesse em explorar diferentes combinações de experiências. De forma disruptiva, original e provocativa, a ABANIC é para quem vive todas suas versões.
       `,
       image: ImageMountains,
       reverse: false,

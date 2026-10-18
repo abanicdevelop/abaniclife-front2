@@ -149,6 +149,16 @@ const ProductDetailSection = ({ product }) => {
               </div>
             )}
 
+            {/* Advertência obrigatória do creme multifuncional (hidratante com FPS) */}
+            {product.advertencia && (
+              <p
+                className="mt-4"
+                style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}
+              >
+                {product.advertencia}
+              </p>
+            )}
+
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-8">
               <span
                 style={{
@@ -246,7 +256,7 @@ const ProductDetailSection = ({ product }) => {
               </h2>
               <p style={{ ...bodyTextStyle, fontSize: "var(--size-body)", marginTop: "var(--space-4)", maxWidth: "40ch" }}>
                 {passo ? `O ${passo.nome} é o passo ${passo.numero}: ${passo.etapa.toLowerCase()}. ` : ""}
-                Use com os outros produtos da linha RHADYANCE para limpar, tratar e proteger a pele
+                Use com os outros produtos da linha RHADYANCE para limpar, tratar e revitalizar a pele
                 todos os dias.
               </p>
               <ol className="mt-6 space-y-2">

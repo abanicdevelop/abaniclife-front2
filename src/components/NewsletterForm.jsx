@@ -92,9 +92,9 @@ const NewsletterForm = ({ empilhado = false }) => {
         style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }}
       />
       <div className={empilhado ? "flex flex-col gap-4" : "grid grid-cols-1 sm:grid-cols-2 gap-4"}>
-        <Input label="Nome" placeholder="Seu nome" autoComplete="given-name" value={nome} onChange={(e) => setNome(e.target.value)} />
+        <Input label="Seu nome" autoComplete="given-name" value={nome} onChange={(e) => setNome(e.target.value)} />
         <Input
-          label="E-mail"
+          label="Seu e-mail"
           type="email"
           placeholder="seu@email.com"
           autoComplete="email"
@@ -103,7 +103,7 @@ const NewsletterForm = ({ empilhado = false }) => {
         />
       </div>
       <Button type="submit" variant="primary" size="lg" disabled={isLoading || !nome || !email} fullWidth>
-        {isLoading ? "Inscrevendo..." : "Assinar"}
+        {isLoading ? "Enviando..." : "Quero receber"}
       </Button>
       <p
         style={{
@@ -113,11 +113,11 @@ const NewsletterForm = ({ empilhado = false }) => {
           color: "var(--text-body)",
         }}
       >
-        Seus dados são tratados de acordo com a{" "}
+        Seus dados seguem nossa{" "}
         <Link to="/politica-de-privacidade" style={{ borderBottom: "var(--border-hairline) solid currentColor" }}>
           Política de Privacidade
         </Link>
-        . Você pode cancelar a assinatura a qualquer momento.
+        . Você pode cancelar quando quiser.
       </p>
       {errorMessage && (
         <p role="alert" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--status-critical)" }}>

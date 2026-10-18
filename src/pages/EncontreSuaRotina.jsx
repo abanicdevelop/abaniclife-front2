@@ -6,7 +6,7 @@ import { Button } from "../components/design-system/Button";
 import { useCart } from "../context/CartContext";
 import { productsData } from "../data/productsData";
 import { passos } from "../data/rotina";
-import { perguntas, montarRotina, motivoDoProduto, necessidades } from "../data/necessidades";
+import { perguntas, montarRotina, motivoDoProduto, necessidades, necessidadesAntigas } from "../data/necessidades";
 import { trackEvent } from "../utils/analytics";
 import { DURACAO, DURACAO_SAIDA } from "../utils/motion";
 import { rotaProduto } from "../data/rotas";
@@ -53,7 +53,7 @@ const Resultado = ({ respostas, onRefazer }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 mt-12">
         {produtos.map((p) => {
-          const destaque = p.id === rotina.principal;
+          const destaque = rotina.indicados.includes(p.id);
           return (
             <article key={p.id} className="flex flex-col">
               <Link to={rotaProduto(p)} className="block overflow-hidden aspect-[4/5]" style={{ background: "var(--surface-raised)" }}>
@@ -135,7 +135,8 @@ const Resultado = ({ respostas, onRefazer }) => {
 
 const EncontreSuaRotina = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const necessidadeDaUrl = searchParams.get("necessidade");
+  const parametro = searchParams.get("necessidade");
+  const necessidadeDaUrl = necessidadesAntigas[parametro] ?? parametro;
   const valida = necessidades.some((n) => n.slug === necessidadeDaUrl);
 
   // Vindo do menu/home com ?necessidade=..., mostra o resultado direto

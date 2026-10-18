@@ -24,14 +24,10 @@ const ProductActive = () => {
          "
       style={{ color: "var(--abanic-gray)" }}
     >
-      COM ATIVOS <b style={{ color: "var(--abanic-gray-dark)" }}>PRÓ-AGING,</b>{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>HIDRATANTES</b> QUE
-      REVELAM A{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>LUMINOSIDADE</b> DA SUA
-      PELE. DESENVOLVIDOS ATRAVÉS DA{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>
-        CIÊNCIA E SUSTENTABILIDADE.
-      </b>
+      LINHA DE CUIDADOS FACIAIS <b style={{ color: "var(--abanic-gray-dark)" }}>RHADYANCE</b>: ATIVOS
+      ANTIOXIDANTES, QUE PROTEGEM A BARREIRA DA PELE, HIDRATAM E UNIFORMIZAM.{" "}
+      <b style={{ color: "var(--abanic-gray-dark)" }}>CIÊNCIA</b> PARA REVELAR A SUA{" "}
+      <b style={{ color: "var(--abanic-gray-dark)" }}>LUMINOSIDADE</b> NATURAL.
     </motion.p>
   );
 };

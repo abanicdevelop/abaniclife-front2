@@ -12,9 +12,9 @@ const BreadText = () => {
       className="mt-40 text-[36px] leading-normal max-w-7xl mx-auto mb-28 font-space-grotesk-h1 text-center px-4 sm:px-6 lg:px-8"
       style={{ color: "var(--abanic-gray)" }}
     >
-      COM FÓRMULAS LEVES E CONCENTRADAS EM ATIVOS A LINHA{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>RHADYANCE</b> REÚNE OS
-      PASSOS ESSENCIAIS PARA SUA ROTINA DE AUTOCUIDADO.
+      A ALGA VERMELHA NATIVA DO MAR BÁLTICO É O CENTRO DA LINHA{" "}
+      <b style={{ color: "var(--abanic-gray-dark)" }}>RHADYANCE</b>. ESTÁ NOS TRÊS PASSOS DO
+      RITUAL.
     </motion.p>
   );
 };

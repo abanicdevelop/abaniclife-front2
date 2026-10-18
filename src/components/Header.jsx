@@ -57,9 +57,9 @@ const translations = {
         href: "#",
         submenu: [
           { name: "Linha RHADYANCE", href: "/produtos" },
-          { name: "Gel de Limpeza Facial", href: "/produtos/gel-de-limpeza-facial" },
-          { name: "Sérum Facial Clareador", href: "/produtos/serum-facial-clareador" },
-          { name: "Creme Facial Radiance FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Hidratante Rhadyance FPS 75", href: "/produtos/creme-facial-fps75" },
         ],
       },
       {
@@ -99,7 +99,7 @@ const translations = {
         name: "Product",
         href: "#",
         submenu: [
-          { name: "RHADYANCE FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "RHADYANCE FPS 75", href: "/produtos/creme-facial-fps75" },
           { name: "Lip Balm", href: "/produtos#ativos" },
         ],
       },

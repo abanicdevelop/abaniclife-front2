@@ -32,9 +32,9 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
         products: [
-          { name: "Gel de Limpeza Facial", href: "/produtos/gel-de-limpeza-facial" },
-          { name: "Sérum Facial Clareador", href: "/produtos/serum-facial-clareador" },
-          { name: "Creme Facial Radiance FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Hidratante Rhadyance FPS 75", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
           { name: "Perguntas Frequentes", href: "/faq" },
@@ -66,7 +66,7 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
         products: [
-          { name: "RHADYANCE FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "RHADYANCE FPS 75", href: "/produtos/creme-facial-fps75" },
           { name: "Lip Balm", href: "/produtos#ativos" },
         ],
         support: [
@@ -198,8 +198,8 @@ const Footer = () => {
           </div>
           <p className="mt-6" style={{ ...linkRodape, ...textoSuave, lineHeight: "var(--leading-body)", maxWidth: "40ch" }}>
             {language === "pt"
-              ? "Queremos inspirar, de modo provocativo, as pessoas a buscarem todas as suas versões através do autocuidado, vida saudável e expansiva."
-              : "We want to provocatively inspire people to seek out all their versions through self-care, healthy and expansive living"}
+              ? "Para quem vive todas as suas versões."
+              : "For those who live all their versions."}
           </p>
           <ul className="mt-6 space-y-3">
             <li>

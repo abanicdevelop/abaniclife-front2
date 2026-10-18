@@ -36,7 +36,7 @@ const HeroSection = () => {
     {
       id: 2,
       title: "Cultura e Tendência",
-      subtitle: "SUAS MULTIPLAS VERSÕES",
+      subtitle: "SUAS MÚLTIPLAS VERSÕES",
       image: Banner3,
       overlay: "bg-black/40",
       produto: produtoPorId("gel"),
@@ -211,7 +211,7 @@ const HeroSection = () => {
                         paddingBottom: "1px",
                       }}
                     >
-                      Saiba mais
+                      Ativos e Benefícios
                     </Link>
                     </div>
                   </div>

@@ -157,7 +157,7 @@ const NewsletterBar = () => {
             <Dialog.Description
               style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body)", lineHeight: "var(--leading-body)", color: "var(--text-body)" }}
             >
-              Receba em primeira mão as novidades sobre lançamentos, edições especiais e eventos da marca.
+              Lançamentos, edições especiais, conteúdos e convites exclusivos.
             </Dialog.Description>
             <NewsletterForm empilhado />
           </div>

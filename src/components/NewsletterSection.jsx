@@ -52,8 +52,7 @@ const NewsletterSection = () => {
               maxWidth: "46ch",
             }}
           >
-            Receba em primeira mão as novidades sobre lançamentos, edições especiais e eventos da
-            marca.
+            Lançamentos, edições especiais, conteúdos e convites exclusivos.
           </p>
         </div>
 
