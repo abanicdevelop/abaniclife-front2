@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ROTAS } from "../data/rotas";
 import { DURACAO } from "../utils/motion";
+import { useCart } from "../context/CartContext";
 
 const CHAVE = "abanic_cookies"; // "aceito" | "essenciais"
 
@@ -20,6 +21,8 @@ export const abrirAvisoDeCookies = () => window.dispatchEvent(new Event("abanic:
 /** Aviso de cookies (LGPD): sem escolha, o Google Analytics não grava cookies (consentimento negado). */
 const CookieBanner = () => {
   const [aberto, setAberto] = useState(false);
+  // Some enquanto a sacola está aberta para não cobrir o subtotal e o "Finalizar compra"
+  const { isOpen: sacolaAberta } = useCart();
 
   useEffect(() => {
     if (!lerEscolha()) setAberto(true);
@@ -50,7 +53,7 @@ const CookieBanner = () => {
 
   return (
     <AnimatePresence>
-      {aberto && (
+      {aberto && !sacolaAberta && (
         <motion.div
           role="dialog"
           aria-live="polite"
