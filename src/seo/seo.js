@@ -6,6 +6,10 @@ import { faqData } from "../data/faq";
 import { SITE_URL, ROTAS } from "../data/rotas";
 import { EMPRESA } from "../data/empresa";
 
+// Chave única de indexação. false = pede ao Google para NÃO indexar nenhuma página (pré-lançamento)
+// e tira o sitemap do robots.txt. No lançamento, troque para true e faça um novo deploy.
+export const INDEXAR = false;
+
 const MARCA = "ABANIC";
 const og = (arquivo) => `${SITE_URL}/og/${arquivo}`;
 const absoluta = (url) => (url?.startsWith("http") ? url : `${SITE_URL}${url}`);
@@ -200,6 +204,7 @@ export const getSeo = (pathname) => {
     image: og("padrao.jpg"),
     jsonLd: [],
     ...seo,
+    ...(INDEXAR ? {} : { robots: "noindex, nofollow" }),
     canonical: `${SITE_URL}${caminho === "/" ? "/" : caminho}`,
   };
 };
