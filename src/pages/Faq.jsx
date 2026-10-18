@@ -17,6 +17,15 @@ import { Input } from "../components/design-system/Input";
 import { Button } from "../components/design-system/Button";
 import { DURACAO } from "../utils/motion";
 
+// Formata enquanto a pessoa digita: (11) 98765-4321 ou (11) 3456-7890
+const formatarTelefone = (valor) => {
+  const d = valor.replace(/\D/g, "").slice(0, 11);
+  if (d.length <= 2) return d ? `(${d}` : "";
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+};
+
 const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(0);
@@ -25,6 +34,7 @@ const Faq = () => {
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
+    telefone: "",
     mensagem: "",
     empresa: "", // campo-isca invisível: só robôs preenchem
   });
@@ -47,7 +57,8 @@ const Faq = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    const value = name === "telefone" ? formatarTelefone(e.target.value) : e.target.value;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -75,7 +86,7 @@ const Faq = () => {
 
       if (response.ok && data.success) {
         setSubmitStatus("success");
-        setFormData({ nome: "", email: "", mensagem: "", empresa: "" });
+        setFormData({ nome: "", email: "", telefone: "", mensagem: "", empresa: "" });
 
         // Resetar status após 5 segundos
         setTimeout(() => setSubmitStatus(null), 5000);
@@ -314,6 +325,16 @@ const Faq = () => {
             />
             <Input label="Nome" name="nome" placeholder="Seu nome" value={formData.nome} onChange={handleInputChange} />
             <Input label="E-mail" name="email" type="email" placeholder="seu@email.com" value={formData.email} onChange={handleInputChange} />
+            <Input
+              label="Telefone ou WhatsApp (opcional)"
+              name="telefone"
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel-national"
+              placeholder="(11) 98765-4321"
+              value={formData.telefone}
+              onChange={handleInputChange}
+            />
             <label className="md:col-span-2 block">
               <span
                 style={{

@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ success: false, message: "Método não permitido" });
   }
 
-  const { nome: nomeBruto, email: emailBruto, mensagem: mensagemBruta, empresa } = req.body || {};
+  const { nome: nomeBruto, email: emailBruto, telefone: telefoneBruto, mensagem: mensagemBruta, empresa } = req.body || {};
 
   // Campo invisível para pessoas: se veio preenchido, é robô. Responde "ok" sem enviar nada.
   if (empresa) return res.status(200).json({ success: true });
@@ -19,6 +19,12 @@ export default async function handler(req, res) {
   const nome = String(nomeBruto || "").trim().slice(0, 80);
   const email = String(emailBruto || "").trim().toLowerCase();
   const mensagem = String(mensagemBruta || "").trim().slice(0, 5000);
+  // Telefone é opcional: guarda só os dígitos (DDD + número) e ignora o que não parecer um telefone
+  const digitos = String(telefoneBruto || "").replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "");
+  const telefone = digitos.length === 10 || digitos.length === 11 ? digitos : "";
+  const telefoneFormatado = telefone
+    ? `(${telefone.slice(0, 2)}) ${telefone.slice(2, -4)}-${telefone.slice(-4)}`
+    : "";
   if (!nome || !mensagem || !EMAIL_REGEX.test(email)) {
     return res.status(400).json({ success: false, message: "Preencha nome, um e-mail válido e a mensagem." });
   }
@@ -35,12 +41,16 @@ export default async function handler(req, res) {
         previa: mensagem.slice(0, 120),
         titulo: "Nova mensagem pelo site",
         paragrafos: [
-          `<strong>Nome:</strong> ${escapar(nome)}<br><strong>E-mail:</strong> ${escapar(email)}<br><strong>Enviada em:</strong> ${data}`,
+          `<strong>Nome:</strong> ${escapar(nome)}<br><strong>E-mail:</strong> ${escapar(email)}<br>` +
+            (telefone
+              ? `<strong>Telefone:</strong> ${telefoneFormatado} · <a href="https://wa.me/55${telefone}" style="color:#151515;">abrir no WhatsApp</a><br>`
+              : "") +
+            `<strong>Enviada em:</strong> ${data}`,
           escapar(mensagem).replace(/\n/g, "<br>"),
         ],
         rodape: "Enviada pelo formulário da página de perguntas frequentes. Use “Responder” para falar direto com a pessoa.",
       }),
-      text: `Nova mensagem pelo site\n\nNome: ${nome}\nE-mail: ${email}\nEnviada em: ${data}\n\n${mensagem}`,
+      text: `Nova mensagem pelo site\n\nNome: ${nome}\nE-mail: ${email}\n${telefone ? `Telefone: ${telefoneFormatado} (WhatsApp: https://wa.me/55${telefone})\n` : ""}Enviada em: ${data}\n\n${mensagem}`,
     });
     if (error) throw new Error(error.message);
 
