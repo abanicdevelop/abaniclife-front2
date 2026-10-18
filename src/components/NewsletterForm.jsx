@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { trackEvent } from "../utils/analytics";
 import { Link } from "react-router-dom";
 import { Input } from "./design-system/Input";
 import { Button } from "./design-system/Button";
@@ -49,6 +50,7 @@ const NewsletterForm = ({ empilhado = false }) => {
       if (!response.ok || !data.success) throw new Error(data.message);
 
       setIsSubscribed(true);
+      trackEvent({ name: "newsletter_inscricao" });
       setEmail("");
       setNome("");
       gravarNewsletter("inscrito");

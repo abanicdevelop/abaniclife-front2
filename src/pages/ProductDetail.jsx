@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { trackEcommerce } from "../utils/analytics";
 import ProductDetailSection from "../components/ProductDetailSection";
 import { productsData } from "../data/productsData";
 
@@ -25,6 +27,10 @@ const BackLink = () => (
 const ProductDetail = () => {
   const { slug } = useParams();
   const product = productsData.find((p) => p.slug === slug);
+
+  useEffect(() => {
+    if (product) trackEcommerce("view_item", [{ id: product.id }]);
+  }, [product]);
 
   if (!product) {
     return (

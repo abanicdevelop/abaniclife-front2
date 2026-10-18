@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { productsData } from "../data/productsData";
+import { trackEcommerce } from "../utils/analytics";
 import ProductActivetext from "../components/ProductActiveText";
 import ProductBanner from "../components/ProductBanner";
 import HomeVitrine from "../components/home/HomeVitrine";
@@ -6,6 +9,10 @@ import HomeIngredientes from "../components/home/HomeIngredientes";
 
 // Página da linha: mesma linguagem da home (vitrine em rotina, diferenciais e ativos clicáveis)
 const ProductPage = () => {
+  useEffect(() => {
+    trackEcommerce("view_item_list", productsData.map((p) => ({ id: p.id })), { item_list_name: "Linha" });
+  }, []);
+
   return (
     <section style={{ backgroundColor: "var(--abanic-cream)" }}>
       <ProductBanner />
