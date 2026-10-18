@@ -2,47 +2,51 @@
 // Os textos de cada produto saem das descrições já aprovadas em productsData.js (claims / oProduto),
 // sem prometer nada além do que a embalagem diz.
 
+// Opções da pergunta 1 e ordem do resultado: o 1º produto de "ordem" é o destaque ("Indicado para você"),
+// os outros dois são o complemento (doc "Alterações para implementar", 18/10/2026)
 export const necessidades = [
   {
     slug: "manchas",
     nome: "Manchas e uniformidade",
     curto: "Manchas",
-    descricao: "Ativos que ajudam a reduzir a aparência de manchas e a deixar a pele mais uniforme.",
-    indicados: ["serum"],
+    descricao: "Pele com manchas que surgem ou se intensificam, e aparência irregular.",
+    ordem: ["serum", "fps50", "gel"],
   },
   {
     slug: "luminosidade",
     nome: "Falta de luminosidade",
     curto: "Luminosidade",
-    descricao: "Ativos escolhidos para revelar a luminosidade natural e o viço da pele.",
-    indicados: ["serum", "fps50"],
+    descricao: "Pele opaca, sem viço.",
+    ordem: ["fps50", "serum", "gel"],
   },
   {
-    // Une as antigas opções "Proteção solar diária" e "Hidratação e conforto"
-    slug: "protecao-hidratacao",
-    nome: "Proteção antioxidante e hidratação",
-    curto: "Proteção e hidratação",
-    descricao: "Ativos hidratantes e antioxidantes que reforçam a barreira da pele e a protegem dos radicais livres.",
-    indicados: ["fps50"],
+    slug: "hidratacao-revitalizacao",
+    nome: "Hidratação e revitalização",
+    curto: "Hidratação",
+    descricao: "Pele com falta de hidratação, com aparência de cansada.",
+    ordem: ["fps50", "serum", "gel"],
   },
   {
     slug: "limpeza",
     nome: "Limpeza e preparo da pele",
     curto: "Limpeza",
-    descricao:
-      "Limpeza delicada que prepara a pele para os próximos passos, com ativos antioxidantes e ativos que ajudam a uniformizar a aparência das manchas.",
-    indicados: ["gel"],
+    descricao: "Pele que pede uma limpeza delicada, como primeiro passo do cuidado.",
+    ordem: ["gel", "serum", "fps50"],
   },
 ];
 
 // Endereços antigos do teste (?necessidade=...) que continuam funcionando
-export const necessidadesAntigas = { "protecao-solar": "protecao-hidratacao", hidratacao: "protecao-hidratacao" };
+export const necessidadesAntigas = {
+  "protecao-solar": "hidratacao-revitalizacao",
+  hidratacao: "hidratacao-revitalizacao",
+  "protecao-hidratacao": "hidratacao-revitalizacao",
+};
 
 // Por que cada produto entra na rotina
 export const motivoDoProduto = {
   gel: "Limpeza delicada que prepara a pele para os próximos passos, com ativos antioxidantes e ativos que ajudam a uniformizar a aparência das manchas.",
   serum: "Ação clareadora, com ativos que uniformizam a aparência da pele e a iluminam. Pode ser usado de dia e à noite.",
-  fps50: "Com ativos antioxidantes, hidratantes e que protegem a barreira da pele.",
+  fps50: "Com ativos revitalizantes, hidratantes e que protegem a barreira da pele.",
 };
 
 export const perguntas = [
@@ -72,26 +76,18 @@ export const perguntas = [
   },
 ];
 
-const ORDEM = ["gel", "serum", "fps50"];
-
 /**
- * Monta a rotina recomendada. A linha é pensada para os 3 passos juntos; os produtos mais ligados
- * à preocupação vêm marcados como "Indicado para você" e a rotina atual da pessoa só muda a
- * mensagem de abertura.
+ * Monta a rotina recomendada: um produto em destaque e os outros dois como complemento, na ordem
+ * de cada necessidade. A rotina atual da pessoa só muda a mensagem de abertura.
  */
 export const montarRotina = ({ necessidade, rotina }) => {
   const n = necessidades.find((x) => x.slug === necessidade) ?? necessidades[0];
 
-  const abertura = {
-    nenhuma: "Comece pelo essencial: os três passos da linha RHADYANCE, pensados para um cuidado completo.",
-    limpeza: "Você já tem o primeiro passo. Tratar e revitalizar completam o cuidado.",
-    "limpeza-hidratacao": "Sua rotina já tem uma boa base. Os ativos da linha RHADYANCE levam o cuidado diário adiante.",
-    completa: "Para quem já tem uma rotina, a linha RHADYANCE entra com ativos naturais de alta performance em cada passo.",
-  }[rotina] ?? "";
+  const abertura =
+    rotina === "nenhuma"
+      ? "Comece pelo essencial: os três passos da linha RHADYANCE, pensados para um cuidado completo."
+      : "Sua rotina já tem uma boa base. A linha RHADYANCE adiciona a ela um sérum clareador que pode ser usado de dia e à noite.";
 
-  // Igual para qualquer momento escolhido (tabela DE/PARA de 17/10/2026)
-  const lembrete =
-    "Use os três passos todos os dias. O Sérum Facial Clareador pode ser usado de dia e à noite, e o Creme Facial Hidratante RHADYANCE FPS\u00A075 também pode ser usado à noite.";
-
-  return { necessidade: n, abertura, lembrete, indicados: n.indicados, ordem: ORDEM };
+  const [destaque, ...complemento] = n.ordem;
+  return { necessidade: n, abertura, lembrete: "Use os três passos todos os dias.", destaque, complemento };
 };

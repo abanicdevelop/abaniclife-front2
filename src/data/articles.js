@@ -85,7 +85,7 @@ Quem puxa essa mudança é um consumidor muito mais informado. Ele vira o frasco
 
 O vocabulário acompanhou esse olhar. Saem as promessas de congelar, descamar e corrigir; entram barreira cutânea, microbioma e hidratação. A consultoria Clarkston descreve a saúde da pele como uma extensão do bem-estar, ligada ao sono, à alimentação e ao estresse. A saúde virou o objetivo, e a qualidade da pele, a consequência.
 
-Nos laboratórios, o ritmo segue acelerado. Peptídeos, PDRN e exossomos, nomes que até pouco tempo circulavam só em congressos de dermatologia, chegaram às prateleiras. E a beleza coreana continua puxando a inovação: nos Estados Unidos, suas vendas cresceram 37% em um ano, segundo a NielsenIQ.
+Nos laboratórios, o ritmo segue acelerado. Peptídeos, PDRN e exossomos, nomes que até pouco tempo circulavam só em congressos de dermatologia, chegaram às prateleiras. E a beleza coreana continua puxando a inovação: nos Estados Unidos, suas vendas cresceram 37% em 2025, segundo a NielsenIQ.
 
 Por fim, algo que parecia secundário voltou ao centro: a sensação. Textura, perfume e o próprio gesto de aplicar passaram a ser vistos como parte do cuidado, um momento de pausa num dia que raramente oferece uma.
 
@@ -104,9 +104,9 @@ Nos últimos anos, falar sobre bem-estar deixou de ser apenas tendência para se
 
 Foi com a internet e a troca de informações que o movimento ganhou força de verdade. Em pouco tempo, estávamos todos conectados a uma cultura global que falava de mindfulness, esportes ao ar livre, superfoods e longevidade saudável.
 
-Alguns fatores explicam por que tanta gente decidiu mudar de hábitos, e podemos chamá-los de "o bem e o mal da vida contemporânea". Com excesso de trabalho, de celular e de redes sociais, era inevitável buscar uma forma de equilíbrio. Hoje sabemos que dormir bem, se alimentar de forma equilibrada e se exercitar fazem toda a diferença na nossa saúde. Ansiedade e burnout deixaram de ser tabu, abrindo espaço para falar de equilíbrio emocional e autocuidado.
+Alguns fatores explicam por que tanta gente decidiu mudar de hábitos, e podemos chamá-los de “o bem e o mal da vida contemporânea”. Com excesso de trabalho, de celular e de redes sociais, era inevitável buscar uma forma de equilíbrio. Hoje sabemos que dormir bem, se alimentar de forma equilibrada e se exercitar fazem toda a diferença na nossa saúde. Ansiedade e burnout deixaram de ser tabu, abrindo espaço para falar de equilíbrio emocional e autocuidado.
 
-A longevidade virou pauta, mas não basta adicionar anos à vida, e sim qualidade aos anos. Hoje, mudar de hábito não é mais sobre "seguir a dieta da moda" ou "correr atrás do corpo perfeito". É sobre viver com mais consciência, encontrar prazer nas pequenas rotinas e criar rituais que mantêm a energia lá em cima. É sair para correr para limpar a mente, meditar para organizar os pensamentos, cozinhar com calma para se nutrir de verdade.
+A longevidade virou pauta, mas não basta adicionar anos à vida, e sim qualidade aos anos. Hoje, mudar de hábito não é mais sobre “seguir a dieta da moda” ou “correr atrás do corpo perfeito”. É sobre viver com mais consciência, encontrar prazer nas pequenas rotinas e criar rituais que mantêm a energia lá em cima. É sair para correr para limpar a mente, meditar para organizar os pensamentos, cozinhar com calma para se nutrir de verdade.
 
 De que maneira isso impacta o nosso cotidiano? O que muda, além do sono de qualidade, do corpo saudável e da promessa de longevidade?
 
@@ -114,7 +114,7 @@ A resposta pode ser muito pessoal, mas um ponto provavelmente é comum a todos: 
 
 Estamos falando, então, de disposição e preparo e, por que não dizer, de abrir a mente para coisas novas: aprender um idioma, fazer uma viagem que parecia impossível, treinar uma nova modalidade de esporte, preparar um prato diferente e se desafiar a descobrir novos aspectos de si e novos gostos, numa expansão pessoal contínua.
 
-É isso que chamamos de estilo de vida "fullest": uma vida abundante e consciente, que busca equilibrar diferentes aspectos de bem-estar e de realizações.
+É isso que chamamos de estilo de vida “fullest”: uma vida abundante e consciente, que busca equilibrar diferentes aspectos de bem-estar e de realizações.
 `,
   },
 ];

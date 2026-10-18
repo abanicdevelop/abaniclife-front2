@@ -24,9 +24,8 @@ const ProductActive = () => {
          "
       style={{ color: "var(--abanic-gray)" }}
     >
-      LINHA DE CUIDADOS FACIAIS <b style={{ color: "var(--abanic-gray-dark)" }}>RHADYANCE</b>: ATIVOS
-      ANTIOXIDANTES, QUE PROTEGEM A BARREIRA DA PELE, HIDRATAM E UNIFORMIZAM.{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>CIÊNCIA</b> PARA REVELAR A SUA{" "}
+      ATIVOS QUE REVITALIZAM E DEIXAM A PELE MAIS HIDRATADA E MACIA, E ATIVOS QUE COMPLETAM O CUIDADO,
+      COM AÇÃO NAS MANCHAS E ANTIOXIDANTE, PARA REVELAR A SUA{" "}
       <b style={{ color: "var(--abanic-gray-dark)" }}>LUMINOSIDADE</b> NATURAL.
     </motion.p>
   );
