@@ -2,7 +2,7 @@
 export const passos = {
   gel: { numero: "01", etapa: "Limpar", nome: "Gel de Limpeza" },
   serum: { numero: "02", etapa: "Tratar", nome: "Sérum Clareador" },
-  fps50: { numero: "03", etapa: "Revitalizar", nome: "Creme Facial Hidratante FPS 75" },
+  fps50: { numero: "03", etapa: "Revitalizar", nome: "Creme Facial Hidratante FPS\u00A075" },
 };
 
 // Primeiro trecho dos claims ("LIMPEZA DELICADA • ...") em caixa de frase.

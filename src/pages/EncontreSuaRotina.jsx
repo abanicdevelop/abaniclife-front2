@@ -91,7 +91,7 @@ const Resultado = ({ respostas, onRefazer }) => {
               <p style={{ ...textoApoio, fontSize: "var(--size-body-sm)", marginTop: "var(--space-2)" }}>
                 {motivoDoProduto[p.id]}
               </p>
-              <div className="flex items-center justify-between gap-4 mt-5">
+              <div className="flex items-center justify-between gap-4 mt-auto pt-5">
                 <span style={{ fontFamily: "var(--font-text)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}>
                   {p.preco}
                 </span>

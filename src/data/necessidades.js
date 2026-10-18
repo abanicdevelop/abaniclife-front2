@@ -91,7 +91,7 @@ export const montarRotina = ({ necessidade, rotina }) => {
 
   // Igual para qualquer momento escolhido (tabela DE/PARA de 17/10/2026)
   const lembrete =
-    "Use os três passos todos os dias. O Sérum Facial Clareador pode ser usado de dia e à noite, e o Creme Facial Hidratante RHADYANCE FPS 75 também pode ser usado à noite.";
+    "Use os três passos todos os dias. O Sérum Facial Clareador pode ser usado de dia e à noite, e o Creme Facial Hidratante RHADYANCE FPS\u00A075 também pode ser usado à noite.";
 
   return { necessidade: n, abertura, lembrete, indicados: n.indicados, ordem: ORDEM };
 };

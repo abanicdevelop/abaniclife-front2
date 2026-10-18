@@ -146,10 +146,11 @@ const HeroSection = () => {
                     <div>
                       <Link
                         to={rotaProduto(slide.produto)}
-                        className="block truncate"
+                        className="block"
                         style={{
                           fontFamily: "var(--font-text)",
                           fontSize: "var(--size-caption)",
+                          lineHeight: 1.35,
                           fontWeight: "var(--weight-medium)",
                           letterSpacing: "var(--tracking-label)",
                           color: "var(--text-body)",

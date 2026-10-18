@@ -25,7 +25,8 @@ export const productsData = [
     tituloDetalhe: "GEL DE LIMPEZA FACIAL RHADYANCE",
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO",
-    volume: "120 ml",
+    volume: "120\u00A0ml",
+    // "\u00A0" = espaço que não quebra a linha (mantém "FPS 75" e "120 ml" juntos)
     // Preços de todas as páginas, cards e sacola saem daqui (tabela DE/PARA de 17/10/2026)
     preco: "R$ 287,00",
     claims:
@@ -104,7 +105,7 @@ export const productsData = [
     tituloDetalhe: "SÉRUM FACIAL CLAREADOR RHADYANCE",
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO E NOTURNO",
-    volume: "30 ml",
+    volume: "30\u00A0ml",
     preco: "R$ 345,00",
     claims: "AÇÃO CLAREADORA • ATIVOS QUE UNIFORMIZAM A APARÊNCIA DA PELE E A ILUMINAM",
     oProduto:
@@ -171,16 +172,16 @@ export const productsData = [
   {
     id: "fps50",
     // "Bom saber": resumo rápido na página do produto
-    bomSaber: ["FPS 75", "Fragrância hipoalergênica", "Uso diário"],
+    bomSaber: ["FPS\u00A075", "Fragrância hipoalergênica", "Uso diário"],
     slug: "creme-facial-fps75",
-    nomeCard: "CREME RHADYANCE FPS 75",
+    nomeCard: "CREME RHADYANCE FPS\u00A075",
     corSurface: "raised",
     imagem: CremeImage,
     // Nome pendente de confirmação do rótulo com a Tocane
-    tituloDetalhe: "CREME FACIAL HIDRATANTE RHADYANCE FPS 75",
+    tituloDetalhe: "CREME FACIAL HIDRATANTE RHADYANCE FPS\u00A075",
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO",
-    volume: "60 g",
+    volume: "60\u00A0g",
     preco: "R$ 454,00",
     // Cosmético multifuncional (hidratante com FPS), não protetor solar: "proteger" não é a função principal
     claims: "COM ATIVOS ANTIOXIDANTES, HIDRATANTES E QUE PROTEGEM A BARREIRA DA PELE",

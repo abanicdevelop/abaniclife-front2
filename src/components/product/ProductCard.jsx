@@ -66,7 +66,8 @@ const ProductCard = ({ produto, index = 0 }) => {
         {destaqueDoProduto(produto)} · {produto.volume}
       </p>
 
-      <div className="flex items-center justify-between gap-4 mt-5">
+      {/* mt-auto: preço e botão ficam alinhados na base dos cards, mesmo com nomes de tamanhos diferentes */}
+      <div className="flex items-center justify-between gap-4 mt-auto pt-5">
         <span
           style={{
             fontFamily: "var(--font-text)",

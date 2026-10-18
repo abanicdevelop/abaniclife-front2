@@ -34,7 +34,7 @@ const Footer = () => {
         products: [
           { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
           { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
-          { name: "Creme Facial Hidratante Rhadyance FPS 75", href: "/produtos/creme-facial-fps75" },
+          { name: "Creme Facial Hidratante Rhadyance FPS\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
           { name: "Perguntas Frequentes", href: "/faq" },
@@ -66,7 +66,7 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
         products: [
-          { name: "RHADYANCE FPS 75", href: "/produtos/creme-facial-fps75" },
+          { name: "RHADYANCE FPS\u00A075", href: "/produtos/creme-facial-fps75" },
           { name: "Lip Balm", href: "/produtos#ativos" },
         ],
         support: [
