@@ -59,9 +59,9 @@ const PAGINAS = {
     jsonLd: [organizacao, site],
   },
   [ROTAS.linha]: {
-    title: "Linha RHADYANCE: Gel de Limpeza, Sérum Clareador e Creme FPS75 | ABANIC",
+    title: "Linha RHADYANCE: Gel de Limpeza, Sérum Clareador e Creme Hidratante FPS 75 | ABANIC",
     description:
-      "Três passos com ativos naturais de alta performance: Gel de Limpeza Facial, Sérum Facial Clareador e Creme Facial FPS75. Conheça a rotina RHADYANCE.",
+      "Três passos com ativos naturais de alta performance: Gel de Limpeza Facial, Sérum Facial Clareador e Creme Facial Hidratante FPS 75. Conheça a rotina RHADYANCE.",
     image: og("padrao.jpg"),
     jsonLd: [migalhas([["Início", "/"], ["Produtos", ROTAS.linha]])],
   },
@@ -104,7 +104,7 @@ const PAGINAS = {
   [ROTAS.rotina]: {
     title: "Encontre sua rotina de skincare | ABANIC",
     description:
-      "Responda três perguntas rápidas e veja a rotina RHADYANCE indicada para manchas, luminosidade, proteção solar ou hidratação.",
+      "Responda três perguntas rápidas e veja a rotina RHADYANCE indicada para manchas, luminosidade, proteção antioxidante e hidratação ou limpeza.",
     image: og("padrao.jpg"),
   },
   [ROTAS.privacidade]: {
@@ -128,15 +128,15 @@ const PAGINAS = {
 
 // Descrição curta de cada produto para busca (sem prometer nada além dos claims aprovados)
 const DESCRICAO_PRODUTO = {
-  gel: "Gel de limpeza facial que limpa sem agredir, com extrato de algas vermelhas, flor de margarida e calêndula. Ação antioxidante e calmante. Para todos os tipos de pele.",
-  serum: "Sérum facial clareador com algas vermelhas, flor de margarida e alga arco-íris. Uniformiza o tom e ilumina a pele. Pode ser usado de dia e à noite.",
-  fps50: "Creme facial com FPS75 e ativos de algas vermelhas, flor de margarida, evódia e esqualano vegetal. Proteção diária que hidrata, acalma e revitaliza.",
+  gel: "Gel de limpeza facial com limpeza delicada e extratos de algas vermelhas, flor de margarida e calêndula. Ativos de ação antioxidante e calmante. Para todos os tipos de pele.",
+  serum: "Sérum facial clareador com algas vermelhas, flor de margarida e alga arco-íris: ativos que uniformizam a aparência da pele e a iluminam. Pode ser usado de dia e à noite.",
+  fps50: "Creme facial hidratante com FPS 75 e ativos de algas vermelhas, flor de margarida, evódia e esqualano vegetal: antioxidantes, hidratantes e que protegem a barreira da pele.",
 };
 
 const NOME_PRODUTO = {
   gel: "Gel de Limpeza Facial",
   serum: "Sérum Facial Clareador",
-  fps50: "Creme Facial FPS75",
+  fps50: "Creme Facial Hidratante FPS 75",
 };
 
 const paginaDeProduto = (p) => ({

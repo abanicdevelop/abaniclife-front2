@@ -22,13 +22,15 @@ export const productsData = [
     nomeCard: "GEL RHODY CLEANSE",
     corSurface: "raised",
     imagem: GelImage,
-    tituloDetalhe: "GEL DE LIMPEZA FACIAL",
+    tituloDetalhe: "GEL DE LIMPEZA FACIAL RHADYANCE",
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO",
-    volume: "120 ml",
-    preco: "R$ 360,00",
+    volume: "120\u00A0ml",
+    // "\u00A0" = espaço que não quebra a linha (mantém "FPS 75" e "120 ml" juntos)
+    // Preços de todas as páginas, cards e sacola saem daqui (tabela DE/PARA de 17/10/2026)
+    preco: "R$ 287,00",
     claims:
-      "LIMPA SEM AGREDIR • ATIVOS QUE PROMOVEM AÇÃO ANTIOXIDANTE, AÇÃO CALMANTE E UNIFORMIZAM O TOM",
+      "LIMPEZA DELICADA • ATIVOS ANTIOXIDANTES E ATIVOS QUE AJUDAM A UNIFORMIZAR A APARÊNCIA DAS MANCHAS",
     oProduto:
       "Formulação em gel. Enriquecida com ativos naturais extraídos de algas vermelhas, flor de margarida e calêndula, e que possuem propriedades antioxidante, hidratante, que protegem a barreira cutânea e uniformizam o tom da pele. Promove sensação de maciez. Indicado para todos os tipos de pele.\n\nFragrância hipoalergênica. Possui notas minerais que remetem ao frescor da brisa do mar.",
     beneficios: [
@@ -100,12 +102,12 @@ export const productsData = [
     nomeCard: "SÉRUM RHODY CLAREADOR",
     corSurface: "raised",
     imagem: SerumImage,
-    tituloDetalhe: "SÉRUM CLAREADOR FACIAL",
+    tituloDetalhe: "SÉRUM FACIAL CLAREADOR RHADYANCE",
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO E NOTURNO",
-    volume: "30 ml",
-    preco: "R$ 360,00",
-    claims: "AÇÃO CLAREADORA • ATIVOS QUE UNIFORMIZAM O TOM E ILUMINAM A PELE",
+    volume: "30\u00A0ml",
+    preco: "R$ 345,00",
+    claims: "AÇÃO CLAREADORA • ATIVOS QUE UNIFORMIZAM A APARÊNCIA DA PELE E A ILUMINAM",
     oProduto:
       "Formulação leve com ação clareadora.\nPossui ativos naturais extraídos de algas vermelhas e flores de margaridas, que contribuem para a uniformização do tom da pele. Permitem a utilização do produto durante o dia e à noite.\nPele luminosa com aparência homogênea.\nFragrância hipoalergênica. Possui notas minerais que remetem ao frescor da brisa do mar.",
     beneficios: [
@@ -170,17 +172,20 @@ export const productsData = [
   {
     id: "fps50",
     // "Bom saber": resumo rápido na página do produto
-    bomSaber: ["Proteção FPS75", "Fragrância hipoalergênica", "Uso diário"],
+    bomSaber: ["FPS\u00A075", "Fragrância hipoalergênica", "Uso diário"],
     slug: "creme-facial-fps75",
-    nomeCard: "CREME RHADYANCE FPS75",
+    nomeCard: "CREME RHADYANCE FPS\u00A075",
     corSurface: "raised",
     imagem: CremeImage,
-    tituloDetalhe: "CREME FACIAL FPS75",
+    // Nome pendente de confirmação do rótulo com a Tocane
+    tituloDetalhe: "CREME FACIAL HIDRATANTE RHADYANCE FPS\u00A075",
     linha: "LINHA RHADYANCE",
     usoLabel: "USO DIÁRIO",
-    volume: "60 g",
-    preco: "R$ 360,00",
-    claims: "PROTEÇÃO DIÁRIA • ATIVOS QUE HIDRATAM, ACALMAM E REVITALIZAM A PELE",
+    volume: "60\u00A0g",
+    preco: "R$ 454,00",
+    // Cosmético multifuncional (hidratante com FPS), não protetor solar: "proteger" não é a função principal
+    claims: "COM ATIVOS ANTIOXIDANTES, HIDRATANTES E QUE PROTEGEM A BARREIRA DA PELE",
+    advertencia: "Este produto não é um protetor solar.",
     oProduto:
       "Formulação cremosa. Possui ativos naturais extraídos de algas vermelhas e flores de margarida, além de ativos hidratantes e calmantes, que contribuem para a aparência de uma pele radiante e revitalizada.\nToque sedoso e aveludado.\nFragrância hipoalergênica. Possui notas minerais que remetem ao frescor da brisa do mar.",
     beneficios: [

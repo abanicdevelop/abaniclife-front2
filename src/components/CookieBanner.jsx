@@ -6,7 +6,7 @@ import { DURACAO } from "../utils/motion";
 
 const CHAVE = "abanic_cookies"; // "aceito" | "essenciais"
 
-const lerEscolha = () => {
+export const lerEscolha = () => {
   try {
     return window.localStorage.getItem(CHAVE);
   } catch {
@@ -36,6 +36,7 @@ const CookieBanner = () => {
     }
     window.gtag?.("consent", "update", { analytics_storage: valor === "aceito" ? "granted" : "denied" });
     setAberto(false);
+    window.dispatchEvent(new Event("abanic:cookies-escolhido"));
   };
 
   const botao = {

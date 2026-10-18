@@ -36,7 +36,7 @@ const HeroSection = () => {
     {
       id: 2,
       title: "Cultura e Tendência",
-      subtitle: "SUAS MULTIPLAS VERSÕES",
+      subtitle: "SUAS MÚLTIPLAS VERSÕES",
       image: Banner3,
       overlay: "bg-black/40",
       produto: produtoPorId("gel"),
@@ -146,10 +146,11 @@ const HeroSection = () => {
                     <div>
                       <Link
                         to={rotaProduto(slide.produto)}
-                        className="block truncate"
+                        className="block"
                         style={{
                           fontFamily: "var(--font-text)",
                           fontSize: "var(--size-caption)",
+                          lineHeight: 1.35,
                           fontWeight: "var(--weight-medium)",
                           letterSpacing: "var(--tracking-label)",
                           color: "var(--text-body)",
@@ -211,7 +212,7 @@ const HeroSection = () => {
                         paddingBottom: "1px",
                       }}
                     >
-                      Saiba mais
+                      Ativos e Benefícios
                     </Link>
                     </div>
                   </div>

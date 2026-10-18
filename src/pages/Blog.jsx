@@ -2,6 +2,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { articles } from "../data/articles";
 import { ArticleCard } from "../components/CultureSection";
+import { Button } from "../components/design-system/Button";
 import { SectionLabel } from "../components/design-system/SectionLabel";
 import { DURACAO } from "../utils/motion";
 import { rotaArtigo } from "../data/rotas";
@@ -126,6 +127,39 @@ const BlogPostPage = () => {
               {p}
             </p>
           ))}
+
+          {article.cta && (
+            <div className="pt-6">
+              <Button href={article.cta.href} variant="primary" size="lg">
+                {article.cta.texto}
+              </Button>
+            </div>
+          )}
+
+          {article.fontes?.length > 0 && (
+            <div className="pt-10" style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
+              <p
+                style={{
+                  fontFamily: "var(--font-text)",
+                  fontSize: "var(--size-micro)",
+                  textTransform: "uppercase",
+                  letterSpacing: "var(--tracking-label-wide)",
+                  color: "var(--text-muted)",
+                }}
+              >
+                Fontes
+              </p>
+              <ul className="mt-3 space-y-2">
+                {article.fontes.map((f) => (
+                  <li key={f.url} style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", lineHeight: "var(--leading-body)", color: "var(--text-muted)" }}>
+                    <a href={f.url} target="_blank" rel="noopener noreferrer" style={{ borderBottom: "var(--border-hairline) solid currentColor" }}>
+                      {f.texto}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </article>
 
@@ -173,16 +207,18 @@ const BlogPostPage = () => {
         </section>
       )}
 
-      {/* Ponte discreta para os produtos */}
-      <section className="page-container pb-24">
-        <Link
-          to="/produtos"
-          className="transition-colors hover:text-[var(--abanic-orange)]"
-          style={linkSublinhado}
-        >
-          Conheça a linha RHADYANCE →
-        </Link>
-      </section>
+      {/* Ponte discreta para os produtos (a matéria que já tem botão próprio não repete) */}
+      {!article.cta && (
+        <section className="page-container pb-24">
+          <Link
+            to="/produtos"
+            className="transition-colors hover:text-[var(--abanic-orange)]"
+            style={linkSublinhado}
+          >
+            Conheça a linha RHADYANCE →
+          </Link>
+        </section>
+      )}
     </main>
   );
 };

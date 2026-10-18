@@ -32,9 +32,9 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
         products: [
-          { name: "Gel de Limpeza Facial", href: "/produtos/gel-de-limpeza-facial" },
-          { name: "Sérum Facial Clareador", href: "/produtos/serum-facial-clareador" },
-          { name: "Creme Facial Radiance FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Hidratante Rhadyance FPS\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
           { name: "Perguntas Frequentes", href: "/faq" },
@@ -66,7 +66,7 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
         products: [
-          { name: "RHADYANCE FPS75", href: "/produtos/creme-facial-fps75" },
+          { name: "RHADYANCE FPS\u00A075", href: "/produtos/creme-facial-fps75" },
           { name: "Lip Balm", href: "/produtos#ativos" },
         ],
         support: [
@@ -198,8 +198,8 @@ const Footer = () => {
           </div>
           <p className="mt-6" style={{ ...linkRodape, ...textoSuave, lineHeight: "var(--leading-body)", maxWidth: "40ch" }}>
             {language === "pt"
-              ? "Queremos inspirar, de modo provocativo, as pessoas a buscarem todas as suas versões através do autocuidado, vida saudável e expansiva."
-              : "We want to provocatively inspire people to seek out all their versions through self-care, healthy and expansive living"}
+              ? "Para quem vive todas as suas versões."
+              : "For those who live all their versions."}
           </p>
           <ul className="mt-6 space-y-3">
             <li>
@@ -284,8 +284,8 @@ const Footer = () => {
       {showButton && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-40 inline-flex items-center justify-center w-12 h-12 transition-colors hover:bg-[var(--abanic-orange)]"
-          style={{ background: "var(--abanic-black)", color: "var(--abanic-cream)", border: "var(--border-hairline) solid rgba(247, 243, 236, 0.3)" }}
+          className="fixed right-6 z-40 inline-flex items-center justify-center w-12 h-12 transition-all duration-[450ms] hover:bg-[var(--abanic-orange)]"
+          style={{ bottom: "calc(24px + var(--altura-barra-newsletter, 0px))", background: "var(--abanic-black)", color: "var(--abanic-cream)", border: "var(--border-hairline) solid rgba(247, 243, 236, 0.3)" }}
           aria-label={language === "pt" ? "Voltar ao topo" : "Back to top"}
         >
           <ArrowUp size={20} strokeWidth={1.5} />

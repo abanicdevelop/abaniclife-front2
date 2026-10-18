@@ -65,7 +65,12 @@
     },
     {
       "source": "/blog/3",
-      "destination": "/blog/inovacao-e-sustentabilidade-o-futuro-dos-cosmeticos",
+      "destination": "/blog/o-cuidado-com-a-pele-evoluiu-e-a-sua-rotina",
+      "permanent": true
+    },
+    {
+      "source": "/blog/inovacao-e-sustentabilidade-o-futuro-dos-cosmeticos",
+      "destination": "/blog/o-cuidado-com-a-pele-evoluiu-e-a-sua-rotina",
       "permanent": true
     },
     {
