@@ -1,6 +1,7 @@
 import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
+import { trackEcommerce } from "../utils/analytics";
 import { Button } from "./design-system/Button";
 
 const formatPrice = (value) =>
@@ -207,11 +208,12 @@ const CartDrawer = () => {
             <Button
               variant="primary"
               fullWidth
-              onClick={() =>
+              onClick={() => {
+                trackEcommerce("begin_checkout", items);
                 toast("Finalização de compra em breve", {
                   description: "Essa é uma prévia da interface — o checkout ainda não está disponível.",
-                })
-              }
+                });
+              }}
             >
               Finalizar compra
             </Button>

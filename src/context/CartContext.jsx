@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { trackEcommerce } from "../utils/analytics";
 
 const CartContext = createContext(null);
 const STORAGE_KEY = "abanic_cart";
@@ -41,6 +42,7 @@ export const CartProvider = ({ children }) => {
   }, [items]);
 
   const addItem = (product) => {
+    trackEcommerce("add_to_cart", [{ id: product.id }]);
     setItems((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
@@ -64,6 +66,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeItem = (id) => {
+    const item = items.find((i) => i.id === id);
+    if (item) trackEcommerce("remove_from_cart", [{ id, quantidade: item.quantidade }]);
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
@@ -72,6 +76,9 @@ export const CartProvider = ({ children }) => {
       removeItem(id);
       return;
     }
+    const atual = items.find((i) => i.id === id)?.quantidade ?? 0;
+    if (quantidade > atual) trackEcommerce("add_to_cart", [{ id, quantidade: quantidade - atual }]);
+    if (quantidade < atual) trackEcommerce("remove_from_cart", [{ id, quantidade: atual - quantidade }]);
     setItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantidade } : item)));
   };
 
@@ -96,7 +103,10 @@ export const CartProvider = ({ children }) => {
     totalItems,
     totalPrice,
     isOpen,
-    openCart: () => setIsOpen(true),
+    openCart: () => {
+      trackEcommerce("view_cart", items);
+      setIsOpen(true);
+    },
     closeCart: () => setIsOpen(false),
   };
 

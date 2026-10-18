@@ -16,6 +16,7 @@ import { SectionLabel } from "../components/design-system/SectionLabel";
 import { Input } from "../components/design-system/Input";
 import { Button } from "../components/design-system/Button";
 import { DURACAO } from "../utils/motion";
+import { trackEvent } from "../utils/analytics";
 
 // Formata enquanto a pessoa digita: (11) 98765-4321 ou (11) 3456-7890
 const formatarTelefone = (valor) => {
@@ -87,6 +88,7 @@ const Faq = () => {
 
       if (response.ok && data.success) {
         setSubmitStatus("success");
+        trackEvent({ name: "contato_enviado" });
         setFormData({ nome: "", email: "", telefone: "", mensagem: "", empresa: "" });
 
         // Resetar status após 5 segundos
