@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
 import { trackEcommerce } from "../utils/analytics";
+import { checkoutAtivo, criarCheckout } from "../utils/shopify";
 import { Button } from "./design-system/Button";
 
 const formatPrice = (value) =>
@@ -9,6 +11,25 @@ const formatPrice = (value) =>
 
 const CartDrawer = () => {
   const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice } = useCart();
+  const [indoAoCheckout, setIndoAoCheckout] = useState(false);
+
+  const finalizarCompra = async () => {
+    trackEcommerce("begin_checkout", items);
+    if (!checkoutAtivo()) {
+      toast("Finalização de compra em breve", {
+        description: "Essa é uma prévia da interface — o checkout ainda não está disponível.",
+      });
+      return;
+    }
+    setIndoAoCheckout(true);
+    try {
+      window.location.href = await criarCheckout(items);
+    } catch (erro) {
+      console.error("Checkout:", erro);
+      toast.error("Não foi possível abrir o pagamento agora", { description: "Tente de novo em instantes." });
+      setIndoAoCheckout(false);
+    }
+  };
 
   return (
     <>
@@ -208,14 +229,10 @@ const CartDrawer = () => {
             <Button
               variant="primary"
               fullWidth
-              onClick={() => {
-                trackEcommerce("begin_checkout", items);
-                toast("Finalização de compra em breve", {
-                  description: "Essa é uma prévia da interface — o checkout ainda não está disponível.",
-                });
-              }}
+              disabled={indoAoCheckout}
+              onClick={finalizarCompra}
             >
-              Finalizar compra
+              {indoAoCheckout ? "Abrindo pagamento…" : "Finalizar compra"}
             </Button>
           </div>
         )}
