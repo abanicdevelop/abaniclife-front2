@@ -239,7 +239,7 @@ const Explore = () => {
   const alternar = (id) => setAbertos((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
-    <main style={{ backgroundColor: "var(--abanic-cream)" }}>
+    <div style={{ backgroundColor: "var(--abanic-cream)" }}>
       {/* Abertura */}
       <section className="page-container pt-32 md:pt-40 pb-20">
         <SectionLabel meta="Princípios ativos">Explore</SectionLabel>
@@ -401,7 +401,7 @@ const Explore = () => {
       <div className="pt-20" style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
         <HomeVitrine />
       </div>
-    </main>
+    </div>
   );
 };
 

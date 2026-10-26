@@ -115,7 +115,7 @@ const Faq = () => {
   const hairline = "var(--border-hairline) solid var(--border-default)";
 
   return (
-    <main style={{ backgroundColor: "var(--abanic-cream)" }}>
+    <div style={{ backgroundColor: "var(--abanic-cream)" }}>
       <section className="page-container pt-32 md:pt-40 pb-20">
         {/* Abertura */}
         <motion.div variants={textVariants} initial="hidden" animate="visible">
@@ -386,7 +386,7 @@ const Faq = () => {
           </form>
         </motion.div>
       </section>
-    </main>
+    </div>
   );
 };
 

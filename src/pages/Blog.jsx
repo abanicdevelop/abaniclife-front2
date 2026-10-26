@@ -35,12 +35,12 @@ const BlogPostPage = () => {
 
   if (!article) {
     return (
-      <main className="page-container pt-40 pb-24 min-h-[60vh]" style={{ backgroundColor: "var(--abanic-cream)" }}>
+      <div className="page-container pt-40 pb-24 min-h-[60vh]" style={{ backgroundColor: "var(--abanic-cream)" }}>
         <p style={{ fontFamily: "var(--font-text)", color: "var(--text-body)", marginBottom: "var(--space-5)" }}>
           Matéria não encontrada.
         </p>
         <VoltarAoBlog />
-      </main>
+      </div>
     );
   }
 
@@ -49,7 +49,7 @@ const BlogPostPage = () => {
   const paragrafos = article.content.split("\n").map((p) => p.trim()).filter(Boolean);
 
   return (
-    <main style={{ backgroundColor: "var(--abanic-cream)" }}>
+    <div style={{ backgroundColor: "var(--abanic-cream)" }}>
       {/* Cabeçalho da matéria */}
       <header className="page-container pt-32 md:pt-40 pb-16">
         <VoltarAoBlog />
@@ -219,7 +219,7 @@ const BlogPostPage = () => {
           </Link>
         </section>
       )}
-    </main>
+    </div>
   );
 };
 

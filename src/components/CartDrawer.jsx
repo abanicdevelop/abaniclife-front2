@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
@@ -10,8 +10,25 @@ const formatPrice = (value) =>
   value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 const CartDrawer = () => {
-  const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice } = useCart();
+  const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice, totalItems } = useCart();
   const [indoAoCheckout, setIndoAoCheckout] = useState(false);
+  const fecharRef = useRef(null);
+
+  // Gaveta aberta se comporta como modal: Esc fecha, a página por trás não rola e o foco entra nela
+  useEffect(() => {
+    if (!isOpen) return;
+    const anterior = document.activeElement;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    fecharRef.current?.focus();
+    const aoTeclar = (e) => e.key === "Escape" && closeCart();
+    window.addEventListener("keydown", aoTeclar);
+    return () => {
+      document.body.style.overflow = overflow;
+      window.removeEventListener("keydown", aoTeclar);
+      anterior?.focus?.();
+    };
+  }, [isOpen, closeCart]);
 
   const finalizarCompra = async () => {
     trackEcommerce("begin_checkout", items);
@@ -46,6 +63,12 @@ const CartDrawer = () => {
       )}
 
       <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Sacola"
+        aria-hidden={!isOpen}
+        // Fechada, a gaveta fica fora do alcance do teclado e de leitores de tela
+        {...(!isOpen ? { inert: "" } : {})}
         style={{
           position: "fixed",
           top: 0,
@@ -74,9 +97,10 @@ const CartDrawer = () => {
               margin: 0,
             }}
           >
-            Sacola {items.length > 0 ? `(${items.length})` : ""}
+            Sacola {totalItems > 0 ? `(${totalItems})` : ""}
           </h2>
           <button
+            ref={fecharRef}
             onClick={closeCart}
             aria-label="Fechar sacola"
             className="inline-flex items-center justify-center w-11 h-11 -mr-2"
@@ -144,7 +168,7 @@ const CartDrawer = () => {
                       <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantidade - 1)}
-                          aria-label="Diminuir quantidade"
+                          aria-label={`Diminuir quantidade de ${item.nome}`}
                           style={{
                             cursor: "pointer",
                             border: "var(--border-hairline) solid var(--border-default)",
@@ -171,7 +195,7 @@ const CartDrawer = () => {
                         </span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantidade + 1)}
-                          aria-label="Aumentar quantidade"
+                          aria-label={`Aumentar quantidade de ${item.nome}`}
                           style={{
                             cursor: "pointer",
                             border: "var(--border-hairline) solid var(--border-default)",

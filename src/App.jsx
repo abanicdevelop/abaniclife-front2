@@ -153,9 +153,10 @@ export function AppShell() {
           <Header />
           <CartDrawer />
           <Toaster position="bottom-center" />
-          <div id="conteudo" tabIndex={-1} style={{ outline: "none" }}>
+          {/* Área principal de todas as páginas (alvo do "Pular para o conteúdo") */}
+          <main id="conteudo" tabIndex={-1} style={{ outline: "none" }}>
             <AnimatedRoutes />
-          </div>
+          </main>
           <Footer />
           <NewsletterBar />
           <CookieBanner />

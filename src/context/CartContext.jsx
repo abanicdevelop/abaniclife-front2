@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { trackEcommerce } from "../utils/analytics";
 
 const CartContext = createContext(null);
@@ -83,6 +83,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const clearCart = () => setItems([]);
+  // Estável entre renderizações: a gaveta usa como dependência de efeito (Esc / foco)
+  const closeCart = useCallback(() => setIsOpen(false), []);
 
   const totalItems = useMemo(
     () => items.reduce((sum, item) => sum + item.quantidade, 0),
@@ -107,7 +109,7 @@ export const CartProvider = ({ children }) => {
       trackEcommerce("view_cart", items);
       setIsOpen(true);
     },
-    closeCart: () => setIsOpen(false),
+    closeCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

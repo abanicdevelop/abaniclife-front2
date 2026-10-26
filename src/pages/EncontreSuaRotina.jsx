@@ -228,7 +228,7 @@ const EncontreSuaRotina = () => {
   const pergunta = perguntas[etapa];
 
   return (
-    <main style={{ backgroundColor: "var(--abanic-cream)" }}>
+    <div style={{ backgroundColor: "var(--abanic-cream)" }}>
       <section className="page-container pt-32 md:pt-40 pb-24 min-h-[80vh]">
         {montado && (
         <AnimatePresence mode="wait" onExitComplete={voltarAoTopo}>
@@ -310,7 +310,7 @@ const EncontreSuaRotina = () => {
         </AnimatePresence>
         )}
       </section>
-    </main>
+    </div>
   );
 };
 
