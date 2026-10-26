@@ -12,6 +12,10 @@ import { productsData } from "../data/productsData";
 import { passos, destaqueDoProduto } from "../data/rotina";
 import { DURACAO } from "../utils/motion";
 
+// Fotos atuais das embalagens são ilustrativas (volumes e textos do rótulo podem diferir).
+// Quando as fotos definitivas chegarem, troque para false.
+const FOTOS_ILUSTRATIVAS = true;
+
 const bodyTextStyle = {
   fontFamily: "var(--font-text)",
   fontSize: "var(--size-body-sm)",
@@ -85,7 +89,7 @@ const ProductDetailSection = ({ product }) => {
           {/* A foto preenche o quadro (sem faixas claras). No desktop, a altura do quadro é limitada
               para a foto caber inteira na tela ao abrir a página, sem precisar rolar */}
           <motion.div
-            className="w-full md:w-1/2 md:sticky md:top-28 overflow-hidden aspect-[4/5] max-h-[calc(100dvh-12rem)] md:max-h-[calc(100dvh-12rem)]"
+            className="relative w-full md:w-1/2 md:sticky md:top-28 overflow-hidden aspect-[4/5] max-h-[calc(100dvh-12rem)] md:max-h-[calc(100dvh-12rem)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: DURACAO } }}
           >
@@ -94,6 +98,20 @@ const ProductDetailSection = ({ product }) => {
               alt={product.tituloDetalhe}
               className="w-full h-full object-cover"
             />
+            {FOTOS_ILUSTRATIVAS && (
+              <span
+                className="absolute left-3 bottom-3"
+                style={{
+                  fontFamily: "var(--font-text)",
+                  fontSize: "var(--size-micro)",
+                  color: "var(--text-muted)",
+                  background: "color-mix(in srgb, var(--abanic-cream) 85%, transparent)",
+                  padding: "2px 8px",
+                }}
+              >
+                Imagem ilustrativa
+              </span>
+            )}
           </motion.div>
 
           {/* Informações e compra */}

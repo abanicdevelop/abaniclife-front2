@@ -29,7 +29,9 @@ function Home() {
   }, [hash]);
 
   return (
-    <main className="  box-border">
+    <div className="  box-border">
+      {/* Título da página para leitores de tela e buscadores (o banner já comunica visualmente) */}
+      <h1 className="sr-only">ABANIC · Linha de cuidado facial RHADYANCE</h1>
       <HeroSection />
       <BreadText />
       <HomeVitrine />
@@ -39,7 +41,7 @@ function Home() {
       <MosaicoProdutos />
       <CultureSection />
       <NewsletterSection />
-    </main>
+    </div>
   );
 }
 
