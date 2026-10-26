@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { createContext, startTransition, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { productsData } from "../data/productsData";
 import { trackEcommerce } from "../utils/analytics";
 
 const CartContext = createContext(null);
@@ -20,26 +21,50 @@ const readInitialCart = () => {
   }
 };
 
+// A sacola salva guarda só o que a pessoa escolheu; nome, foto e preço vêm sempre do catálogo atual
+// (evita mostrar preço antigo depois de uma mudança) e produtos que saíram do catálogo são descartados
+const itemDoCatalogo = (produto, quantidade) => ({
+  id: produto.id,
+  nome: produto.tituloDetalhe,
+  imagem: produto.imagem,
+  preco: produto.preco,
+  volume: produto.volume,
+  quantidade,
+});
+
+const sincronizarComCatalogo = (salvos) =>
+  (Array.isArray(salvos) ? salvos : []).flatMap((item) => {
+    const produto = productsData.find((p) => p.id === item?.id);
+    const quantidade = Math.max(1, Math.floor(Number(item?.quantidade) || 1));
+    return produto ? [itemDoCatalogo(produto, quantidade)] : [];
+  });
+
 export const CartProvider = ({ children }) => {
   // Começa vazio e lê o que foi salvo só depois de montar: assim o HTML pré-renderizado e o
   // navegador começam iguais (sem "piscar") e a sacola salva não é sobrescrita.
   const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const carregou = useRef(false);
+  const [carregado, setCarregado] = useState(false);
 
+  // Lê a sacola salva como atualização de baixa prioridade (startTransition): assim o React termina
+  // de assumir o HTML pré-renderizado antes, sem o erro de hidratação #421
   useEffect(() => {
-    setItems(readInitialCart());
-    carregou.current = true;
+    const salvos = sincronizarComCatalogo(readInitialCart());
+    startTransition(() => {
+      if (salvos.length > 0) setItems(salvos);
+      setCarregado(true);
+    });
   }, []);
 
+  // Só grava depois de ler (antes, no modo de desenvolvimento, a sacola salva era sobrescrita por [])
   useEffect(() => {
-    if (!carregou.current) return;
+    if (!carregado) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
     } catch {
       // localStorage indisponível (modo privado, etc.) — carrinho segue só em memória
     }
-  }, [items]);
+  }, [items, carregado]);
 
   const addItem = (product) => {
     trackEcommerce("add_to_cart", [{ id: product.id }]);
@@ -50,17 +75,7 @@ export const CartProvider = ({ children }) => {
           item.id === product.id ? { ...item, quantidade: item.quantidade + 1 } : item,
         );
       }
-      return [
-        ...prev,
-        {
-          id: product.id,
-          nome: product.tituloDetalhe,
-          imagem: product.imagem,
-          preco: product.preco,
-          volume: product.volume,
-          quantidade: 1,
-        },
-      ];
+      return [...prev, itemDoCatalogo(product, 1)];
     });
     setIsOpen(true);
   };

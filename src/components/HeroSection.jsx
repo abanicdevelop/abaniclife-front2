@@ -63,11 +63,12 @@ const HeroSection = () => {
     setCurrentSlide(index);
   };
 
-  // Auto-play functionality
+  // Troca automática a cada 5 s. O tempo recomeça a cada troca (inclusive manual), para o slide
+  // não pular logo depois de a pessoa clicar numa seta ou num ponto
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval);
-  }, []);
+    const timer = setTimeout(() => setCurrentSlide((prev) => (prev + 1) % slides.length), 5000);
+    return () => clearTimeout(timer);
+  }, [currentSlide, slides.length]);
 
   return (
     <section

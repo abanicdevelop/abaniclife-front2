@@ -74,6 +74,8 @@ const HomeIngredientes = ({ id }) => {
     posicionar();
     window.addEventListener("resize", posicionar);
     return () => window.removeEventListener("resize", posicionar);
+    // atualizarPosicao só lê refs e usa setState funcional: roda uma vez, ao montar
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Ao deslizar com o dedo/trackpad, recentraliza quando a rolagem para

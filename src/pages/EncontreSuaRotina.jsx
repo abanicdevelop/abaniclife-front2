@@ -193,10 +193,13 @@ const EncontreSuaRotina = () => {
   const [etapa, setEtapa] = useState(valida ? perguntas.length : 0);
   const [chaveUrl, setChaveUrl] = useState(necessidadeDaUrl);
 
-  // A página é pré-renderizada sem "?necessidade=...": só mostra o conteúdo depois de montar no
-  // navegador, para não haver diferença entre o HTML pronto e o que o React desenha.
+  // A página é pré-renderizada sem "?necessidade=..." (1ª pergunta). Até montar no navegador,
+  // desenhamos exatamente isso, para o HTML pronto e o React baterem; depois vale o estado real
+  // (com ?necessidade=..., o resultado aparece logo em seguida).
   const [montado, setMontado] = useState(false);
   useEffect(() => setMontado(true), []);
+  const etapaTela = montado ? etapa : 0;
+  const respostasTela = montado ? respostas : {};
 
   // Se a necessidade da URL mudar (ex.: clicou em outra no menu), atualiza o resultado
   if (chaveUrl !== necessidadeDaUrl) {
@@ -225,15 +228,15 @@ const EncontreSuaRotina = () => {
   // Cada troca de etapa (responder, voltar, refazer) começa do topo, quando a anterior já saiu
   const voltarAoTopo = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
-  const pergunta = perguntas[etapa];
+  const pergunta = perguntas[etapaTela];
 
   return (
     <div style={{ backgroundColor: "var(--abanic-cream)" }}>
       <section className="page-container pt-32 md:pt-40 pb-24 min-h-[80vh]">
-        {montado && (
+        {(
         <AnimatePresence mode="wait" onExitComplete={voltarAoTopo}>
           <motion.div
-            key={etapa}
+            key={etapaTela}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0, transition: { duration: DURACAO } }}
             exit={{ opacity: 0, transition: { duration: DURACAO_SAIDA } }}
@@ -243,14 +246,14 @@ const EncontreSuaRotina = () => {
                 <div className="flex items-center gap-4">
                   <SectionLabel rule={false}>Encontre sua rotina</SectionLabel>
                   <span style={rotulo}>
-                    {etapa + 1} / {perguntas.length}
+                    {etapaTela + 1} / {perguntas.length}
                   </span>
                 </div>
                 {/* progresso */}
                 <div className="relative h-px mt-4" style={{ background: "var(--border-default)" }}>
                   <div
                     className="absolute top-0 left-0 h-px transition-[width] duration-[450ms]"
-                    style={{ width: `${(etapa / perguntas.length) * 100}%`, background: "var(--neutral-900)" }}
+                    style={{ width: `${(etapaTela / perguntas.length) * 100}%`, background: "var(--neutral-900)" }}
                   />
                 </div>
 
@@ -258,7 +261,7 @@ const EncontreSuaRotina = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-10">
                   {pergunta.opcoes.map((op) => {
-                    const marcada = respostas[pergunta.id] === op.valor;
+                    const marcada = respostasTela[pergunta.id] === op.valor;
                     return (
                       <button
                         key={op.valor}
@@ -292,7 +295,7 @@ const EncontreSuaRotina = () => {
                   })}
                 </div>
 
-                {etapa > 0 && (
+                {etapaTela > 0 && (
                   <button
                     type="button"
                     onClick={() => setEtapa(etapa - 1)}
@@ -304,7 +307,7 @@ const EncontreSuaRotina = () => {
                 )}
               </div>
             ) : (
-              <Resultado respostas={respostas} onRefazer={refazer} />
+              <Resultado respostas={respostasTela} onRefazer={refazer} />
             )}
           </motion.div>
         </AnimatePresence>

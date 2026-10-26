@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { gravarNewsletter } from "../components/NewsletterForm";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Button } from "../components/design-system/Button";
 import { Card } from "../components/design-system/Card";
@@ -7,8 +8,8 @@ import { useLanguage } from "../context/LanguageContext";
 // Páginas para onde os links dos e-mails da newsletter levam
 const translations = {
   pt: {
-    confirmada: { title: "Inscrição confirmada", text: "Obrigado. Enviamos um e-mail de boas-vindas e você vai receber nossas novidades em primeira mão." },
-    "link-invalido": { title: "Link expirado ou inválido", text: "Este link não vale mais. Faça a inscrição de novo no rodapé da página inicial para receber um link novo." },
+    confirmada: { title: "Inscrição confirmada", text: "Obrigado. Sua inscrição está confirmada e você vai receber nossas novidades em primeira mão." },
+    "link-invalido": { title: "Link expirado ou inválido", text: "Este link não vale mais. Faça a inscrição de novo na seção Newsletter da página inicial para receber um link novo." },
     erro: { title: "Algo deu errado", text: "Não conseguimos concluir agora. Tente abrir o link do e-mail novamente em alguns minutos." },
     cancelar: { title: "Cancelar inscrição", text: "Você deixará de receber a newsletter da ABANIC. Pode voltar quando quiser." },
     cancelada: { title: "Inscrição cancelada", text: "Pronto. Você não vai mais receber a newsletter da ABANIC." },
@@ -18,8 +19,8 @@ const translations = {
     home: "Voltar ao site",
   },
   en: {
-    confirmada: { title: "Subscription confirmed", text: "Thank you. We sent you a welcome email and you'll be the first to hear our news." },
-    "link-invalido": { title: "Expired or invalid link", text: "This link is no longer valid. Subscribe again at the bottom of the home page to get a new one." },
+    confirmada: { title: "Subscription confirmed", text: "Thank you. Your subscription is confirmed and you'll be the first to hear our news." },
+    "link-invalido": { title: "Expired or invalid link", text: "This link is no longer valid. Subscribe again in the Newsletter section of the home page to get a new one." },
     erro: { title: "Something went wrong", text: "We couldn't finish this right now. Please open the link in the email again in a few minutes." },
     cancelar: { title: "Unsubscribe", text: "You'll stop receiving the ABANIC newsletter. You can come back anytime." },
     cancelada: { title: "Unsubscribed", text: "Done. You won't receive the ABANIC newsletter anymore." },
@@ -41,6 +42,11 @@ const NewsletterStatus = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const conteudo = t[estado] ?? t.erro;
+
+  // Confirmou pelo link do e-mail: agora sim a barra da newsletter some de vez
+  useEffect(() => {
+    if (estado === "confirmada") gravarNewsletter("inscrito");
+  }, [estado]);
   const token = searchParams.get("t");
 
   const cancelar = async () => {
