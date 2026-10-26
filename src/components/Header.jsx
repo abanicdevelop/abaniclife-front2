@@ -99,8 +99,10 @@ const translations = {
         name: "Product",
         href: "#",
         submenu: [
-          { name: "RHADYANCE FPS\u00A075", href: "/produtos/creme-facial-fps75" },
-          { name: "Lip Balm", href: "/produtos#ativos" },
+          { name: "RHADYANCE Line", href: "/produtos" },
+          { name: "Rhadyance Facial Cleansing Gel", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Rhadyance Brightening Facial Serum", href: "/produtos/serum-facial-clareador" },
+          { name: "Rhadyance Moisturizing Facial Cream SPF\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
       },
       {
@@ -118,7 +120,7 @@ const translations = {
           { name: "FAQ", href: "/faq" },
           { name: "Privacy Policy", href: "/politica-de-privacidade" },
           { name: "Cookie Policy", href: "/politica-de-cookies" },
-          { name: "Terms of Use", href: "#tutorial" },
+          { name: "Terms of Use", href: "/termos-de-uso" },
         ],
       },
     ],
@@ -128,9 +130,8 @@ const translations = {
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState(null);
-  const { language, changeLanguage } = useLanguage();
+  const { language } = useLanguage();
   const { totalItems, openCart } = useCart();
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileActiveSubmenu, setMobileActiveSubmenu] = useState(null);
   const navigate = useNavigate();
@@ -252,6 +253,14 @@ const Header = () => {
     fecharTimer.current = setTimeout(() => setActiveSubmenu(null), 250);
   };
   useEffect(() => () => clearTimeout(fecharTimer.current), []);
+
+  // Esc fecha o submenu aberto no desktop (acessibilidade para quem navega pelo teclado)
+  useEffect(() => {
+    if (activeSubmenu === null) return;
+    const aoTeclar = (e) => e.key === "Escape" && setActiveSubmenu(null);
+    window.addEventListener("keydown", aoTeclar);
+    return () => window.removeEventListener("keydown", aoTeclar);
+  }, [activeSubmenu]);
 
   const megaRotulo = {
     fontFamily: "var(--font-text)",

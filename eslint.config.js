@@ -4,7 +4,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-  { ignores: ["dist", "node_modules", ".claude"] },
+  { ignores: ["dist", "dist-server", "node_modules", ".claude", ".playwright-mcp"] },
   {
     files: ["**/*.{js,jsx}"],
     languageOptions: {
@@ -16,7 +16,7 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      "no-unused-vars": ["warn", { varsIgnorePattern: "^(motion$|[A-Z_])", argsIgnorePattern: "^_" }],
+      "no-unused-vars": ["warn", { varsIgnorePattern: "^(motion$|[A-Z_])", argsIgnorePattern: "^(_|[A-Z])" }],
       "react-refresh/only-export-components": "off",
     },
   },

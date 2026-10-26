@@ -5,6 +5,8 @@ import { Input } from "./design-system/Input";
 import { Button } from "./design-system/Button";
 
 const CHAVE = "abanic_newsletter"; // "inscrito" | data (ms) até quando a barra fica escondida
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const DIAS_APOS_PEDIDO = 30; // depois de pedir a inscrição, a barra some por um tempo (a confirmação é por e-mail)
 
 export const lerNewsletter = () => {
   try {
@@ -32,10 +34,11 @@ const NewsletterForm = ({ empilhado = false }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [empresa, setEmpresa] = useState(""); // campo-isca invisível: só robôs preenchem
+  const formularioValido = nome.trim().length > 0 && EMAIL_REGEX.test(email.trim());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !nome) return;
+    if (!formularioValido) return;
 
     setIsLoading(true);
     setErrorMessage("");
@@ -44,7 +47,7 @@ const NewsletterForm = ({ empilhado = false }) => {
       const response = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, empresa }),
+        body: JSON.stringify({ nome: nome.trim(), email: email.trim(), empresa }),
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok || !data.success) throw new Error(data.message);
@@ -53,9 +56,15 @@ const NewsletterForm = ({ empilhado = false }) => {
       trackEvent({ name: "newsletter_inscricao" });
       setEmail("");
       setNome("");
-      gravarNewsletter("inscrito");
+      // Só vira "inscrito" quando a pessoa confirma pelo link do e-mail (página /newsletter/confirmada)
+      gravarNewsletter(String(Date.now() + DIAS_APOS_PEDIDO * 24 * 60 * 60 * 1000));
     } catch (error) {
-      setErrorMessage(error.message || "Erro ao processar inscrição. Tente novamente.");
+      // Sem conexão o navegador lança TypeError ("Failed to fetch"): mostra uma mensagem em português
+      setErrorMessage(
+        error instanceof TypeError
+          ? "Não foi possível conectar. Confira sua internet e tente de novo."
+          : error.message || "Erro ao processar inscrição. Tente novamente.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -104,7 +113,7 @@ const NewsletterForm = ({ empilhado = false }) => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <Button type="submit" variant="primary" size="lg" disabled={isLoading || !nome || !email} fullWidth>
+      <Button type="submit" variant="primary" size="lg" disabled={isLoading || !formularioValido} fullWidth>
         {isLoading ? "Enviando..." : "Quero receber"}
       </Button>
       <p

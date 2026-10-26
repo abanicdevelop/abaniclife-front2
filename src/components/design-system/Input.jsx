@@ -54,6 +54,7 @@ export function Input({
       >
         {prefix && <span style={{ color: "var(--text-subtle)", display: "flex" }}>{prefix}</span>}
         <input
+          aria-invalid={error ? true : undefined}
           type={type}
           value={value}
           defaultValue={defaultValue}

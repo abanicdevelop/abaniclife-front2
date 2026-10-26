@@ -66,8 +66,9 @@ const Footer = () => {
       footerLinks: {
         company: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
         products: [
-          { name: "RHADYANCE FPS\u00A075", href: "/produtos/creme-facial-fps75" },
-          { name: "Lip Balm", href: "/produtos#ativos" },
+          { name: "Rhadyance Facial Cleansing Gel", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Rhadyance Brightening Facial Serum", href: "/produtos/serum-facial-clareador" },
+          { name: "Rhadyance Moisturizing Facial Cream SPF\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
           { name: "FAQ", href: "/faq" },
@@ -77,8 +78,7 @@ const Footer = () => {
         ],
         explore: [
           { name: "Actives and Benefits", href: "/ativos" },
-          { name: "The Importance of Sun Protection", href: "#importancia" },
-          { name: "ABANIC and Sustainability", href: "#dicas" },
+          { name: "Smart Choice", href: "/escolha-inteligente" },
         ],
       },
     },
@@ -237,7 +237,8 @@ const Footer = () => {
       <div style={{ borderTop: "var(--border-hairline) solid rgba(247, 243, 236, 0.15)" }}>
         <div className="page-container py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)", lineHeight: "var(--leading-body)" }}>
-            <p>{t.copyright}</p>
+            {/* O ano vem do momento em que o HTML foi gerado; na virada do ano pode diferir do navegador */}
+            <p suppressHydrationWarning>{t.copyright}</p>
             <p>
               {EMPRESA.razaoSocial} · CNPJ {EMPRESA.cnpj}
             </p>

@@ -20,7 +20,11 @@ import { trackEvent } from "../utils/analytics";
 
 // Formata enquanto a pessoa digita: (11) 98765-4321 ou (11) 3456-7890
 const formatarTelefone = (valor) => {
-  const d = valor.replace(/\D/g, "").slice(0, 11);
+  let d = valor.replace(/\D/g, "");
+  // Colou com o código do país (+55 11 98765-4321 ou 5511987654321): tira o 55.
+  // Não tira quando são só 10–11 dígitos, porque 55 também é DDD (RS).
+  if ((valor.trim().startsWith("+") || d.length > 11) && d.startsWith("55")) d = d.slice(2);
+  d = d.slice(0, 11);
   if (d.length <= 2) return d ? `(${d}` : "";
   if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
   if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
@@ -42,6 +46,7 @@ const Faq = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
   const [mensagemErro, setMensagemErro] = useState("");
+  const [errosCampos, setErrosCampos] = useState({});
 
   // Animation variants similar to Explore page
   const textVariants = {
@@ -61,6 +66,7 @@ const Faq = () => {
   const handleInputChange = (e) => {
     const { name } = e.target;
     const value = name === "telefone" ? formatarTelefone(e.target.value) : e.target.value;
+    if (errosCampos[name]) setErrosCampos((prev) => ({ ...prev, [name]: undefined }));
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -70,7 +76,14 @@ const Faq = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.nome || !formData.email || !formData.mensagem) {
+    // Valida no navegador e aponta qual campo corrigir (o servidor valida de novo)
+    const erros = {};
+    if (!formData.nome.trim()) erros.nome = "Informe seu nome.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) erros.email = "Informe um e-mail válido.";
+    if (!formData.mensagem.trim()) erros.mensagem = "Escreva sua mensagem.";
+    setErrosCampos(erros);
+    if (Object.keys(erros).length > 0) {
+      setMensagemErro("Confira os campos destacados.");
       setSubmitStatus("error");
       return;
     }
@@ -328,8 +341,8 @@ const Faq = () => {
               aria-hidden="true"
               style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }}
             />
-            <Input label="Nome" name="nome" placeholder="Seu nome" value={formData.nome} onChange={handleInputChange} />
-            <Input label="E-mail" name="email" type="email" placeholder="seu@email.com" value={formData.email} onChange={handleInputChange} />
+            <Input label="Nome" name="nome" placeholder="Seu nome" value={formData.nome} onChange={handleInputChange} error={errosCampos.nome} />
+            <Input label="E-mail" name="email" type="email" placeholder="seu@email.com" value={formData.email} onChange={handleInputChange} error={errosCampos.email} />
             <Input
               label="Telefone ou WhatsApp (opcional)"
               name="telefone"
@@ -357,16 +370,22 @@ const Faq = () => {
                 value={formData.mensagem}
                 onChange={handleInputChange}
                 placeholder="Como podemos ajudar?"
+                aria-invalid={errosCampos.mensagem ? true : undefined}
                 className="w-full resize-y focus:outline-none focus:border-[var(--abanic-black)]"
                 style={{
                   padding: "var(--space-3)",
                   background: "var(--surface-card)",
-                  border: "var(--border-hairline) solid var(--border-default)",
+                  border: `var(--border-hairline) solid ${errosCampos.mensagem ? "var(--status-critical)" : "var(--border-default)"}`,
                   fontFamily: "var(--font-text)",
                   fontSize: "var(--size-body)",
                   color: "var(--text-body)",
                 }}
               />
+              {errosCampos.mensagem && (
+                <span className="block mt-2" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", color: "var(--status-critical)" }}>
+                  {errosCampos.mensagem}
+                </span>
+              )}
             </label>
             <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center gap-4">
               <Button type="submit" variant="primary" size="lg" disabled={isLoading}>

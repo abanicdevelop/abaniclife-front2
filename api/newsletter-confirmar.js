@@ -27,7 +27,11 @@ export default async function handler(req, res) {
     if (existente.data) {
       const atualizado = await resend.contacts.update({ email, firstName: nome, unsubscribed: false });
       if (atualizado.error) throw new Error(atualizado.error.message);
-      await resend.contacts.segments.add({ email, segmentId }); // erro aqui = já está no segmento
+      const noSegmento = await resend.contacts.segments.add({ email, segmentId });
+      // "Já está no segmento" é esperado; qualquer outro erro deixaria a pessoa fora das campanhas
+      if (noSegmento?.error && !/already|exist/i.test(noSegmento.error.message || "")) {
+        throw new Error(noSegmento.error.message);
+      }
     } else {
       const criado = await resend.contacts.create({ email, firstName: nome, unsubscribed: false, segments: [{ id: segmentId }] });
       if (criado.error) throw new Error(criado.error.message);
