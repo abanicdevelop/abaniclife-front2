@@ -320,7 +320,7 @@ const Faq = () => {
           <form onSubmit={handleSubmit} noValidate className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-5">
             <input
               type="text"
-              name="empresa"
+              name="hp_campo_extra"
               value={formData.empresa}
               onChange={handleInputChange}
               tabIndex={-1}

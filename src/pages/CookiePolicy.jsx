@@ -12,32 +12,27 @@ const CookiePolicy = () => {
     },
   };
 
+  // Reflete o que o site usa de fato (revisado em 25/10/2026)
   const cookieTypes = [
     {
-      title: "Cookies Essenciais",
+      title: "Essenciais",
       description:
-        "Necessários para o funcionamento básico do site. Sem eles, o site não funciona corretamente.",
+        "Necessários para o site funcionar. Guardam no seu navegador a sacola de compras e a sua escolha sobre cookies. No pagamento, a Shopify, plataforma do nosso checkout, usa cookies próprios para concluir a compra com segurança.",
       status: "Sempre ativos",
       color: "bg-orange-50 border-l-4 border-abanic-orange",
     },
     {
-      title: "Cookies de Análise",
+      title: "Medição",
       description:
-        "Nos ajudam a entender como os visitantes interagem com o site, coletando informações anônimas.",
-      items: ["Google Analytics", "Hotjar (mapas de calor)"],
+        "Nos ajudam a entender como o site é usado, como páginas mais visitadas e de onde vêm as visitas, para melhorá-lo. Só são ativados se você clicar em \u201cAceitar todos\u201d.",
+      status: "Somente com sua permissão",
+      items: ["Google Analytics (Google)", "Vercel Web Analytics (medição de visitas sem cookies)"],
       color: "bg-gray-50 border-l-4 border-gray-400",
     },
     {
-      title: "Cookies de Marketing",
+      title: "Marketing",
       description:
-        "Utilizados para rastrear visitantes em diferentes sites e exibir anúncios relevantes.",
-      items: ["Meta Pixel (Facebook/Instagram)", "Google Ads"],
-      color: "bg-gray-50 border-l-4 border-gray-400",
-    },
-    {
-      title: "Cookies de Preferências",
-      description:
-        "Permitem que o site lembre suas escolhas, como idioma ou região, para oferecer recursos personalizados.",
+        "Não utilizamos cookies de marketing ou publicidade. Se isso mudar, esta política será atualizada e pediremos a sua permissão antes.",
       color: "bg-gray-50 border-l-4 border-gray-400",
     },
   ];
@@ -115,12 +110,9 @@ const CookiePolicy = () => {
           </p>
           <ul className="space-y-3">
             {[
-              "Garantir o funcionamento adequado do site",
-              "Lembrar suas preferências e configurações",
-              "Manter você conectado durante sua visita",
-              "Analisar como nosso site é utilizado",
-              "Personalizar sua experiência de navegação",
-              "Exibir anúncios relevantes (se aplicável)",
+              "Garantir o funcionamento adequado do site e do checkout",
+              "Lembrar a sua sacola e a sua escolha sobre cookies",
+              "Analisar como o site é utilizado, somente com a sua permissão",
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-4">
                 <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
@@ -204,10 +196,8 @@ const CookiePolicy = () => {
           </p>
           <ul className="space-y-3 mb-6">
             {[
-              "Processar pagamentos de forma segura",
-              "Integrar funcionalidades de redes sociais",
-              "Analisar o tráfego do site",
-              "Exibir publicidade direcionada",
+              "Processar o pedido e o pagamento com segurança (Shopify e parceiros de pagamento)",
+              "Analisar o tráfego do site (Google Analytics, somente com a sua permissão)",
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-4">
                 <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
@@ -312,10 +302,9 @@ const CookiePolicy = () => {
           </p>
           <ul className="space-y-3">
             {[
-              "O carrinho de compras pode não salvar seus itens",
-              "Você precisará fazer login repetidamente",
-              "Suas preferências não serão lembradas",
-              "A experiência de navegação pode ser prejudicada",
+              "A sacola de compras pode não guardar seus itens",
+              "Sua escolha sobre cookies não será lembrada",
+              "O checkout pode não funcionar corretamente",
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-4">
                 <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />

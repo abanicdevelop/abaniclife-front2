@@ -140,9 +140,19 @@ const Header = () => {
   const handleLinkClick = (e, href) => {
     if (!href) return;
 
+    // Cmd/Ctrl/Shift + clique (abrir em nova aba) e links externos seguem o comportamento padrão
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0 || !href.startsWith("/")) return;
+
     // Verifica se é um link com hash (ex: /product#gel)
     const hasHash = href.includes("#");
-    if (!hasHash) return; // Deixa o comportamento padrão
+    if (!hasHash) {
+      // Página interna sem âncora: navega pelo React Router, sem recarregar o site
+      e.preventDefault();
+      setActiveSubmenu(null);
+      setMobileMenuOpen(false);
+      navigate(href);
+      return;
+    }
 
     e.preventDefault();
     setActiveSubmenu(null);

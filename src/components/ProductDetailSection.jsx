@@ -54,15 +54,27 @@ const ProductDetailSection = ({ product }) => {
 
   // Barra de compra fixa no celular: aparece quando o botão principal sai da tela
   const comprarRef = useRef(null);
-  const [mostrarBarra, setMostrarBarra] = useState(false);
+  // Barra fixa aparece depois que o botão principal sai da tela e some quando o rodapé aparece
+  // (senão cobre os links do fim do rodapé, como "Gerenciar cookies")
+  const [passouComprar, setPassouComprar] = useState(false);
+  const [rodapeVisivel, setRodapeVisivel] = useState(false);
+  const mostrarBarra = passouComprar && !rodapeVisivel;
   useEffect(() => {
     const el = comprarRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) =>
-      setMostrarBarra(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+      setPassouComprar(!entry.isIntersecting && entry.boundingClientRect.top < 0),
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    const rodape = document.querySelector("footer");
+    const observerRodape = rodape
+      ? new IntersectionObserver(([entry]) => setRodapeVisivel(entry.isIntersecting))
+      : null;
+    if (rodape) observerRodape.observe(rodape);
+    return () => {
+      observer.disconnect();
+      observerRodape?.disconnect();
+    };
   }, [product.id]);
 
   return (

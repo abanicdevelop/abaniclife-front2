@@ -38,6 +38,7 @@ const CookieBanner = () => {
       // sem localStorage: vale só para esta visita
     }
     window.gtag?.("consent", "update", { analytics_storage: valor === "aceito" ? "granted" : "denied" });
+    if (valor === "aceito") window.carregarGA?.();
     setAberto(false);
     window.dispatchEvent(new Event("abanic:cookies-escolhido"));
   };

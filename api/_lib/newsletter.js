@@ -24,7 +24,12 @@ export const origemDoPedido = (req) => {
 // ── Links assinados ─────────────────────────────────────────────────────────
 // O link carrega o e-mail e a ação, assinados com a chave do Resend; assim não precisamos de banco
 // para guardar pedidos pendentes e ninguém consegue montar um link para o e-mail de outra pessoa.
-const segredo = () => process.env.NEWSLETTER_SECRET || process.env.RESEND_API_KEY || "";
+// Nunca assina com chave vazia: sem segredo, qualquer pessoa conseguiria forjar links de cancelamento
+const segredo = () => {
+  const chave = process.env.NEWSLETTER_SECRET || process.env.RESEND_API_KEY;
+  if (!chave) throw new Error("NEWSLETTER_SECRET não configurada");
+  return chave;
+};
 const assinar = (dados) => crypto.createHmac("sha256", segredo()).update(dados).digest("base64url");
 
 export const criarToken = (payload) => {

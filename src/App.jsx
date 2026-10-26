@@ -39,6 +39,7 @@ const loaders = {
   TermsOfUse: () => import("./pages/TermsOfUse"),
   EncontreSuaRotina: () => import("./pages/EncontreSuaRotina"),
   NewsletterStatus: () => import("./pages/NewsletterStatus"),
+  NaoEncontrada: () => import("./pages/NaoEncontrada"),
 };
 const Home = lazy(loaders.Home);
 const Product = lazy(loaders.Product);
@@ -55,6 +56,7 @@ const PrivacyPolicy = lazy(loaders.PrivacyPolicy);
 const TermsOfUse = lazy(loaders.TermsOfUse);
 const EncontreSuaRotina = lazy(loaders.EncontreSuaRotina);
 const NewsletterStatus = lazy(loaders.NewsletterStatus);
+const NaoEncontrada = lazy(loaders.NaoEncontrada);
 
 // Espaço vazio na cor da página enquanto uma página carrega (evita o "Loading..." e o rodapé pulando)
 const PageFallback = () => (
@@ -126,6 +128,8 @@ const AnimatedRoutes = () => {
             <Route path="/cookie-policy" element={<Navigate to="/politica-de-cookies" replace />} />
             <Route path="/privacy-policy" element={<Navigate to="/politica-de-privacidade" replace />} />
             <Route path="/terms-of-use" element={<Navigate to="/termos-de-uso" replace />} />
+
+            <Route path="*" element={<NaoEncontrada />} />
           </Routes>
         </Suspense>
       </motion.div>

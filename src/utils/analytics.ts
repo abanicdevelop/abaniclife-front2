@@ -17,8 +17,17 @@ declare global {
   }
 }
 
+// LGPD: eventos só com o "Aceitar todos" do aviso de cookies (mesma chave do CookieBanner)
+const medicaoPermitida = () => {
+  try {
+    return window.localStorage.getItem("abanic_cookies") === "aceito";
+  } catch {
+    return false;
+  }
+};
+
 export const trackEvent = ({ name, category, action, label }: TrackEventParams) => {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  if (typeof window === "undefined" || typeof window.gtag !== "function" || !medicaoPermitida()) return;
   window.gtag("event", name, { category, action, label });
 };
 
@@ -49,7 +58,7 @@ const itemGA = ({ id, quantidade = 1 }: ItemDaSacola) => {
 };
 
 export const trackEcommerce = (name: string, itens: ItemDaSacola[], extras: Record<string, unknown> = {}) => {
-  if (typeof window === "undefined" || typeof window.gtag !== "function" || itens.length === 0) return;
+  if (typeof window === "undefined" || typeof window.gtag !== "function" || !medicaoPermitida() || itens.length === 0) return;
   const items = itens.map(itemGA);
   const value = items.reduce((soma, i) => soma + i.price * i.quantity, 0);
   window.gtag("event", name, { currency: "BRL", value, items, ...extras });
