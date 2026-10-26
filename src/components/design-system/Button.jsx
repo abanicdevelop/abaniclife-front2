@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const base = {
   fontFamily: "var(--font-text)",
@@ -52,7 +53,9 @@ export function Button({
   ...rest
 }) {
   const [hover, setHover] = useState(false);
-  const Tag = href ? "a" : "button";
+  // Links para páginas do próprio site navegam sem recarregar (react-router); externos continuam <a>
+  const interno = typeof href === "string" && href.startsWith("/") && !href.startsWith("//");
+  const Tag = interno ? Link : href ? "a" : "button";
 
   const s = {
     ...base,
@@ -69,7 +72,7 @@ export function Button({
   return (
     <Tag
       style={s}
-      href={href}
+      {...(interno ? { to: href } : { href })}
       onClick={disabled ? undefined : onClick}
       disabled={href ? undefined : disabled}
       onMouseEnter={() => setHover(true)}

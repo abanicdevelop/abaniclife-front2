@@ -197,7 +197,8 @@ export const getSeo = (pathname) => {
   if (!seo && caminho.startsWith("/newsletter/")) {
     seo = { title: "Newsletter | ABANIC", description: "Sua inscrição na newsletter ABANIC.", robots: "noindex, follow" };
   }
-  seo = seo ?? { ...PAGINAS["/"], jsonLd: [] };
+  // Endereço desconhecido (página 404): título próprio e nunca indexado
+  seo = seo ?? { title: "Página não encontrada | ABANIC", description: PAGINAS["/"].description, robots: "noindex, follow", jsonLd: [] };
   return {
     type: "website",
     robots: "index, follow",

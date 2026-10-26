@@ -18,9 +18,9 @@ const HomeDiferenciais = () => (
       borderBottom: "var(--border-hairline) solid var(--border-default)",
     }}
   >
-    <ul className="page-container py-8 grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <ul className="page-container py-8 grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6 lg:gap-6">
       {itens.map(({ icon: Icon, texto }) => (
-        <li key={texto} className="flex items-center gap-3">
+        <li key={texto} className="flex items-center gap-3 min-w-0">
           <Icon size={18} strokeWidth={1.25} style={{ color: "var(--abanic-orange)", flexShrink: 0 }} />
           <span
             style={{
@@ -29,6 +29,10 @@ const HomeDiferenciais = () => (
               textTransform: "uppercase",
               letterSpacing: "var(--tracking-label)",
               color: "var(--text-body)",
+              // "DERMATOLOGICAMENTE" não cabe inteiro em celulares estreitos: quebra com hífen em vez de vazar
+              hyphens: "auto",
+              overflowWrap: "break-word",
+              minWidth: 0,
             }}
           >
             {texto}

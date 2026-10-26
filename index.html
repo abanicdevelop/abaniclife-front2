@@ -12,8 +12,7 @@
     <meta property="og:image" content="https://www.abaniclife.com/og/padrao.jpg" />
     <!--seo:end-->
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S39CBYTFS9"></script>
+    <!-- Google tag (gtag.js): o script do Google só é baixado depois do "Aceitar todos" (LGPD) -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -31,6 +30,15 @@
       });
       gtag("js", new Date());
       gtag("config", "G-S39CBYTFS9");
+      window.carregarGA = function () {
+        if (window.__gaCarregado) return;
+        window.__gaCarregado = true;
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=G-S39CBYTFS9";
+        document.head.appendChild(s);
+      };
+      if (escolhaCookies === "aceito") window.carregarGA();
     </script>
   </head>
   <body>

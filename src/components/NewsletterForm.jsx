@@ -85,7 +85,7 @@ const NewsletterForm = ({ empilhado = false }) => {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
       <input
         type="text"
-        name="empresa"
+        name="hp_campo_extra"
         value={empresa}
         onChange={(e) => setEmpresa(e.target.value)}
         tabIndex={-1}
