@@ -83,8 +83,10 @@ export const perguntas = [
 export const montarRotina = ({ necessidade, rotina }) => {
   const n = necessidades.find((x) => x.slug === necessidade) ?? necessidades[0];
 
-  const abertura =
-    rotina === "nenhuma"
+  // Sem resposta sobre a rotina (atalho ?necessidade= da home), não há abertura personalizada
+  const abertura = !rotina
+    ? ""
+    : rotina === "nenhuma"
       ? "Comece pelo essencial: os três passos da linha RHADYANCE, pensados para um cuidado completo."
       : "Sua rotina já tem uma boa base. A linha RHADYANCE adiciona a ela um sérum clareador que pode ser usado de dia e à noite.";
 
