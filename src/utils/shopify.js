@@ -27,7 +27,13 @@ const CHECKOUT_NO_SITE_OFICIAL = false;
  */
 export const usePreLancamento = () => {
   const [pre, setPre] = useState(!CHECKOUT_NO_SITE_OFICIAL);
-  useEffect(() => setPre(!checkoutAtivo()), []);
+  useEffect(() => {
+    // ?ver=pre-lancamento força a versão de pré-lançamento (para revisar nas prévias da Vercel)
+    const forcar = new URLSearchParams(window.location.search).get("ver") === "pre-lancamento";
+    if (forcar) window.sessionStorage?.setItem("abanic_ver_pre", "1");
+    const lembrado = window.sessionStorage?.getItem("abanic_ver_pre") === "1";
+    setPre(forcar || lembrado || !checkoutAtivo());
+  }, []);
   return pre;
 };
 
