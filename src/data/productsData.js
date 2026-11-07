@@ -13,6 +13,10 @@ import MirtiloPetri from "../assets/products/ativos/novas/mirtilo-petri.webp";
 import AlgaArcoIrisPetri from "../assets/products/ativos/novas/alga-arcoiris-petri.webp";
 import MandiocaPetri from "../assets/products/ativos/novas/mandioca-petri.webp";
 
+// Fotos atuais das embalagens são ilustrativas (volumes e textos do rótulo podem diferir).
+// Quando as fotos definitivas chegarem, troque para false: a etiqueta some em todo o site.
+export const FOTOS_ILUSTRATIVAS = true;
+
 export const productsData = [
   {
     id: "gel",

@@ -10,6 +10,7 @@ import { perguntas, montarRotina, motivoDoProduto, necessidades, necessidadesAnt
 import { trackEvent } from "../utils/analytics";
 import { DURACAO, DURACAO_SAIDA } from "../utils/motion";
 import { rotaProduto } from "../data/rotas";
+import EtiquetaIlustrativa from "../components/product/EtiquetaIlustrativa";
 
 const tituloGrande = {
   fontFamily: "var(--font-display)",
@@ -56,8 +57,9 @@ const precoStyle = { fontFamily: "var(--font-text)", fontWeight: "var(--weight-m
 // Produto em destaque: imagem quadrada ocupando ~1/3 da largura, texto ao lado
 const CardDestaque = ({ produto: p, onAdicionar }) => (
   <article className="grid grid-cols-1 md:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] gap-6 md:gap-12 items-center">
-    <Link to={rotaProduto(p)} className="block overflow-hidden aspect-square" style={{ background: "var(--surface-raised)" }}>
+    <Link to={rotaProduto(p)} className="relative block overflow-hidden aspect-square" style={{ background: "var(--surface-raised)" }}>
       <img src={p.imagem} alt={p.tituloDetalhe} className="w-full h-full object-cover" />
+      <EtiquetaIlustrativa />
     </Link>
     <div className="flex flex-col">
       <div className="flex flex-wrap items-center gap-3">
@@ -85,10 +87,11 @@ const CardComplemento = ({ produto: p, onAdicionar }) => (
   <article className="flex gap-5 items-start">
     <Link
       to={rotaProduto(p)}
-      className="block overflow-hidden aspect-[4/5] w-28 sm:w-36 shrink-0"
+      className="relative block overflow-hidden aspect-[4/5] w-28 sm:w-36 shrink-0"
       style={{ background: "var(--surface-raised)" }}
     >
       <img src={p.imagem} alt={p.tituloDetalhe} className="w-full h-full object-cover" />
+      <EtiquetaIlustrativa compacta />
     </Link>
     <div className="flex flex-col flex-1 min-w-0 self-stretch">
       <span style={rotulo}>
@@ -108,23 +111,49 @@ const CardComplemento = ({ produto: p, onAdicionar }) => (
   </article>
 );
 
-const Resultado = ({ respostas, onRefazer }) => {
-  const { addItem } = useCart();
+const precoEmReais = (preco) => parseFloat(String(preco).replace(/[^\d,]/g, "").replace(",", ".")) || 0;
+const formatarReais = (valor) => valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+const BotaoVoltar = ({ onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="ml-auto inline-flex items-center min-h-[44px] transition-colors hover:text-[var(--abanic-orange)]"
+    style={{
+      fontFamily: "var(--font-text)",
+      fontSize: "var(--size-body-sm)",
+      color: "var(--text-body)",
+      cursor: "pointer",
+    }}
+  >
+    ← Voltar
+  </button>
+);
+
+const Resultado = ({ respostas, onRefazer, onVoltar }) => {
+  const { addItem, items } = useCart();
   const rotina = montarRotina(respostas);
   const porId = (id) => productsData.find((p) => p.id === id);
   const destaque = porId(rotina.destaque);
   const complemento = rotina.complemento.map(porId).filter(Boolean);
 
+  const rotinaCompleta = [destaque, ...complemento];
+  const totalRotina = rotinaCompleta.reduce((soma, p) => soma + precoEmReais(p.preco), 0);
+  // Adiciona só o que ainda não está na sacola (antes duplicava o destaque já adicionado)
+  const faltando = rotinaCompleta.filter((p) => !items.some((i) => i.id === p.id));
   const adicionarTodos = () => {
-    [destaque, ...complemento].forEach((p) => addItem(p));
+    faltando.forEach((p) => addItem(p));
     trackEvent({ name: "rotina_adicionar_todos", category: "Rotina", action: rotina.necessidade.slug });
   };
 
   return (
     <div>
-      <SectionLabel rule={false}>Sua rotina RHADYANCE</SectionLabel>
+      <div className="flex items-center gap-4">
+        <SectionLabel rule={false}>Sua rotina RHADYANCE</SectionLabel>
+        <BotaoVoltar onClick={onVoltar} />
+      </div>
       <h1 style={{ ...tituloGrande, marginTop: "var(--space-4)" }}>Para {rotina.necessidade.nome.toLowerCase()}</h1>
-      <p style={{ ...textoApoio, marginTop: "var(--space-4)", maxWidth: "56ch" }}>{rotina.abertura}</p>
+      {rotina.abertura && <p style={{ ...textoApoio, marginTop: "var(--space-4)", maxWidth: "56ch" }}>{rotina.abertura}</p>}
 
       <div className="mt-12">
         <CardDestaque produto={destaque} onAdicionar={addItem} />
@@ -169,9 +198,20 @@ const Resultado = ({ respostas, onRefazer }) => {
           >
             Refazer o teste
           </button>
-          <Button variant="primary" size="lg" onClick={adicionarTodos}>
-            Adicionar a rotina completa
-          </Button>
+          <div className="flex flex-col items-start md:items-end gap-2">
+            <span style={{ ...textoApoio, fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}>
+              Rotina completa · <strong style={{ fontWeight: "var(--weight-medium)" }}>{formatarReais(totalRotina)}</strong>
+            </span>
+            {faltando.length > 0 ? (
+              <Button variant="primary" size="lg" onClick={adicionarTodos}>
+                Adicionar a rotina completa
+              </Button>
+            ) : (
+              <Button variant="secondary" size="lg" disabled>
+                Rotina completa na sacola ✓
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -184,14 +224,25 @@ const EncontreSuaRotina = () => {
   const necessidadeDaUrl = necessidadesAntigas[parametro] ?? parametro;
   const valida = necessidades.some((n) => n.slug === necessidadeDaUrl);
 
-  // Vindo do menu/home com ?necessidade=..., mostra o resultado direto
-  const inicial = useMemo(
-    () => (valida ? { necessidade: necessidadeDaUrl, rotina: "nenhuma", momento: "dia-noite" } : {}),
-    [valida, necessidadeDaUrl],
-  );
+  // Respostas no endereço (?necessidade=...&rotina=...&momento=...): recarregar mantém o resultado e
+  // ele pode ser compartilhado. Vindo do menu/home só com ?necessidade=, mostra o resultado direto.
+  const valorValido = (id, valor) => perguntas.find((q) => q.id === id)?.opcoes.some((o) => o.valor === valor);
+  const rotinaDaUrl = searchParams.get("rotina");
+  const momentoDaUrl = searchParams.get("momento");
+  const inicial = useMemo(() => {
+    if (!valida) return {};
+    const r = { necessidade: necessidadeDaUrl };
+    if (valorValido("rotina", rotinaDaUrl)) r.rotina = rotinaDaUrl;
+    if (valorValido("momento", momentoDaUrl)) r.momento = momentoDaUrl;
+    return r;
+  }, [valida, necessidadeDaUrl, rotinaDaUrl, momentoDaUrl]);
+  const chaveAtual = `${necessidadeDaUrl}|${rotinaDaUrl}|${momentoDaUrl}`;
   const [respostas, setRespostas] = useState(inicial);
   const [etapa, setEtapa] = useState(valida ? perguntas.length : 0);
-  const [chaveUrl, setChaveUrl] = useState(necessidadeDaUrl);
+  const [chaveUrl, setChaveUrl] = useState(chaveAtual);
+  // Endereço que o próprio teste acabou de pedir (responder, voltar, refazer): quando ele chega,
+  // não é uma navegação de fora e não deve reiniciar o estado
+  const [chaveEsperada, setChaveEsperada] = useState(null);
 
   // A página é pré-renderizada sem "?necessidade=..." (1ª pergunta). Até montar no navegador,
   // desenhamos exatamente isso, para o HTML pronto e o React baterem; depois vale o estado real
@@ -201,11 +252,14 @@ const EncontreSuaRotina = () => {
   const etapaTela = montado ? etapa : 0;
   const respostasTela = montado ? respostas : {};
 
-  // Se a necessidade da URL mudar (ex.: clicou em outra no menu), atualiza o resultado
-  if (chaveUrl !== necessidadeDaUrl) {
-    setChaveUrl(necessidadeDaUrl);
-    setRespostas(inicial);
-    setEtapa(valida ? perguntas.length : 0);
+  // Se o endereço mudar (ex.: clicou em outra necessidade no menu), atualiza o resultado
+  if (chaveUrl !== chaveAtual) {
+    setChaveUrl(chaveAtual);
+    setChaveEsperada(null);
+    if (chaveAtual !== chaveEsperada) {
+      setRespostas(inicial);
+      setEtapa(valida ? perguntas.length : 0);
+    }
   }
 
   const responder = (id, valor) => {
@@ -215,14 +269,29 @@ const EncontreSuaRotina = () => {
     setEtapa(proxima);
     if (proxima === perguntas.length) {
       trackEvent({ name: "rotina_resultado", category: "Rotina", action: novas.necessidade });
+      // Grava as respostas no endereço
+      const params = { necessidade: novas.necessidade, rotina: novas.rotina, momento: novas.momento };
+      setChaveEsperada(`${params.necessidade}|${params.rotina}|${params.momento}`);
+      setSearchParams(params);
     }
   };
 
   const refazer = () => {
     setRespostas({});
     setEtapa(0);
-    setChaveUrl(null);
-    if (necessidadeDaUrl) setSearchParams({}, { replace: true });
+    if (parametro) {
+      setChaveEsperada("null|null|null");
+      setSearchParams({});
+    }
+  };
+
+  // Voltar do resultado: reabre a primeira pergunta sem resposta (atalho da home) ou a última,
+  // mantendo as respostas; o endereço volta ao do teste e é regravado ao responder de novo
+  const voltarDoResultado = () => {
+    const pendente = perguntas.findIndex((q) => !respostas[q.id]);
+    setEtapa(pendente === -1 ? perguntas.length - 1 : pendente);
+    setChaveEsperada("null|null|null");
+    setSearchParams({});
   };
 
   // Cada troca de etapa (responder, voltar, refazer) começa do topo, quando a anterior já saiu
@@ -248,6 +317,7 @@ const EncontreSuaRotina = () => {
                   <span style={rotulo}>
                     {etapaTela + 1} / {perguntas.length}
                   </span>
+                  {etapaTela > 0 && <BotaoVoltar onClick={() => setEtapa(etapa - 1)} />}
                 </div>
                 {/* progresso */}
                 <div className="relative h-px mt-4" style={{ background: "var(--border-default)" }}>
@@ -267,6 +337,7 @@ const EncontreSuaRotina = () => {
                         key={op.valor}
                         type="button"
                         onClick={() => responder(pergunta.id, op.valor)}
+                        aria-pressed={marcada}
                         className="text-left p-5 transition-colors hover:border-[var(--abanic-orange)]"
                         style={{
                           border: `var(--border-hairline) solid ${marcada ? "var(--abanic-orange)" : "var(--neutral-900)"}`,
@@ -295,19 +366,9 @@ const EncontreSuaRotina = () => {
                   })}
                 </div>
 
-                {etapaTela > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => setEtapa(etapa - 1)}
-                    className="mt-8 transition-colors hover:text-[var(--abanic-orange)]"
-                    style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-muted)", cursor: "pointer" }}
-                  >
-                    ← Voltar
-                  </button>
-                )}
               </div>
             ) : (
-              <Resultado respostas={respostasTela} onRefazer={refazer} />
+              <Resultado respostas={respostasTela} onRefazer={refazer} onVoltar={voltarDoResultado} />
             )}
           </motion.div>
         </AnimatePresence>
