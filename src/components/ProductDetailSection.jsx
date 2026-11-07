@@ -10,6 +10,7 @@ import { SectionLabel } from "./design-system/SectionLabel";
 import { useCart } from "../context/CartContext";
 import { productsData } from "../data/productsData";
 import { passos, destaqueDoProduto } from "../data/rotina";
+import AvisoPreLancamento from "./AvisoPreLancamento";
 import { DURACAO } from "../utils/motion";
 
 // Fotos atuais das embalagens são ilustrativas (volumes e textos do rótulo podem diferir).
@@ -208,9 +209,11 @@ const ProductDetailSection = ({ product }) => {
               </div>
             </div>
 
+            <AvisoPreLancamento className="mt-4" />
+
             {/* Entrega e troca, logo abaixo do botão */}
             <p
-              className="mt-4"
+              className="mt-2"
               style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", lineHeight: "var(--leading-body)", color: "var(--text-muted)" }}
             >
               Envio pelos Correios para todo o Brasil · 7 dias para desistir da compra ·{" "}

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 // Checkout pela Shopify (loja headless rxdhwk-ic). O site continua montando a sacola; ao finalizar,
 // criamos um carrinho na Shopify (Storefront API) e levamos a pessoa ao checkout de lá.
 // A chave abaixo é a pública da Storefront API: foi feita para ficar no navegador.
@@ -16,6 +18,18 @@ const VARIANTES = {
 // Antes do lançamento, o checkout real só fica ligado fora do site oficial (prévias da Vercel e
 // localhost). No lançamento, troque para true.
 const CHECKOUT_NO_SITE_OFICIAL = false;
+
+/**
+ * true enquanto a venda não abriu neste endereço (site oficial antes do lançamento). Os avisos de
+ * pré-lançamento usam isto e somem sozinhos quando CHECKOUT_NO_SITE_OFICIAL virar true.
+ * Começa pelo valor da chave (igual no HTML pré-renderizado e no navegador) e se ajusta depois de
+ * montar, para as prévias da Vercel e o localhost, onde o checkout já funciona.
+ */
+export const usePreLancamento = () => {
+  const [pre, setPre] = useState(!CHECKOUT_NO_SITE_OFICIAL);
+  useEffect(() => setPre(!checkoutAtivo()), []);
+  return pre;
+};
 
 export const checkoutAtivo = () =>
   typeof window !== "undefined" &&

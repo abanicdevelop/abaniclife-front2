@@ -3,7 +3,8 @@ import { X, Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
 import { trackEcommerce } from "../utils/analytics";
-import { checkoutAtivo, criarCheckout } from "../utils/shopify";
+import { checkoutAtivo, criarCheckout, usePreLancamento } from "../utils/shopify";
+import NewsletterForm from "./NewsletterForm";
 import { Button } from "./design-system/Button";
 
 const formatPrice = (value) =>
@@ -13,6 +14,7 @@ const CartDrawer = () => {
   const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice, totalItems } = useCart();
   const [indoAoCheckout, setIndoAoCheckout] = useState(false);
   const fecharRef = useRef(null);
+  const preLancamento = usePreLancamento();
 
   // Gaveta aberta se comporta como modal: Esc fecha, a página por trás não rola e o foco entra nela
   useEffect(() => {
@@ -250,14 +252,41 @@ const CartDrawer = () => {
                 {formatPrice(totalPrice)}
               </span>
             </div>
-            <Button
-              variant="primary"
-              fullWidth
-              disabled={indoAoCheckout}
-              onClick={finalizarCompra}
-            >
-              {indoAoCheckout ? "Abrindo pagamento…" : "Finalizar compra"}
-            </Button>
+            {preLancamento ? (
+              // Antes do lançamento a sacola vira lista de espera: avisa antes, em vez de "em breve" no fim
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: "var(--weight-light)",
+                      fontSize: "var(--size-heading-3)",
+                      lineHeight: "var(--leading-heading)",
+                      color: "var(--text-body)",
+                    }}
+                  >
+                    Avise-me no lançamento
+                  </p>
+                  <p
+                    className="mt-1"
+                    style={{
+                      fontFamily: "var(--font-text)",
+                      fontSize: "var(--size-body-sm)",
+                      lineHeight: "var(--leading-body)",
+                      color: "var(--text-body)",
+                    }}
+                  >
+                    As vendas abrem em dezembro. Deixe seu nome e e-mail e avisamos assim que abrir. Sua
+                    sacola fica guardada neste navegador.
+                  </p>
+                </div>
+                <NewsletterForm empilhado />
+              </div>
+            ) : (
+              <Button variant="primary" fullWidth disabled={indoAoCheckout} onClick={finalizarCompra}>
+                {indoAoCheckout ? "Abrindo pagamento…" : "Finalizar compra"}
+              </Button>
+            )}
           </div>
         )}
       </aside>
