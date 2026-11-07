@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "./ui/button";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import Banner1 from "../assets/Bannerteste1.webp";
 import Banner3 from "../assets/Banner3.webp";
 import Banner2 from "../assets/Banner2.webp";
@@ -63,18 +62,34 @@ const HeroSection = () => {
     setCurrentSlide(index);
   };
 
-  // Troca automática a cada 5 s. O tempo recomeça a cada troca (inclusive manual), para o slide
-  // não pular logo depois de a pessoa clicar numa seta ou num ponto
+  // Troca automática a cada 5 s, com controle de pausa (WCAG 2.2.2). Ela também para enquanto o
+  // mouse ou o foco do teclado estão no banner, quando a pessoa toca no card de compra (para o
+  // produto não trocar entre ler e clicar) e começa pausada para quem prefere menos movimento.
+  const [pausado, setPausado] = useState(false);
+  const [emUso, setEmUso] = useState(false);
   useEffect(() => {
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) setPausado(true);
+  }, []);
+  useEffect(() => {
+    if (pausado || emUso) return;
+    // O tempo recomeça a cada troca (inclusive manual), para o slide não pular logo depois do clique
     const timer = setTimeout(() => setCurrentSlide((prev) => (prev + 1) % slides.length), 5000);
     return () => clearTimeout(timer);
-  }, [currentSlide, slides.length]);
+  }, [currentSlide, slides.length, pausado, emUso]);
 
   return (
     <section
       className="relative w-full box-border overflow-x-hidden"
       style={{ height: "100dvh", maxHeight: "100dvh" }}
       id="home"
+      aria-roledescription="carrossel"
+      aria-label="Destaques da linha RHADYANCE"
+      onMouseEnter={() => setEmUso(true)}
+      onMouseLeave={() => setEmUso(false)}
+      onFocus={() => setEmUso(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setEmUso(false);
+      }}
     >
       <div className="max-w-7xl mx-auto w-full h-full px-4 sm:px-6 lg:px-8">
         {slides.map((slide, index) => (
@@ -111,16 +126,12 @@ const HeroSection = () => {
             <div className="relative z-10 h-full ">
               <div className="absolute bottom-[196px] md:bottom-[216px] left-0 right-0 px-4 max-w-4xl mx-auto text-center text-white ">
                 <p
-                  className="
-    text-[40px]          /* 🔥 maior no mobile */
-    md:text-[28px]       /* bom em tablets */
-    lg:text-[38px]       /* mantém no desktop */
-    mb-0 
-    opacity-90 
-    animate-fade-in-up 
-    animation-delay-300 
-    font-space-grotesk-h1
-  "
+                  className="text-[32px] leading-[1.1] md:text-[32px] lg:text-[44px] mb-0 animate-fade-in-up animation-delay-300"
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontWeight: "var(--weight-light)",
+                    letterSpacing: "0.02em",
+                  }}
                 >
                   {slide.subtitle}
                 </p>
@@ -129,6 +140,7 @@ const HeroSection = () => {
               {/* Compra rápida do produto da campanha */}
               {slide.produto && (
                 <div
+                  onPointerDown={() => setPausado(true)}
                   className="absolute left-4 right-4 bottom-16 md:right-auto md:left-[clamp(16px,4vw,64px)] md:bottom-20 md:w-[340px] flex items-stretch gap-4 p-3"
                   style={{
                     background: "var(--abanic-cream)",
@@ -185,8 +197,8 @@ const HeroSection = () => {
                       }}
                       className="transition-colors hover:bg-[var(--action-primary-bg-hover)]"
                       style={{
-                        height: "32px",
-                        padding: "0 var(--space-4)",
+                        height: "40px",
+                        padding: "0 var(--space-5)",
                         background: "var(--action-primary-bg)",
                         color: "var(--action-primary-fg)",
                         fontFamily: "var(--font-text)",
@@ -206,7 +218,8 @@ const HeroSection = () => {
                           action: `Saiba mais ${slide.produto.id} no banner`,
                         })
                       }
-                      className="transition-colors hover:text-[var(--abanic-orange)]"
+                      // A área de toque passa do texto (pseudo-elemento), sem mudar o visual
+                      className="relative transition-colors hover:text-[var(--abanic-orange)] after:absolute after:-inset-x-2 after:-inset-y-3 after:content-['']"
                       style={{
                         fontFamily: "var(--font-text)",
                         fontSize: "var(--size-caption)",
@@ -227,63 +240,56 @@ const HeroSection = () => {
         ))}
       </div>
 
-      {/* Navigation Arrows */}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => {
-          prevSlide();
-          trackEvent({
-            name: "click_banner_prev",
-            category: "CTA",
-            action: "Botão Banner Anterior",
-          });
-        }}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm rounded-full w-12 h-12 transition-smooth"
-        aria-label="Slide anterior"
-      >
-        <ChevronLeft className="h-6 w-6" />
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => {
-          nextSlide();
-          trackEvent({
-            name: "click_banner_next",
-            category: "CTA",
-            action: "Botão Banner Próximo",
-          });
-        }}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm rounded-full w-12 h-12 transition-smooth"
-        aria-label="Próximo slide"
-      >
-        <ChevronRight className="h-6 w-6" />
-      </Button>
+      {/* Setas: quadradas, contorno fino (mesmo desenho do carrossel de ativos) */}
+      {[
+        { lado: "left-4", rotulo: "Slide anterior", Icone: ChevronLeft, acao: prevSlide, evento: ["click_banner_prev", "Botão Banner Anterior"] },
+        { lado: "right-4", rotulo: "Próximo slide", Icone: ChevronRight, acao: nextSlide, evento: ["click_banner_next", "Botão Banner Próximo"] },
+      ].map(({ lado, rotulo, Icone, acao, evento }) => (
+        <button
+          key={rotulo}
+          type="button"
+          onClick={() => {
+            acao();
+            trackEvent({ name: evento[0], category: "CTA", action: evento[1] });
+          }}
+          className={`absolute ${lado} top-1/2 -translate-y-1/2 z-20 inline-flex items-center justify-center w-12 h-12 text-[var(--abanic-cream)] transition-colors hover:bg-[rgba(247,243,236,0.12)]`}
+          style={{ border: "var(--border-hairline) solid rgba(247, 243, 236, 0.7)", cursor: "pointer" }}
+          aria-label={rotulo}
+        >
+          <Icone size={22} strokeWidth={1.5} />
+        </button>
+      ))}
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-20 flex">
-        {slides.map((_, index) => (
+      {/* Indicadores em traço fino + pausa da troca automática */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center">
+        {slides.map((slide, index) => (
           <button
-            key={index}
+            key={slide.id}
+            type="button"
             onClick={() => goToSlide(index)}
-            className="inline-flex items-center justify-center w-9 h-9"
-            aria-label={`Ir para slide ${index + 1}`}
+            className="group inline-flex items-center justify-center h-11 px-1.5"
+            style={{ cursor: "pointer" }}
+            aria-label={`Ir para o slide ${index + 1} de ${slides.length}`}
+            aria-current={index === currentSlide ? "true" : undefined}
           >
             <span
-              className={`w-3 h-3 rounded-full transition-smooth ${
-                index === currentSlide ? "bg-white" : "bg-white/50 hover:bg-white/75"
-              }`}
+              className="block h-px transition-all duration-[450ms]"
+              style={{
+                width: index === currentSlide ? "40px" : "24px",
+                background: index === currentSlide ? "var(--abanic-cream)" : "rgba(247, 243, 236, 0.5)",
+              }}
             />
           </button>
         ))}
-      </div>
-
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 right-8 z-20 animate-bounce ">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />
-        </div>
+        <button
+          type="button"
+          onClick={() => setPausado((p) => !p)}
+          className="inline-flex items-center justify-center w-11 h-11 text-[var(--abanic-cream)] opacity-80 transition-opacity hover:opacity-100"
+          style={{ cursor: "pointer" }}
+          aria-label={pausado ? "Retomar troca automática dos slides" : "Pausar troca automática dos slides"}
+        >
+          {pausado ? <Play size={14} strokeWidth={1.5} /> : <Pause size={14} strokeWidth={1.5} />}
+        </button>
       </div>
     </section>
   );
