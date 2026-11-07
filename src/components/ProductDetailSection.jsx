@@ -55,18 +55,20 @@ const ProductDetailSection = ({ product }) => {
   const passo = passos[product.id];
   const outrosProdutos = productsData.filter((p) => p.id !== product.id);
 
-  // Barra de compra fixa no celular: aparece quando o botão principal sai da tela
+  // Barra de compra fixa no celular: aparece sempre que o botão principal não está na tela
+  // (acima, depois de rolar, ou abaixo, em celulares baixos como o iPhone SE) e some quando o
+  // rodapé aparece (senão cobre os links do fim do rodapé, como "Gerenciar cookies")
   const comprarRef = useRef(null);
-  // Barra fixa aparece depois que o botão principal sai da tela e some quando o rodapé aparece
-  // (senão cobre os links do fim do rodapé, como "Gerenciar cookies")
-  const [passouComprar, setPassouComprar] = useState(false);
+  const [comprarForaDaTela, setComprarForaDaTela] = useState(false);
   const [rodapeVisivel, setRodapeVisivel] = useState(false);
-  const mostrarBarra = passouComprar && !rodapeVisivel;
+  const mostrarBarra = comprarForaDaTela && !rodapeVisivel;
   useEffect(() => {
     const el = comprarRef.current;
     if (!el) return;
-    const observer = new IntersectionObserver(([entry]) =>
-      setPassouComprar(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+    // "Fora da tela" inclui o botão cortado na borda de baixo: só esconde a barra com ele inteiro à vista
+    const observer = new IntersectionObserver(
+      ([entry]) => setComprarForaDaTela(entry.intersectionRatio < 0.99),
+      { threshold: [0, 0.99] },
     );
     observer.observe(el);
     const rodape = document.querySelector("footer");
@@ -82,13 +84,14 @@ const ProductDetailSection = ({ product }) => {
 
   return (
     <>
-      <div id={product.id} className="page-container pt-6 pb-10">
-        <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
+      <div id={product.id} className="page-container pt-4 md:pt-6 pb-10">
+        <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-16">
           {/* Foto: fica parada no desktop enquanto as informações rolam */}
           {/* A foto preenche o quadro (sem faixas claras). No desktop, a altura do quadro é limitada
-              para a foto caber inteira na tela ao abrir a página, sem precisar rolar */}
+              para a foto caber inteira na tela ao abrir a página, sem precisar rolar. Fica sempre em 4:5,
+              formato em que as fotos foram compostas (recortes mais baixos cortam a embalagem) */}
           <motion.div
-            className="relative w-full md:w-1/2 md:sticky md:top-28 overflow-hidden aspect-[4/5] max-h-[calc(100dvh-12rem)] md:max-h-[calc(100dvh-12rem)]"
+            className="relative w-full md:w-1/2 md:sticky md:top-28 overflow-hidden aspect-[4/5] max-h-[calc(100dvh-12rem)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: DURACAO } }}
           >
@@ -112,11 +115,11 @@ const ProductDetailSection = ({ product }) => {
             </SectionLabel>
 
             <h1
+              className="text-[length:var(--size-heading-1)] md:text-[length:var(--size-display-3)]"
               style={{
                 marginTop: "var(--space-3)",
                 fontFamily: "var(--font-display)",
                 fontWeight: "var(--weight-light)",
-                fontSize: "var(--size-display-3)",
                 lineHeight: "var(--leading-display)",
                 letterSpacing: "var(--tracking-display)",
                 color: "var(--text-body)",
@@ -132,9 +135,9 @@ const ProductDetailSection = ({ product }) => {
               {product.usoLabel.charAt(0) + product.usoLabel.slice(1).toLowerCase()} · {product.volume}
             </p>
 
-            {/* Bom saber: resumo de 2 segundos */}
+            {/* Bom saber: resumo de 2 segundos. No celular desce para depois da compra */}
             {product.bomSaber?.length > 0 && (
-              <div className="mt-6">
+              <div className="mt-6 order-1 md:order-none">
                 <span
                   style={{
                     fontFamily: "var(--font-text)",
@@ -175,7 +178,7 @@ const ProductDetailSection = ({ product }) => {
               </p>
             )}
 
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-8">
+            <div className="flex flex-row items-center gap-4 mt-6 md:mt-8">
               <span
                 style={{
                   fontFamily: "var(--font-text)",
@@ -187,7 +190,7 @@ const ProductDetailSection = ({ product }) => {
               >
                 {product.preco}
               </span>
-              <div ref={comprarRef} className="w-full sm:max-w-[320px]">
+              <div ref={comprarRef} className="flex-1 sm:max-w-[320px]">
                 <Button variant="primary" size="lg" fullWidth onClick={() => addItem(product)}>
                   Adicionar à sacola
                 </Button>
@@ -207,7 +210,7 @@ const ProductDetailSection = ({ product }) => {
               </Link>
             </p>
 
-            <div className="mt-10" style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}>
+            <div className="mt-10 order-2 md:order-none" style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}>
               <Secao titulo="O produto" abertoInicial>
                 <p style={{ ...bodyTextStyle, whiteSpace: "pre-line" }}>{product.oProduto}</p>
               </Secao>
