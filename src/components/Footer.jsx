@@ -252,7 +252,8 @@ const Footer = () => {
               {EMPRESA.endereco} · {EMPRESA.cidade}/{EMPRESA.uf} · CEP {EMPRESA.cep}
             </p>
           </div>
-          <ul className="flex flex-wrap gap-x-6 gap-y-1">
+          {/* md:pr-20: o botão fixo "voltar ao topo" (canto inferior direito) cobria "Gerenciar cookies" */}
+          <ul className="flex flex-wrap gap-x-6 gap-y-1 md:pr-20">
             {t.legalLinks.map((link) => (
               <li key={link.name}>
                 <Link

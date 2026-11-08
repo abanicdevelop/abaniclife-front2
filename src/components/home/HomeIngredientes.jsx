@@ -257,17 +257,17 @@ const HomeIngredientes = ({ id }) => {
 
         <Link
           to="/ativos"
-          className="inline-block mt-12 transition-colors hover:text-[var(--abanic-orange)]"
+          className="inline-flex items-center min-h-[44px] mt-10 transition-colors hover:text-[var(--abanic-orange)]"
           style={{
             fontFamily: "var(--font-text)",
             fontSize: "var(--size-body-sm)",
             fontWeight: "var(--weight-medium)",
             color: "var(--text-body)",
-            borderBottom: "var(--border-hairline) solid var(--abanic-orange)",
-            paddingBottom: "2px",
           }}
         >
-          Explorar a ciência dos ativos
+          <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)", paddingBottom: "2px" }}>
+            Explorar a ciência dos ativos
+          </span>
         </Link>
       </div>
 

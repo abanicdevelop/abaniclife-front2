@@ -83,7 +83,8 @@ const ProductBanner = () => {
           <button
             type="button"
             onClick={() => scrollTo("ativos")}
-            className="transition-colors hover:text-[var(--abanic-orange)]"
+            // área de toque invisível maior que o texto (24px de altura)
+            className="relative transition-colors hover:text-[var(--abanic-orange)] after:absolute after:-inset-x-2 after:-inset-y-3 after:content-['']"
             style={{
               fontFamily: "var(--font-text)",
               fontSize: "var(--size-body-sm)",

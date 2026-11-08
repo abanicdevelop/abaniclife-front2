@@ -80,7 +80,8 @@ const ProductCard = ({ produto, index = 0 }) => {
         >
           {produto.preco}
         </span>
-        <Button variant="secondary" size="sm" onClick={() => addItem(produto)}>
+        {/* md = 44px de altura, área de toque mínima (sm tinha 34px) */}
+        <Button variant="secondary" size="md" onClick={() => addItem(produto)}>
           Adicionar à sacola
         </Button>
       </div>

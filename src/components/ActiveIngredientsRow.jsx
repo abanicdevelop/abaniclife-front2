@@ -101,7 +101,7 @@ const ActiveIngredientsRow = ({ items }) => {
               key={i}
               onClick={() => scrollToIndex(i)}
               aria-label={`Ir para item ${i + 1}`}
-              className="inline-flex items-center justify-center w-8 h-8"
+              className="inline-flex items-center justify-center w-11 h-11"
               style={{ cursor: "pointer" }}
             >
               <span

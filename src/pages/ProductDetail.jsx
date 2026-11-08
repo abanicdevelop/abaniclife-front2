@@ -10,6 +10,7 @@ const BackLink = () => (
     style={{
       display: "inline-flex",
       alignItems: "center",
+      minHeight: "44px",
       gap: "var(--space-2)",
       fontFamily: "var(--font-text)",
       fontSize: "var(--size-body-sm)",
