@@ -1,13 +1,12 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { articles } from "../data/articles";
-import { ArticleCard } from "../components/CultureSection";
 import { Button } from "../components/design-system/Button";
 import { SectionLabel } from "../components/design-system/SectionLabel";
 import { DURACAO } from "../utils/motion";
 import { rotaArtigo } from "../data/rotas";
 
-const tempoDeLeitura = (texto) => Math.max(1, Math.round(texto.trim().split(/\s+/).length / 200));
+const tempoDeLeitura = (texto) => Math.max(1, Math.round(texto.replace(/^## .*$/gm, "").trim().split(/\s+/).length / 200));
 
 const linkSublinhado = {
   fontFamily: "var(--font-text)",
@@ -114,7 +113,24 @@ const BlogPostPage = () => {
         style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
       >
         <div className="mx-auto space-y-6" style={{ maxWidth: "65ch" }}>
-          {paragrafos.map((p, i) => (
+          {/* Linhas que começam com "## " são intertítulos (ex.: os quatro movimentos do artigo de tendências) */}
+          {paragrafos.map((p, i) =>
+            p.startsWith("## ") ? (
+              <h2
+                key={i}
+                className="pt-6"
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: "var(--weight-light)",
+                  fontSize: "var(--size-heading-1)",
+                  lineHeight: "var(--leading-heading)",
+                  letterSpacing: "var(--tracking-heading)",
+                  color: "var(--text-body)",
+                }}
+              >
+                {p.slice(3)}
+              </h2>
+            ) : (
             <p
               key={i}
               style={{
@@ -126,7 +142,8 @@ const BlogPostPage = () => {
             >
               {p}
             </p>
-          ))}
+            ),
+          )}
 
           {article.cta && (
             <div className="pt-6">
@@ -149,11 +166,17 @@ const BlogPostPage = () => {
               >
                 Fontes
               </p>
-              <ul className="mt-3 space-y-2">
+              <ul className="mt-2">
                 {article.fontes.map((f) => (
-                  <li key={f.url} style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", lineHeight: "var(--leading-body)", color: "var(--text-muted)" }}>
-                    <a href={f.url} target="_blank" rel="noopener noreferrer" style={{ borderBottom: "var(--border-hairline) solid currentColor" }}>
-                      {f.texto}
+                  // Fontes em 14px na cor do texto, com área de toque maior (antes 12px cinza)
+                  <li key={f.url} style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", lineHeight: "var(--leading-body)", color: "var(--text-body)" }}>
+                    <a
+                      href={f.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors"
+                    >
+                      <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>{f.texto}</span>
                     </a>
                   </li>
                 ))}
@@ -198,10 +221,48 @@ const BlogPostPage = () => {
       {/* Leia também */}
       {outras.length > 0 && (
         <section className="page-container pb-24">
-          <SectionLabel>Leia também</SectionLabel>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-6 mt-10">
-            {outras.map((a, i) => (
-              <ArticleCard key={a.id} article={a} index={i} />
+          {/* h2 para os títulos dos cards (h3) não pularem nível depois do h1 */}
+          <SectionLabel role="heading" aria-level={2}>
+            Leia também
+          </SectionLabel>
+          {/* Duas matérias em linha, no formato da "Próxima matéria" (a grade de 4 deixava metade vazia) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 mt-6">
+            {outras.map((a) => (
+              <Link
+                key={a.id}
+                to={rotaArtigo(a)}
+                className="group flex items-center gap-6 py-6"
+                style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}
+              >
+                <div className="w-24 md:w-28 shrink-0 aspect-square overflow-hidden">
+                  <img src={a.image} alt="" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-text)",
+                      fontSize: "var(--size-micro)",
+                      textTransform: "uppercase",
+                      letterSpacing: "var(--tracking-label)",
+                      color: "var(--text-muted)",
+                    }}
+                  >
+                    {a.category}
+                  </span>
+                  <h3
+                    className="mt-2 transition-colors group-hover:text-[var(--abanic-orange)]"
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontWeight: "var(--weight-light)",
+                      fontSize: "var(--size-heading-3)",
+                      lineHeight: "var(--leading-heading)",
+                      color: "var(--text-body)",
+                    }}
+                  >
+                    {a.title} →
+                  </h3>
+                </div>
+              </Link>
             ))}
           </div>
         </section>
