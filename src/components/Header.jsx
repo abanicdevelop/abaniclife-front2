@@ -569,76 +569,57 @@ const Header = () => {
         </div>
 
         <nav className="flex-1 overflow-y-auto px-5 py-4">
-          <ul>
-            {menuItems.map((item, index) => item.submenu?.some((s) => s.href === "/produtos") ? null : (
-              <li
-                key={item.name}
-                style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}
-              >
-                {!item.submenu ? (
+          {/* Linha RHADYANCE primeiro: numa loja, o produto é o 1º atalho (antes vinha por último, em
+              cards de 93px com o preço escondido sob a barra da sacola) */}
+          <div>
+            <SectionLabel>Linha RHADYANCE</SectionLabel>
+            <ul className="mt-2">
+              {productsData.map((produto) => (
+                <li key={produto.id} style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}>
                   <Link
-                    to={item.href}
+                    to={rotaProduto(produto)}
                     onClick={closeMobileMenu}
-                    className="block py-4"
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontWeight: "var(--weight-light)",
-                      fontSize: "var(--size-heading-3)",
-                      color: "var(--text-body)",
-                    }}
+                    aria-current={location.pathname === rotaProduto(produto) ? "page" : undefined}
+                    className="flex items-center gap-4 py-3"
                   >
-                    {item.name}
+                    <div className="w-14 shrink-0 overflow-hidden" style={{ aspectRatio: "4 / 5", background: "var(--surface-raised)" }}>
+                      <img src={produto.imagem} alt="" className="w-full h-full object-cover" />
+                    </div>
+                    <span className="flex-1 min-w-0">
+                      <span
+                        className="block"
+                        style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-micro)", letterSpacing: "var(--tracking-label)", textTransform: "uppercase", color: "var(--text-muted)" }}
+                      >
+                        {passos[produto.id]?.numero} — {passos[produto.id]?.etapa}
+                      </span>
+                      <span
+                        className="block mt-1"
+                        style={{
+                          fontFamily: "var(--font-text)",
+                          fontSize: "var(--size-body-sm)",
+                          lineHeight: "var(--leading-heading)",
+                          color: "var(--text-body)",
+                          ...(location.pathname === rotaProduto(produto) ? marcaAtiva : {}),
+                        }}
+                      >
+                        {passos[produto.id]?.nome ?? produto.tituloDetalhe}
+                      </span>
+                    </span>
+                    <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}>{produto.preco}</span>
                   </Link>
-                ) : (
-                  <>
-                    <button
-                      type="button"
-                      className="w-full flex justify-between items-center py-4"
-                      onClick={() => toggleMobileSubmenu(index)}
-                      aria-expanded={mobileActiveSubmenu === index}
-                      style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: "var(--weight-light)",
-                        fontSize: "var(--size-heading-3)",
-                        color: "var(--text-body)",
-                      }}
-                    >
-                      <span>{item.name}</span>
-                      <ChevronDown
-                        className={`h-5 w-5 transition-transform ${
-                          mobileActiveSubmenu === index ? "rotate-180" : ""
-                        }`}
-                        strokeWidth={1.5}
-                      />
-                    </button>
-                    {mobileActiveSubmenu === index && (
-                      <ul className="pb-3">
-                        {item.submenu.map((subItem) => (
-                          <li key={subItem.name}>
-                            <a
-                              href={subItem.href}
-                              onClick={(e) => {
-                                handleLinkClick(e, subItem.href);
-                                closeMobileMenu();
-                              }}
-                              className="flex items-center min-h-[44px] hover:text-abanic-orange transition-colors"
-                              style={{
-                                fontFamily: "var(--font-text)",
-                                fontSize: "var(--size-body-sm)",
-                                color: "var(--text-muted)",
-                              }}
-                            >
-                              {subItem.name}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+            <Link
+              to="/produtos"
+              onClick={closeMobileMenu}
+              aria-current={location.pathname === "/produtos" ? "page" : undefined}
+              className="inline-flex items-center min-h-[44px] mt-1"
+              style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+            >
+              <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Ver a linha RHADYANCE →</span>
+            </Link>
+          </div>
 
           {/* Por necessidade */}
           <div className="mt-8">
@@ -678,45 +659,79 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Destaque da linha, como nas referências */}
-          <div className="mt-8">
-            <SectionLabel>Linha RHADYANCE</SectionLabel>
-            <div className="grid grid-cols-3 gap-3 mt-4">
-              {productsData.map((produto) => (
-                <Link
-                  key={produto.id}
-                  to={rotaProduto(produto)}
-                  onClick={closeMobileMenu}
-                  className="flex flex-col gap-2"
-                >
-                  <div className="w-full overflow-hidden" style={{ aspectRatio: "4 / 5", background: "var(--surface-raised)" }}>
-                    <img src={produto.imagem} alt="" className="w-full h-full object-cover" />
-                  </div>
-                  <span
+          <ul className="mt-8" style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
+            {menuItems.map((item, index) => item.submenu?.some((s) => s.href === "/produtos") ? null : (
+              <li
+                key={item.name}
+                style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}
+              >
+                {!item.submenu ? (
+                  <Link
+                    to={item.href}
+                    onClick={closeMobileMenu}
+                    aria-current={itemAtivo(item) ? "page" : undefined}
+                    className="block py-4"
                     style={{
-                      fontFamily: "var(--font-text)",
-                      fontSize: "var(--size-micro)",
-                      lineHeight: "var(--leading-tight)",
+                      fontFamily: "var(--font-display)",
+                      fontWeight: "var(--weight-light)",
+                      fontSize: "var(--size-heading-3)",
                       color: "var(--text-body)",
                     }}
                   >
-                    {produto.tituloDetalhe}
-                  </span>
-                  <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-micro)", color: "var(--text-muted)" }}>
-                    {produto.preco}
-                  </span>
-                </Link>
-              ))}
-            </div>
-            <Link
-              to="/produtos"
-              onClick={closeMobileMenu}
-              className="inline-flex items-center min-h-[44px] mt-2"
-              style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
-            >
-              <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Ver a linha RHADYANCE →</span>
-            </Link>
-          </div>
+                    <span style={itemAtivo(item) ? marcaAtiva : undefined}>{item.name}</span>
+                  </Link>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="w-full flex justify-between items-center py-4"
+                      onClick={() => toggleMobileSubmenu(index)}
+                      aria-expanded={mobileActiveSubmenu === index}
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: "var(--weight-light)",
+                        fontSize: "var(--size-heading-3)",
+                        color: "var(--text-body)",
+                      }}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown
+                        className={`h-5 w-5 transition-transform ${
+                          mobileActiveSubmenu === index ? "rotate-180" : ""
+                        }`}
+                        strokeWidth={1.5}
+                      />
+                    </button>
+                    {mobileActiveSubmenu === index && (
+                      <ul className="pb-3">
+                        {item.submenu.map((subItem) => (
+                          <li key={subItem.name}>
+                            <a
+                              href={subItem.href}
+                              onClick={(e) => {
+                                handleLinkClick(e, subItem.href);
+                                closeMobileMenu();
+                              }}
+                              aria-current={location.pathname === subItem.href ? "page" : undefined}
+                              className="flex items-center min-h-[44px] hover:text-abanic-orange transition-colors"
+                              style={{
+                                fontFamily: "var(--font-text)",
+                                fontSize: "var(--size-body-sm)",
+                                color: "var(--text-muted)",
+                              }}
+                            >
+                              {subItem.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+
         </nav>
 
         <div

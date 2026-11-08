@@ -321,6 +321,16 @@ const CartDrawer = () => {
                       : "As vendas abrem em dezembro. Deixe seu nome e e-mail e avisamos assim que abrir. Sua sacola fica guardada neste navegador."}
                   </p>
                 </div>
+                {jaNaLista && (
+                  <Link
+                    to="/encontre-sua-rotina"
+                    onClick={closeCart}
+                    className="inline-flex items-center min-h-[44px] transition-colors hover:text-[var(--abanic-orange)]"
+                    style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+                  >
+                    <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Encontre sua rotina →</span>
+                  </Link>
+                )}
                 {!jaNaLista &&
                   (mostrarFormulario ? (
                     <div ref={formularioRef}>
