@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useCart } from "../context/CartContext";
 import { trackEcommerce } from "../utils/analytics";
 import { checkoutAtivo, criarCheckout, usePreLancamento } from "../utils/shopify";
-import NewsletterForm from "./NewsletterForm";
+import NewsletterForm, { lerNewsletter } from "./NewsletterForm";
 import { Button } from "./design-system/Button";
 import { useFocusTrap } from "../utils/useFocusTrap";
 
@@ -17,6 +17,21 @@ const CartDrawer = () => {
   const fecharRef = useRef(null);
   const gavetaRef = useRef(null);
   const preLancamento = usePreLancamento();
+  // Pré-lançamento: o formulário só abre quando a pessoa pede (no celular ele escondia os itens), e
+  // quem já está na lista (inscrito ou com confirmação pendente) não recebe o convite de novo
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [jaNaLista, setJaNaLista] = useState(false);
+  useEffect(() => {
+    if (!isOpen) return;
+    setMostrarFormulario(false);
+    const valor = lerNewsletter();
+    setJaNaLista(valor === "inscrito" || (Boolean(valor) && Date.now() < Number(valor)));
+  }, [isOpen]);
+  // Ao abrir o formulário, o foco vai para o primeiro campo (o botão que estava focado some)
+  const formularioRef = useRef(null);
+  useEffect(() => {
+    if (mostrarFormulario) formularioRef.current?.querySelector("input:not([tabindex='-1'])")?.focus();
+  }, [mostrarFormulario]);
 
   // Gaveta aberta se comporta como modal: Esc fecha, a página por trás não rola e o foco entra nela
   useEffect(() => {
@@ -282,11 +297,21 @@ const CartDrawer = () => {
                       color: "var(--text-body)",
                     }}
                   >
-                    As vendas abrem em dezembro. Deixe seu nome e e-mail e avisamos assim que abrir. Sua
-                    sacola fica guardada neste navegador.
+                    {jaNaLista
+                      ? "As vendas abrem em dezembro. Seu e-mail já está na nossa lista: avisamos assim que abrir. Sua sacola fica guardada neste navegador."
+                      : "As vendas abrem em dezembro. Deixe seu nome e e-mail e avisamos assim que abrir. Sua sacola fica guardada neste navegador."}
                   </p>
                 </div>
-                <NewsletterForm empilhado />
+                {!jaNaLista &&
+                  (mostrarFormulario ? (
+                    <div ref={formularioRef}>
+                      <NewsletterForm empilhado />
+                    </div>
+                  ) : (
+                    <Button variant="primary" fullWidth onClick={() => setMostrarFormulario(true)}>
+                      Avise-me
+                    </Button>
+                  ))}
               </div>
             ) : (
               <Button variant="primary" fullWidth disabled={indoAoCheckout} onClick={finalizarCompra}>

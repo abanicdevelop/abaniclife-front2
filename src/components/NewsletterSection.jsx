@@ -20,7 +20,7 @@ const NewsletterSection = () => {
   }, []);
 
   return (
-    <section id="newsletter" ref={secao} style={{ backgroundColor: "var(--abanic-mist)" }}>
+    <section id="newsletter" ref={secao} style={{ backgroundColor: "var(--abanic-blue)" }}>
       <motion.div
         className="page-container py-20 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end"
         initial={{ opacity: 0, y: 24 }}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { trackEvent } from "../utils/analytics";
 import { Link } from "react-router-dom";
+import { AlertCircle } from "lucide-react";
 import { Input } from "./design-system/Input";
 import { Button } from "./design-system/Button";
 
@@ -38,7 +39,13 @@ const NewsletterForm = ({ empilhado = false }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formularioValido) return;
+    // O botão fica sempre ativo (desativado, ele sumia sobre o azul da seção); se faltar algo, diz o quê
+    if (!formularioValido) {
+      setErrorMessage(
+        nome.trim().length === 0 ? "Preencha seu nome." : "Confira o e-mail: ele precisa ter o formato nome@exemplo.com.",
+      );
+      return;
+    }
 
     setIsLoading(true);
     setErrorMessage("");
@@ -113,7 +120,7 @@ const NewsletterForm = ({ empilhado = false }) => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <Button type="submit" variant="primary" size="lg" disabled={isLoading || !formularioValido} fullWidth>
+      <Button type="submit" variant="primary" size="lg" disabled={isLoading} fullWidth>
         {isLoading ? "Enviando..." : "Quero receber"}
       </Button>
       <p
@@ -131,7 +138,13 @@ const NewsletterForm = ({ empilhado = false }) => {
         . Você pode cancelar quando quiser.
       </p>
       {errorMessage && (
-        <p role="alert" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--status-critical)" }}>
+        // Texto na cor do corpo (o vermelho sumia sobre o azul da seção); o ícone marca o erro
+        <p
+          role="alert"
+          className="flex items-start gap-2"
+          style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}
+        >
+          <AlertCircle size={16} strokeWidth={1.75} aria-hidden="true" className="shrink-0 mt-[2px]" />
           {errorMessage}
         </p>
       )}

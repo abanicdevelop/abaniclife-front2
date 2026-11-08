@@ -57,10 +57,12 @@ const NewsletterBar = () => {
   const esconderPorUmTempo = () => gravarNewsletter(String(Date.now() + DIAS_ESCONDIDA * 24 * 60 * 60 * 1000));
 
   const naPaginaDaNewsletter = pathname.startsWith("/newsletter/");
+  // A home já tem a seção da newsletter: a barra ali seria um segundo pedido na mesma página
+  const naHome = pathname === "/";
   // No celular, a página de produto já tem a barra fixa de compra no pé; ali a compra tem prioridade
   const naPaginaDeProduto = /^\/produtos\/[^/]+/.test(pathname);
   // O painel continua montado depois da inscrição, para a mensagem "Confira seu e-mail" aparecer
-  const podeMostrar = liberada && !naPaginaDaNewsletter;
+  const podeMostrar = liberada && !naPaginaDaNewsletter && !naHome;
   const visivel = podeMostrar && noFim && !secaoVisivel;
 
   // O botão "voltar ao topo" do rodapé sobe junto com a faixa
