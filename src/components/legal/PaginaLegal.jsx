@@ -24,7 +24,9 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
     const titulos = secoes.map((s) => document.getElementById(s.id)).filter(Boolean);
     const aoRolar = () => {
       let id = secoes[0]?.id;
-      for (const t of titulos) if (t.getBoundingClientRect().top < 160) id = t.id;
+      // Linha de leitura a 40% da altura da tela (antes 160px fixos marcavam a seção anterior)
+      const linha = window.innerHeight * 0.4;
+      for (const t of titulos) if (t.getBoundingClientRect().top < linha) id = t.id;
       setAtual(id);
     };
     aoRolar();
@@ -32,6 +34,39 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
     return () => window.removeEventListener("scroll", aoRolar);
   }, [secoes]);
   const detalhesRef = useRef(null);
+  const [indiceAberto, setIndiceAberto] = useState(false);
+  const fecharIndice = () => detalhesRef.current?.removeAttribute("open");
+
+  // Índice aberto no celular: fecha com Esc (foco volta ao resumo) ou com toque fora dele
+  useEffect(() => {
+    if (!indiceAberto) return;
+    const aoTeclar = (e) => {
+      if (e.key !== "Escape") return;
+      fecharIndice();
+      detalhesRef.current?.querySelector("summary")?.focus();
+    };
+    const aoTocar = (e) => {
+      if (!detalhesRef.current?.contains(e.target)) fecharIndice();
+    };
+    document.addEventListener("keydown", aoTeclar);
+    document.addEventListener("pointerdown", aoTocar);
+    return () => {
+      document.removeEventListener("keydown", aoTeclar);
+      document.removeEventListener("pointerdown", aoTocar);
+    };
+  }, [indiceAberto]);
+
+  // Salto pelo índice: rola até o título e leva o foco para ele (antes o foco ficava no início da página)
+  const irPara = (e, id) => {
+    const alvo = document.getElementById(id);
+    if (!alvo) return;
+    e.preventDefault();
+    fecharIndice();
+    alvo.setAttribute("tabindex", "-1");
+    alvo.scrollIntoView({ behavior: "instant" });
+    alvo.focus({ preventScroll: true });
+    window.history.replaceState(null, "", `#${id}`);
+  };
 
   const linkIndice = {
     fontFamily: "var(--font-text)",
@@ -46,7 +81,7 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
           <a
             href={`#${s.id}`}
             aria-current={atual === s.id ? "location" : undefined}
-            onClick={() => detalhesRef.current?.removeAttribute("open")}
+            onClick={(e) => irPara(e, s.id)}
             className="flex items-center min-h-[44px] py-1 hover:text-[var(--abanic-orange)] transition-colors"
             style={{
               ...linkIndice,
@@ -120,7 +155,10 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
             >
               <details
                 ref={detalhesRef}
+                onToggle={(e) => setIndiceAberto(e.currentTarget.open)}
                 style={{
+                  // Aberto, o índice se separa do texto que passa por baixo
+                  boxShadow: indiceAberto ? "0 12px 24px -12px rgba(26, 23, 20, 0.25)" : "none",
                   borderTop: "var(--border-hairline) solid var(--border-default)",
                   borderBottom: "var(--border-hairline) solid var(--border-default)",
                 }}

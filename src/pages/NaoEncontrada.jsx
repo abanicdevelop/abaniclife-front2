@@ -5,7 +5,11 @@ import { ROTAS } from "../data/rotas";
 
 // Endereço que não existe no site (rota "*"). Mesmo esqueleto editorial das telas da newsletter e
 // das políticas: rótulo, título leve à esquerda, texto à direita, ações abaixo de um filete.
-const NaoEncontrada = () => (
+// Também serve para um produto que não existe (/produtos/<endereço errado>).
+const NaoEncontrada = ({
+  titulo = "Página não encontrada",
+  texto = "O endereço pode ter mudado ou não existe mais. Que tal começar por aqui?",
+}) => (
   <section style={{ backgroundColor: "var(--abanic-cream)" }}>
     <div className="page-container pt-32 md:pt-40 pb-24 md:pb-32 min-h-[70vh]">
       <SectionLabel meta="ABANIC">Erro 404</SectionLabel>
@@ -21,7 +25,7 @@ const NaoEncontrada = () => (
             color: "var(--text-body)",
           }}
         >
-          Página não encontrada
+          {titulo}
         </h1>
         <p
           className="lg:col-span-5"
@@ -33,7 +37,7 @@ const NaoEncontrada = () => (
             maxWidth: "44ch",
           }}
         >
-          O endereço pode ter mudado ou não existe mais. Que tal começar por aqui?
+          {texto}
         </p>
       </div>
       <div
