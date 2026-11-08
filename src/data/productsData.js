@@ -157,7 +157,9 @@ export const productsData = [
   {
     id: "fps50",
     // "Bom saber": resumo rápido na página do produto
-    bomSaber: ["FPS\u00A075", "Fragrância hipoalergênica", "Uso diário"],
+    // Sem o selo "FPS 75": ao lado da advertência "não é um protetor solar" ele parecia contradição;
+    // o FPS já está no nome do produto
+    bomSaber: ["Fragrância hipoalergênica", "Uso diário"],
     slug: "creme-facial-fps75",
     nomeCard: "CREME FACIAL HIDRATANTE RHADYANCE FPS\u00A075",
     corSurface: "raised",
