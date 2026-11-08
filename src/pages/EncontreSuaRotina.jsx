@@ -37,9 +37,10 @@ const rotulo = {
   color: "var(--text-muted)",
 };
 
+// Texto na cor do corpo e borda laranja (texto laranja de 11px sobre o creme dava 2,7:1)
 const seloIndicado = {
   ...rotulo,
-  color: "var(--abanic-orange)",
+  color: "var(--text-body)",
   border: "var(--border-hairline) solid var(--abanic-orange)",
   padding: "2px 8px",
 };
