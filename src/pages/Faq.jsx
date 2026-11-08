@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { CreditCard, Package, Sparkles, Heart, RefreshCw, Headphones } from "lucide-react";
+import { AlertCircle, CreditCard, Package, Sparkles, Heart, RefreshCw, Headphones } from "lucide-react";
 import { faqData } from "../data/faq";
 import RespostaFaq from "../components/faq/RespostaFaq";
 
@@ -104,6 +104,9 @@ const Faq = () => {
     if (Object.keys(erros).length > 0) {
       setMensagemErro("Confira os campos destacados.");
       setSubmitStatus("error");
+      // O foco vai para o primeiro campo a corrigir (antes ficava no botão)
+      const primeiro = ["nome", "email", "mensagem"].find((c) => erros[c]);
+      e.currentTarget.querySelector(`[name="${primeiro}"]`)?.focus();
       return;
     }
 
@@ -379,7 +382,7 @@ const Faq = () => {
                 style={{
                   display: "block",
                   ...rotulo,
-                  color: "var(--text-muted)",
+                  color: "var(--text-body)",
                   marginBottom: "var(--space-2)",
                 }}
               >
@@ -392,6 +395,7 @@ const Faq = () => {
                 onChange={handleInputChange}
                 placeholder="Como podemos ajudar?"
                 aria-invalid={errosCampos.mensagem ? true : undefined}
+                aria-describedby={errosCampos.mensagem ? "erro-mensagem" : undefined}
                 className="w-full resize-y focus:outline-none focus:border-[var(--abanic-black)]"
                 style={{
                   padding: "var(--space-3)",
@@ -403,7 +407,12 @@ const Faq = () => {
                 }}
               />
               {errosCampos.mensagem && (
-                <span className="block mt-2" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", color: "var(--status-critical)" }}>
+                <span
+                  id="erro-mensagem"
+                  className="flex items-start gap-1.5 mt-2"
+                  style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-caption)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}
+                >
+                  <AlertCircle size={14} strokeWidth={1.75} aria-hidden="true" className="shrink-0 mt-[1px]" style={{ color: "var(--status-critical)" }} />
                   {errosCampos.mensagem}
                 </span>
               )}
@@ -418,7 +427,12 @@ const Faq = () => {
                 </p>
               )}
               {submitStatus === "error" && (
-                <p role="alert" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--status-critical)" }}>
+                <p
+                  role="alert"
+                  className="flex items-start gap-2"
+                  style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}
+                >
+                  <AlertCircle size={16} strokeWidth={1.75} aria-hidden="true" className="shrink-0 mt-[2px]" style={{ color: "var(--status-critical)" }} />
                   {mensagemErro || "Não foi possível enviar. Confira os campos e tente novamente."}
                 </p>
               )}
