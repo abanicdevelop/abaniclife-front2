@@ -78,7 +78,8 @@ const CardDestaque = ({ produto: p, motivo }) => (
       <p style={{ ...textoApoio, marginTop: "var(--space-3)", maxWidth: "52ch" }}>{motivo ?? motivoDoProduto[p.id]}</p>
       <div className="flex flex-wrap items-center gap-6 mt-8">
         <span style={{ ...precoStyle, fontSize: "var(--size-body-lg)" }}>{p.preco}</span>
-        <BotaoAdicionar produto={p} />
+        {/* Secundário: a ação principal do resultado é a rotina completa, logo abaixo da abertura */}
+        <BotaoAdicionar produto={p} variant="secondary" />
       </div>
     </div>
   </article>
@@ -155,6 +156,36 @@ const Resultado = ({ respostas, onRefazer, onVoltar }) => {
       </h1>
       {rotina.abertura && <p style={{ ...textoApoio, marginTop: "var(--space-4)", maxWidth: "56ch" }}>{rotina.abertura}</p>}
 
+      {/* Ação principal do resultado logo no começo (antes ficava no fim, abaixo da dobra, competindo
+          com o botão laranja do produto em destaque) */}
+      <div
+        className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 mt-8 py-5"
+        style={{
+          borderTop: "var(--border-hairline) solid var(--border-default)",
+          borderBottom: "var(--border-hairline) solid var(--border-default)",
+        }}
+      >
+        <span style={{ ...textoApoio, fontSize: "var(--size-body)", color: "var(--text-body)" }}>
+          Rotina completa · <strong style={{ fontWeight: "var(--weight-medium)" }}>{formatarReais(totalRotina)}</strong>
+        </span>
+        {faltando.length > 0 ? (
+          <Button variant="primary" size="lg" onClick={adicionarTodos}>
+            Adicionar a rotina completa
+          </Button>
+        ) : (
+          // Confirmação legível com saída (antes um botão desativado em bege, quase apagado)
+          <div className="flex flex-wrap items-center gap-4">
+            <span role="status" style={{ ...textoApoio, fontSize: "var(--size-body)", color: "var(--text-body)" }}>
+              Rotina completa na sacola ✓
+            </span>
+            <Button variant="secondary" size="lg" onClick={openCart}>
+              Ver sacola
+            </Button>
+          </div>
+        )}
+        <AvisoPreLancamento />
+      </div>
+
       <div className="mt-12">
         <CardDestaque produto={destaque} motivo={rotina.motivoDestaque} />
       </div>
@@ -198,27 +229,7 @@ const Resultado = ({ respostas, onRefazer, onVoltar }) => {
           >
             Refazer o teste
           </button>
-          <div className="flex flex-col items-start md:items-end gap-2">
-            <span style={{ ...textoApoio, fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}>
-              Rotina completa · <strong style={{ fontWeight: "var(--weight-medium)" }}>{formatarReais(totalRotina)}</strong>
-            </span>
-            {faltando.length > 0 ? (
-              <Button variant="primary" size="lg" onClick={adicionarTodos}>
-                Adicionar a rotina completa
-              </Button>
-            ) : (
-              // Confirmação legível com saída (antes um botão desativado em bege, quase apagado)
-              <div className="flex flex-wrap items-center gap-4">
-                <span role="status" style={{ ...textoApoio, fontSize: "var(--size-body)", color: "var(--text-body)" }}>
-                  Rotina completa na sacola ✓
-                </span>
-                <Button variant="secondary" size="lg" onClick={openCart}>
-                  Ver sacola
-                </Button>
-              </div>
-            )}
-            <AvisoPreLancamento />
-          </div>
+
         </div>
       </div>
     </div>
