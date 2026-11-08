@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { SectionLabel } from "../components/design-system/SectionLabel";
@@ -12,6 +12,7 @@ import { trackEvent } from "../utils/analytics";
 import { DURACAO, DURACAO_SAIDA } from "../utils/motion";
 import { rotaProduto } from "../data/rotas";
 import EtiquetaIlustrativa from "../components/product/EtiquetaIlustrativa";
+import AvisoPreLancamento from "../components/AvisoPreLancamento";
 
 const tituloGrande = {
   fontFamily: "var(--font-display)",
@@ -57,7 +58,7 @@ const nomeProduto = (grande) => ({
 const precoStyle = { fontFamily: "var(--font-text)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" };
 
 // Produto em destaque: imagem quadrada ocupando ~1/3 da largura, texto ao lado
-const CardDestaque = ({ produto: p, onAdicionar }) => (
+const CardDestaque = ({ produto: p, motivo, onAdicionar }) => (
   <article className="grid grid-cols-1 md:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] gap-6 md:gap-12 items-center">
     <Link to={rotaProduto(p)} className="relative block overflow-hidden aspect-square" style={{ background: "var(--surface-raised)" }}>
       <img src={p.imagem} alt={p.tituloDetalhe} className="w-full h-full object-cover" />
@@ -73,7 +74,7 @@ const CardDestaque = ({ produto: p, onAdicionar }) => (
       <Link to={rotaProduto(p)} style={nomeProduto(true)}>
         {p.tituloDetalhe}
       </Link>
-      <p style={{ ...textoApoio, marginTop: "var(--space-3)", maxWidth: "52ch" }}>{motivoDoProduto[p.id]}</p>
+      <p style={{ ...textoApoio, marginTop: "var(--space-3)", maxWidth: "52ch" }}>{motivo ?? motivoDoProduto[p.id]}</p>
       <div className="flex flex-wrap items-center gap-6 mt-8">
         <span style={{ ...precoStyle, fontSize: "var(--size-body-lg)" }}>{p.preco}</span>
         <Button variant="primary" onClick={() => onAdicionar(p)}>
@@ -131,7 +132,7 @@ const BotaoVoltar = ({ onClick }) => (
 );
 
 const Resultado = ({ respostas, onRefazer, onVoltar }) => {
-  const { addItem, items } = useCart();
+  const { addItem, items, openCart } = useCart();
   const rotina = montarRotina(respostas);
   const porId = (id) => productsData.find((p) => p.id === id);
   const destaque = porId(rotina.destaque);
@@ -152,11 +153,13 @@ const Resultado = ({ respostas, onRefazer, onVoltar }) => {
         <SectionLabel rule={false}>Sua rotina RHADYANCE</SectionLabel>
         <BotaoVoltar onClick={onVoltar} />
       </div>
-      <h1 style={{ ...tituloGrande, marginTop: "var(--space-4)" }}>Para {rotina.necessidade.nome.toLowerCase()}</h1>
+      <h1 tabIndex={-1} data-titulo-etapa style={{ ...tituloGrande, marginTop: "var(--space-4)" }}>
+        Para {rotina.necessidade.nome.toLowerCase()}
+      </h1>
       {rotina.abertura && <p style={{ ...textoApoio, marginTop: "var(--space-4)", maxWidth: "56ch" }}>{rotina.abertura}</p>}
 
       <div className="mt-12">
-        <CardDestaque produto={destaque} onAdicionar={addItem} />
+        <CardDestaque produto={destaque} motivo={rotina.motivoDestaque} onAdicionar={addItem} />
       </div>
 
       <h2
@@ -207,10 +210,17 @@ const Resultado = ({ respostas, onRefazer, onVoltar }) => {
                 Adicionar a rotina completa
               </Button>
             ) : (
-              <Button variant="secondary" size="lg" disabled>
-                Rotina completa na sacola ✓
-              </Button>
+              // Confirmação legível com saída (antes um botão desativado em bege, quase apagado)
+              <div className="flex flex-wrap items-center gap-4">
+                <span role="status" style={{ ...textoApoio, fontSize: "var(--size-body)", color: "var(--text-body)" }}>
+                  Rotina completa na sacola ✓
+                </span>
+                <Button variant="secondary" size="lg" onClick={openCart}>
+                  Ver sacola
+                </Button>
+              </div>
             )}
+            <AvisoPreLancamento />
           </div>
         </div>
       </div>
@@ -263,6 +273,7 @@ const EncontreSuaRotina = () => {
   }
 
   const responder = (id, valor) => {
+    focarDepois.current = true;
     const novas = { ...respostas, [id]: valor };
     setRespostas(novas);
     const proxima = etapa + 1;
@@ -277,6 +288,7 @@ const EncontreSuaRotina = () => {
   };
 
   const refazer = () => {
+    focarDepois.current = true;
     setRespostas({});
     setEtapa(0);
     if (parametro) {
@@ -288,6 +300,7 @@ const EncontreSuaRotina = () => {
   // Voltar do resultado: reabre a primeira pergunta sem resposta (atalho da home) ou a última,
   // mantendo as respostas; o endereço volta ao do teste e é regravado ao responder de novo
   const voltarDoResultado = () => {
+    focarDepois.current = true;
     const pendente = perguntas.findIndex((q) => !respostas[q.id]);
     setEtapa(pendente === -1 ? perguntas.length - 1 : pendente);
     setChaveEsperada("null|null|null");
@@ -296,6 +309,17 @@ const EncontreSuaRotina = () => {
 
   // Cada troca de etapa (responder, voltar, refazer) começa do topo, quando a anterior já saiu
   const voltarAoTopo = () => window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+  // Depois de responder (ou voltar/refazer), o foco vai para o título da nova etapa: sem isso ele
+  // caía no fim da página e quem usa teclado ou leitor de tela não ouvia a pergunta seguinte
+  // Só depois de uma ação da pessoa (abrir um link direto para o resultado não move o foco)
+  const focarDepois = useRef(false);
+  useEffect(() => {
+    if (!focarDepois.current) return;
+    focarDepois.current = false;
+    const t = setTimeout(() => document.querySelector("[data-titulo-etapa]")?.focus({ preventScroll: true }), DURACAO * 1000 + 80);
+    return () => clearTimeout(t);
+  }, [etapaTela]);
 
   const pergunta = perguntas[etapaTela];
 
@@ -317,7 +341,12 @@ const EncontreSuaRotina = () => {
                   <span style={rotulo}>
                     {etapaTela + 1} / {perguntas.length}
                   </span>
-                  {etapaTela > 0 && <BotaoVoltar onClick={() => setEtapa(etapa - 1)} />}
+                  {etapaTela > 0 && <BotaoVoltar
+                      onClick={() => {
+                        focarDepois.current = true;
+                        setEtapa(etapa - 1);
+                      }}
+                    />}
                 </div>
                 {/* progresso */}
                 <div className="relative h-px mt-4" style={{ background: "var(--border-default)" }}>
@@ -327,7 +356,12 @@ const EncontreSuaRotina = () => {
                   />
                 </div>
 
-                <h1 style={{ ...tituloGrande, marginTop: "var(--space-8)" }}>{pergunta.titulo}</h1>
+                <h1 tabIndex={-1} data-titulo-etapa style={{ ...tituloGrande, marginTop: "var(--space-8)" }}>
+                  <span className="sr-only">
+                    Pergunta {etapaTela + 1} de {perguntas.length}:{" "}
+                  </span>
+                  {pergunta.titulo}
+                </h1>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-10">
                   {pergunta.opcoes.map((op) => {

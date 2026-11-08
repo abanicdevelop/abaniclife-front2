@@ -11,6 +11,8 @@ export const necessidades = [
     curto: "Manchas",
     descricao: "Pele com manchas que surgem ou se intensificam, e aparência irregular.",
     ordem: ["serum", "fps50", "gel"],
+    motivoDestaque:
+      "Para manchas e uniformidade: ação clareadora, com ativos que uniformizam a aparência da pele e a iluminam. Pode ser usado de dia e à noite.",
   },
   {
     slug: "luminosidade",
@@ -18,6 +20,8 @@ export const necessidades = [
     curto: "Luminosidade",
     descricao: "Pele opaca, sem viço.",
     ordem: ["fps50", "serum", "gel"],
+    motivoDestaque:
+      "Para a pele opaca, sem viço: ativos revitalizantes e hidratantes, que protegem a barreira da pele. Complete com o sérum, que ilumina.",
   },
   {
     slug: "hidratacao-revitalizacao",
@@ -25,6 +29,8 @@ export const necessidades = [
     curto: "Hidratação",
     descricao: "Pele com falta de hidratação, com aparência de cansada.",
     ordem: ["fps50", "serum", "gel"],
+    motivoDestaque:
+      "Para a pele com falta de hidratação e aparência cansada: ativos revitalizantes e hidratantes, que protegem a barreira da pele.",
   },
   {
     slug: "limpeza",
@@ -32,6 +38,8 @@ export const necessidades = [
     curto: "Limpeza",
     descricao: "Pele que pede uma limpeza delicada, como primeiro passo do cuidado.",
     ordem: ["gel", "serum", "fps50"],
+    motivoDestaque:
+      "Para começar pelo primeiro passo: limpeza delicada que prepara a pele para os próximos passos, com ativos antioxidantes.",
   },
 ];
 
@@ -114,5 +122,6 @@ export const montarRotina = ({ necessidade, rotina, momento }) => {
       : aberturaComRotina[destaque];
 
   const lembrete = fechamentoPorMomento[momento] ?? "Use os três passos todos os dias.";
-  return { necessidade: n, abertura, lembrete, destaque, complemento };
+  // O texto do destaque fala da necessidade escolhida (antes era a descrição fixa do produto)
+  return { necessidade: n, abertura, lembrete, destaque, complemento, motivoDestaque: n.motivoDestaque };
 };
