@@ -111,3 +111,9 @@ textarea::placeholder {
   color: var(--text-muted);
   opacity: 1;
 }
+
+/* Títulos que recebem foco por código no teste (para leitores de tela): não são interativos, sem anel */
+[data-titulo-etapa]:focus,
+[data-titulo-etapa]:focus-visible {
+  outline: none !important;
+}
