@@ -19,7 +19,7 @@ export const ativosSaibaMais = {
     ],
   },
   "Evódia Rutaecarpa": {
-    titulo: "Extrato de Wu-Zhu-Yu",
+    titulo: "Extrato de Evódia",
     cientifico: "Evodia rutaecarpa",
     paragrafos: [
       "Conhecida na Medicina Tradicional Chinesa há mais de dois mil anos pelo nome de Wu-Zhu-Yu, na província de Jiangxi, no sul da China.",

@@ -122,8 +122,10 @@
 }
 
 @layer base {
+  /* Sem "outline-ring/50" aqui: ele pintava o anel de foco de cinza translúcido no site todo e
+     vencia o anel laranja da marca (definido em index.css) */
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;

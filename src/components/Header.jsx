@@ -365,7 +365,8 @@ const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            {/* O menu ocupa a altura toda do cabeçalho: não há "vão" entre o item e o painel */}
+            {/* O menu ocupa a altura toda do cabeçalho: não há "vão" entre o item e o painel.
+                px-3/-mx-3 nos itens: folga para o anel de foco sem mudar o espaçamento visível */}
             <nav className="hidden lg:flex items-stretch self-stretch gap-12">
               {menuItems.map((item, index) => (
                 <div
@@ -379,7 +380,7 @@ const Header = () => {
                       type="button"
                       onClick={() => setActiveSubmenu(activeSubmenu === index ? null : index)}
                       aria-expanded={activeSubmenu === index}
-                      className={`flex items-center cursor-pointer transition-smooth ${tone}`}
+                      className={`flex items-center cursor-pointer transition-smooth px-3 -mx-3 ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
                       {item.name}
@@ -388,7 +389,7 @@ const Header = () => {
                   ) : (
                     <Link
                       to={item.href}
-                      className={`flex items-center transition-smooth ${tone}`}
+                      className={`flex items-center transition-smooth px-3 -mx-3 ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
                       {item.name}

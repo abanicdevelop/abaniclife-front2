@@ -144,28 +144,28 @@ const sectionsData = [
     image: evodia,
     // texto de origem que antes ficava solto no topo; agora vira a 1ª seção recolhível
     origemTexto: [
-      "<p>Originária da medicina tradicional oriental, a planta  <em>Evodia rutaecarpa </em> (Wu-Zhu-Yu) é cultivada principalmente na província de Jiangxi, na China. Pertencente da família Rutaceae, O composto que está presente na linha <b>RHADYANCE</b> é o extrato padronizado obtido da fruta quase madura da planta e desenvolvido para estimular a microcirculação e devolver radiância e vitalidade à pele opaca ou sensibilizada.   <br><br>Seu extrato é rico em alcaloides (compostos nitrogenados bioativos derivados de plantas) indólicos bioativos, como evodiamina, rutaecarpina e dehidroevodiamina, além de conter flavonoides (compostos de fenóis) e ácidos graxos (molécula lipídica) (Tian et al., 2019; Chen et al., 2012; Jiang et al. 2009). </p>",
+      "<p>Originária da medicina tradicional oriental, a planta <em>Evodia rutaecarpa</em> (Wu-Zhu-Yu) é cultivada principalmente na província de Jiangxi, na China. Pertence à família Rutaceae. O composto que está presente na linha <b>RHADYANCE</b> é o extrato padronizado obtido da fruta quase madura da planta e desenvolvido para estimular a microcirculação e devolver radiância e vitalidade à pele opaca ou sensibilizada.<br><br>Seu extrato é rico em alcaloides (compostos nitrogenados bioativos derivados de plantas) indólicos bioativos, como evodiamina, rutaecarpina e dehidroevodiamina, além de conter flavonoides (compostos de fenóis) e ácidos graxos (molécula lipídica) (Tian et al., 2019; Chen et al., 2012). </p>",
     ],
     items: [
       {
         id: "evodea1",
         title: "Estímulo à microcirculação e melhora da radiância",
         text: [
-          "<p>Com o avanço da idade e a exposição contínua a fatores ambientais, a microcirculação dérmica sofre redução, comprometendo o aporte de oxigênio e nutrientes às células da pele e com consequencia sua tonalidade e textura. Estudos <em>in vitro</em> do fabricante do ativo utilizado na linha <b>RHADYANCE</b> demonstraram aumento na produção de óxido nítrico (NO) em <b>111%</b>. O óxido nítrico é um importante mediador da vasodilatação, favorecendo a circulação dérmica e o aporte de nutrientes.</p>",
+          "<p>Com o avanço da idade e a exposição contínua a fatores ambientais, a microcirculação dérmica sofre redução, comprometendo o aporte de oxigênio e nutrientes às células da pele e, em consequência, sua tonalidade e textura. Estudos <em>in vitro</em> do fabricante do ativo utilizado na linha <b>RHADYANCE</b> demonstraram aumento na produção de óxido nítrico (NO) em <b>111%</b>. O óxido nítrico é um importante mediador da vasodilatação, favorecendo a circulação dérmica e o aporte de nutrientes.</p>",
         ],
       },
       {
         id: "evodea2",
         title: "Proteção antipoluição e ação anti-inflamatória",
         text: [
-          "<p>A exposição à poluição do ar, especialmente à fração de partículas finas, está associada à disfunção da barreira cutânea, alteração do micro bioma da pele, estresse oxidativo e inflamações persistentes, promovendo envelhecimento precoce, hipersensibilidade e doenças inflamatórias da pele. <br><br>Foi demonstrado que a exposição da pele a poluícion do ar altera aspectos de sensibilidade como, dilatação dos poros, vermelhidão, opacidade e aparencia de não saudável. <br><br>Esses efeitos são atribuídos à presença dos alcaloides evodiamina e rutaecarpina, compostos que possuem atividades antioxidantes e anti-inflamatórias bem documentadas em literatura científica (Forman, 2021; Gu et al., 2020) </p>",
+          "<p>A exposição à poluição do ar, especialmente à fração de partículas finas, está associada à disfunção da barreira cutânea, alteração do microbioma da pele, estresse oxidativo e inflamações persistentes, promovendo envelhecimento precoce, hipersensibilidade e doenças inflamatórias da pele. <br><br>Foi demonstrado que a exposição da pele à poluição do ar altera aspectos de sensibilidade, como dilatação dos poros, vermelhidão, opacidade e aparência não saudável. <br><br>Esses efeitos são atribuídos à presença dos alcaloides evodiamina e rutaecarpina, compostos que possuem atividades antioxidantes e anti-inflamatórias bem documentadas na literatura científica (Forman, 2021; Gu et al., 2020).</p>",
         ],
       },
       {
         id: "evodea3",
         title: "Perfis bioativos e efeitos farmacológicos adicionais",
         text: [
-          "<p>Evodiamina, principal alcaloide da planta, exibe ação vasodilatadora endotélio-dependente, além de propriedades anti-inflamatórias. Atua por mecanismos como inibição da proliferação celular, bloqueio do ciclo celular e modulação de vias redox-sensíveis (Jiang et al. 2009; Tian et al., 2019). Rutaecarpina, outro alcaloide de destaque, seus efeitos são mediados principalmente por ativação dos receptores TRPV1 (Receptor sensorial envolvido na modulação da inflamação e termorregulação. Pode ser ativado por compostos como rutaecarpina, favorecendo efeitos calmantes e vasculares) e liberação de peptídeo (molécula de aminoácidos curta) relacionado ao gene da calcitonina (regulação dos níveis de cálcio no sangue-CGRP) (Jiang et al. 2009; Tianet al., 2019). </p>",
+          "<p>Evodiamina, principal alcaloide da planta, exibe ação vasodilatadora endotélio-dependente, além de propriedades anti-inflamatórias. Atua por mecanismos como a modulação de vias redox-sensíveis (Tian et al., 2019). Na rutaecarpina, outro alcaloide de destaque, os efeitos são mediados principalmente pela ativação dos receptores TRPV1 (Receptor sensorial envolvido na modulação da inflamação e termorregulação. Pode ser ativado por compostos como rutaecarpina, favorecendo efeitos calmantes e vasculares) e liberação de peptídeo (molécula de aminoácidos curta) relacionado ao gene da calcitonina (regulação dos níveis de cálcio no sangue, CGRP) (Tian et al., 2019).</p>",
         ],
       },
       {
@@ -176,8 +176,6 @@ const sectionsData = [
     <p>CHEN, F. et al. Transdermal behaviors comparisons among <em>Evodia rutaecarpa</em> extracts and major alkaloids by in vitro and in vivo methods. <em>Fitoterapia</em>, v. 83, n. 4, p. 706-713, 2012.</p>
 
     <p>FORMAN, H. J.; ZHANG, H. Targeting oxidative stress in disease: promise and limitations of antioxidant therapy. <em>Nature Reviews Drug Discovery</em>, v. 20, p. 689-709, 2021.</p>
-
-    <p>JIANG, J.; HU, C-P. Evodiamine: a novel anti-cancer alkaloid from <em>Evodia rutaecarpa</em>. <em>Molecules</em>, v. 14, n. 5, p. 1852–1859, 2009.</p>
 
     <p>ROBERTET. <em>Gatuline® Radiance – Technical Dossier</em>. Grasse: Robertet Group, 2017. Documento interno do fabricante.</p>
 
@@ -273,7 +271,7 @@ const Explore = () => {
         >
           <img
             src={HeroAtivos}
-            alt="Alga vermelha, flor de margarida e calêndula"
+            alt="Alga vermelha, flor de margarida e flor laranja sobre fundo claro"
             className="w-full h-full object-cover"
           />
         </motion.div>

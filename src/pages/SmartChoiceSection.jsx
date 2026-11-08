@@ -36,7 +36,7 @@ const compromissos = [
     title: "Ingredientes seguros",
     text: `A seleção de matérias-primas segue padrões internacionais
     de segurança e sustentabilidade. Excluímos deliberadamente
-    parabenos, petrolatos, corantes sintéticos e outros ingredientes controversos.`,
+    parabenos, petrolatos e corantes sintéticos.`,
     prova: "A lista completa de ingredientes está na página de cada produto:",
     links: productsData.map((p) => ({ texto: passos[p.id]?.nome ?? p.tituloDetalhe, to: rotaProduto(p) })),
   },

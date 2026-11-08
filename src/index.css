@@ -4,9 +4,17 @@ body {
 
 /* Foco de teclado da marca no site todo: anel laranja com folga, só para quem navega por teclado
    (o contorno padrão do navegador tinha 1px e quase não aparecia) */
+/* !important: estilos de componentes (camadas do Tailwind/shadcn) trocavam a cor e a espessura do
+   anel em boa parte do site; o foco de teclado precisa ser igual em todo lugar */
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 2px solid var(--abanic-orange, #fc622b);
-  outline-offset: 2px;
+  outline: 2px solid var(--abanic-orange, #fc622b) !important;
+  outline-offset: 2px !important;
+  /* sem transição: o anel aparece já laranja (antes animava a partir do cinza do texto) */
+  transition-duration: 0s !important;
+}
+/* No cabeçalho os itens ocupam a altura toda: o anel vai para dentro para não ser cortado */
+header :where(a, button):focus-visible {
+  outline-offset: -4px !important;
 }
 
 /* Políticas (PaginaLegal): texto jurídico em coluna de leitura, no idioma da marca */
