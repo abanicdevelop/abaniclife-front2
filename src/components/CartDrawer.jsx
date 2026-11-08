@@ -6,6 +6,8 @@ import { trackEcommerce } from "../utils/analytics";
 import { checkoutAtivo, criarCheckout, usePreLancamento } from "../utils/shopify";
 import NewsletterForm, { lerNewsletter } from "./NewsletterForm";
 import { Button } from "./design-system/Button";
+import { Link } from "react-router-dom";
+import AvisoPreLancamento from "./AvisoPreLancamento";
 import { useFocusTrap } from "../utils/useFocusTrap";
 
 const formatPrice = (value) =>
@@ -135,17 +137,34 @@ const CartDrawer = () => {
 
         <div style={{ flex: 1, overflowY: "auto", padding: "var(--space-5)" }}>
           {items.length === 0 ? (
-            <p
-              style={{
-                fontFamily: "var(--font-text)",
-                fontSize: "var(--size-body-sm)",
-                color: "var(--text-muted)",
-                textAlign: "center",
-                marginTop: "var(--space-8)",
-              }}
-            >
-              Sua sacola está vazia.
-            </p>
+            // Vazia, a sacola sugere por onde começar (antes era só a frase, sem saída)
+            <div className="flex flex-col gap-5" style={{ marginTop: "var(--space-6)" }}>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: "var(--weight-light)",
+                  fontSize: "var(--size-heading-2)",
+                  lineHeight: "var(--leading-heading)",
+                  color: "var(--text-body)",
+                }}
+              >
+                Sua sacola está vazia.
+              </p>
+              {preLancamento && <AvisoPreLancamento />}
+              <div className="flex flex-col items-start gap-3">
+                <Button variant="primary" href="/produtos" onClick={closeCart}>
+                  Conhecer a linha RHADYANCE
+                </Button>
+                <Link
+                  to="/encontre-sua-rotina"
+                  onClick={closeCart}
+                  className="inline-flex items-center min-h-[44px] transition-colors hover:text-[var(--abanic-orange)]"
+                  style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+                >
+                  <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Encontre sua rotina →</span>
+                </Link>
+              </div>
+            </div>
           ) : (
             <div className="flex flex-col" style={{ gap: "var(--space-5)" }}>
               {items.map((item) => (
