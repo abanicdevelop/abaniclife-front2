@@ -43,7 +43,11 @@ for (const rota of rotas) {
 // Páginas só do navegador (newsletter, login, cadastro) recebem o HTML base com as tags padrão
 fs.writeFileSync(
   path.join(dist, "200.html"),
-  modelo.replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, headHtml(getSeo("/"))).replace("<!--app-->", ""),
+  // Nunca indexadas e sem canonical: antes herdavam "index" e o canonical da página inicial
+  modelo
+    .replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, headHtml({ ...getSeo("/"), robots: "noindex, follow" }))
+    .replace(/\s*<link rel="canonical"[^>]*>/, "")
+    .replace("<!--app-->", ""),
 );
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

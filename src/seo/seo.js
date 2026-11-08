@@ -8,7 +8,7 @@ import { EMPRESA } from "../data/empresa";
 
 // Chave única de indexação. false = pede ao Google para NÃO indexar nenhuma página (pré-lançamento)
 // e tira o sitemap do robots.txt. No lançamento, troque para true e faça um novo deploy.
-export const INDEXAR = false;
+export const INDEXAR = true;
 
 const MARCA = "ABANIC";
 const og = (arquivo) => `${SITE_URL}/og/${arquivo}`;
