@@ -18,8 +18,11 @@ const MosaicoProdutos = () => (
           loading="lazy"
         />
         <figcaption
-          className="absolute left-0 bottom-0 p-5 md:p-10"
+          className="absolute left-5 bottom-5 md:left-10 md:bottom-10"
           style={{
+            // Bloco sólido de proteção, como o manual pede para texto sobre foto (sem degradê)
+            background: "var(--abanic-black)",
+            padding: "var(--space-2) var(--space-3)",
             fontFamily: "var(--font-text)",
             fontSize: "var(--size-micro)",
             textTransform: "uppercase",

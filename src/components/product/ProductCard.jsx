@@ -5,6 +5,7 @@ import { useCart } from "../../context/CartContext";
 import { passos, destaqueDoProduto } from "../../data/rotina";
 import { DURACAO } from "../../utils/motion";
 import { rotaProduto } from "../../data/rotas";
+import EtiquetaIlustrativa from "./EtiquetaIlustrativa";
 
 /** Card de produto com foto, passo da rotina, preço e "Adicionar à sacola". */
 const ProductCard = ({ produto, index = 0 }) => {
@@ -20,10 +21,11 @@ const ProductCard = ({ produto, index = 0 }) => {
     >
       <Link
         to={rotaProduto(produto)}
-        className="block overflow-hidden"
+        className="relative block overflow-hidden"
         style={{ aspectRatio: "4 / 5", background: "var(--surface-raised)" }}
       >
         <img src={produto.imagem} alt={produto.tituloDetalhe} className="w-full h-full object-cover" />
+        <EtiquetaIlustrativa compacta />
       </Link>
 
       {passo && (
