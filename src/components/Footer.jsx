@@ -203,7 +203,7 @@ const Footer = () => {
           </p>
           <ul className="mt-6 space-y-3">
             <li>
-              <a href="mailto:contato@abaniclife.com" className="inline-flex items-center gap-3 min-h-[32px] hover:text-[var(--abanic-orange)] transition-colors" style={linkRodape}>
+              <a href="mailto:contato@abaniclife.com" className="inline-flex items-center gap-3 min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors" style={linkRodape}>
                 <Mail size={18} strokeWidth={1.25} /> contato@abaniclife.com
               </a>
             </li>
@@ -216,12 +216,12 @@ const Footer = () => {
         {colunas.map((col) => (
           <nav key={col.titulo} className="lg:col-span-2" aria-label={col.titulo}>
             <p style={tituloColuna}>{col.titulo}</p>
-            <ul className="space-y-1">
+            <ul>
               {col.links.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors"
+                    className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors"
                     style={linkRodape}
                   >
                     {link.name}
@@ -251,7 +251,7 @@ const Footer = () => {
               <li key={link.name}>
                 <Link
                   to={link.href}
-                  className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors"
+                  className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors"
                   style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}
                 >
                   {link.name}
@@ -262,7 +262,7 @@ const Footer = () => {
               <button
                 type="button"
                 onClick={abrirAvisoDeCookies}
-                className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors cursor-pointer"
+                className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors cursor-pointer"
                 style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}
               >
                 {language === "pt" ? "Gerenciar cookies" : "Manage cookies"}
