@@ -43,7 +43,9 @@ const slugCategoria = (nome) =>
     .replace(/(^-|-$)/g, "");
 
 const Faq = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  // Várias respostas podem ficar abertas (antes abrir uma fechava a outra e a página saltava,
+  // escondendo a pergunta recém-aberta sob o cabeçalho)
+  const [abertas, setAbertas] = useState(() => new Set());
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -87,7 +89,12 @@ const Faq = () => {
 
 
   const toggleIndex = (index) => {
-    setActiveIndex(index === activeIndex ? null : index);
+    setAbertas((atual) => {
+      const nova = new Set(atual);
+      if (nova.has(index)) nova.delete(index);
+      else nova.add(index);
+      return nova;
+    });
   };
 
   const handleInputChange = (e) => {
@@ -206,7 +213,7 @@ const Faq = () => {
                         type="button"
                         onClick={() => {
                           setSelectedCategory(index);
-                          setActiveIndex(null);
+                          setAbertas(new Set());
                           setSearchParams(index === 0 ? {} : { categoria: slugCategoria(category.category) }, { replace: true });
                         }}
                         aria-current={ativa ? "true" : undefined}
@@ -274,7 +281,7 @@ const Faq = () => {
             <div style={{ borderBottom: hairline }}>
               {faqData[selectedCategory].questions.map((item, qIndex) => {
                 const globalIndex = `${selectedCategory}-${qIndex}`;
-                const isActive = activeIndex === globalIndex;
+                const isActive = abertas.has(globalIndex);
                 return (
                   <div key={qIndex} style={{ borderTop: hairline }}>
                     <button

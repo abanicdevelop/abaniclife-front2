@@ -95,6 +95,8 @@ const NewsletterStatus = () => {
       setErrorMessage(t.cancelError);
     } finally {
       setIsSubmitting(false);
+      // O botão fica desativado durante o envio e o foco cai no início da página: devolve ao botão
+      setTimeout(() => document.querySelector("[data-acao-cancelar]")?.focus(), 0);
     }
   };
 
@@ -132,7 +134,7 @@ const NewsletterStatus = () => {
     ),
     cancelar: (
       <>
-        <Button variant="primary" size="lg" disabled={isSubmitting} onClick={cancelar}>
+        <Button variant="primary" size="lg" disabled={isSubmitting} onClick={cancelar} data-acao-cancelar>
           {isSubmitting ? t.cancelling : t.confirmCancel}
         </Button>
         <Link to="/" className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors" style={linkSecundario}>
@@ -183,7 +185,7 @@ const NewsletterStatus = () => {
             >
               {conteudo.text}
             </p>
-            {(estado === "erro" || estado === "link-invalido" || errorMessage) && (
+            {(estado === "erro" || estado === "link-invalido") && (
               <p className="mt-3" style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}>
                 {t.help}{" "}
                 <a href="mailto:contato@abaniclife.com" style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>
@@ -211,7 +213,14 @@ const NewsletterStatus = () => {
             style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" }}
           >
             <AlertCircle size={16} strokeWidth={1.75} aria-hidden="true" className="shrink-0 mt-[2px]" />
-            {errorMessage}
+            {/* Erro e caminho alternativo juntos, logo abaixo do botão (antes ficavam em dois lugares) */}
+            <span>
+              {errorMessage} {t.help}{" "}
+              <a href="mailto:contato@abaniclife.com" style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>
+                contato@abaniclife.com
+              </a>
+              .
+            </span>
           </p>
         )}
       </div>
