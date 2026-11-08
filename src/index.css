@@ -96,3 +96,10 @@ details > summary::-webkit-details-marker {
 details > summary {
   list-style: none;
 }
+
+/* Dicas dentro dos campos no tom de texto secundário (o padrão do navegador dava ~3,5:1) */
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 1;
+}

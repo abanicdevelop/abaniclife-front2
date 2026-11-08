@@ -14,11 +14,12 @@ const BackLink = () => (
       fontFamily: "var(--font-text)",
       fontSize: "var(--size-body-sm)",
       fontWeight: "var(--weight-medium)",
-      color: "var(--text-link)",
+      // Cor do texto, laranja só ao passar o mouse (laranja sobre creme dava 3,3:1)
+      color: "var(--text-body)",
       transition: "color var(--duration-base) var(--ease-standard)",
     }}
-    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-link-hover)")}
-    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-link)")}
+    onMouseEnter={(e) => (e.currentTarget.style.color = "var(--abanic-orange)")}
+    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-body)")}
   >
     ← Voltar para produtos
   </Link>
