@@ -121,7 +121,15 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/newsletter/:estado",
+      "destination": "/200.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/200.html"
+    },
+    {
+      "source": "/register",
       "destination": "/200.html"
     }
   ]

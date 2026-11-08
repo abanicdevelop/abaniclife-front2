@@ -101,7 +101,7 @@ export const productsData = [
     imagem: SerumImage,
     tituloDetalhe: "SÉRUM FACIAL CLAREADOR RHADYANCE",
     linha: "LINHA RHADYANCE",
-    usoLabel: "USO DIÁRIO E NOTURNO",
+    usoLabel: "USO DIURNO E NOTURNO",
     volume: "30\u00A0ml",
     preco: "R$ 345,00",
     claims: "AÇÃO CLAREADORA • ATIVOS QUE UNIFORMIZAM A APARÊNCIA DA PELE E A ILUMINAM",

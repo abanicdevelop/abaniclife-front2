@@ -56,7 +56,8 @@ const CookieBanner = () => {
     <AnimatePresence>
       {aberto && !sacolaAberta && (
         <motion.div
-          role="dialog"
+          // Região (não é janela modal: a página continua utilizável enquanto o aviso está aberto)
+          role="region"
           aria-live="polite"
           aria-label="Aviso de cookies"
           className="fixed left-0 right-0 bottom-0 md:left-auto md:right-6 md:bottom-6 md:max-w-[440px]"
@@ -91,11 +92,12 @@ const CookieBanner = () => {
               .
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mt-5">
+              {/* As duas escolhas com o mesmo peso visual (orientação da ANPD): contorno preto nas duas */}
               <button
                 type="button"
                 onClick={() => escolher("aceito")}
-                className="flex-1 transition-colors hover:bg-[var(--action-primary-bg-hover)]"
-                style={{ ...botao, background: "var(--action-primary-bg)", color: "var(--action-primary-fg)" }}
+                className="flex-1 transition-colors hover:bg-[var(--neutral-900)] hover:text-[var(--abanic-cream)]"
+                style={{ ...botao, border: "var(--border-hairline) solid var(--neutral-900)", color: "var(--text-body)" }}
               >
                 Aceitar todos
               </button>

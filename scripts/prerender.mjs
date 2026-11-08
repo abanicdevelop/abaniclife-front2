@@ -25,7 +25,22 @@ for (const rota of rotas) {
   console.log("pré-renderizada:", rota);
 }
 
-// Páginas não listadas (login, cadastro, endereços inválidos) recebem o HTML base com as tags padrão
+// Página 404 de verdade: a Vercel serve dist/404.html com status 404 para endereços que não existem
+// (antes um redirecionamento geral respondia "200 OK" com a página de erro: "soft 404" para o Google).
+// Só as tags vêm prontas (título de 404 e noindex, de getSeo para endereço desconhecido); o corpo fica
+// vazio e o app desenha a tela certa no navegador ("Página não encontrada" ou "Produto não encontrado"),
+// sem hidratação que não bata com o endereço.
+{
+  const rota404 = "/pagina-nao-encontrada";
+  const html404 = modelo
+    .replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, headHtml(getSeo(rota404)))
+    .replace("<!--app-->", "")
+    .replace(/\s*<link rel="canonical"[^>]*>/, ""); // página que não existe não tem endereço canônico
+  fs.writeFileSync(path.join(dist, "404.html"), html404);
+  console.log("pré-renderizada: 404.html");
+}
+
+// Páginas só do navegador (newsletter, login, cadastro) recebem o HTML base com as tags padrão
 fs.writeFileSync(
   path.join(dist, "200.html"),
   modelo.replace(/<!--seo:start-->[\s\S]*?<!--seo:end-->/, headHtml(getSeo("/"))).replace("<!--app-->", ""),
