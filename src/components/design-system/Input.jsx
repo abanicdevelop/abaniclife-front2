@@ -6,7 +6,7 @@ const fieldLabel = {
   fontSize: "var(--size-micro)",
   textTransform: "uppercase",
   letterSpacing: "var(--tracking-label)",
-  color: "var(--text-muted)",
+  color: "var(--text-body)",
   marginBottom: "var(--space-2)",
 };
 
