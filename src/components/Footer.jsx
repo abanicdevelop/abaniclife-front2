@@ -15,7 +15,7 @@ const Footer = () => {
   // Textos traduzidos por idioma
   const translations = {
     pt: {
-      companyTitle: "Sobre",
+      companyTitle: "A marca",
       productsTitle: "Produtos",
       supportTitle: "Suporte",
       exploreTitle: "Explore",
@@ -30,20 +30,18 @@ const Footer = () => {
         { name: "Cookies", href: "/politica-de-cookies" },
       ],
       footerLinks: {
-        company: [{ name: "Manifesto da marca", href: "/manifesto#marca" }],
+        company: [{ name: "Manifesto", href: "/manifesto" }],
         products: [
-          { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
-          { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
-          { name: "Creme Facial Hidratante Rhadyance FPS\u00A075", href: "/produtos/creme-facial-fps75" },
+          { name: "Gel de Limpeza", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Clareador", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Hidratante FPS\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
           { name: "Perguntas frequentes", href: "/faq" },
-          { name: "Política de privacidade", href: "/politica-de-privacidade" },
-          { name: "Política de cookies", href: "/politica-de-cookies" },
-          { name: "Termos de uso", href: "/termos-de-uso" },
+          { name: "Fale conosco", href: "/faq#fale-conosco" },
         ],
         explore: [
-          { name: "Saiba mais sobre ativos e benefícios", href: "/ativos" },
+          { name: "Ativos e benefícios", href: "/ativos" },
           { name: "Escolha inteligente", href: "/escolha-inteligente" },
         ],
       },

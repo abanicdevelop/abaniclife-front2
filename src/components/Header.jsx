@@ -49,22 +49,22 @@ const translations = {
     menu: [
       { name: "Início", href: "/" },
       // Link direto (era um submenu com um item só)
-      { name: "Sobre", href: "/manifesto" },
+      { name: "Manifesto", href: "/manifesto" },
       {
         name: "Produtos",
         href: "#",
         submenu: [
           { name: "Linha RHADYANCE", href: "/produtos" },
-          { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
-          { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
-          { name: "Creme Facial Hidratante Rhadyance FPS\u00A075", href: "/produtos/creme-facial-fps75" },
+          { name: "Gel de Limpeza", href: "/produtos/gel-de-limpeza-facial" },
+          { name: "Sérum Clareador", href: "/produtos/serum-facial-clareador" },
+          { name: "Creme Facial Hidratante FPS\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
       },
       {
         name: "Explore",
         href: "#",
         submenu: [
-          { name: "Saiba mais sobre ativos e benefícios", href: "/ativos" },
+          { name: "Ativos e benefícios", href: "/ativos" },
           { name: "Escolha inteligente", href: "/escolha-inteligente" },
         ],
       },
