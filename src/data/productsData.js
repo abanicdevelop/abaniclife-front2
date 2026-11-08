@@ -62,7 +62,7 @@ export const productsData = [
       {
         nome: "Algas Vermelhas",
         imagem: AlgasVermelhasPetri,
-        descricao: "Ação antioxidante que protege a barreira cutânea da pele.",
+        descricao: "Ação antioxidante que protege a barreira cutânea.",
       },
       {
         nome: "Flor de Margarida",
@@ -77,7 +77,7 @@ export const productsData = [
       {
         nome: "Melissa",
         imagem: MelissaPetri,
-        descricao: "Reduz a atividade anti-inflamatória, além de ação antioxidante.",
+        descricao: "Ação anti-inflamatória e antioxidante.",
       },
       {
         nome: "Mirtilo",
@@ -130,7 +130,7 @@ export const productsData = [
       {
         nome: "Algas Vermelhas",
         imagem: AlgasVermelhasPetri,
-        descricao: "Ação antioxidante que protege a barreira cutânea da pele.",
+        descricao: "Ação antioxidante que protege a barreira cutânea.",
       },
       {
         nome: "Flor de Margarida",
@@ -150,7 +150,7 @@ export const productsData = [
       {
         nome: "Melissa",
         imagem: MelissaPetri,
-        descricao: "Reduz a atividade anti-inflamatória, além de ação antioxidante.",
+        descricao: "Ação anti-inflamatória e antioxidante.",
       },
     ],
   },
@@ -198,7 +198,7 @@ export const productsData = [
       {
         nome: "Algas Vermelhas",
         imagem: AlgasVermelhasPetri,
-        descricao: "Ação antioxidante que protege a barreira cutânea da pele.",
+        descricao: "Ação antioxidante que protege a barreira cutânea.",
       },
       {
         nome: "Flor de Margarida",
