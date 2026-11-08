@@ -1,196 +1,111 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { DURACAO } from "../utils/motion";
+import PaginaLegal from "../components/legal/PaginaLegal";
 
-const PrivacyPolicy = () => {
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: DURACAO, ease: "easeOut" },
-    },
-  };
-  return (
-    <section className="w-full bg-gradient-to-b from-abanic-gray-light to-white mt-20">
-      {/* Hero Header */}
-      <motion.div
-        variants={textVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        className="w-full px-6 py-16 md:py-24 flex flex-col items-center"
-      >
-        <div className="max-w-6xl text-center">
-          <h1
-            className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk-h1"
-            style={{
-              fontFamily: '"Space Grotesk", sans-serif',
-              color: "var(--abanic-gray-dark)",
-            }}
-          >
-            Política de Privacidade
-          </h1>
-          <p className="text-base text-abanic-gray leading-relaxed">
-            A ABANIC está comprometida com a proteção da sua privacidade e dos
-            seus dados pessoais.
-          </p>
-          <div className="w-full max-w-[1070px] h-px bg-abanic-orange mx-auto mt-6"></div>
-        </div>
-      </motion.div>
+// Texto jurídico revisado; aqui só a apresentação (modelo único em PaginaLegal)
+const secoes = [
+  {
+    id: "introducao",
+    titulo: "1. Introdução"
+  },
+  {
+    id: "dados-que-coletamos",
+    titulo: "2. Dados que coletamos"
+  },
+  {
+    id: "como-utilizamos-seus-dados",
+    titulo: "3. Como utilizamos seus dados"
+  },
+  {
+    id: "base-legal-para-tratamento",
+    titulo: "4. Base legal para tratamento"
+  },
+  {
+    id: "compartilhamento-de-dados",
+    titulo: "5. Compartilhamento de dados"
+  },
+  {
+    id: "seus-direitos",
+    titulo: "6. Seus direitos"
+  },
+  {
+    id: "seguranca-dos-dados",
+    titulo: "7. Segurança dos dados"
+  },
+  {
+    id: "retencao-de-dados",
+    titulo: "8. Retenção de dados"
+  },
+  {
+    id: "transferencia-internacional",
+    titulo: "9. Transferência internacional"
+  },
+  {
+    id: "alteracoes-nesta-politica",
+    titulo: "10. Alterações nesta política"
+  },
+  {
+    id: "contato",
+    titulo: "11. Contato"
+  }
+];
 
-      {/* Content */}
-      <div className="max-w-[1070px] mx-auto px-6 py-16 md:py-24 -mt-20">
+const PrivacyPolicy = () => (
+  <PaginaLegal
+    titulo="Política de privacidade"
+    resumo="A ABANIC está comprometida com a proteção da sua privacidade e dos seus dados pessoais."
+    atualizacao="Dezembro de 2025"
+    secoes={secoes}
+  >
         {/* 1. Introdução */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-12"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            1. Introdução
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="introducao">1. Introdução</h2>
+          <p>
             Esta Política de Privacidade descreve como coletamos, usamos,
             armazenamos e protegemos suas informações, em conformidade com a Lei
             Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).
           </p>
-        </motion.div>
+        </section>
 
         {/* 2. Dados que Coletamos */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-12"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            2. Dados que Coletamos
-          </h2>
-          <p className="text-base text-abanic-gray mb-4 leading-relaxed">
+        <section>
+          <h2 id="dados-que-coletamos">2. Dados que coletamos</h2>
+          <p>
             Podemos coletar as seguintes categorias de dados pessoais:
           </p>
 
-          <h3
-            className="text-xl mb-3"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            2.1 Dados de Identificação
-          </h3>
-          <ul className="space-y-3 mb-4">
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">Nome completo</span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">CPF</span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Data de nascimento
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Endereço de e-mail
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Número de telefone
-              </span>
-            </li>
+          <h3>2.1 Dados de identificação</h3>
+          <ul>
+            <li>Nome completo</li>
+            <li>CPF</li>
+            <li>Data de nascimento</li>
+            <li>Endereço de e-mail</li>
+            <li>Número de telefone</li>
           </ul>
 
-          <h3
-            className="text-xl mb-3"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            2.2 Dados de Endereço
-          </h3>
-          <ul className="space-y-3 mb-4">
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Endereço residencial ou comercial
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">CEP</span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Cidade e Estado
-              </span>
-            </li>
+          <h3>2.2 Dados de endereço</h3>
+          <ul>
+            <li>Endereço residencial ou comercial</li>
+            <li>CEP</li>
+            <li>Cidade e Estado</li>
           </ul>
 
-          <h3
-            className="text-xl mb-3"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            2.3 Dados de Navegação
-          </h3>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">Endereço IP</span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Tipo de navegador
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Páginas visitadas
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Tempo de permanência no site
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Origem do acesso
-              </span>
-            </li>
+          <h3>2.3 Dados de navegação</h3>
+          <ul>
+            <li>Endereço IP</li>
+            <li>Tipo de navegador</li>
+            <li>Páginas visitadas</li>
+            <li>Tempo de permanência no site</li>
+            <li>Origem do acesso</li>
           </ul>
-        </motion.div>
+        </section>
 
         {/* 3. Como Utilizamos seus Dados */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            3. Como Utilizamos seus Dados
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="como-utilizamos-seus-dados">3. Como utilizamos seus dados</h2>
+          <p>
             Utilizamos seus dados pessoais para as seguintes finalidades:
           </p>
 
-          <ul className="space-y-3 mt-4">
+          <ul>
             {[
               "Processar e entregar seus pedidos",
               "Enviar atualizações sobre o status do pedido",
@@ -201,285 +116,123 @@ const PrivacyPolicy = () => {
               "Cumprir obrigações legais e regulatórias",
               "Prevenir fraudes e garantir a segurança",
             ].map((item, i) => (
-              <li key={i} className="flex items-start gap-4">
-                <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-                <span className="text-base text-abanic-gray">{item}</span>
-              </li>
+              <li key={i}>{item}</li>
             ))}
           </ul>
-        </div>
+        </section>
 
         {/* 4. Base Legal */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            4. Base Legal para Tratamento
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="base-legal-para-tratamento">4. Base legal para tratamento</h2>
+          <p>
             O tratamento dos seus dados pessoais é realizado com base nas
             seguintes hipóteses legais previstas na LGPD:
           </p>
-          <ul className="space-y-3 mt-4">
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Execução de contrato: para processar pedidos e entregas
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Consentimento: para envio de comunicações de marketing
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Legítimo interesse: para melhorar nossos serviços e prevenir
-                fraudes
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Cumprimento de obrigação legal: para atender exigências fiscais
-                e regulatórias
-              </span>
-            </li>
+          <ul>
+            <li>Execução de contrato: para processar pedidos e entregas</li>
+            <li>Consentimento: para envio de comunicações de marketing</li>
+            <li>Legítimo interesse: para melhorar nossos serviços e prevenir fraudes</li>
+            <li>Cumprimento de obrigação legal: para atender exigências fiscais e regulatórias</li>
           </ul>
-        </div>
+        </section>
 
         {/* 5. Compartilhamento de Dados */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            5. Compartilhamento de Dados
-          </h2>
-          <p className="text-base text-abanic-gray mb-4 leading-relaxed">
+        <section>
+          <h2 id="compartilhamento-de-dados">5. Compartilhamento de dados</h2>
+          <p>
             Podemos compartilhar seus dados pessoais com:
           </p>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Parceiros de logística: para entrega dos produtos
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Processadores de pagamento: para processar transações
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Prestadores de serviços: que nos auxiliam na operação do site
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Autoridades competentes: quando exigido por lei
-              </span>
-            </li>
+          <ul>
+            <li>Parceiros de logística: para entrega dos produtos</li>
+            <li>Processadores de pagamento: para processar transações</li>
+            <li>Prestadores de serviços: que nos auxiliam na operação do site</li>
+            <li>Autoridades competentes: quando exigido por lei</li>
           </ul>
-          <p className="text-base text-abanic-gray mt-4">
+          <p>
             Não vendemos ou alugamos seus dados pessoais a terceiros.
           </p>
-        </div>
+        </section>
 
         {/* 6. Seus Direitos */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            6. Seus Direitos
-          </h2>
-          <p className="text-base text-abanic-gray mb-4 leading-relaxed">
+        <section>
+          <h2 id="seus-direitos">6. Seus direitos</h2>
+          <p>
             De acordo com a LGPD, você tem os seguintes direitos:
           </p>
-          <ul className="space-y-3">
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Confirmação: saber se tratamos seus dados
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Acesso: solicitar cópia dos seus dados
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Correção: atualizar dados incompletos ou incorretos
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Anonimização: tornar dados anônimos quando aplicável
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Eliminação: solicitar a exclusão de dados desnecessários
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Portabilidade: transferir dados para outro fornecedor
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Revogação: retirar o consentimento a qualquer momento
-              </span>
-            </li>
+          <ul>
+            <li>Confirmação: saber se tratamos seus dados</li>
+            <li>Acesso: solicitar cópia dos seus dados</li>
+            <li>Correção: atualizar dados incompletos ou incorretos</li>
+            <li>Anonimização: tornar dados anônimos quando aplicável</li>
+            <li>Eliminação: solicitar a exclusão de dados desnecessários</li>
+            <li>Portabilidade: transferir dados para outro fornecedor</li>
+            <li>Revogação: retirar o consentimento a qualquer momento</li>
           </ul>
-          <p className="text-base text-abanic-gray mt-4">
+          <p>
             Para exercer seus direitos, entre em contato através do e-mail:{" "}
-            <a
-              href="mailto:contato@abaniclife.com"
-              className="font-semibold"
-              style={{ color: "#fc622b" }}
-            >
-              contato@abaniclife.com
-            </a>
+            <a href="mailto:contato@abaniclife.com">contato@abaniclife.com</a>
           </p>
-        </div>
+        </section>
 
         {/* 7. Segurança dos Dados */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            7. Segurança dos Dados
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="seguranca-dos-dados">7. Segurança dos dados</h2>
+          <p>
             Implementamos medidas técnicas e organizacionais apropriadas para
             proteger seus dados pessoais contra acesso não autorizado, perda,
             alteração ou divulgação:
           </p>
-          <ul className="space-y-3 mt-4">
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Criptografia de dados em trânsito e em repouso
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Controle de acesso restrito
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Monitoramento contínuo de segurança
-              </span>
-            </li>
-            <li className="flex items-start gap-4">
-              <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-              <span className="text-base text-abanic-gray">
-                Treinamento de colaboradores
-              </span>
-            </li>
+          <ul>
+            <li>Criptografia de dados em trânsito e em repouso</li>
+            <li>Controle de acesso restrito</li>
+            <li>Monitoramento contínuo de segurança</li>
+            <li>Treinamento de colaboradores</li>
           </ul>
-        </div>
+        </section>
 
         {/* 8. Retenção de Dados */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            8. Retenção de Dados
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="retencao-de-dados">8. Retenção de dados</h2>
+          <p>
             Mantemos seus dados pessoais apenas pelo tempo necessário para
             cumprir as finalidades descritas nesta política, ou conforme exigido
             por lei. Após esse período, os dados são eliminados ou anonimizados
             de forma segura.
           </p>
-        </div>
+        </section>
 
         {/* 9. Transferência Internacional */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            9. Transferência Internacional
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="transferencia-internacional">9. Transferência internacional</h2>
+          <p>
             Seus dados podem ser transferidos e armazenados em servidores
             localizados fora do Brasil. Nesses casos, garantimos que a
             transferência seja realizada em conformidade com a LGPD e que
             medidas de proteção adequadas sejam aplicadas.
           </p>
-        </div>
+        </section>
 
         {/* 10. Alterações nesta Política */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            10. Alterações nesta Política
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="alteracoes-nesta-politica">10. Alterações nesta política</h2>
+          <p>
             Esta Política de Privacidade pode ser atualizada periodicamente.
             Recomendamos que você revise esta página regularmente. Alterações
             significativas serão comunicadas através do nosso site ou por
             e-mail.
           </p>
-        </div>
+        </section>
 
         {/* 11. Contato do Encarregado (DPO) */}
-        <div className="mb-12">
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-4 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            11. Contato
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
+        <section>
+          <h2 id="contato">11. Contato</h2>
+          <p>
             Para questões relacionadas à privacidade e proteção de dados, entre
             em contato:
           </p>
-          <p className="text-sm text-gray-500 mt-6 mb-6">
-            Última atualização: Dezembro de 2025
-          </p>
-          <div className="flex items-center gap-3 mt-4">
-            <span className="text-2xl" style={{ color: "#fc622b" }}>
-              ✉
-            </span>
-            <a
-              href="mailto:contato@abaniclife.com"
-              className="font-semibold text-lg transition-colors"
-              style={{ color: "#fc622b" }}
-            >
-              contato@abaniclife.com
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+          <p><a href="mailto:contato@abaniclife.com">contato@abaniclife.com</a></p>
+        </section>
+  </PaginaLegal>
+);
 
 export default PrivacyPolicy;
