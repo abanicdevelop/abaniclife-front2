@@ -121,7 +121,7 @@
   ],
   "rewrites": [
     {
-      "source": "/newsletter/:estado",
+      "source": "/newsletter/:estado(confirmada|link-invalido|erro|cancelar|cancelada)",
       "destination": "/200.html"
     },
     {

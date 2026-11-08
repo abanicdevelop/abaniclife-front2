@@ -96,7 +96,12 @@ const NewsletterStatus = () => {
     } finally {
       setIsSubmitting(false);
       // O botão fica desativado durante o envio e o foco cai no início da página: devolve ao botão
-      setTimeout(() => document.querySelector("[data-acao-cancelar]")?.focus(), 0);
+      setTimeout(() => {
+        // O botão fica sob o cabeçalho fixo se só receber o foco: centraliza na tela antes
+        const botao = document.querySelector("[data-acao-cancelar]");
+        botao?.scrollIntoView({ block: "center", behavior: "instant" });
+        botao?.focus({ preventScroll: true });
+      }, 0);
     }
   };
 

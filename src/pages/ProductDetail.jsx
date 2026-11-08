@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { trackEcommerce } from "../utils/analytics";
 import ProductDetailSection from "../components/ProductDetailSection";
 import { productsData } from "../data/productsData";
+import NaoEncontrada from "./NaoEncontrada";
 
 const BackLink = () => (
   <Link
@@ -36,22 +37,10 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <section
-        style={{ backgroundColor: "var(--abanic-cream)" }}
-        className="min-h-[60vh] flex flex-col items-center justify-center gap-4 mt-28 px-6 text-center"
-      >
-        <h1
-          style={{
-            fontFamily: "var(--font-display)",
-            fontWeight: "var(--weight-light)",
-            fontSize: "var(--size-heading-1)",
-            color: "var(--text-body)",
-          }}
-        >
-          Produto não encontrado
-        </h1>
-        <BackLink />
-      </section>
+      <NaoEncontrada
+        titulo="Produto não encontrado"
+        texto="Este produto não existe ou mudou de endereço. A linha RHADYANCE tem três passos: limpar, tratar e revitalizar."
+      />
     );
   }
 

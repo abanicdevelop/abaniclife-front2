@@ -40,6 +40,8 @@ header :where(a, button):focus-visible {
   margin-bottom: var(--space-5);
   scroll-margin-top: 136px; /* cabeçalho + índice fixo do celular */
 }
+/* foco programático depois do salto pelo índice: o título não precisa de anel */
+.texto-legal h2:focus { outline: none; }
 @media (max-width: 767px) {
   .texto-legal section + section {
     margin-top: var(--space-7);

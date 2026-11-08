@@ -264,7 +264,8 @@ const Faq = () => {
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: "var(--weight-light)",
-                fontSize: "var(--size-heading-1)",
+                // No celular o título da categoria pesava mais que a pergunta (48px); escala com a tela
+                fontSize: "clamp(28px, 6vw, var(--size-heading-1))",
                 color: "var(--text-body)",
                 marginBottom: "var(--space-6)",
               }}
@@ -282,12 +283,17 @@ const Faq = () => {
               {faqData[selectedCategory].questions.map((item, qIndex) => {
                 const globalIndex = `${selectedCategory}-${qIndex}`;
                 const isActive = abertas.has(globalIndex);
+                const idResposta = `resposta-${globalIndex}`;
                 return (
                   <div key={qIndex} style={{ borderTop: hairline }}>
+                    {/* Pergunta como título: o leitor de tela pula de pergunta em pergunta, como em /ativos */}
+                    <h3 style={{ margin: 0, fontSize: "inherit", fontWeight: "inherit" }}>
                     <button
                       type="button"
+                      id={`pergunta-${globalIndex}`}
                       onClick={() => toggleIndex(globalIndex)}
                       aria-expanded={isActive}
+                      aria-controls={isActive ? idResposta : undefined}
                       className="w-full flex items-center justify-between gap-6 py-5 text-left cursor-pointer"
                     >
                       <span
@@ -304,9 +310,13 @@ const Faq = () => {
                         {isActive ? "−" : "+"}
                       </span>
                     </button>
+                    </h3>
                     {isActive && (
                       // Resposta em 16px na cor do texto, com listas e links (antes 14px cinza em bloco único)
                       <motion.div
+                        id={idResposta}
+                        role="region"
+                        aria-labelledby={`pergunta-${globalIndex}`}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1, transition: { duration: DURACAO } }}
                         className="pb-6 pr-8"
