@@ -1,23 +1,23 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { DURACAO } from "../utils/motion";
-
-const BreadText = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: DURACAO, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="mt-40 max-w-7xl mx-auto mb-28 text-center px-4 sm:px-6 lg:px-8"
+// Frase da home sobre a rotina. No idioma da marca: Space Grotesk Light, caixa de frase, alinhada à
+// esquerda (antes caixa alta centralizada em cinza com negrito, pesada no celular).
+const BreadText = () => (
+  <div className="page-container pt-20 pb-16 md:pt-32 md:pb-24">
+    <p
+      style={{
+        fontFamily: "var(--font-display)",
+        fontWeight: "var(--weight-light)",
+        fontSize: "clamp(22px, 2.6vw, 36px)",
+        lineHeight: "var(--leading-heading)",
+        letterSpacing: "var(--tracking-heading)",
+        color: "var(--text-body)",
+        maxWidth: "34em",
+        textWrap: "pretty",
+      }}
     >
-      <p className="text-[36px] leading-normal font-space-grotesk-h1" style={{ color: "var(--abanic-gray)" }}>
-        TRÊS PASSOS, TODOS OS DIAS, PARA UMA PELE MAIS REVITALIZADA, HIDRATADA E LUMINOSA. NO CENTRO DA
-        LINHA <b style={{ color: "var(--abanic-gray-dark)" }}>RHADYANCE</b>, A ALGA VERMELHA DO MAR BÁLTICO
-        PRESENTE EM TODOS OS PASSOS.
-      </p>
-    </motion.div>
-  );
-};
+      Três passos, todos os dias, para uma pele mais revitalizada, hidratada e luminosa. No centro da linha
+      RHADYANCE, a alga vermelha do Mar Báltico presente em todos os passos.
+    </p>
+  </div>
+);
 
 export default BreadText;

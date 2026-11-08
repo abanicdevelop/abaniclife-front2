@@ -138,12 +138,18 @@ const Footer = () => {
   const socialLinks = [];
 
   useEffect(() => {
+    // No celular o botão cobria o "Adicionar à sacola" dos cards: lá ele só aparece quando a pessoa
+    // rola para cima (sinal de que quer voltar); no desktop, sempre depois de 200px
+    let ultimoY = window.scrollY;
     const handleScroll = () => {
-      if (window.scrollY > 200) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
-      }
+      const y = window.scrollY;
+      const desktop = window.matchMedia("(min-width: 768px)").matches;
+      const subindo = y < ultimoY - 4;
+      const descendo = y > ultimoY + 4;
+      if (y <= 200) setShowButton(false);
+      else if (desktop || subindo) setShowButton(true);
+      else if (descendo) setShowButton(false);
+      ultimoY = y;
     };
 
     window.addEventListener("scroll", handleScroll);

@@ -13,6 +13,7 @@ import { passos, destaqueDoProduto } from "../data/rotina";
 import EtiquetaIlustrativa from "./product/EtiquetaIlustrativa";
 import AvisoPreLancamento from "./AvisoPreLancamento";
 import { DURACAO } from "../utils/motion";
+import { precoEmReais, formatarReais } from "../utils/preco";
 
 
 const bodyTextStyle = {
@@ -302,6 +303,15 @@ const ProductDetailSection = ({ product }) => {
               </ol>
             </div>
             <div className="w-full sm:max-w-[360px]">
+              <p
+                className="mb-2"
+                style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+              >
+                Os outros 2 ·{" "}
+                <strong style={{ fontWeight: "var(--weight-medium)" }}>
+                  {formatarReais(outrosProdutos.reduce((soma, p) => soma + precoEmReais(p.preco), 0))}
+                </strong>
+              </p>
               <Button
                 variant="primary"
                 fullWidth
