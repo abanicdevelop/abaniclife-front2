@@ -6,6 +6,7 @@ import { Button } from "../components/design-system/Button";
 import { useCart } from "../context/CartContext";
 import { productsData } from "../data/productsData";
 import { passos } from "../data/rotina";
+import { precoEmReais, formatarReais } from "../utils/preco";
 import { perguntas, montarRotina, motivoDoProduto, necessidades, necessidadesAntigas } from "../data/necessidades";
 import { trackEvent } from "../utils/analytics";
 import { DURACAO, DURACAO_SAIDA } from "../utils/motion";
@@ -111,8 +112,6 @@ const CardComplemento = ({ produto: p, onAdicionar }) => (
   </article>
 );
 
-const precoEmReais = (preco) => parseFloat(String(preco).replace(/[^\d,]/g, "").replace(",", ".")) || 0;
-const formatarReais = (valor) => valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 const BotaoVoltar = ({ onClick }) => (
   <button

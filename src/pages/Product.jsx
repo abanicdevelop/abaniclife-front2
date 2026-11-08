@@ -17,7 +17,7 @@ const ProductPage = () => {
     <section style={{ backgroundColor: "var(--abanic-cream)" }}>
       <ProductBanner />
       <ProductActivetext />
-      <HomeVitrine id="rotina" />
+      <HomeVitrine id="rotina" comAjuda />
       <HomeDiferenciais />
       {/* ids "rotina" e "ativos" são os destinos dos botões do banner */}
       <HomeIngredientes id="ativos" />
