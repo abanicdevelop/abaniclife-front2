@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { CreditCard, Package, Sparkles, Heart, RefreshCw, Headphones } from "lucide-react";
 import { faqData } from "../data/faq";
+import RespostaFaq from "../components/faq/RespostaFaq";
 
 // Ícone de cada categoria (os dados da FAQ ficam sem ícones porque também alimentam o SEO)
 const ICONES = {
@@ -31,9 +33,26 @@ const formatarTelefone = (valor) => {
   return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
 };
 
+// Endereço de cada categoria (/faq?categoria=trocas-devolucoes): dá para mandar o link direto
+const slugCategoria = (nome) =>
+  nome
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+
 const Faq = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // A página é pré-renderizada na 1ª categoria; com ?categoria=... ajusta depois de montar
+  const categoriaDaUrl = searchParams.get("categoria");
+  useEffect(() => {
+    const i = faqData.findIndex((c) => slugCategoria(c.category) === categoriaDaUrl);
+    if (i >= 0) setSelectedCategory(i);
+  }, [categoriaDaUrl]);
 
   // Contact form states
   const [formData, setFormData] = useState({
@@ -177,6 +196,7 @@ const Faq = () => {
                         onClick={() => {
                           setSelectedCategory(index);
                           setActiveIndex(null);
+                          setSearchParams(index === 0 ? {} : { categoria: slugCategoria(category.category) }, { replace: true });
                         }}
                         aria-current={ativa ? "true" : undefined}
                         className="w-full text-left inline-flex lg:flex items-center justify-between gap-4 min-h-[44px] px-4 lg:px-0 lg:py-3 transition-colors hover:text-[var(--abanic-orange)]"
@@ -267,20 +287,21 @@ const Faq = () => {
                       </span>
                     </button>
                     {isActive && (
-                      <motion.p
+                      // Resposta em 16px na cor do texto, com listas e links (antes 14px cinza em bloco único)
+                      <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1, transition: { duration: DURACAO } }}
                         className="pb-6 pr-8"
                         style={{
                           fontFamily: "var(--font-text)",
-                          fontSize: "var(--size-body-sm)",
+                          fontSize: "var(--size-body)",
                           lineHeight: "var(--leading-body)",
-                          color: "var(--text-muted)",
+                          color: "var(--text-body)",
                           maxWidth: "65ch",
                         }}
                       >
-                        {item.answer}
-                      </motion.p>
+                        <RespostaFaq texto={item.answer} />
+                      </motion.div>
                     )}
                   </div>
                 );
@@ -290,8 +311,8 @@ const Faq = () => {
         </div>
       </section>
 
-      {/* Contato */}
-      <section style={{ borderTop: hairline }}>
+      {/* Contato (destino dos links "formulário Fale conosco" das respostas) */}
+      <section id="fale-conosco" className="scroll-mt-24" style={{ borderTop: hairline }}>
         <motion.div
           className="page-container py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16"
           variants={textVariants}
