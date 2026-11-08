@@ -1,34 +1,24 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { DURACAO } from "../utils/motion";
-
-const ProductActive = () => {
-  return (
-    <motion.p
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: DURACAO, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="
-           mt-40
-           text-[36px]
-           leading-normal
-           max-w-4xl
-           mx-auto
-           mb-28
-           font-space-grotesk-h1
-           text-center
-           px-6           /* adiciona margem lateral no mobile */
-           sm:px-8        /* um pouco mais em tablets */
-           md:px-0        /* remove no desktop */
-         "
-      style={{ color: "var(--abanic-gray)" }}
+// Frase de abertura da linha, entre o banner e a vitrine. No idioma da marca: Space Grotesk Light,
+// caixa de frase, alinhada à esquerda (antes era caixa alta centralizada com negrito, e no celular
+// virava 13 linhas antes do primeiro produto).
+const ProductActive = () => (
+  <div className="page-container pt-16 pb-12 md:pt-24 md:pb-16">
+    <p
+      style={{
+        fontFamily: "var(--font-display)",
+        fontWeight: "var(--weight-light)",
+        fontSize: "clamp(22px, 2.6vw, 36px)",
+        lineHeight: "var(--leading-heading)",
+        letterSpacing: "var(--tracking-heading)",
+        color: "var(--text-body)",
+        maxWidth: "34em",
+        textWrap: "pretty",
+      }}
     >
-      ATIVOS QUE REVITALIZAM E DEIXAM A PELE MAIS HIDRATADA E MACIA, E ATIVOS QUE COMPLETAM O CUIDADO,
-      COM AÇÃO NAS MANCHAS E ANTIOXIDANTE, PARA REVELAR A SUA{" "}
-      <b style={{ color: "var(--abanic-gray-dark)" }}>LUMINOSIDADE</b> NATURAL.
-    </motion.p>
-  );
-};
+      Ativos que revitalizam e deixam a pele mais hidratada e macia, e ativos que completam o cuidado, com ação nas
+      manchas e antioxidante, para revelar a sua luminosidade natural.
+    </p>
+  </div>
+);
 
 export default ProductActive;
