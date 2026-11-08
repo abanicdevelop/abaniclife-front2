@@ -26,7 +26,7 @@ const sectionsData = [
     items: [
       {
         id: "rhodophytas1",
-        title: "Origem e Composição",
+        title: "Origem e composição",
         text: [
           "<p>O principal ativo utilizado na formulação da linha <b>RHADYANCE</b> é obtido de algas vermelhas, pertencentes ao filo Rhodophyta. Encontradas nas águas geladas do Mar Báltico, na Europa, mais especificamente na Baía de Kassari, na Estônia.<br><br>Sua colheita é realizada de maneira tradicional e sustentável, praticada da mesma forma desde 1966, com cotas estabelecidas e regulamentadas pelo Instituto Marinho local.<br><br>Presente nessa alga, encontra-se a carragenana, um polissacarídeo sulfatado, estrutura molecular que contém grupos sulfato em sua composição (Nécas e Bartosikova, 2013).<br><br>Após a colheita, as algas vermelhas passam por um processo de extração em água, seguido pelo processo de quebra controlada em moléculas menores, purificação e padronização, resultando em um extrato hidrossolúvel rico em glicanos sulfatados.<br><br>A literatura científica associa às carragenanas, estrutura da qual derivam os glicanos sulfatados presentes no ativo, propriedades antioxidantes e hidratantes.</p>",
         ],
@@ -89,7 +89,7 @@ const sectionsData = [
     items: [
       {
         id: "bellis1",
-        title: "Origem e Composição",
+        title: "Origem e composição",
         text: [
           "<p>A <em>Bellis perennis</em> é uma margarida que pertence à família Asteraceae, uma das plantas mais antigas da medicina botânica europeia. O extrato obtido de suas flores é rico em derivados de arbutina, com mecanismo de ação sobre a pigmentação documentado na literatura científica (Chang, 2009; Woźniak et al., 2021).<br><br>O ativo é obtido exclusivamente de flores cultivadas em sistema orgânico certificado, com rastreabilidade completa desde a matéria-prima. Detém as certificações ECOCERT Greenlife, NATRUE e COSMOS.</p>",
         ],
@@ -173,21 +173,21 @@ const sectionsData = [
         title: "Referências",
         text: [
           `
-    <p>CHEN, F. et al. Transdermal behaviors comparisons among <em>Evodia rutaecarpa</em> extracts and major alkaloids by in vitro and in vivo methods. <em>Fitoterapia</em>, v. 83, n. 4, p. 706-713, 2012.</p></br>
+    <p>CHEN, F. et al. Transdermal behaviors comparisons among <em>Evodia rutaecarpa</em> extracts and major alkaloids by in vitro and in vivo methods. <em>Fitoterapia</em>, v. 83, n. 4, p. 706-713, 2012.</p>
 
-    <p>FORMAN, H. J.; ZHANG, H. Targeting oxidative stress in disease: promise and limitations of antioxidant therapy. <em>Nature Reviews Drug Discovery</em>, v. 20, p. 689-709, 2021.</p></br>
+    <p>FORMAN, H. J.; ZHANG, H. Targeting oxidative stress in disease: promise and limitations of antioxidant therapy. <em>Nature Reviews Drug Discovery</em>, v. 20, p. 689-709, 2021.</p>
 
-    <p>JIANG, J.; HU, C-P. Evodiamine: a novel anti-cancer alkaloid from <em>Evodia rutaecarpa</em>. <em>Molecules</em>, v. 14, n. 5, p. 1852–1859, 2009.</p></br>
+    <p>JIANG, J.; HU, C-P. Evodiamine: a novel anti-cancer alkaloid from <em>Evodia rutaecarpa</em>. <em>Molecules</em>, v. 14, n. 5, p. 1852–1859, 2009.</p>
 
-    <p>ROBERTET. <em>Gatuline® Radiance – Technical Dossier</em>. Grasse: Robertet Group, 2017. Documento interno do fabricante.</p></br>
+    <p>ROBERTET. <em>Gatuline® Radiance – Technical Dossier</em>. Grasse: Robertet Group, 2017. Documento interno do fabricante.</p>
 
-    <p>TIAN, K.; LI, J.; XU, S. Rutaecarpine: a promising cardiovascular protective alkaloid from <em>Evodia rutaecarpa</em> (Wu Zhu Yu). <em>Pharmacological Research</em>, v. 141, p. 541–550, 2019.</p></br>
+    <p>TIAN, K.; LI, J.; XU, S. Rutaecarpine: a promising cardiovascular protective alkaloid from <em>Evodia rutaecarpa</em> (Wu Zhu Yu). <em>Pharmacological Research</em>, v. 141, p. 541–550, 2019.</p>
 
-    <p>WANG, C. et al. Rutaecarpine: a promising cardiovascular protective alkaloid from <em>Evodia rutaecarpa</em>. <em>Phytochemistry Reviews</em>, v. 19, p. 971-985, 2020.</p></br>
+    <p>WANG, C. et al. Rutaecarpine: a promising cardiovascular protective alkaloid from <em>Evodia rutaecarpa</em>. <em>Phytochemistry Reviews</em>, v. 19, p. 971-985, 2020.</p>
 
-    <p>ZHOU, Y. et al. Air pollution and skin aging: molecular mechanisms and clinical perspectives. <em>Journal of Dermatological Science</em>, v. 104, n. 2, p. 78-85, 2021.</p></br>
+    <p>ZHOU, Y. et al. Air pollution and skin aging: molecular mechanisms and clinical perspectives. <em>Journal of Dermatological Science</em>, v. 104, n. 2, p. 78-85, 2021.</p>
 
-    <p>PEAKVISOR. Jiangxi – China. [Imagem]. Disponível em: <a href="https://peakvisor.com/adm/jiangxi.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">https://peakvisor.com/adm/jiangxi.html</a>. Acesso em: 08 ago. 2025.</p></br>`,
+    <p>PEAKVISOR. Jiangxi – China. [Imagem]. Disponível em: <a href="https://peakvisor.com/adm/jiangxi.html" target="_blank" rel="noopener noreferrer" class="underline decoration-[var(--abanic-orange)] underline-offset-2 hover:text-[var(--abanic-orange)]">https://peakvisor.com/adm/jiangxi.html</a>. Acesso em: 08 ago. 2025.</p>`,
         ],
       },
     ],
@@ -198,12 +198,16 @@ const sectionsData = [
 const produtosCom = (chave) =>
   productsData.filter((p) => p.ativosCarousel?.some((a) => a.nome === chave));
 
+// Corpo do texto aprofundado: é a leitura de quem mais se interessou, então tamanho e cor de corpo
+// (antes 14px em cinza). As referências bibliográficas ficam um degrau menores.
 const textoCorrido = {
   fontFamily: "var(--font-text)",
-  fontSize: "var(--size-body-sm)",
-  lineHeight: "var(--leading-body)",
-  color: "var(--text-muted)",
+  fontSize: "var(--size-body)",
+  lineHeight: "var(--leading-loose)",
+  color: "var(--text-body)",
+  maxWidth: "68ch",
 };
+const textoReferencias = { ...textoCorrido, fontSize: "var(--size-body-sm)", lineHeight: "var(--leading-body)" };
 
 /** Bloco recolhível com linha fina e +/− à direita (mesmo padrão das páginas de produto). */
 const Secao = ({ titulo, aberto, onToggle, children }) => (
@@ -222,12 +226,12 @@ const Secao = ({ titulo, aberto, onToggle, children }) => (
       }}
     >
       <span>{titulo}</span>
-      <span aria-hidden="true" style={{ fontSize: "var(--size-body-lg)", color: "var(--text-muted)" }}>
+      <span aria-hidden="true" style={{ fontSize: "var(--size-heading-3)", color: "var(--text-body)" }}>
         {aberto ? "−" : "+"}
       </span>
     </button>
     {aberto && (
-      <div className="pb-6 space-y-3" style={textoCorrido}>
+      <div className="pb-6 space-y-3 [&_p+p]:mt-3" style={titulo === "Referências" ? textoReferencias : textoCorrido}>
         {children}
       </div>
     )}
