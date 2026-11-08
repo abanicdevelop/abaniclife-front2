@@ -1,47 +1,51 @@
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { SectionLabel } from "../components/design-system/SectionLabel";
-import SmartChoiceImg0 from "../assets/smartchoice/0.jpg";
-import SmartChoiceImg1 from "../assets/smartchoice/1.webp";
-import SmartChoiceImg2 from "../assets/smartchoice/2.webp";
-import SmartChoiceImg3 from "../assets/smartchoice/3.webp";
-import SmartChoiceImg4 from "../assets/smartchoice/4.webp";
-import { DURACAO } from "../utils/motion";
+import { Button } from "../components/design-system/Button";
+import { productsData } from "../data/productsData";
+import { passos } from "../data/rotina";
+import { ROTAS, rotaProduto } from "../data/rotas";
+import ImagemSimbolo from "../assets/smartchoice/0.jpg";
+import PadraoTracos from "../assets/marca/pattern-strokes.png";
 
-const smartChoices = [
+// Cada compromisso traz o texto aprovado e, quando existe, a prova que a pessoa pode conferir no
+// próprio site (dados que já estão em /ativos e nas páginas de produto).
+const compromissos = [
   {
-    title: "Ética e Transparência",
-    image: SmartChoiceImg0,
+    title: "Ética e transparência",
     text: `Cada escolha que fazemos reflete nosso compromisso com a ética e a transparência.
     Nossas parcerias, processos e forma de produção são comunicados com clareza,
     sempre alinhados às conformidades regulatórias e à integridade.`,
+    prova: "Cada produto traz a lista completa de ingredientes, e em Ativos informamos quando um estudo foi conduzido pelo fabricante do ativo.",
+    links: [{ texto: "Ver os ativos", to: ROTAS.ativos }],
   },
   {
     title: "Fórmulas naturais",
-    image: SmartChoiceImg1,
     text: `Buscamos reduzir excessos, priorizando matérias-primas e processos
     com consciência ambiental. Atuamos em alinhamento com boas práticas
     globais e diretrizes de sustentabilidade aplicáveis à indústria cosmética.`,
+    prova: "O principal ativo da linha vem de algas vermelhas da Baía de Kassari, na Estônia, colhidas da mesma forma desde 1966, com cotas regulamentadas.",
+    links: [{ texto: "Algas vermelhas", to: ROTAS.ativos }],
   },
   {
     title: "Livre de crueldade",
-    image: SmartChoiceImg2,
     text: `A marca não realiza testes em animais e desenvolve suas fórmulas
     conforme regulamentações internacionais e legislações vigentes,
     garantindo altos padrões de segurança.`,
   },
   {
     title: "Ingredientes seguros",
-    image: SmartChoiceImg3,
     text: `A seleção de matérias-primas segue padrões internacionais
     de segurança e sustentabilidade. Excluímos deliberadamente
     parabenos, petrolatos, corantes sintéticos e outros ingredientes controversos.`,
+    prova: "A lista completa de ingredientes está na página de cada produto:",
+    links: productsData.map((p) => ({ texto: passos[p.id]?.nome ?? p.tituloDetalhe, to: rotaProduto(p) })),
   },
   {
     title: "Pessoas e pluralidade",
-    image: SmartChoiceImg4,
     text: `Respeitamos a diversidade, os indivíduos e as diferentes histórias.
     Valorizamos relações justas, ambientes seguros e escolhas que
     reconhecem a pluralidade.`,
+    links: [{ texto: "Ler o manifesto", to: ROTAS.manifesto }],
   },
 ];
 
@@ -51,86 +55,158 @@ const toId = (title) =>
   title
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[̀-ͯ]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-// Mesmo layout da página do Manifesto: blocos de foto quadrada + texto, alternando de lado
-const imageVariants = (reverse) => ({
-  hidden: { opacity: 0, x: reverse ? 32 : -32 },
-  visible: { opacity: 1, x: 0, transition: { duration: DURACAO, ease: "easeOut" } },
-});
-
-const textVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: DURACAO, delay: 0.15 } },
-};
+const hairline = "var(--border-hairline) solid var(--border-default)";
 
 const SmartChoiceSection = () => (
-  <section style={{ backgroundColor: "var(--abanic-cream)" }}>
-    <div className="page-container pt-32 md:pt-40 pb-24 space-y-24 md:space-y-32">
-      {smartChoices.map((choice, i) => {
-        const reverse = i % 2 === 1;
-        const Titulo = i === 0 ? "h1" : "h2";
-        return (
-          <div
-            key={choice.title}
-            id={toId(choice.title)}
-            className={`scroll-mt-32 flex flex-col ${
-              reverse ? "md:flex-row-reverse" : "md:flex-row"
-            } md:items-center gap-10 md:gap-20`}
-          >
-            <motion.div
-              className="w-full md:w-5/12 md:max-w-[640px] shrink-0"
-              variants={imageVariants(reverse)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-            >
-              <div className="w-full aspect-square overflow-hidden">
-                <img src={choice.image} alt="" className="w-full h-full object-cover" />
-              </div>
-            </motion.div>
+  <div style={{ backgroundColor: "var(--abanic-cream)" }}>
+    {/* Abertura: título ancorado à esquerda, tese à direita, como no manual */}
+    <section className="page-container pt-32 md:pt-40">
+      <SectionLabel meta="5 compromissos">Escolha inteligente</SectionLabel>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 mt-10 lg:items-end">
+        <h1
+          className="lg:col-span-7"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: "var(--weight-light)",
+            fontSize: "clamp(44px, 6vw, 88px)",
+            lineHeight: 1.02,
+            letterSpacing: "var(--tracking-display)",
+            color: "var(--text-body)",
+          }}
+        >
+          Escolha inteligente
+        </h1>
+        <p
+          className="lg:col-span-5"
+          style={{
+            fontFamily: "var(--font-text)",
+            fontSize: "var(--size-body-lg)",
+            lineHeight: "var(--leading-body)",
+            color: "var(--text-body)",
+            maxWidth: "44ch",
+          }}
+        >
+          Os cinco compromissos por trás de cada fórmula da linha RHADYANCE, e onde conferir cada um deles.
+        </p>
+      </div>
+      <div className="mt-12 lg:mt-16 w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
+        <img src={ImagemSimbolo} alt="" className="w-full h-full object-cover object-[center_45%]" />
+      </div>
+    </section>
 
-            <motion.div
-              className={`flex-1 flex flex-col w-full md:max-w-[560px] md:mx-auto`}
-              variants={textVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
+    {/* Compromissos: uma linha por compromisso, separadas por filete */}
+    <section className="page-container pt-16 lg:pt-24 pb-16 lg:pb-24">
+      <ul style={{ borderBottom: hairline }}>
+        {compromissos.map((c) => (
+          <li
+            key={c.title}
+            id={toId(c.title)}
+            className="scroll-mt-32 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-16 py-10 lg:py-14"
+            style={{ borderTop: hairline }}
+          >
+            <h2
+              className="lg:col-span-5"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: "var(--weight-light)",
+                fontSize: "clamp(28px, 3vw, 40px)",
+                lineHeight: "var(--leading-heading)",
+                letterSpacing: "var(--tracking-display)",
+                color: "var(--text-body)",
+              }}
             >
-              {i === 0 && <SectionLabel rule={false}>Escolha inteligente</SectionLabel>}
-              <Titulo
-                style={{
-                  marginTop: i === 0 ? "var(--space-4)" : 0,
-                  marginBottom: "var(--space-6)",
-                  fontFamily: "var(--font-display)",
-                  fontWeight: "var(--weight-light)",
-                  fontSize: "clamp(32px, 4vw, 56px)",
-                  lineHeight: "var(--leading-display)",
-                  letterSpacing: "var(--tracking-display)",
-                  color: "var(--text-body)",
-                }}
-              >
-                {choice.title}
-              </Titulo>
+              {c.title}
+            </h2>
+            <div className="lg:col-span-7">
               <p
                 style={{
                   fontFamily: "var(--font-text)",
                   fontSize: "var(--size-body-lg)",
                   lineHeight: "var(--leading-body)",
                   color: "var(--text-body)",
-                  maxWidth: "56ch",
+                  maxWidth: "60ch",
                 }}
               >
-                {normalizeText(choice.text)}
+                {normalizeText(c.text)}
               </p>
-            </motion.div>
+              {c.prova && (
+                <p
+                  className="mt-5 pl-4"
+                  style={{
+                    fontFamily: "var(--font-text)",
+                    fontSize: "var(--size-body)",
+                    lineHeight: "var(--leading-body)",
+                    color: "var(--text-body)",
+                    maxWidth: "60ch",
+                    borderLeft: "var(--border-hairline) solid var(--abanic-orange)",
+                  }}
+                >
+                  {c.prova}
+                </p>
+              )}
+              {c.links && (
+                <ul className="flex flex-wrap gap-x-6 gap-y-1 mt-3">
+                  {c.links.map((l) => (
+                    <li key={l.texto}>
+                      <Link
+                        to={l.to}
+                        className="inline-flex items-center min-h-[44px] transition-colors hover:text-[var(--abanic-orange)]"
+                        style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+                      >
+                        <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>{l.texto} →</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {/* Fechamento: o padrão de traços do manual (uma vez na página, nunca atrás de texto) ao lado
+        do próximo passo. Em creme, para não colar no rodapé preto */}
+    <section className="page-container pb-24 lg:pb-32">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 lg:items-center">
+        <div
+          aria-hidden="true"
+          className="lg:col-span-6 w-full aspect-[886/305]"
+          style={{ backgroundImage: `url(${PadraoTracos})`, backgroundSize: "cover", backgroundPosition: "center" }}
+        />
+        <div className="lg:col-span-6">
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: "var(--weight-light)",
+              fontSize: "clamp(32px, 3.6vw, 48px)",
+              lineHeight: "var(--leading-display)",
+              letterSpacing: "var(--tracking-display)",
+              color: "var(--text-body)",
+            }}
+          >
+            Comece pela sua rotina.
+          </h2>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 mt-8">
+            <Button variant="primary" size="lg" href={ROTAS.linha}>
+              Conhecer a linha RHADYANCE
+            </Button>
+            <Link
+              to={ROTAS.rotina}
+              className="inline-flex items-center min-h-[44px] transition-colors hover:text-[var(--abanic-orange)]"
+              style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body)", color: "var(--text-body)" }}
+            >
+              <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Encontre sua rotina →</span>
+            </Link>
           </div>
-        );
-      })}
-    </div>
-  </section>
+        </div>
+      </div>
+    </section>
+  </div>
 );
 
 export default SmartChoiceSection;
