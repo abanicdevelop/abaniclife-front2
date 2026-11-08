@@ -28,7 +28,7 @@ const sectionsData = [
         id: "rhodophytas1",
         title: "Origem e composição",
         text: [
-          "<p>O principal ativo utilizado na formulação da linha <b>RHADYANCE</b> é obtido de algas vermelhas, pertencentes ao filo Rhodophyta. Encontradas nas águas geladas do Mar Báltico, na Europa, mais especificamente na Baía de Kassari, na Estônia.<br><br>Sua colheita é realizada de maneira tradicional e sustentável, praticada da mesma forma desde 1966, com cotas estabelecidas e regulamentadas pelo Instituto Marinho local.<br><br>Presente nessa alga, encontra-se a carragenana, um polissacarídeo sulfatado, estrutura molecular que contém grupos sulfato em sua composição (Nécas e Bartosikova, 2013).<br><br>Após a colheita, as algas vermelhas passam por um processo de extração em água, seguido pelo processo de quebra controlada em moléculas menores, purificação e padronização, resultando em um extrato hidrossolúvel rico em glicanos sulfatados.<br><br>A literatura científica associa às carragenanas, estrutura da qual derivam os glicanos sulfatados presentes no ativo, propriedades antioxidantes e hidratantes.</p>",
+          "<p>As algas vermelhas usadas na linha <b>RHADYANCE</b> pertencem ao filo Rhodophyta e são encontradas nas águas geladas do Mar Báltico, na Europa, mais especificamente na Baía de Kassari, na Estônia.<br><br>Sua colheita é realizada de maneira tradicional e sustentável, praticada da mesma forma desde 1966, com cotas estabelecidas e regulamentadas pelo Instituto Marinho local.<br><br>Presente nessa alga, encontra-se a carragenana, um polissacarídeo sulfatado, estrutura molecular que contém grupos sulfato em sua composição (Nécas e Bartosikova, 2013).<br><br>Após a colheita, as algas vermelhas passam por um processo de extração em água, seguido pelo processo de quebra controlada em moléculas menores, purificação e padronização, resultando em um extrato hidrossolúvel rico em glicanos sulfatados.<br><br>A literatura científica associa às carragenanas, estrutura da qual derivam os glicanos sulfatados presentes no ativo, propriedades antioxidantes e hidratantes.</p>",
         ],
       },
       {
@@ -210,6 +210,7 @@ const textoReferencias = { ...textoCorrido, fontSize: "var(--size-body-sm)", lin
 /** Bloco recolhível com linha fina e +/− à direita (mesmo padrão das páginas de produto). */
 const Secao = ({ titulo, aberto, onToggle, children }) => (
   <div style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
+    <h3 style={{ margin: 0 }}>
     <button
       type="button"
       onClick={onToggle}
@@ -228,6 +229,7 @@ const Secao = ({ titulo, aberto, onToggle, children }) => (
         {aberto ? "−" : "+"}
       </span>
     </button>
+    </h3>
     {aberto && (
       <div className="pb-6 space-y-3 [&_p+p]:mt-3" style={titulo === "Referências" ? textoReferencias : textoCorrido}>
         {children}
@@ -277,6 +279,31 @@ const Explore = () => {
         </motion.div>
       </section>
 
+      {/* Índice: atalho para cada ativo (a página passa de 9.000px no celular) */}
+      <nav aria-label="Ativos nesta página" className="page-container pb-16">
+        <SectionLabel meta={`${sectionsData.length} ativos`}>Nesta página</SectionLabel>
+        <ol className="grid grid-cols-1 sm:grid-cols-3 mt-6" style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
+          {sectionsData.map((ativo, i) => (
+            <li key={ativo.id} style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}>
+              <a href={`#${ativo.id}`} className="group flex items-baseline gap-4 py-5 sm:pr-6 min-h-[44px]">
+                <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-micro)", letterSpacing: "var(--tracking-label)", color: "var(--text-muted)" }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span>
+                  <span
+                    className="block transition-colors group-hover:text-[var(--abanic-orange)]"
+                    style={{ fontFamily: "var(--font-display)", fontWeight: "var(--weight-light)", fontSize: "var(--size-heading-2)", color: "var(--text-body)" }}
+                  >
+                    {ativosSaibaMais[ativo.chave]?.titulo?.replace(/^Extrato de /, "") ?? ativo.nome}
+                  </span>
+                  <em style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-muted)" }}>{ativo.cientifico}</em>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+
       {/* Um capítulo por ativo */}
       {sectionsData.map((ativo, i) => {
         const resumo = ativosSaibaMais[ativo.chave];
@@ -289,6 +316,7 @@ const Explore = () => {
           <section
             key={ativo.id}
             id={ativo.id}
+            className="scroll-mt-20"
             style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
           >
             <div className="page-container py-20 flex flex-col md:flex-row md:items-start gap-10 md:gap-16">
