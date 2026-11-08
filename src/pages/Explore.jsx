@@ -390,7 +390,7 @@ const Explore = () => {
                         <Link
                           key={p.id}
                           to={rotaProduto(p)}
-                          className="transition-colors hover:border-[var(--abanic-orange)] hover:text-[var(--abanic-orange)]"
+                          className="inline-flex items-center min-h-[44px] transition-colors hover:border-[var(--abanic-orange)] hover:text-[var(--abanic-orange)]"
                           style={{
                             padding: "var(--space-2) var(--space-4)",
                             border: "var(--border-hairline) solid var(--neutral-900)",

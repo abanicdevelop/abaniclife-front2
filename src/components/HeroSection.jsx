@@ -162,7 +162,8 @@ const HeroSection = () => {
                     <div>
                       <Link
                         to={rotaProduto(slide.produto)}
-                        className="block"
+                        // área de toque invisível maior que o texto (o link tinha 32px de altura)
+                        className="relative block after:absolute after:inset-x-0 after:-inset-y-2 after:content-['']"
                         style={{
                           fontFamily: "var(--font-text)",
                           fontSize: "var(--size-caption)",
@@ -197,7 +198,7 @@ const HeroSection = () => {
                       }}
                       className="transition-colors hover:bg-[var(--action-primary-bg-hover)]"
                       style={{
-                        height: "40px",
+                        height: "44px",
                         padding: "0 var(--space-5)",
                         background: "var(--action-primary-bg)",
                         color: "var(--action-primary-fg)",

@@ -7,7 +7,7 @@ const BreadText = () => (
         fontFamily: "var(--font-display)",
         fontWeight: "var(--weight-light)",
         fontSize: "clamp(22px, 2.6vw, 36px)",
-        lineHeight: "var(--leading-heading)",
+        lineHeight: 1.32, // um pouco mais solta que --leading-heading (1,25), que apertava no celular
         letterSpacing: "var(--tracking-heading)",
         color: "var(--text-body)",
         maxWidth: "34em",

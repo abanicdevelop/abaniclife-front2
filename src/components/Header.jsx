@@ -248,7 +248,13 @@ const Header = () => {
     item.submenu
       ? item.submenu.some((s) => s.href === caminho || (s.href !== "/" && caminho.startsWith(s.href.split("#")[0] + "/")))
       : item.href === caminho;
-  const marcaAtiva = { borderBottom: "var(--border-hairline) solid var(--abanic-orange)", paddingBottom: "2px" };
+  // Sublinhado (e não borda): não desloca o texto em relação aos outros itens
+  const marcaAtiva = {
+    textDecoration: "underline",
+    textDecorationColor: "var(--abanic-orange)",
+    textDecorationThickness: "1px",
+    textUnderlineOffset: "6px",
+  };
 
   const tone = transparent
     ? "text-white hover:text-white/80"
@@ -358,7 +364,7 @@ const Header = () => {
             {/* Logo: centro no mobile, esquerda no desktop */}
             <Link
               to="/"
-              className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0"
+              className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 inline-flex items-center min-h-[44px]"
             >
               <img
                 src={LogoAbanic}
