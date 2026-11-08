@@ -11,6 +11,7 @@ import { useCart } from "../context/CartContext";
 import { productsData } from "../data/productsData";
 import { passos, destaqueDoProduto } from "../data/rotina";
 import EtiquetaIlustrativa from "./product/EtiquetaIlustrativa";
+import BotaoAdicionar from "./product/BotaoAdicionar";
 import AvisoPreLancamento from "./AvisoPreLancamento";
 import { DURACAO } from "../utils/motion";
 import { precoEmReais, formatarReais } from "../utils/preco";
@@ -52,7 +53,7 @@ const Secao = ({ titulo, abertoInicial = false, children }) => {
 };
 
 const ProductDetailSection = ({ product }) => {
-  const { addItem } = useCart();
+  const { addItem, items, openCart } = useCart();
   const passo = passos[product.id];
   const outrosProdutos = productsData.filter((p) => p.id !== product.id);
 
@@ -192,9 +193,7 @@ const ProductDetailSection = ({ product }) => {
                 {product.preco}
               </span>
               <div ref={comprarRef} className="flex-1 sm:max-w-[320px]">
-                <Button variant="primary" size="lg" fullWidth onClick={() => addItem(product)}>
-                  Adicionar à sacola
-                </Button>
+                <BotaoAdicionar produto={product} size="lg" fullWidth />
               </div>
             </div>
 
@@ -312,13 +311,20 @@ const ProductDetailSection = ({ product }) => {
                   {formatarReais(outrosProdutos.reduce((soma, p) => soma + precoEmReais(p.preco), 0))}
                 </strong>
               </p>
-              <Button
-                variant="primary"
-                fullWidth
-                onClick={() => outrosProdutos.forEach((p) => addItem(p))}
-              >
-                Adicionar os outros 2 à sacola
-              </Button>
+              {/* Adiciona só o que falta; com os dois na sacola, mostra o estado e abre a sacola */}
+              {outrosProdutos.some((p) => !items.some((i) => i.id === p.id)) ? (
+                <Button
+                  variant="primary"
+                  fullWidth
+                  onClick={() => outrosProdutos.filter((p) => !items.some((i) => i.id === p.id)).forEach((p) => addItem(p))}
+                >
+                  Adicionar os outros 2 à sacola
+                </Button>
+              ) : (
+                <Button variant="secondary" fullWidth onClick={openCart}>
+                  Na sacola ✓
+                </Button>
+              )}
             </div>
           </div>
           {outrosProdutos.map((produto, index) => (
@@ -351,9 +357,7 @@ const ProductDetailSection = ({ product }) => {
             {product.preco}
           </p>
         </div>
-        <Button variant="primary" size="md" onClick={() => addItem(product)} tabIndex={mostrarBarra ? 0 : -1}>
-          Adicionar
-        </Button>
+        <BotaoAdicionar produto={product} rotulo="Adicionar" size="md" tabIndex={mostrarBarra ? 0 : -1} />
       </div>
     </>
   );

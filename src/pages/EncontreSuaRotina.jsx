@@ -13,6 +13,7 @@ import { DURACAO, DURACAO_SAIDA } from "../utils/motion";
 import { rotaProduto } from "../data/rotas";
 import EtiquetaIlustrativa from "../components/product/EtiquetaIlustrativa";
 import AvisoPreLancamento from "../components/AvisoPreLancamento";
+import BotaoAdicionar from "../components/product/BotaoAdicionar";
 
 const tituloGrande = {
   fontFamily: "var(--font-display)",
@@ -58,7 +59,7 @@ const nomeProduto = (grande) => ({
 const precoStyle = { fontFamily: "var(--font-text)", fontWeight: "var(--weight-medium)", color: "var(--text-body)" };
 
 // Produto em destaque: imagem quadrada ocupando ~1/3 da largura, texto ao lado
-const CardDestaque = ({ produto: p, motivo, onAdicionar }) => (
+const CardDestaque = ({ produto: p, motivo }) => (
   <article className="grid grid-cols-1 md:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] gap-6 md:gap-12 items-center">
     <Link to={rotaProduto(p)} className="relative block overflow-hidden aspect-square" style={{ background: "var(--surface-raised)" }}>
       <img src={p.imagem} alt={p.tituloDetalhe} className="w-full h-full object-cover" />
@@ -77,16 +78,14 @@ const CardDestaque = ({ produto: p, motivo, onAdicionar }) => (
       <p style={{ ...textoApoio, marginTop: "var(--space-3)", maxWidth: "52ch" }}>{motivo ?? motivoDoProduto[p.id]}</p>
       <div className="flex flex-wrap items-center gap-6 mt-8">
         <span style={{ ...precoStyle, fontSize: "var(--size-body-lg)" }}>{p.preco}</span>
-        <Button variant="primary" onClick={() => onAdicionar(p)}>
-          Adicionar à sacola
-        </Button>
+        <BotaoAdicionar produto={p} />
       </div>
     </div>
   </article>
 );
 
 // Produto do complemento: cartão horizontal compacto (miniatura + texto)
-const CardComplemento = ({ produto: p, onAdicionar }) => (
+const CardComplemento = ({ produto: p }) => (
   <article className="flex gap-5 items-start">
     <Link
       to={rotaProduto(p)}
@@ -106,9 +105,7 @@ const CardComplemento = ({ produto: p, onAdicionar }) => (
       <p style={{ ...textoApoio, fontSize: "var(--size-body-sm)", marginTop: "var(--space-2)" }}>{motivoDoProduto[p.id]}</p>
       <div className="flex flex-wrap items-center justify-between gap-3 mt-auto pt-4">
         <span style={precoStyle}>{p.preco}</span>
-        <Button variant="secondary" size="sm" onClick={() => onAdicionar(p)}>
-          Adicionar à sacola
-        </Button>
+        <BotaoAdicionar produto={p} variant="secondary" size="md" />
       </div>
     </div>
   </article>
@@ -159,7 +156,7 @@ const Resultado = ({ respostas, onRefazer, onVoltar }) => {
       {rotina.abertura && <p style={{ ...textoApoio, marginTop: "var(--space-4)", maxWidth: "56ch" }}>{rotina.abertura}</p>}
 
       <div className="mt-12">
-        <CardDestaque produto={destaque} motivo={rotina.motivoDestaque} onAdicionar={addItem} />
+        <CardDestaque produto={destaque} motivo={rotina.motivoDestaque} />
       </div>
 
       <h2
@@ -177,7 +174,7 @@ const Resultado = ({ respostas, onRefazer, onVoltar }) => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 mt-8">
         {complemento.map((p) => (
-          <CardComplemento key={p.id} produto={p} onAdicionar={addItem} />
+          <CardComplemento key={p.id} produto={p} />
         ))}
       </div>
 

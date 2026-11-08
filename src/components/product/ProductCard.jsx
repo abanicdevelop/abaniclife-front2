@@ -1,15 +1,14 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "../design-system/Button";
-import { useCart } from "../../context/CartContext";
 import { passos, destaqueDoProduto } from "../../data/rotina";
 import { DURACAO } from "../../utils/motion";
 import { rotaProduto } from "../../data/rotas";
 import EtiquetaIlustrativa from "./EtiquetaIlustrativa";
+import BotaoAdicionar from "./BotaoAdicionar";
 
 /** Card de produto com foto, passo da rotina, preço e "Adicionar à sacola". */
 const ProductCard = ({ produto, index = 0 }) => {
-  const { addItem } = useCart();
   const passo = passos[produto.id];
 
   return (
@@ -81,9 +80,7 @@ const ProductCard = ({ produto, index = 0 }) => {
           {produto.preco}
         </span>
         {/* md = 44px de altura, área de toque mínima (sm tinha 34px) */}
-        <Button variant="secondary" size="md" onClick={() => addItem(produto)}>
-          Adicionar à sacola
-        </Button>
+        <BotaoAdicionar produto={produto} variant="secondary" size="md" />
       </div>
     </motion.article>
   );
