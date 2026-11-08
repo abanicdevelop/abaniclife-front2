@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { SectionLabel } from "../components/design-system/SectionLabel";
@@ -219,7 +219,7 @@ const Secao = ({ titulo, aberto, onToggle, children }) => (
       style={{
         fontFamily: "var(--font-text)",
         fontWeight: "var(--weight-medium)",
-        fontSize: "var(--size-body-sm)",
+        fontSize: "var(--size-body)", // título no tamanho do corpo (14px ficava menor que o texto de dentro)
         color: "var(--text-body)",
         cursor: "pointer",
       }}
@@ -240,6 +240,15 @@ const Secao = ({ titulo, aberto, onToggle, children }) => (
 
 const Explore = () => {
   const [abertos, setAbertos] = useState({});
+
+  // Link direto para um ativo (ex.: /ativos#rhodophytas, vindo da Escolha inteligente): toda página
+  // nova começa do topo, então descemos até o capítulo depois de montar
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id) return;
+    const t = setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "instant" }), 50);
+    return () => clearTimeout(t);
+  }, []);
   const alternar = (id) => setAbertos((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
