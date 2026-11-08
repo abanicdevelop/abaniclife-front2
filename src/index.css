@@ -117,3 +117,13 @@ textarea::placeholder {
 [data-titulo-etapa]:focus-visible {
   outline: none !important;
 }
+
+/* Campos do design system: o anel de foco contorna a caixa toda (no input interno ele ficava deslocado) */
+.campo:focus-within {
+  outline: 2px solid var(--abanic-orange, #fc622b);
+  outline-offset: 2px;
+}
+.campo input:focus,
+.campo input:focus-visible {
+  outline: none !important;
+}

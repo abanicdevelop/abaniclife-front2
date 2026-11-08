@@ -34,18 +34,24 @@ const NewsletterForm = ({ empilhado = false }) => {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [errosCampos, setErrosCampos] = useState({});
   const [empresa, setEmpresa] = useState(""); // campo-isca invisível: só robôs preenchem
   const formularioValido = nome.trim().length > 0 && EMAIL_REGEX.test(email.trim());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // O botão fica sempre ativo (desativado, ele sumia sobre o azul da seção); se faltar algo, diz o quê
+    // O botão fica sempre ativo (desativado, ele sumia sobre o azul da seção); se faltar algo, o
+    // erro aparece junto do campo e o foco vai para ele
     if (!formularioValido) {
-      setErrorMessage(
-        nome.trim().length === 0 ? "Preencha seu nome." : "Confira o e-mail: ele precisa ter o formato nome@exemplo.com.",
-      );
+      const erros = {};
+      if (nome.trim().length === 0) erros.nome = "Preencha seu nome.";
+      if (!EMAIL_REGEX.test(email.trim())) erros.email = "Confira o e-mail: ele precisa ter o formato nome@exemplo.com.";
+      setErrosCampos(erros);
+      setErrorMessage("");
+      e.currentTarget.querySelector(erros.nome ? 'input[autocomplete="given-name"]' : 'input[type="email"]')?.focus();
       return;
     }
+    setErrosCampos({});
 
     setIsLoading(true);
     setErrorMessage("");
@@ -110,14 +116,27 @@ const NewsletterForm = ({ empilhado = false }) => {
         style={{ position: "absolute", left: "-10000px", width: 1, height: 1, opacity: 0 }}
       />
       <div className={empilhado ? "flex flex-col gap-4" : "grid grid-cols-1 sm:grid-cols-2 gap-4"}>
-        <Input label="Seu nome" autoComplete="given-name" value={nome} onChange={(e) => setNome(e.target.value)} />
+        <Input
+          label="Seu nome"
+          autoComplete="given-name"
+          value={nome}
+          error={errosCampos.nome}
+          onChange={(e) => {
+            setNome(e.target.value);
+            if (errosCampos.nome) setErrosCampos((x) => ({ ...x, nome: undefined }));
+          }}
+        />
         <Input
           label="Seu e-mail"
           type="email"
           placeholder="seu@email.com"
           autoComplete="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          error={errosCampos.email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (errosCampos.email) setErrosCampos((x) => ({ ...x, email: undefined }));
+          }}
         />
       </div>
       <Button type="submit" variant="primary" size="lg" disabled={isLoading} fullWidth>

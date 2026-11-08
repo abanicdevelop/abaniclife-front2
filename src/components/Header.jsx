@@ -276,7 +276,13 @@ const Header = () => {
   // Esc fecha o submenu aberto no desktop (acessibilidade para quem navega pelo teclado)
   useEffect(() => {
     if (activeSubmenu === null) return;
-    const aoTeclar = (e) => e.key === "Escape" && setActiveSubmenu(null);
+    const aoTeclar = (e) => {
+      if (e.key !== "Escape") return;
+      // Se o foco estava dentro do submenu, ele volta para o botão que o abriu (antes caía no início da página)
+      const item = document.querySelector(`[data-menu-item="${activeSubmenu}"]`);
+      if (item?.contains(document.activeElement)) item.querySelector("button")?.focus();
+      setActiveSubmenu(null);
+    };
     window.addEventListener("keydown", aoTeclar);
     return () => window.removeEventListener("keydown", aoTeclar);
   }, [activeSubmenu]);
@@ -382,8 +388,15 @@ const Header = () => {
                 <div
                   key={item.name}
                   className="relative flex items-stretch"
+                  data-menu-item={index}
                   onMouseEnter={() => item.submenu && abrirSubmenu(index)}
                   onMouseLeave={() => item.submenu && agendarFechar()}
+                  // Fecha quando o foco do teclado sai do item (antes o painel ficava aberto cobrindo a página)
+                  onBlur={(e) => {
+                    if (item.submenu && activeSubmenu === index && e.relatedTarget && !e.currentTarget.contains(e.relatedTarget)) {
+                      setActiveSubmenu(null);
+                    }
+                  }}
                 >
                   {item.submenu ? (
                     <button
