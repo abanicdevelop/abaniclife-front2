@@ -93,7 +93,29 @@ const SmartChoiceSection = () => (
           Os cinco compromissos por trás de cada fórmula da linha RHADYANCE, e onde conferir cada um deles.
         </p>
       </div>
-      <div className="mt-12 lg:mt-16 w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
+      {/* Os cinco compromissos já na primeira tela, como atalhos (antes só a foto aparecia antes da rolagem) */}
+      <nav aria-label="Os cinco compromissos" className="mt-12 lg:mt-16">
+        <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5" style={{ borderTop: hairline }}>
+          {compromissos.map((c, i) => (
+            <li key={c.title} style={{ borderBottom: hairline }}>
+              <a
+                href={`#${toId(c.title)}`}
+                className="flex items-baseline gap-3 min-h-[56px] py-4 pr-4 hover:text-[var(--abanic-orange)] transition-colors"
+                style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body)", color: "var(--text-body)" }}
+              >
+                <span
+                  aria-hidden="true"
+                  style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-muted)", fontVariantNumeric: "tabular-nums" }}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {c.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <div className="mt-12 lg:mt-16 w-full aspect-[2/1] lg:aspect-[3/1] overflow-hidden">
         <img src={ImagemSimbolo} alt="" className="w-full h-full object-cover object-[center_45%]" />
       </div>
     </section>
@@ -192,15 +214,16 @@ const SmartChoiceSection = () => (
             Comece pela sua rotina.
           </h2>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 mt-8">
-            <Button variant="primary" size="lg" href={ROTAS.linha}>
-              Conhecer a linha RHADYANCE
+            {/* A ação principal cumpre o título "Comece pela sua rotina"; a linha fica como link */}
+            <Button variant="primary" size="lg" href={ROTAS.rotina}>
+              Encontre sua rotina
             </Button>
             <Link
-              to={ROTAS.rotina}
+              to={ROTAS.linha}
               className="inline-flex items-center min-h-[44px] transition-colors hover:text-[var(--abanic-orange)]"
               style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body)", color: "var(--text-body)" }}
             >
-              <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Encontre sua rotina →</span>
+              <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Conhecer a linha RHADYANCE →</span>
             </Link>
           </div>
         </div>
