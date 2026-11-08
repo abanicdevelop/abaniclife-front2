@@ -13,6 +13,7 @@ import { productsData } from "../data/productsData";
 import { passos } from "../data/rotina";
 import { necessidades } from "../data/necessidades";
 import { rotaProduto } from "../data/rotas";
+import { useFocusTrap } from "../utils/useFocusTrap";
 
 // Scroll suave customizado
 const smoothScrollTo = (targetY, duration = 1000) => {
@@ -133,6 +134,10 @@ const Header = () => {
   const { language } = useLanguage();
   const { totalItems, openCart } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const menuMobileRef = useRef(null);
+  const fecharMenuRef = useRef(null);
+  const abrirMenuRef = useRef(null);
+  useFocusTrap(menuMobileRef, mobileMenuOpen);
   const [mobileActiveSubmenu, setMobileActiveSubmenu] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -212,9 +217,13 @@ const Header = () => {
     document.body.style.overflow = "hidden";
     const onKey = (e) => e.key === "Escape" && setMobileMenuOpen(false);
     window.addEventListener("keydown", onKey);
+    // O foco entra na gaveta e, ao fechar, volta ao botão que a abriu
+    fecharMenuRef.current?.focus();
+    const botaoAbrir = abrirMenuRef.current;
     return () => {
       document.body.style.overflow = prevOverflow;
       window.removeEventListener("keydown", onKey);
+      if (botaoAbrir && botaoAbrir.offsetParent !== null) botaoAbrir.focus();
     };
   }, [mobileMenuOpen]);
 
@@ -334,6 +343,7 @@ const Header = () => {
             {/* Mobile: botão do menu à esquerda */}
             <button
               className={`lg:hidden inline-flex items-center justify-center w-11 h-11 -ml-2 ${tone}`}
+              ref={abrirMenuRef}
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Abrir menu"
               aria-expanded={mobileMenuOpen}
@@ -348,7 +358,7 @@ const Header = () => {
             >
               <img
                 src={LogoAbanic}
-                alt="Logo Abanic"
+                alt="ABANIC"
                 className="h-9 lg:h-11 w-auto object-contain transition-smooth"
                 style={transparent ? { filter: "brightness(0) invert(1)" } : undefined}
               />
@@ -489,8 +499,14 @@ const Header = () => {
         style={{ background: "var(--ink-a40)", zIndex: 60 }}
       />
       <aside
+        ref={menuMobileRef}
         className="lg:hidden fixed top-0 left-0 h-dvh flex flex-col"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
         aria-hidden={!mobileMenuOpen}
+        // Fechada, a gaveta fica fora do alcance do teclado e de leitores de tela
+        {...(!mobileMenuOpen ? { inert: "" } : {})}
         style={{
           width: "min(360px, 88vw)",
           background: "var(--surface-page)",
@@ -504,8 +520,9 @@ const Header = () => {
           className="flex items-center justify-between h-16 px-5"
           style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}
         >
-          <img src={LogoAbanic} alt="Logo Abanic" className="h-8 w-auto object-contain" />
+          <img src={LogoAbanic} alt="ABANIC" className="h-8 w-auto object-contain" />
           <button
+            ref={fecharMenuRef}
             onClick={closeMobileMenu}
             aria-label="Fechar menu"
             className="inline-flex items-center justify-center w-11 h-11 -mr-2"
@@ -559,7 +576,7 @@ const Header = () => {
                       />
                     </button>
                     {mobileActiveSubmenu === index && (
-                      <ul className="pb-4 space-y-3">
+                      <ul className="pb-3">
                         {item.submenu.map((subItem) => (
                           <li key={subItem.name}>
                             <a
@@ -568,7 +585,7 @@ const Header = () => {
                                 handleLinkClick(e, subItem.href);
                                 closeMobileMenu();
                               }}
-                              className="block hover:text-abanic-orange transition-colors"
+                              className="flex items-center min-h-[44px] hover:text-abanic-orange transition-colors"
                               style={{
                                 fontFamily: "var(--font-text)",
                                 fontSize: "var(--size-body-sm)",
