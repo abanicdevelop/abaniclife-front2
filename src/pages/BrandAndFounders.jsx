@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import ImageWoman from "../assets/manifest/woman.webp";
 import ImageHouse from "../assets/manifest/400X400.webp";
 import ImageMountains from "../assets/manifest/mountains.webp";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+import { ROTAS } from "../data/rotas";
 import { DURACAO } from "../utils/motion";
 import { SectionLabel } from "../components/design-system/SectionLabel";
 
@@ -136,6 +137,27 @@ const BrandAndFounders = () => {
     <section style={{ backgroundColor: "var(--abanic-cream)" }}>
       <div id="marca" className="page-container pt-32 md:pt-40 pb-24 space-y-24 md:space-y-32">
         {sections.map((section) => renderSection(section))}
+
+        {/* Fechamento: dois caminhos depois da última frase */}
+        <nav
+          aria-label="Continue"
+          className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-10 pt-8"
+          style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
+        >
+          {[
+            { texto: "Conhecer a linha RHADYANCE", to: ROTAS.linha },
+            { texto: "Escolha inteligente", to: ROTAS.escolhaInteligente },
+          ].map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="inline-flex items-center min-h-[44px] transition-colors hover:text-[var(--abanic-orange)]"
+              style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body)", color: "var(--text-body)" }}
+            >
+              <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>{l.texto} →</span>
+            </Link>
+          ))}
+        </nav>
       </div>
     </section>
   );
