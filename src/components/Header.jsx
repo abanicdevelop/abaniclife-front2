@@ -48,11 +48,8 @@ const translations = {
     },
     menu: [
       { name: "Início", href: "/" },
-      {
-        name: "Sobre",
-        href: "#",
-        submenu: [{ name: "Manifesto da marca", href: "/manifesto#marca" }],
-      },
+      // Link direto (era um submenu com um item só)
+      { name: "Sobre", href: "/manifesto" },
       {
         name: "Produtos",
         href: "#",
@@ -93,8 +90,7 @@ const translations = {
       { name: "Home", href: "/" },
       {
         name: "About",
-        href: "#",
-        submenu: [{ name: "Brand Manifesto", href: "/manifesto#marca" }],
+        href: "/manifesto",
       },
       {
         name: "Product",
@@ -246,6 +242,14 @@ const Header = () => {
   // sobre a foto até a pessoa rolar a página
   const temBannerCheio = location.pathname === "/" || location.pathname === "/produtos";
   const transparent = temBannerCheio && !isScrolled && activeSubmenu === null;
+  // Página atual no menu: o item (ou o grupo que contém a página) ganha um filete laranja embaixo
+  const caminho = location.pathname;
+  const itemAtivo = (item) =>
+    item.submenu
+      ? item.submenu.some((s) => s.href === caminho || (s.href !== "/" && caminho.startsWith(s.href.split("#")[0] + "/")))
+      : item.href === caminho;
+  const marcaAtiva = { borderBottom: "var(--border-hairline) solid var(--abanic-orange)", paddingBottom: "2px" };
+
   const tone = transparent
     ? "text-white hover:text-white/80"
     : "text-abanic-gray hover:text-abanic-gray-dark";
@@ -335,7 +339,7 @@ const Header = () => {
         className={`fixed top-0 left-0 w-full z-50 transition-smooth ${
           transparent
             ? "bg-linear-to-b from-black/35 to-transparent"
-            : "bg-white/95 backdrop-blur-sm shadow-sm"
+            : "bg-[var(--surface-page)] border-b border-[var(--border-default)]"
         }`}
       >
         <div className="page-container">
@@ -383,16 +387,17 @@ const Header = () => {
                       className={`flex items-center cursor-pointer transition-smooth px-3 -mx-3 ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
-                      {item.name}
+                      <span style={itemAtivo(item) ? marcaAtiva : undefined}>{item.name}</span>
                       <ChevronDown className="ml-1 h-4 w-4" />
                     </button>
                   ) : (
                     <Link
                       to={item.href}
+                      aria-current={itemAtivo(item) ? "page" : undefined}
                       className={`flex items-center transition-smooth px-3 -mx-3 ${tone}`}
                       style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "15px" }}
                     >
-                      {item.name}
+                      <span style={itemAtivo(item) ? marcaAtiva : undefined}>{item.name}</span>
                     </Link>
                   )}
 
@@ -465,7 +470,14 @@ const Header = () => {
                   )}
 
                   {item.submenu && activeSubmenu === index && !item.submenu.some((s) => s.href === "/produtos") && (
-                    <div className="absolute top-full left-0 w-60 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <div
+                      className="absolute top-full -left-3 w-64 py-3 z-50"
+                      style={{
+                        background: "var(--surface-page)",
+                        border: "var(--border-hairline) solid var(--border-default)",
+                        boxShadow: "var(--shadow-2)",
+                      }}
+                    >
                       {item.submenu.map((subItem) => (
                         <a
                           key={subItem.name}
@@ -474,8 +486,12 @@ const Header = () => {
                             handleLinkClick(e, subItem.href);
                             setActiveSubmenu(null);
                           }}
-                          className="block px-4 py-2 text-abanic-gray hover:bg-gray-50 hover:text-abanic-gray-dark transition-smooth"
-                          style={{ fontFamily: "var(--font-text)", fontWeight: 500, fontSize: "14px" }}
+                          aria-current={location.pathname === subItem.href ? "page" : undefined}
+                          className="flex items-center min-h-[40px] px-5 hover:text-[var(--abanic-orange)] transition-colors"
+                          style={{
+                            ...megaLink,
+                            fontWeight: location.pathname === subItem.href ? "var(--weight-medium)" : undefined,
+                          }}
                         >
                           {subItem.name}
                         </a>
@@ -535,7 +551,7 @@ const Header = () => {
 
         <nav className="flex-1 overflow-y-auto px-5 py-4">
           <ul>
-            {menuItems.map((item, index) => (
+            {menuItems.map((item, index) => item.submenu?.some((s) => s.href === "/produtos") ? null : (
               <li
                 key={item.name}
                 style={{ borderBottom: "var(--border-hairline) solid var(--border-default)" }}
@@ -673,6 +689,14 @@ const Header = () => {
                 </Link>
               ))}
             </div>
+            <Link
+              to="/produtos"
+              onClick={closeMobileMenu}
+              className="inline-flex items-center min-h-[44px] mt-2"
+              style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+            >
+              <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Ver a linha RHADYANCE →</span>
+            </Link>
           </div>
         </nav>
 
@@ -686,7 +710,7 @@ const Header = () => {
               closeMobileMenu();
               openCart();
             }}
-            className="flex items-center gap-3"
+            className="flex items-center gap-3 min-h-[44px]"
             style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
           >
             <ShoppingBag size={18} strokeWidth={1.5} />
