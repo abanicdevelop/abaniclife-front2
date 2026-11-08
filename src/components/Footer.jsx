@@ -25,26 +25,26 @@ const Footer = () => {
       subscribeBtn: "Inscrever-se",
       copyright: `© ${currentYear} ABANIC. Todos os direitos reservados.`,
       legalLinks: [
-        { name: "Termos de Uso", href: "/termos-de-uso" },
+        { name: "Termos de uso", href: "/termos-de-uso" },
         { name: "Privacidade", href: "/politica-de-privacidade" },
         { name: "Cookies", href: "/politica-de-cookies" },
       ],
       footerLinks: {
-        company: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
+        company: [{ name: "Manifesto da marca", href: "/manifesto#marca" }],
         products: [
           { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
           { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
           { name: "Creme Facial Hidratante Rhadyance FPS\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
-          { name: "Perguntas Frequentes", href: "/faq" },
-          { name: "Política de Privacidade", href: "/politica-de-privacidade" },
-          { name: "Política de Cookies", href: "/politica-de-cookies" },
-          { name: "Termos de Uso", href: "/termos-de-uso" },
+          { name: "Perguntas frequentes", href: "/faq" },
+          { name: "Política de privacidade", href: "/politica-de-privacidade" },
+          { name: "Política de cookies", href: "/politica-de-cookies" },
+          { name: "Termos de uso", href: "/termos-de-uso" },
         ],
         explore: [
-          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/ativos" },
-          { name: "Escolha Inteligente", href: "/escolha-inteligente" },
+          { name: "Saiba mais sobre ativos e benefícios", href: "/ativos" },
+          { name: "Escolha inteligente", href: "/escolha-inteligente" },
         ],
       },
     },
@@ -124,7 +124,7 @@ const Footer = () => {
       {
         icon: Sparkles,
         title: "Samples on request",
-        desc: "Ask us via Explore > ABANIC",
+        desc: "Talk to our support team",
       },
       {
         icon: ShieldCheck,

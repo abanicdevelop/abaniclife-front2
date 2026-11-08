@@ -46,11 +46,11 @@ const translations = {
       register: "Registrar-se",
     },
     menu: [
-      { name: "Home", href: "/" },
+      { name: "Início", href: "/" },
       {
         name: "Sobre",
         href: "#",
-        submenu: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
+        submenu: [{ name: "Manifesto da marca", href: "/manifesto#marca" }],
       },
       {
         name: "Produtos",
@@ -66,18 +66,18 @@ const translations = {
         name: "Explore",
         href: "#",
         submenu: [
-          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/ativos" },
-          { name: "Escolha Inteligente", href: "/escolha-inteligente" },
+          { name: "Saiba mais sobre ativos e benefícios", href: "/ativos" },
+          { name: "Escolha inteligente", href: "/escolha-inteligente" },
         ],
       },
       {
         name: "Suporte",
         href: "#",
         submenu: [
-          { name: "Perguntas Frequentes", href: "/faq" },
-          { name: "Política de Privacidade", href: "/politica-de-privacidade" },
-          { name: "Política de Cookies", href: "/politica-de-cookies" },
-          { name: "Termos de Uso", href: "/termos-de-uso" },
+          { name: "Perguntas frequentes", href: "/faq" },
+          { name: "Política de privacidade", href: "/politica-de-privacidade" },
+          { name: "Política de cookies", href: "/politica-de-cookies" },
+          { name: "Termos de uso", href: "/termos-de-uso" },
         ],
       },
     ],
