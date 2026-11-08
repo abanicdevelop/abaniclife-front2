@@ -275,7 +275,7 @@ const Explore = () => {
           </p>
         </div>
         <motion.div
-          className="w-full overflow-hidden mt-12 aspect-[16/9]"
+          className="w-full overflow-hidden mt-12 aspect-[16/9] max-h-[40vh]"
           style={{ background: "var(--neutral-0)" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: DURACAO } }}
@@ -289,7 +289,7 @@ const Explore = () => {
       </section>
 
       {/* Índice: atalho para cada ativo (a página passa de 9.000px no celular) */}
-      <nav aria-label="Ativos nesta página" className="page-container pb-16">
+      <nav id="indice-ativos" aria-label="Ativos nesta página" className="page-container pb-16 scroll-mt-20">
         <SectionLabel meta={`${sectionsData.length} ativos`}>Nesta página</SectionLabel>
         <ol className="grid grid-cols-1 sm:grid-cols-3 mt-6" style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}>
           {sectionsData.map((ativo, i) => (
@@ -430,6 +430,29 @@ const Explore = () => {
                     </Secao>
                   ))}
                 </div>
+
+                {/* Fim do capítulo: volta ao índice ou segue para o próximo ativo (página de ~10.000px
+                    no celular; antes a única saída era o botão de voltar ao topo) */}
+                <nav aria-label="Navegação entre ativos" className="flex flex-wrap items-center justify-between gap-x-6 mt-6">
+                  <a
+                    href="#indice-ativos"
+                    className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors"
+                    style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+                  >
+                    ↑ Índice
+                  </a>
+                  {sectionsData[i + 1] && (
+                    <a
+                      href={`#${sectionsData[i + 1].id}`}
+                      className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors"
+                      style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+                    >
+                      <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>
+                        Próximo: {ativosSaibaMais[sectionsData[i + 1].chave]?.titulo?.replace(/^Extrato de /, "") ?? sectionsData[i + 1].nome} →
+                      </span>
+                    </a>
+                  )}
+                </nav>
               </div>
             </div>
           </section>

@@ -102,31 +102,49 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mt-12 lg:mt-16">
-          {/* Índice: fixo ao rolar no desktop; recolhível no celular */}
-          <nav className="lg:col-span-4" aria-label="Nesta página">
-            <div className="hidden lg:block lg:sticky lg:top-28" style={{ borderTop: "var(--border-hairline) solid var(--border-default)", paddingTop: "var(--space-4)" }}>
+          {/* Índice fixo ao rolar no desktop */}
+          <nav className="hidden lg:block lg:col-span-4" aria-label="Nesta página">
+            <div className="lg:sticky lg:top-28" style={{ borderTop: "var(--border-hairline) solid var(--border-default)", paddingTop: "var(--space-4)" }}>
               <p className="texto-legal-rotulo mb-2">Nesta página</p>
               <Indice />
             </div>
-            <details
-              ref={detalhesRef}
-              className="lg:hidden"
-              style={{
-                borderTop: "var(--border-hairline) solid var(--border-default)",
-                borderBottom: "var(--border-hairline) solid var(--border-default)",
-              }}
-            >
-              <summary className="texto-legal-rotulo flex items-center justify-between min-h-[48px] cursor-pointer">
-                Nesta página
-                <span aria-hidden="true" className="texto-legal-mais" />
-              </summary>
-              <div className="pb-3">
-                <Indice />
-              </div>
-            </details>
           </nav>
 
-          <article className="texto-legal lg:col-span-8">{children}</article>
+          <div className="lg:col-span-8">
+            {/* Celular: o índice recolhível fica preso sob o cabeçalho enquanto se lê e mostra a seção
+                atual (antes só existia no topo e se perdia no meio de textos longos) */}
+            <nav
+              aria-label="Nesta página"
+              className="lg:hidden sticky top-16 z-10"
+              style={{ background: "var(--abanic-cream)" }}
+            >
+              <details
+                ref={detalhesRef}
+                style={{
+                  borderTop: "var(--border-hairline) solid var(--border-default)",
+                  borderBottom: "var(--border-hairline) solid var(--border-default)",
+                }}
+              >
+                <summary className="flex items-center justify-between gap-4 min-h-[48px] cursor-pointer">
+                  <span className="min-w-0 truncate">
+                    <span className="texto-legal-rotulo">Nesta página</span>
+                    <span
+                      className="ml-3"
+                      style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}
+                    >
+                      {secoes.find((x) => x.id === atual)?.titulo}
+                    </span>
+                  </span>
+                  <span aria-hidden="true" className="texto-legal-mais shrink-0" />
+                </summary>
+                <div className="pb-3 max-h-[60vh] overflow-y-auto">
+                  <Indice />
+                </div>
+              </details>
+            </nav>
+
+            <article className="texto-legal mt-8 lg:mt-0">{children}</article>
+          </div>
         </div>
       </section>
     </div>
