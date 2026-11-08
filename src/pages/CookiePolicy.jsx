@@ -1,375 +1,180 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { DURACAO } from "../utils/motion";
+import PaginaLegal from "../components/legal/PaginaLegal";
+import { abrirAvisoDeCookies } from "../components/CookieBanner";
+import { Button } from "../components/design-system/Button";
 
-const CookiePolicy = () => {
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: DURACAO, ease: "easeOut" },
-    },
-  };
+// Reflete o que o site usa de fato (revisado em 25/10/2026)
+const cookieTypes = [
+  {
+    title: "Essenciais",
+    description:
+      "Necessários para o site funcionar. Guardam no seu navegador a sacola de compras e a sua escolha sobre cookies. No pagamento, a Shopify, plataforma do nosso checkout, usa cookies próprios para concluir a compra com segurança.",
+    status: "Sempre ativos",
+  },
+  {
+    title: "Medição",
+    description:
+      "Nos ajudam a entender como o site é usado, como páginas mais visitadas e de onde vêm as visitas, para melhorá-lo. Só são ativados se você clicar em “Aceitar todos”.",
+    status: "Somente com sua permissão",
+    items: ["Google Analytics (Google)", "Vercel Web Analytics (medição de visitas sem cookies)"],
+  },
+  {
+    title: "Marketing",
+    description:
+      "Não utilizamos cookies de marketing ou publicidade. Se isso mudar, esta política será atualizada e pediremos a sua permissão antes.",
+  },
+];
 
-  // Reflete o que o site usa de fato (revisado em 25/10/2026)
-  const cookieTypes = [
-    {
-      title: "Essenciais",
-      description:
-        "Necessários para o site funcionar. Guardam no seu navegador a sacola de compras e a sua escolha sobre cookies. No pagamento, a Shopify, plataforma do nosso checkout, usa cookies próprios para concluir a compra com segurança.",
-      status: "Sempre ativos",
-      color: "bg-orange-50 border-l-4 border-abanic-orange",
-    },
-    {
-      title: "Medição",
-      description:
-        "Nos ajudam a entender como o site é usado, como páginas mais visitadas e de onde vêm as visitas, para melhorá-lo. Só são ativados se você clicar em \u201cAceitar todos\u201d.",
-      status: "Somente com sua permissão",
-      items: ["Google Analytics (Google)", "Vercel Web Analytics (medição de visitas sem cookies)"],
-      color: "bg-gray-50 border-l-4 border-gray-400",
-    },
-    {
-      title: "Marketing",
-      description:
-        "Não utilizamos cookies de marketing ou publicidade. Se isso mudar, esta política será atualizada e pediremos a sua permissão antes.",
-      color: "bg-gray-50 border-l-4 border-gray-400",
-    },
-  ];
+// Páginas oficiais de ajuda de cada navegador sobre cookies
+const navegadores = [
+  { nome: "Google Chrome", href: "https://support.google.com/chrome/answer/95647?hl=pt-BR" },
+  { nome: "Mozilla Firefox", href: "https://support.mozilla.org/pt-BR/kb/ative-e-desative-os-cookies-que-os-sites-usam" },
+  { nome: "Safari", href: "https://support.apple.com/pt-br/guide/safari/sfri11471/mac" },
+  {
+    nome: "Microsoft Edge",
+    href: "https://support.microsoft.com/pt-br/microsoft-edge/excluir-cookies-no-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09",
+  },
+];
 
-  return (
-    <section className="w-full bg-gradient-to-b from-abanic-gray-light to-white mt-20">
-      {/* Hero Header */}
-      <motion.div
-        variants={textVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        className="w-full px-6 py-16 md:py-24 flex flex-col items-center"
-      >
-        <div className="max-w-6xl text-center">
-          <h1
-            className="text-3xl md:text-4xl font-bold mb-4 font-space-grotesk-h1"
-            style={{
-              fontFamily: '"Space Grotesk", sans-serif',
-              color: "var(--abanic-gray-dark)",
-            }}
-          >
-            Política de Cookies
-          </h1>
-          <p className="text-base text-abanic-gray leading-relaxed">
-            Entenda como utilizamos cookies para melhorar sua experiência e
-            controle suas preferências
-          </p>
+const secoes = [
+  { id: "o-que-sao-cookies", titulo: "1. O que são cookies?" },
+  { id: "como-utilizamos-cookies", titulo: "2. Como utilizamos cookies" },
+  { id: "tipos-de-cookies-que-utilizamos", titulo: "3. Tipos de cookies que utilizamos" },
+  { id: "cookies-de-terceiros", titulo: "4. Cookies de terceiros" },
+  { id: "gerenciamento-de-cookies", titulo: "5. Gerenciamento de cookies" },
+  { id: "consequencias-da-desativacao", titulo: "6. Consequências da desativação" },
+  { id: "atualizacoes-desta-politica", titulo: "7. Atualizações desta política" },
+  { id: "contato", titulo: "8. Contato" },
+];
 
-          <div className="w-full max-w-[1070px] h-px bg-abanic-orange mx-auto mt-6"></div>
-        </div>
-      </motion.div>
-
-      {/* Content */}
-      <div className="max-w-[1070px] mx-auto px-6 py-16 md:py-24 -mt-20">
-        {/* Section 1 */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-6 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            1. O que são Cookies?
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
-            Cookies são pequenos arquivos de texto que são armazenados no seu
-            dispositivo (computador, tablet ou smartphone) quando você visita um
-            site. Eles são amplamente utilizados para fazer os sites funcionarem
-            de forma mais eficiente, bem como para fornecer informações aos
-            proprietários do site.
-          </p>
-        </motion.div>
-
-        {/* Section 2 */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-6 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            2. Como Utilizamos Cookies
-          </h2>
-          <p className="text-base text-abanic-gray mb-6 leading-relaxed">
-            A ABANIC utiliza cookies para diversos fins, incluindo:
-          </p>
-          <ul className="space-y-3">
-            {[
-              "Garantir o funcionamento adequado do site e do checkout",
-              "Lembrar a sua sacola e a sua escolha sobre cookies",
-              "Analisar como o site é utilizado, somente com a sua permissão",
-            ].map((item, index) => (
-              <li key={index} className="flex items-start gap-4">
-                <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-                <span className="text-base text-abanic-gray">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Section 3 - Cookie Types Cards */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-10 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            3. Tipos de Cookies que Utilizamos
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {cookieTypes.map((cookie, index) => (
-              <div
-                key={index}
-                className={`p-6 rounded-lg ${cookie.color} transition-all hover:shadow-md`}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h3
-                    className="text-lg font-semibold"
-                    style={{ color: "var(--abanic-gray-dark)" }}
-                  >
-                    {cookie.title}
-                  </h3>
-                  {cookie.status && (
-                    <span className="inline-block px-3 py-1 text-xs font-semibold text-white bg-abanic-orange rounded-full">
-                      {cookie.status}
-                    </span>
-                  )}
-                </div>
-                <p className="text-sm text-abanic-gray mb-4 leading-relaxed">
-                  {cookie.description}
-                </p>
-                {cookie.items && (
-                  <ul className="space-y-2">
-                    {cookie.items.map((item, i) => (
-                      <li
-                        key={i}
-                        className="text-sm text-abanic-gray flex items-center gap-2"
-                      >
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Section 4 */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-6 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            4. Cookies de Terceiros
-          </h2>
-          <p className="text-base text-abanic-gray mb-6 leading-relaxed">
-            Além dos nossos próprios cookies, podemos utilizar cookies de
-            terceiros para:
-          </p>
-          <ul className="space-y-3 mb-6">
-            {[
-              "Processar o pedido e o pagamento com segurança (Shopify e parceiros de pagamento)",
-              "Analisar o tráfego do site (Google Analytics, somente com a sua permissão)",
-            ].map((item, index) => (
-              <li key={index} className="flex items-start gap-4">
-                <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-                <span className="text-base text-abanic-gray">{item}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-base text-abanic-gray leading-relaxed italic border-l-4 border-gray-300 pl-4">
-            Esses terceiros têm suas próprias políticas de privacidade e
-            cookies.
-          </p>
-        </motion.div>
-
-        {/* Section 5 */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-6 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            5. Gerenciamento de Cookies
-          </h2>
-          <p className="text-base text-abanic-gray mb-8 leading-relaxed">
-            Você pode controlar e gerenciar cookies de várias maneiras:
-          </p>
-
-          <div className="space-y-8">
-            <div>
-              <h3
-                className="text-xl font-semibold mb-4 font-space-grotesk-h1"
-                style={{ color: "var(--abanic-gray-dark)" }}
-              >
-                5.1 Configurações do Navegador
-              </h3>
-              <p className="text-base text-abanic-gray mb-4 leading-relaxed">
-                A maioria dos navegadores permite que você:
-              </p>
-              <ul className="space-y-2">
-                {[
-                  "Visualize quais cookies estão armazenados",
-                  "Aceite ou rejeite cookies individualmente",
-                  "Exclua todos os cookies",
-                  "Bloqueie cookies de terceiros",
-                  "Bloqueie todos os cookies",
-                ].map((item, index) => (
-                  <li key={index} className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-abanic-orange flex-shrink-0" />
-                    <span className="text-base text-abanic-gray">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3
-                className="text-xl font-semibold mb-4 font-space-grotesk-h1"
-                style={{ color: "var(--abanic-gray-dark)" }}
-              >
-                5.2 Links para Configurações dos Navegadores
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  "Google Chrome",
-                  "Mozilla Firefox",
-                  "Safari",
-                  "Microsoft Edge",
-                ].map((browser, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-abanic-orange" />
-                    <span className="text-base text-abanic-gray font-medium">
-                      {browser}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Section 6 */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16 p-6 bg-orange-50 border-l-4 border-abanic-orange rounded-r-lg"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-6 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            6. Consequências da Desativação
-          </h2>
-          <p className="text-base text-abanic-gray mb-4 leading-relaxed">
-            Se você optar por desativar os cookies, algumas funcionalidades do
-            site podem não funcionar corretamente:
-          </p>
-          <ul className="space-y-3">
-            {[
-              "A sacola de compras pode não guardar seus itens",
-              "Sua escolha sobre cookies não será lembrada",
-              "O checkout pode não funcionar corretamente",
-            ].map((item, index) => (
-              <li key={index} className="flex items-start gap-4">
-                <span className="inline-block w-2 h-2 rounded-full bg-abanic-orange mt-2 flex-shrink-0" />
-                <span className="text-base text-abanic-gray">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Section 7 */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-6 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            7. Atualizações desta Política
-          </h2>
-          <p className="text-base text-abanic-gray leading-relaxed">
-            Podemos atualizar esta Política de Cookies periodicamente para
-            refletir mudanças em nossas práticas ou por outros motivos
-            operacionais, legais ou regulatórios. Recomendamos que você revise
-            esta página regularmente.
-          </p>
-        </motion.div>
-
-        {/* Section 8 - Contact */}
-        <motion.div
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="mb-16"
-        >
-          <h2
-            className="text-2xl md:text-3xl font-bold mb-6 font-space-grotesk-h1"
-            style={{ color: "var(--abanic-gray-dark)" }}
-          >
-            8. Contato
-          </h2>
-          <p className="text-base text-abanic-gray mb-6 leading-relaxed">
-            Se você tiver dúvidas sobre nossa política de cookies, entre em
-            contato:
-          </p>
-          <div className="flex items-center gap-3">
-            <span className="text-2xl" style={{ color: "#fc622b" }}>
-              ✉
-            </span>
-            <a
-              href="mailto:contato@abaniclife.com"
-              className="font-semibold text-lg transition-colors"
-              style={{ color: "#fc622b" }}
-            >
-              contato@abaniclife.com
-            </a>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
+const rotuloStatus = {
+  fontFamily: "var(--font-text)",
+  fontSize: "var(--size-micro)",
+  textTransform: "uppercase",
+  letterSpacing: "var(--tracking-label)",
+  color: "var(--text-body)",
 };
+
+const CookiePolicy = () => (
+  <PaginaLegal
+    titulo="Política de cookies"
+    resumo="Entenda como utilizamos cookies para melhorar sua experiência e controle suas preferências."
+    atualizacao="Outubro de 2026"
+    secoes={secoes}
+  >
+    <section>
+      <h2 id="o-que-sao-cookies">1. O que são cookies?</h2>
+      <p>
+        Cookies são pequenos arquivos de texto que são armazenados no seu dispositivo (computador, tablet ou
+        smartphone) quando você visita um site. Eles são amplamente utilizados para fazer os sites funcionarem de
+        forma mais eficiente, bem como para fornecer informações aos proprietários do site.
+      </p>
+    </section>
+
+    <section>
+      <h2 id="como-utilizamos-cookies">2. Como utilizamos cookies</h2>
+      <p>A ABANIC utiliza cookies para diversos fins, incluindo:</p>
+      <ul>
+        <li>Garantir o funcionamento adequado do site e do checkout</li>
+        <li>Lembrar a sua sacola e a sua escolha sobre cookies</li>
+        <li>Analisar como o site é utilizado, somente com a sua permissão</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 id="tipos-de-cookies-que-utilizamos">3. Tipos de cookies que utilizamos</h2>
+      {/* Uma linha por tipo, separadas por filete (antes eram cartões com faixa lateral) */}
+      {cookieTypes.map((cookie) => (
+        <div
+          key={cookie.title}
+          className="py-5"
+          style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
+        >
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h3 style={{ marginTop: 0, marginBottom: 0 }}>{cookie.title}</h3>
+            {cookie.status && <span style={rotuloStatus}>{cookie.status}</span>}
+          </div>
+          <p style={{ marginTop: "var(--space-2)" }}>{cookie.description}</p>
+          {cookie.items && (
+            <ul>
+              {cookie.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))}
+    </section>
+
+    <section>
+      <h2 id="cookies-de-terceiros">4. Cookies de terceiros</h2>
+      <p>Além dos nossos próprios cookies, podemos utilizar cookies de terceiros para:</p>
+      <ul>
+        <li>Processar o pedido e o pagamento com segurança (Shopify e parceiros de pagamento)</li>
+        <li>Analisar o tráfego do site (Google Analytics, somente com a sua permissão)</li>
+      </ul>
+      <p>Esses terceiros têm suas próprias políticas de privacidade e cookies.</p>
+    </section>
+
+    <section>
+      <h2 id="gerenciamento-de-cookies">5. Gerenciamento de cookies</h2>
+      <p>Você pode controlar e gerenciar cookies de várias maneiras:</p>
+      {/* Reabre o aviso de cookies (o mesmo do link "Gerenciar cookies" do rodapé) */}
+      <div className="mt-5">
+        <Button variant="secondary" onClick={abrirAvisoDeCookies}>
+          Gerenciar minhas preferências
+        </Button>
+      </div>
+
+      <h3>5.1 Configurações do navegador</h3>
+      <p>A maioria dos navegadores permite que você:</p>
+      <ul>
+        <li>Visualize quais cookies estão armazenados</li>
+        <li>Aceite ou rejeite cookies individualmente</li>
+        <li>Exclua todos os cookies</li>
+        <li>Bloqueie cookies de terceiros</li>
+        <li>Bloqueie todos os cookies</li>
+      </ul>
+
+      <h3>5.2 Links para configurações dos navegadores</h3>
+      <ul>
+        {navegadores.map((n) => (
+          <li key={n.nome}>
+            <a href={n.href} target="_blank" rel="noopener noreferrer">
+              {n.nome}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2 id="consequencias-da-desativacao">6. Consequências da desativação</h2>
+      <p>
+        Se você optar por desativar os cookies, algumas funcionalidades do site podem não funcionar corretamente:
+      </p>
+      <ul>
+        <li>A sacola de compras pode não guardar seus itens</li>
+        <li>Sua escolha sobre cookies não será lembrada</li>
+        <li>O checkout pode não funcionar corretamente</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 id="atualizacoes-desta-politica">7. Atualizações desta política</h2>
+      <p>
+        Podemos atualizar esta Política de Cookies periodicamente para refletir mudanças em nossas práticas ou por
+        outros motivos operacionais, legais ou regulatórios. Recomendamos que você revise esta página regularmente.
+      </p>
+    </section>
+
+    <section>
+      <h2 id="contato">8. Contato</h2>
+      <p>Se você tiver dúvidas sobre nossa política de cookies, entre em contato:</p>
+      <p>
+        <a href="mailto:contato@abaniclife.com">contato@abaniclife.com</a>
+      </p>
+    </section>
+  </PaginaLegal>
+);
 
 export default CookiePolicy;
