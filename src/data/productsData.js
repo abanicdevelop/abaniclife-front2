@@ -54,7 +54,7 @@ export const productsData = [
     ],
     rodapeAtivos: "*Estudos do fabricante do ativo.",
     modoUso:
-      "Aplique sobre a pele do rosto úmida, massageando suavemente até formar uma camada fina de espuma. Enxágue abundantemente com água, até total remoção do produto. Pode ser utilizado no pescoço e colo. Indicado para todos os tipos de pele.",
+      "Aplique sobre a pele do rosto úmida, massageando suavemente até formar uma camada fina de espuma. Enxágue abundantemente com água, até total remoção do produto. Pode ser utilizado no pescoço e colo. Indicado para todos os tipos de pele.\nAo se expor ao sol intenso, aplique protetor solar.",
     ingredientes:
       "Aqua, Decyl Glucoside, Olivamidopropyl Betaine, Glycerin, Xanthan Gum, Calendula Officinalis Flower Extract, Manihot Esculenta Root Extract, Vaccinium Myrtillus Fruit Extract, Benzyl Alcohol, Dehydroacetic Acid, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, DMDM Hydantoin, Maris Aqua, Phenethyl Alcohol, Hydrolyzed Rhodophyceae Extract, Bellis Perennis (Daisy) Flower Extract, Alcohol Denat., Melissa Officinalis Leaf Extract, Disodium Phosphate, Sodium Gluconate, Parfum.",
     // Ext. de Mandioca também está confirmado na tabela, mas ainda não temos foto dele
@@ -122,7 +122,7 @@ export const productsData = [
     ],
     rodapeAtivos: "*Estudos dos fabricantes dos ativos.",
     modoUso:
-      "Aplique algumas gotas do produto sobre a pele do rosto limpa e seca, massageando até sentir total absorção do produto. Pode ser utilizado no pescoço e colo. Indicado para todos os tipos de pele.",
+      "Aplique algumas gotas do produto sobre a pele do rosto limpa e seca, massageando até sentir total absorção do produto. Pode ser utilizado no pescoço e colo. Indicado para todos os tipos de pele.\nAo se expor ao sol intenso, aplique protetor solar.",
     // Lista do laudo NR 303030, nesta ordem
     ingredientes:
       "Aqua, Glycerin, Propanediol, Dipentaerythrityl Tri-Polyhydroxystearate, Caesalpinia Spinosa Gum, Ethyl Olivate, Calendula Officinalis Flower Extract, Sodium Gluconate, Maris Aqua, Benzyl Alcohol, Dehydroacetic Acid, Phenoxyethanol, Phenethyl Alcohol, Cystoseira Tamariscifolia Extract, Hydrolyzed Rhodophyceae Extract, Bellis Perennis (Daisy) Flower Extract, Melissa Officinalis Leaf Extract, Olea Europaea (Olive) Leaf Extract, Alcohol Denat., Disodium Phosphate, Parfum.",

@@ -97,7 +97,7 @@ const aberturaComRotina = {
 // Fechamento conforme a pergunta 3 (quando a pessoa cuida da pele). Não muda os produtos indicados.
 const fechamentoPorMomento = {
   dia: "Use os três passos todos os dias, de manhã, na ordem: limpar, tratar e revitalizar. Ao se expor ao sol intenso, aplique protetor solar.",
-  noite: "Use os três passos todos os dias, à noite, na ordem: limpar, tratar e revitalizar.",
+  noite: "Use os três passos todos os dias, à noite, na ordem: limpar, tratar e revitalizar. Ao se expor ao sol intenso, aplique protetor solar.",
   "dia-noite":
     "Use os três passos de manhã e à noite, na ordem: limpar, tratar e revitalizar. Ao se expor ao sol intenso, aplique protetor solar.",
 };

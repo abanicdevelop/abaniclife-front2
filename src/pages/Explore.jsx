@@ -255,7 +255,7 @@ const Explore = () => {
     <div style={{ backgroundColor: "var(--abanic-cream)" }}>
       {/* Abertura */}
       <section className="page-container pt-32 md:pt-40 pb-20">
-        <SectionLabel meta="Princípios ativos">Explore</SectionLabel>
+        <SectionLabel meta="Linha RHADYANCE">Ativos e benefícios</SectionLabel>
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mt-8">
           <h1
             style={{
