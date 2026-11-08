@@ -10,7 +10,7 @@ export const articles = [
     title: "A arte como forma de expressão na criação de uma marca",
     slug: "a-arte-como-forma-de-expressao-na-criacao-de-uma-marca",
     category: "Arte & Branding",
-    description: "A arte sempre acompanhou a humanidade como espelho e farol.",
+    description: "Como a arte inspira a ABANIC a ir além dos produtos: uma marca para quem busca experiência e significado.",
     image: ArticleImageOne,
     content: `
 A arte sempre acompanhou a humanidade como um espelho e, ao mesmo tempo, como um farol. É o instrumento pelo qual nos expressamos, contamos nossas histórias e alcançamos o imaginário.
@@ -81,11 +81,19 @@ São as nossas múltiplas versões que nos tornam únicos.
     content: `
 Nunca se cuidou tanto da pele. Basta abrir uma rede social para ver rotinas inteiras narradas em vídeo, ativos com nomes de laboratório e uma novidade por semana. Ainda assim, quem acompanha o mercado de perto percebe um movimento curioso: em 2026, cuidar mais passou a significar escolher melhor.
 
+## 01 — O consumidor informado
+
 Quem puxa essa mudança é um consumidor muito mais informado. Ele vira o frasco, lê a lista de ingredientes, compara fórmulas e quer saber de onde vem cada ativo. Segue dermatologistas, desconfia de promessas fáceis e já não se impressiona com listas alarmistas de ingredientes proibidos. Num levantamento do portal americano Beauty Independent, dermatologistas preveem que as marcas terão de comprovar o que dizem.
+
+## 02 — A saúde da pele
 
 O vocabulário acompanhou esse olhar. Saem as promessas de congelar, descamar e corrigir; entram barreira cutânea, microbioma e hidratação. A consultoria Clarkston descreve a saúde da pele como uma extensão do bem-estar, ligada ao sono, à alimentação e ao estresse. A saúde virou o objetivo, e a qualidade da pele, a consequência.
 
+## 03 — Novos ativos
+
 Nos laboratórios, o ritmo segue acelerado. Peptídeos, PDRN e exossomos, nomes que até pouco tempo circulavam só em congressos de dermatologia, chegaram às prateleiras. E a beleza coreana continua puxando a inovação: nos Estados Unidos, suas vendas cresceram 37% em 2025, segundo a NielsenIQ.
+
+## 04 — A sensação
 
 Por fim, algo que parecia secundário voltou ao centro: a sensação. Textura, perfume e o próprio gesto de aplicar passaram a ser vistos como parte do cuidado, um momento de pausa num dia que raramente oferece uma.
 
