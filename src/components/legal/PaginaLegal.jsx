@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SectionLabel } from "../design-system/SectionLabel";
 
 /**
@@ -18,6 +18,21 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
     return () => clearTimeout(t);
   }, []);
 
+  // Seção atual (a última cujo título já passou do topo da tela), marcada no índice
+  const [atual, setAtual] = useState(secoes[0]?.id);
+  useEffect(() => {
+    const titulos = secoes.map((s) => document.getElementById(s.id)).filter(Boolean);
+    const aoRolar = () => {
+      let id = secoes[0]?.id;
+      for (const t of titulos) if (t.getBoundingClientRect().top < 160) id = t.id;
+      setAtual(id);
+    };
+    aoRolar();
+    window.addEventListener("scroll", aoRolar, { passive: true });
+    return () => window.removeEventListener("scroll", aoRolar);
+  }, [secoes]);
+  const detalhesRef = useRef(null);
+
   const linkIndice = {
     fontFamily: "var(--font-text)",
     fontSize: "var(--size-body-sm)",
@@ -30,8 +45,16 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
         <li key={s.id}>
           <a
             href={`#${s.id}`}
+            aria-current={atual === s.id ? "location" : undefined}
+            onClick={() => detalhesRef.current?.removeAttribute("open")}
             className="flex items-center min-h-[44px] py-1 hover:text-[var(--abanic-orange)] transition-colors"
-            style={linkIndice}
+            style={{
+              ...linkIndice,
+              fontWeight: atual === s.id ? "var(--weight-medium)" : undefined,
+              textDecoration: atual === s.id ? "underline" : undefined,
+              textDecorationColor: "var(--abanic-orange)",
+              textUnderlineOffset: "5px",
+            }}
           >
             {s.titulo}
           </a>
@@ -86,6 +109,7 @@ const PaginaLegal = ({ titulo, resumo, atualizacao, secoes, children }) => {
               <Indice />
             </div>
             <details
+              ref={detalhesRef}
               className="lg:hidden"
               style={{
                 borderTop: "var(--border-hairline) solid var(--border-default)",

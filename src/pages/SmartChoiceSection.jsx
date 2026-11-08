@@ -24,7 +24,7 @@ const compromissos = [
     com consciência ambiental. Atuamos em alinhamento com boas práticas
     globais e diretrizes de sustentabilidade aplicáveis à indústria cosmética.`,
     prova: "O principal ativo da linha vem de algas vermelhas da Baía de Kassari, na Estônia, colhidas da mesma forma desde 1966, com cotas regulamentadas.",
-    links: [{ texto: "Algas vermelhas", to: ROTAS.ativos }],
+    links: [{ texto: "Algas vermelhas", to: `${ROTAS.ativos}#rhodophytas` }],
   },
   {
     title: "Livre de crueldade",

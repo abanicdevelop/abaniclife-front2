@@ -268,7 +268,7 @@ const HeroSection = () => {
             key={slide.id}
             type="button"
             onClick={() => goToSlide(index)}
-            className="group inline-flex items-center justify-center h-11 px-1.5"
+            className="group inline-flex items-center justify-center h-11 min-w-11 px-1.5"
             style={{ cursor: "pointer" }}
             aria-label={`Ir para o slide ${index + 1} de ${slides.length}`}
             aria-current={index === currentSlide ? "true" : undefined}

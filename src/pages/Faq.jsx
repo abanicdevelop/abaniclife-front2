@@ -54,6 +54,14 @@ const Faq = () => {
     if (i >= 0) setSelectedCategory(i);
   }, [categoriaDaUrl]);
 
+  // No celular as categorias são uma faixa que rola de lado: a ativa vem para a vista
+  useEffect(() => {
+    const botao = document.querySelector('nav[aria-label="Categorias"] button[aria-current="true"]');
+    const faixa = botao?.closest("ul");
+    if (!botao || !faixa || faixa.scrollWidth <= faixa.clientWidth) return;
+    faixa.scrollTo({ left: botao.offsetLeft - (faixa.clientWidth - botao.offsetWidth) / 2, behavior: "smooth" });
+  }, [selectedCategory]);
+
   // Contact form states
   const [formData, setFormData] = useState({
     nome: "",

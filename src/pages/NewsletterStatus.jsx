@@ -62,7 +62,10 @@ const NewsletterStatus = () => {
   const { language } = useLanguage();
   const t = translations[language];
 
-  const [estado, setEstado] = useState(estadoDaRota);
+  // Cancelar sem o código do e-mail (?t=) falharia: mostra direto "link inválido"
+  const [estado, setEstado] = useState(
+    estadoDaRota === "cancelar" && !searchParams.get("t") ? "link-invalido" : estadoDaRota,
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 

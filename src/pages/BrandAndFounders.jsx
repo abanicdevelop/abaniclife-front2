@@ -41,7 +41,7 @@ const textoCapitulo = {
   fontFamily: "var(--font-display)",
   fontWeight: "var(--weight-light)",
   fontSize: "clamp(22px, 2.2vw, 30px)",
-  lineHeight: "var(--leading-heading)",
+  lineHeight: 1.3, // --leading-heading (1,25) apertava no celular
   letterSpacing: "var(--tracking-heading)",
   color: "var(--text-body)",
   maxWidth: "30em",
@@ -91,9 +91,12 @@ const BrandAndFounders = () => {
           <motion.div className="md:col-span-6 aspect-square overflow-hidden" {...surgir}>
             <img src={abertura.image} alt="" className={`w-full h-full object-cover ${abertura.posicao}`} />
           </motion.div>
-          <motion.p id={abertura.id} className="md:col-span-6" style={textoCapitulo} {...surgir}>
-            {abertura.text}
-          </motion.p>
+          <div id={abertura.id} className="md:col-span-6">
+            <SectionLabel rule={false}>{`01 / ${String(capitulos.length).padStart(2, "0")}`}</SectionLabel>
+            <motion.p className="mt-5" style={textoCapitulo} {...surgir}>
+              {abertura.text}
+            </motion.p>
+          </div>
         </div>
       </section>
 
@@ -101,15 +104,17 @@ const BrandAndFounders = () => {
       {demais.map((c, i) => (
         <section key={c.id} id={c.id} className="page-container pb-16 md:pb-24">
           <div
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 pt-10 md:pt-14"
+            // md:items-end: texto ancorado embaixo, ao lado da base da foto (o manual pede peso embaixo)
+            className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 pt-10 md:pt-14 md:items-end"
             style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
           >
-            <div className="md:col-span-2">
+            {/* Número junto do texto, como no capítulo 1 (solto na coluna ao lado ele ficava longe) */}
+            <div className="md:col-span-6 md:col-start-3">
               <SectionLabel rule={false}>{`${String(i + 2).padStart(2, "0")} / ${String(capitulos.length).padStart(2, "0")}`}</SectionLabel>
+              <motion.p className="mt-5" style={textoCapitulo} {...surgir}>
+                {c.text}
+              </motion.p>
             </div>
-            <motion.p className="md:col-span-6" style={textoCapitulo} {...surgir}>
-              {c.text}
-            </motion.p>
             <motion.div className="md:col-span-4 aspect-[4/5] overflow-hidden" {...surgir}>
               <img src={c.image} alt="" className={`w-full h-full object-cover ${c.posicao}`} />
             </motion.div>
@@ -135,7 +140,7 @@ const BrandAndFounders = () => {
           >
             Unfold your true self.
           </p>
-          <nav aria-label="Continue" className="md:col-span-4 flex flex-col items-start md:items-end gap-1">
+          <nav aria-label="Próximos passos" className="md:col-span-4 flex flex-col items-start md:items-end gap-1">
             {[
               { texto: "Conhecer a linha RHADYANCE", to: ROTAS.linha },
               { texto: "Escolha inteligente", to: ROTAS.escolhaInteligente },
