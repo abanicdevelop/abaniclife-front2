@@ -76,20 +76,43 @@ export const perguntas = [
   },
 ];
 
+// Abertura para quem já tem alguma rotina: cita o produto em destaque no resultado (antes citava
+// sempre o sérum, mesmo quando o destaque era o creme ou o gel). Textos tirados das descrições aprovadas.
+const aberturaComRotina = {
+  serum:
+    "Sua rotina já tem uma boa base. A linha RHADYANCE adiciona a ela um sérum clareador que pode ser usado de dia e à noite.",
+  fps50:
+    "Sua rotina já tem uma boa base. A linha RHADYANCE adiciona a ela o Creme Facial Hidratante FPS\u00A075, que hidrata e revitaliza a pele.",
+  gel: "Sua rotina já tem uma boa base. A linha RHADYANCE começa pelo Gel de Limpeza Facial, o primeiro dos três passos.",
+};
+
+// Fechamento conforme a pergunta 3 (quando a pessoa cuida da pele). Não muda os produtos indicados.
+const fechamentoPorMomento = {
+  dia: "Use os três passos todos os dias, de manhã, na ordem: limpar, tratar e revitalizar. Ao se expor ao sol intenso, aplique protetor solar.",
+  noite: "Use os três passos todos os dias, à noite, na ordem: limpar, tratar e revitalizar.",
+  "dia-noite":
+    "Use os três passos de manhã e à noite, na ordem: limpar, tratar e revitalizar. Ao se expor ao sol intenso, aplique protetor solar.",
+};
+
+// Ordem de uso (01 Limpar → 02 Tratar → 03 Revitalizar), para os complementos
+const ordemDeUso = ["gel", "serum", "fps50"];
+
 /**
- * Monta a rotina recomendada: um produto em destaque e os outros dois como complemento, na ordem
- * de cada necessidade. A rotina atual da pessoa só muda a mensagem de abertura.
+ * Monta a rotina recomendada: um produto em destaque (o 1º da ordem de cada necessidade) e os outros
+ * dois como complemento, na ordem de uso. A rotina atual muda a abertura; o momento, o fechamento.
  */
-export const montarRotina = ({ necessidade, rotina }) => {
+export const montarRotina = ({ necessidade, rotina, momento }) => {
   const n = necessidades.find((x) => x.slug === necessidade) ?? necessidades[0];
+  const destaque = n.ordem[0];
+  const complemento = ordemDeUso.filter((id) => id !== destaque);
 
   // Sem resposta sobre a rotina (atalho ?necessidade= da home), não há abertura personalizada
   const abertura = !rotina
     ? ""
     : rotina === "nenhuma"
       ? "Comece pelo essencial: os três passos da linha RHADYANCE, pensados para um cuidado completo."
-      : "Sua rotina já tem uma boa base. A linha RHADYANCE adiciona a ela um sérum clareador que pode ser usado de dia e à noite.";
+      : aberturaComRotina[destaque];
 
-  const [destaque, ...complemento] = n.ordem;
-  return { necessidade: n, abertura, lembrete: "Use os três passos todos os dias.", destaque, complemento };
+  const lembrete = fechamentoPorMomento[momento] ?? "Use os três passos todos os dias.";
+  return { necessidade: n, abertura, lembrete, destaque, complemento };
 };
