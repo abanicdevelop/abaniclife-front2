@@ -6,6 +6,7 @@ import { trackEcommerce } from "../utils/analytics";
 import { checkoutAtivo, criarCheckout, usePreLancamento } from "../utils/shopify";
 import NewsletterForm from "./NewsletterForm";
 import { Button } from "./design-system/Button";
+import { useFocusTrap } from "../utils/useFocusTrap";
 
 const formatPrice = (value) =>
   value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -14,6 +15,7 @@ const CartDrawer = () => {
   const { items, isOpen, closeCart, removeItem, updateQuantity, totalPrice, totalItems } = useCart();
   const [indoAoCheckout, setIndoAoCheckout] = useState(false);
   const fecharRef = useRef(null);
+  const gavetaRef = useRef(null);
   const preLancamento = usePreLancamento();
 
   // Gaveta aberta se comporta como modal: Esc fecha, a página por trás não rola e o foco entra nela
@@ -31,6 +33,9 @@ const CartDrawer = () => {
       anterior?.focus?.();
     };
   }, [isOpen, closeCart]);
+
+  // Com a sacola aberta, o Tab circula só dentro dela
+  useFocusTrap(gavetaRef, isOpen);
 
   const finalizarCompra = async () => {
     trackEcommerce("begin_checkout", items);
@@ -65,6 +70,7 @@ const CartDrawer = () => {
       )}
 
       <aside
+        ref={gavetaRef}
         role="dialog"
         aria-modal="true"
         aria-label="Sacola"
@@ -75,7 +81,7 @@ const CartDrawer = () => {
           position: "fixed",
           top: 0,
           right: 0,
-          height: "100vh",
+          height: "100dvh",
           width: "min(420px, 100vw)",
           background: "var(--surface-page)",
           borderLeft: "var(--border-hairline) solid var(--border-default)",
@@ -174,8 +180,8 @@ const CartDrawer = () => {
                           style={{
                             cursor: "pointer",
                             border: "var(--border-hairline) solid var(--border-default)",
-                            width: "40px",
-                            height: "40px",
+                            width: "44px",
+                            height: "44px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
@@ -201,8 +207,8 @@ const CartDrawer = () => {
                           style={{
                             cursor: "pointer",
                             border: "var(--border-hairline) solid var(--border-default)",
-                            width: "40px",
-                            height: "40px",
+                            width: "44px",
+                            height: "44px",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",

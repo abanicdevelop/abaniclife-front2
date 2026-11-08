@@ -2,6 +2,13 @@ html,
 body {
 }
 
+/* Foco de teclado da marca no site todo: anel laranja com folga, só para quem navega por teclado
+   (o contorno padrão do navegador tinha 1px e quase não aparecia) */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--abanic-orange, #fc622b);
+  outline-offset: 2px;
+}
+
 /* Políticas (PaginaLegal): texto jurídico em coluna de leitura, no idioma da marca */
 .texto-legal {
   max-width: 68ch;

@@ -25,26 +25,26 @@ const Footer = () => {
       subscribeBtn: "Inscrever-se",
       copyright: `© ${currentYear} ABANIC. Todos os direitos reservados.`,
       legalLinks: [
-        { name: "Termos de Uso", href: "/termos-de-uso" },
+        { name: "Termos de uso", href: "/termos-de-uso" },
         { name: "Privacidade", href: "/politica-de-privacidade" },
         { name: "Cookies", href: "/politica-de-cookies" },
       ],
       footerLinks: {
-        company: [{ name: "Manifesto da Marca", href: "/manifesto#marca" }],
+        company: [{ name: "Manifesto da marca", href: "/manifesto#marca" }],
         products: [
           { name: "Gel de Limpeza Facial Rhadyance", href: "/produtos/gel-de-limpeza-facial" },
           { name: "Sérum Facial Clareador Rhadyance", href: "/produtos/serum-facial-clareador" },
           { name: "Creme Facial Hidratante Rhadyance FPS\u00A075", href: "/produtos/creme-facial-fps75" },
         ],
         support: [
-          { name: "Perguntas Frequentes", href: "/faq" },
-          { name: "Política de Privacidade", href: "/politica-de-privacidade" },
-          { name: "Política de Cookies", href: "/politica-de-cookies" },
-          { name: "Termos de Uso", href: "/termos-de-uso" },
+          { name: "Perguntas frequentes", href: "/faq" },
+          { name: "Política de privacidade", href: "/politica-de-privacidade" },
+          { name: "Política de cookies", href: "/politica-de-cookies" },
+          { name: "Termos de uso", href: "/termos-de-uso" },
         ],
         explore: [
-          { name: "Saiba mais Sobre Ativos e Benefícios", href: "/ativos" },
-          { name: "Escolha Inteligente", href: "/escolha-inteligente" },
+          { name: "Saiba mais sobre ativos e benefícios", href: "/ativos" },
+          { name: "Escolha inteligente", href: "/escolha-inteligente" },
         ],
       },
     },
@@ -124,7 +124,7 @@ const Footer = () => {
       {
         icon: Sparkles,
         title: "Samples on request",
-        desc: "Ask us via Explore > ABANIC",
+        desc: "Talk to our support team",
       },
       {
         icon: ShieldCheck,
@@ -203,7 +203,7 @@ const Footer = () => {
           </p>
           <ul className="mt-6 space-y-3">
             <li>
-              <a href="mailto:contato@abaniclife.com" className="inline-flex items-center gap-3 min-h-[32px] hover:text-[var(--abanic-orange)] transition-colors" style={linkRodape}>
+              <a href="mailto:contato@abaniclife.com" className="inline-flex items-center gap-3 min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors" style={linkRodape}>
                 <Mail size={18} strokeWidth={1.25} /> contato@abaniclife.com
               </a>
             </li>
@@ -216,12 +216,12 @@ const Footer = () => {
         {colunas.map((col) => (
           <nav key={col.titulo} className="lg:col-span-2" aria-label={col.titulo}>
             <p style={tituloColuna}>{col.titulo}</p>
-            <ul className="space-y-1">
+            <ul>
               {col.links.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors"
+                    className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors"
                     style={linkRodape}
                   >
                     {link.name}
@@ -251,7 +251,7 @@ const Footer = () => {
               <li key={link.name}>
                 <Link
                   to={link.href}
-                  className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors"
+                  className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors"
                   style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}
                 >
                   {link.name}
@@ -262,7 +262,7 @@ const Footer = () => {
               <button
                 type="button"
                 onClick={abrirAvisoDeCookies}
-                className="inline-flex items-center min-h-[36px] hover:text-[var(--abanic-orange)] transition-colors cursor-pointer"
+                className="inline-flex items-center min-h-[44px] hover:text-[var(--abanic-orange)] transition-colors cursor-pointer"
                 style={{ ...linkRodape, ...textoSuave, fontSize: "var(--size-caption)" }}
               >
                 {language === "pt" ? "Gerenciar cookies" : "Manage cookies"}

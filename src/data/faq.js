@@ -40,7 +40,7 @@ export const faqData = [
       {
         question: "Como posso receber amostras dos produtos?",
         answer:
-          "Na sessão Explore > ABANIC você pode nos enviar uma mensagem e solicitar suas amostras exclusivamente em nosso site, conforme as condições indicadas no momento da emissão.",
+          "Envie uma mensagem pelo formulário Fale conosco, no fim desta página, e solicite suas amostras.",
       },
       {
         question: "Como escolher o produto ideal para mim?",
