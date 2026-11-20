@@ -100,27 +100,41 @@ const BrandAndFounders = () => {
         </div>
       </section>
 
-      {/* Capítulos: filete, número e texto em destaque, foto menor ao lado */}
-      {demais.map((c, i) => (
-        <section key={c.id} id={c.id} className="page-container pb-16 md:pb-24">
-          <div
-            // md:items-end: texto ancorado embaixo, ao lado da base da foto (o manual pede peso embaixo)
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 pt-10 md:pt-14 md:items-end"
-            style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
-          >
-            {/* Número junto do texto, como no capítulo 1 (solto na coluna ao lado ele ficava longe) */}
-            <div className="md:col-span-6 md:col-start-3">
-              <SectionLabel rule={false}>{`${String(i + 2).padStart(2, "0")} / ${String(capitulos.length).padStart(2, "0")}`}</SectionLabel>
-              <motion.p className="mt-5" style={textoCapitulo} {...surgir}>
-                {c.text}
-              </motion.p>
-            </div>
-            <motion.div className="md:col-span-4 aspect-[4/5] overflow-hidden" {...surgir}>
-              <img src={c.image} alt="" className={`w-full h-full object-cover ${c.posicao}`} />
-            </motion.div>
+      {/* Capítulos em zigue-zague, sempre presos às margens da página (antes o texto começava na 3ª
+          coluna e a foto encostava na direita: sobrava um vão só do lado esquerdo).
+          Capítulo par: texto à esquerda, alinhado ao título. Ímpar: foto à esquerda, texto na mesma
+          coluna do capítulo 1 */}
+      {demais.map((c, i) => {
+        const fotoAEsquerda = i % 2 === 1;
+        const texto = (
+          <div className={fotoAEsquerda ? "md:col-span-6 md:col-start-7 md:row-start-1" : "md:col-span-6"}>
+            <SectionLabel rule={false}>{`${String(i + 2).padStart(2, "0")} / ${String(capitulos.length).padStart(2, "0")}`}</SectionLabel>
+            <motion.p className="mt-5" style={textoCapitulo} {...surgir}>
+              {c.text}
+            </motion.p>
           </div>
-        </section>
-      ))}
+        );
+        const foto = (
+          <motion.div
+            className={`aspect-[4/5] overflow-hidden ${fotoAEsquerda ? "md:col-span-5 md:col-start-1 md:row-start-1" : "md:col-span-5 md:col-start-8"}`}
+            {...surgir}
+          >
+            <img src={c.image} alt="" className={`w-full h-full object-cover ${c.posicao}`} />
+          </motion.div>
+        );
+        return (
+          <section key={c.id} id={c.id} className="page-container pb-16 md:pb-24">
+            <div
+              // md:items-end: texto ancorado embaixo, ao lado da base da foto (o manual pede peso embaixo)
+              className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 pt-10 md:pt-14 md:items-end"
+              style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
+            >
+              {texto}
+              {foto}
+            </div>
+          </section>
+        );
+      })}
 
       {/* Fechamento: campo laranja de ponta a ponta com a assinatura da marca e os próximos passos.
           Texto preto (creme sobre laranja não teria contraste) */}
