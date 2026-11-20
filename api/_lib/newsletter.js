@@ -83,7 +83,7 @@ const botaoHtml = ({ href, texto }) => `<!--[if mso]>
 <![endif]--><!--[if !mso]><!-- --><a href="${href}" style="display:inline-block;background:${COR.laranja};color:${COR.creme};font-family:${FONTE_TEXTO};font-size:15px;font-weight:500;letter-spacing:0.02em;text-decoration:none;padding:16px 32px;mso-hide:all;">${escapar(texto)}</a><!--<![endif]-->`;
 
 // Estrutura em tabelas e estilos inline: é o que os programas de e-mail (Gmail, Outlook) entendem
-export const layout = ({ origem = "https://www.abaniclife.com", previa, rotulo, titulo, paragrafos, extra = "", botao, linkSecundario, rodape }) => `<!DOCTYPE html>
+export const layout = ({ origem = "https://www.abaniclife.com", faixa, previa, rotulo, titulo, paragrafos, extra = "", botao, linkSecundario, rodape }) => `<!DOCTYPE html>
 <html lang="pt-BR" xmlns:v="urn:schemas-microsoft-com:vml">
 <head>
 <meta charset="UTF-8">
@@ -108,6 +108,11 @@ export const layout = ({ origem = "https://www.abaniclife.com", previa, rotulo, 
 <tr><td style="padding-bottom:32px;border-bottom:1px solid ${COR.linha};">
   <a href="${origem}" style="text-decoration:none;"><img src="${origem}/email/logo-abanic.png" width="132" height="33" alt="ABANIC" style="display:block;border:0;width:132px;height:auto;color:${COR.laranja};font-family:${FONTE_DISPLAY};font-size:22px;letter-spacing:0.2em;"></a>
 </td></tr>
+${
+  faixa
+    ? `<tr><td style="padding-top:32px;line-height:0;font-size:0;"><img src="${faixa}" width="560" alt="" style="display:block;border:0;width:100%;max-width:560px;height:auto;background:${COR.laranja};"></td></tr>`
+    : ""
+}
 ${rotulo ? `<tr><td style="padding-top:40px;font-family:${FONTE_TEXTO};font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:${COR.suave};">${escapar(rotulo)}</td></tr>` : ""}
 <tr><td class="titulo" style="padding-top:${rotulo ? "16px" : "40px"};font-family:${FONTE_DISPLAY};font-weight:300;font-size:34px;line-height:1.12;letter-spacing:-0.01em;color:${COR.texto};">${escapar(titulo)}</td></tr>
 ${paragrafos
@@ -180,6 +185,8 @@ export const emailDeBoasVindas = ({ nome, linkCancelar, origem }) => ({
   subject: "Boas-vindas à ABANIC",
   html: layout({
     origem,
+    // Faixa com o padrão de traços do manual: decorativa, o e-mail funciona sem ela (Outlook bloqueia imagens)
+    faixa: `${origem}/email/padrao-tracos.png`,
     previa: "Sua inscrição está confirmada. Conheça a rotina RHADYANCE em três passos.",
     rotulo: "Newsletter",
     titulo: "Inscrição confirmada",
