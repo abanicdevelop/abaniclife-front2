@@ -136,3 +136,29 @@ textarea::placeholder {
 .campo input:focus-visible {
   outline: none !important;
 }
+
+/* Cartão de produto: passar o mouse na foto ou no nome mostra que o cartão leva à página do produto
+   (foto aproxima de leve, nome ganha o sublinhado laranja dos links do site). Só onde há mouse;
+   no celular o toque na foto já é o hábito. */
+.cartao-produto__foto {
+  transition: transform 0.45s cubic-bezier(0.2, 0, 0, 1);
+}
+.cartao-produto__nome {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 0.45s cubic-bezier(0.2, 0, 0, 1);
+}
+@media (hover: hover) {
+  .cartao-produto:has(.cartao-produto__link:hover) .cartao-produto__nome,
+  .cartao-produto:has(.cartao-produto__link:focus-visible) .cartao-produto__nome {
+    text-decoration-color: var(--abanic-orange);
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .cartao-produto:has(.cartao-produto__link:hover) .cartao-produto__foto,
+  .cartao-produto:has(.cartao-produto__link:focus-visible) .cartao-produto__foto {
+    transform: scale(1.03);
+  }
+}
