@@ -13,17 +13,17 @@ const ProductCard = ({ produto, index = 0 }) => {
 
   return (
     <motion.article
-      className="flex flex-col"
+      className="cartao-produto flex flex-col"
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0, transition: { duration: DURACAO, delay: index * 0.1 } }}
       viewport={{ once: true }}
     >
       <Link
         to={rotaProduto(produto)}
-        className="relative block overflow-hidden"
+        className="cartao-produto__link relative block overflow-hidden"
         style={{ aspectRatio: "4 / 5", background: "var(--surface-raised)" }}
       >
-        <img src={produto.imagem} alt={produto.tituloDetalhe} className="w-full h-full object-cover" />
+        <img src={produto.imagem} alt={produto.tituloDetalhe} className="cartao-produto__foto w-full h-full object-cover" />
         <EtiquetaIlustrativa compacta />
       </Link>
 
@@ -44,6 +44,7 @@ const ProductCard = ({ produto, index = 0 }) => {
 
       <Link
         to={rotaProduto(produto)}
+        className="cartao-produto__link cartao-produto__nome self-start"
         style={{
           marginTop: "var(--space-2)",
           fontFamily: "var(--font-display)",
