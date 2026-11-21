@@ -162,3 +162,28 @@ textarea::placeholder {
     transform: scale(1.03);
   }
 }
+
+/* Título "A linha RHADYANCE" da home: é link para a página da linha. A seta laranja avisa;
+   com o mouse, o título ganha o sublinhado laranja e a seta anda um pouco. */
+.titulo-linha {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.14em;
+  transition: text-decoration-color 0.45s cubic-bezier(0.2, 0, 0, 1);
+}
+.titulo-linha__seta {
+  display: inline-block;
+  color: var(--abanic-orange);
+  transition: transform 0.45s cubic-bezier(0.2, 0, 0, 1);
+}
+.titulo-linha:hover,
+.titulo-linha:focus-visible {
+  text-decoration-color: var(--abanic-orange);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .titulo-linha:hover .titulo-linha__seta,
+  .titulo-linha:focus-visible .titulo-linha__seta {
+    transform: translateX(0.15em);
+  }
+}

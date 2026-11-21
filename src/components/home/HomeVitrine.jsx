@@ -7,6 +7,7 @@ import { useCart } from "../../context/CartContext";
 import { precoEmReais, formatarReais } from "../../utils/preco";
 import { trackEvent } from "../../utils/analytics";
 import AvisoPreLancamento from "../AvisoPreLancamento";
+import { ROTAS } from "../../data/rotas";
 
 const totalRotina = productsData.reduce((soma, p) => soma + precoEmReais(p.preco), 0);
 
@@ -53,12 +54,53 @@ const AjudaParaEscolher = () => {
   );
 };
 
+/** Fecho da vitrine na home: leva à página da linha e diz o que só existe lá (a rotina completa). */
+const ConvitePagLinha = () => (
+  <div
+    className="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-12 pt-8"
+    style={{ borderTop: "var(--border-hairline) solid var(--border-default)" }}
+  >
+    <Link
+      to={ROTAS.linha}
+      className="inline-flex items-center min-h-[44px] w-fit transition-colors hover:text-[var(--abanic-orange)]"
+      style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body)", color: "var(--text-body)" }}
+    >
+      <span style={{ borderBottom: "var(--border-hairline) solid var(--abanic-orange)" }}>Conhecer a linha RHADYANCE →</span>
+    </Link>
+    <span style={{ fontFamily: "var(--font-text)", fontSize: "var(--size-body-sm)", color: "var(--text-body)" }}>
+      Rotina completa · <strong style={{ fontWeight: "var(--weight-medium)" }}>{formatarReais(totalRotina)}</strong>
+    </span>
+  </div>
+);
+
 // A vitrine é a própria rotina: cada produto é um passo. Na página da linha (comAjuda) ela fecha
-// com o atalho para o teste e a rotina completa.
+// com o atalho para o teste e a rotina completa; na home, ganha título e convite para a página da linha.
 const HomeVitrine = ({ id, comAjuda = false }) => (
   <section id={id} style={{ background: "var(--abanic-cream)" }}>
     <div className="page-container pb-24">
-      <SectionLabel meta="Rotina em 3 passos">A linha RHADYANCE</SectionLabel>
+      {comAjuda ? (
+        <SectionLabel meta="Rotina em 3 passos">A linha RHADYANCE</SectionLabel>
+      ) : (
+        <>
+          <SectionLabel meta="Rotina em 3 passos">Produtos</SectionLabel>
+          <h2
+            className="mt-10"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: "var(--weight-light)",
+              fontSize: "var(--size-display-3)",
+              lineHeight: "var(--leading-display)",
+              letterSpacing: "var(--tracking-display)",
+              color: "var(--text-body)",
+            }}
+          >
+            <Link to={ROTAS.linha} className="titulo-linha">
+              {/* nowrap: a seta nunca fica sozinha na linha de baixo (no celular o título quebra) */}
+              A linha <span className="whitespace-nowrap">RHADYANCE <span aria-hidden="true" className="titulo-linha__seta">→</span></span>
+            </Link>
+          </h2>
+        </>
+      )}
       <AvisoPreLancamento className="mt-4" />
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 mt-10">
@@ -67,7 +109,7 @@ const HomeVitrine = ({ id, comAjuda = false }) => (
         ))}
       </div>
 
-      {comAjuda && <AjudaParaEscolher />}
+      {comAjuda ? <AjudaParaEscolher /> : <ConvitePagLinha />}
     </div>
   </section>
 );
